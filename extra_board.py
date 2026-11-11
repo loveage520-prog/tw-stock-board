@@ -442,21 +442,40 @@ def tdcc() -> dict:
 def futures() -> dict:
     base = "https://openapi.taifex.com.tw/v1/"
 
-    def get(path):
+    def get(path) -> list[dict]:
+        """期交所在台灣回 JSON、海外主機回 CSV（欄位名稱是中文），兩種都接受"""
         rr = requests.get(base + path, headers={**UA, "Accept": "application/json"}, timeout=30)
         try:
             return rr.json()
         except ValueError:
-            raise RuntimeError(f"期交所回應不是 JSON（HTTP {rr.status_code}）：{rr.text[:120]!r}")
+            text = rr.content.decode("utf-8-sig", errors="replace")
+            rows = list(csv.DictReader(io.StringIO(text)))
+            if not rows:
+                raise RuntimeError(f"期交所回應無法解析（HTTP {rr.status_code}）：{text[:100]!r}")
+            return [{k.strip(): (v or "").strip() for k, v in row.items() if k} for row in rows]
+
+    def pick(x: dict, *keys):
+        for k in keys:
+            if k in x:
+                return x[k]
+        for k in keys:  # 中文欄位名稱可能略有不同，用包含比對
+            for kk in x:
+                if k in kk:
+                    return x[kk]
+        return ""
+
     fut = get("MarketDataOfMajorInstitutionalTradersDetailsOfFuturesContractsBytheDate")
     pcr = get("PutCallRatio")
     day = {}
     for x in fut:
-        k = x.get("ContractCode", "")
+        k = pick(x, "ContractCode", "商品名稱")
         if k in ("臺股期貨", "小型臺指期貨", "微型臺指期貨"):
-            day.setdefault(k, {})[x.get("Item", "")] = {"oi": int(num(x.get("OpenInterest(Net)"))),
-                                                         "tv": int(num(x.get("TradingVolume(Net)")))}
-    dd = fut[0]["Date"] if fut else ""
+            who = pick(x, "Item", "身份別")
+            day.setdefault(k, {})[who] = {"oi": int(num(pick(x, "OpenInterest(Net)", "多空未平倉口數淨額")) or 0),
+                                          "tv": int(num(pick(x, "TradingVolume(Net)", "多空交易口數淨額")) or 0)}
+    dd = str(pick(fut[0], "Date", "日期")).replace("/", "") if fut else ""
+    if not day:
+        raise RuntimeError(f"期交所資料欄位對不上：{list(fut[0].keys())[:8] if fut else '空'}")
     RAW.mkdir(parents=True, exist_ok=True)
     if dd:
         (RAW / f"taifex_{dd}.json").write_text(json.dumps(day, ensure_ascii=False), "utf-8")
@@ -465,8 +484,9 @@ def futures() -> dict:
         js = json.loads(p.read_text("utf-8"))
         tx = js.get("臺股期貨", {})
         hist.append({"d": p.stem[7:], **{who: tx.get(who, {}).get("oi") for who in ("外資及陸資", "投信", "自營商")}})
-    pc = sorted(({"d": x["Date"], "oi": num(x.get("PutCallOIRatio%")), "vol": num(x.get("PutCallVolumeRatio%"))}
-                 for x in pcr), key=lambda x: x["d"])
+    pc = sorted(({"d": str(pick(x, "Date", "日期")).replace("/", ""),
+                  "oi": num(pick(x, "PutCallOIRatio%", "買賣權未平倉量比率")),
+                  "vol": num(pick(x, "PutCallVolumeRatio%", "買賣權成交量比率"))} for x in pcr), key=lambda x: x["d"])
     return {"date": dd, "day": day, "hist": hist, "pc": pc}
 
 
