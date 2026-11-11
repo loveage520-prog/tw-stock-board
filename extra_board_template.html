@@ -1,0 +1,173 @@
+<!--XB-START-->
+<style>
+/* 籌碼營收期權：樣式限定在 #xb 內，可單獨成頁或嵌進資金流向頁 */
+#xb{
+  --xb-card:#ffffff;--xb-fg:#1c2230;--xb-muted:#6b7280;--xb-line:#e3e6eb;--xb-soft:#eef1f5;
+  --xb-up:#d6453d;--xb-up-bg:#fbe9e7;--xb-down:#1f8a55;--xb-down-bg:#e4f4ea;--xb-accent:#2f5fb3;--xb-warn:#b7791f;--xb-warn-bg:#fdf3e1;
+  color:var(--xb-fg);font:14px/1.5 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #xb{
+  --xb-card:#171c23;--xb-fg:#e7eaf0;--xb-muted:#98a2b3;--xb-line:#272e38;--xb-soft:#1e242d;
+  --xb-up:#ef6a5f;--xb-up-bg:#3a1f22;--xb-down:#3fbf7f;--xb-down-bg:#16302a;--xb-accent:#7aa4ff;--xb-warn:#e8b443;--xb-warn-bg:#33291a}}
+:root[data-theme="dark"] #xb{
+  --xb-card:#171c23;--xb-fg:#e7eaf0;--xb-muted:#98a2b3;--xb-line:#272e38;--xb-soft:#1e242d;
+  --xb-up:#ef6a5f;--xb-up-bg:#3a1f22;--xb-down:#3fbf7f;--xb-down-bg:#16302a;--xb-accent:#7aa4ff;--xb-warn:#e8b443;--xb-warn-bg:#33291a}
+#xb *{box-sizing:border-box}
+#xb button{font:inherit;color:inherit}
+#xb .xb-top{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+#xb .xb-top button{padding:7px 12px;border-radius:9px;border:1px solid var(--xb-line);background:var(--xb-card);cursor:pointer;font-weight:600}
+#xb .xb-top button.on{background:var(--xb-fg);color:var(--xb-card);border-color:var(--xb-fg)}
+#xb .xb-seg{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}
+#xb .xb-seg button{padding:5px 11px;border-radius:8px;border:1px solid transparent;background:none;cursor:pointer;color:var(--xb-muted)}
+#xb .xb-seg button.on{background:var(--xb-soft);border-color:var(--xb-line);color:var(--xb-fg);font-weight:600}
+#xb button:focus-visible{outline:2px solid var(--xb-accent);outline-offset:1px}
+#xb .xb-meta{font-size:12px;color:var(--xb-muted);margin:0 0 8px}
+#xb .xb-desc{font-size:12px;color:var(--xb-muted);margin-bottom:6px}
+#xb .xb-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:10px}
+@media (max-width:760px){#xb .xb-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#xb .xb-k{background:var(--xb-card);border:1px solid var(--xb-line);border-radius:10px;padding:8px 10px;min-width:0}
+#xb .xb-k .t{font-size:12px;color:var(--xb-muted)}
+#xb .xb-k .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+#xb .xb-k .s{font-size:12px;color:var(--xb-muted)}
+#xb .xb-tw{overflow-x:auto;background:var(--xb-card);border:1px solid var(--xb-line);border-radius:12px}
+#xb table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+#xb th,#xb td{padding:7px 8px;border-bottom:1px solid var(--xb-line);text-align:left;white-space:nowrap;vertical-align:top}
+#xb th{font-size:12px;color:var(--xb-muted);font-weight:500}
+#xb td.n,#xb th.n{text-align:right}
+#xb td.xrk{color:var(--xb-muted);text-align:right;width:32px}
+#xb td.wrap{white-space:normal;min-width:14em;font-size:12px;color:var(--xb-muted)}
+#xb .up{color:var(--xb-up)}#xb .down{color:var(--xb-down)}
+#xb .code{color:var(--xb-muted);font-family:ui-monospace,Consolas,monospace;font-size:12px;margin-left:6px}
+#xb .sub{display:block;font-size:11px;color:var(--xb-muted);white-space:normal}
+#xb .tag{font-size:11px;padding:1px 6px;border-radius:4px;font-weight:600;background:var(--xb-soft);color:var(--xb-muted)}
+#xb .tag.w{background:var(--xb-warn-bg);color:var(--xb-warn)}#xb .tag.u{background:var(--xb-up-bg);color:var(--xb-up)}#xb .tag.d{background:var(--xb-down-bg);color:var(--xb-down)}
+#xb .xb-empty{color:var(--xb-muted);padding:18px;text-align:center}
+#xb .xb-note{font-size:12px;color:var(--xb-muted);line-height:1.7;margin-top:8px}
+#xb svg{display:block;max-width:100%}
+@media (max-width:640px){#xb .hd{display:none}#xb th,#xb td{padding:7px 5px}#xb td.wrap{min-width:10em}}
+</style>
+<div id="xb">
+  <div class="xb-top" id="xb-top"></div>
+  <div id="xb-view"></div>
+</div>
+<script>
+(function(){
+const X = /*__DATA__*/null;
+if (!X) return;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = (v, d = 1) => v == null ? "—" : (v > 0 ? "+" : "") + (v * 100).toFixed(d) + "%";
+const pp = (v, d = 1) => v == null ? "—" : (v > 0 ? "+" : "") + v.toFixed(d) + "%";
+const sg = (v, d = 2) => v == null ? "—" : (v > 0 ? "+" : "") + v.toFixed(d);
+const int = v => v == null ? "—" : (v > 0 ? "+" : "") + v.toLocaleString("en-US");
+const cls = v => v > 0 ? "up" : v < 0 ? "down" : "";
+const name = x => `${esc(x.n)}<span class="code">${x.c}</span><span class="sub">${esc(x.i || "")}${x.m ? "・" + x.m : ""}</span>`;
+const TABS = [["margin", "融資融券"], ["sbl", "借券賣出"], ["warn", "注意・處置"], ["rev", "月營收"], ["tdcc", "集保大戶"], ["fut", "期貨・選擇權"], ["earn", "美股財報"]];
+let top = "margin", sub = {};
+
+function table(rows, cols){
+  if (!rows || !rows.length) return `<div class="xb-tw"><div class="xb-empty">目前沒有符合的股票</div></div>`;
+  return `<div class="xb-tw"><table><thead><tr><th class="n">#</th>${cols.map(c => `<th class="${c.cl || ""}">${c.h}</th>`).join("")}</tr></thead><tbody>
+    ${rows.map((x, i) => `<tr><td class="xrk">${i + 1}</td>${cols.map(c => `<td class="${c.cl || ""} ${c.k ? c.k(x) : ""}">${c.f(x)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+function seg(key, opts){
+  if (!sub[key]) sub[key] = opts[0][0];
+  return `<div class="xb-seg" data-key="${key}">${opts.map(([k, t]) => `<button data-v="${k}" class="${sub[key] === k ? "on" : ""}">${t}</button>`).join("")}</div>`;
+}
+const missing = t => `<div class="xb-empty">${t}資料尚未產生（每天 18:00 盤後自動更新）</div>`;
+
+const V = {
+  margin(){
+    const M = X.margin; if (!M) return missing("融資融券");
+    const opt = [["inc", "融資增加最多"], ["dec", "融資減少最多"], ["trap", "融資增、股價跌"], ["sr", "券資比最高"]];
+    const D = {inc: "近 5 個交易日融資餘額增加金額最多（餘額 500 張以上）", dec: "近 5 個交易日融資餘額減少金額最多",
+      trap: "融資 5 日增加 5% 以上，但股價下跌：散戶逢低承接，籌碼可能變亂", sr: "融券餘額 ÷ 融資餘額（融資 1,000 張以上）。比例高代表空單多，有軋空可能"};
+    const s = seg("margin", opt) + `<div class="xb-desc">${D[sub.margin]}</div>`;
+    return `<p class="xb-meta">${M.from}～${M.to}・上市＋上櫃</p>` + s + table(M[sub.margin], [
+      {h: "名稱", f: name}, {h: "融資餘額(張)", cl: "n hd", f: x => x.fin.toLocaleString()},
+      {h: "5日增減(張)", cl: "n", k: x => cls(x.dfin), f: x => int(x.dfin)}, {h: "增減%", cl: "n", k: x => cls(x.pfin), f: x => pct(x.pfin)},
+      {h: "金額(億)", cl: "n hd", k: x => cls(x.afin), f: x => sg(x.afin)}, {h: "券資比", cl: "n", f: x => x.sr == null ? "—" : (x.sr * 100).toFixed(1) + "%"},
+      {h: "5日漲跌", cl: "n", k: x => cls(x.ret), f: x => pct(x.ret)}]);
+  },
+  sbl(){
+    const S = X.sbl; if (!S) return missing("借券賣出");
+    const opt = [["inc", "借券賣出增加"], ["dec", "借券回補"], ["big", "餘額最大"]];
+    const D = {inc: "近 5 個交易日借券賣出餘額增加金額最多：外資放空的主要工具", dec: "近 5 個交易日借券賣出餘額減少（回補）金額最多", big: "目前借券賣出餘額金額最大"};
+    return `<p class="xb-meta">${S.from}～${S.to}・上市＋上櫃・金額＝股數 × 收盤價</p>` + seg("sbl", opt) + `<div class="xb-desc">${D[sub.sbl]}</div>` + table(S[sub.sbl], [
+      {h: "名稱", f: name}, {h: "餘額(億)", cl: "n", f: x => x.bal.toFixed(1)}, {h: "5日增減(億)", cl: "n", k: x => cls(x.chg), f: x => sg(x.chg)},
+      {h: "增減(張)", cl: "n hd", f: x => int(x.dlots)}, {h: "5日漲跌", cl: "n", k: x => cls(x.ret), f: x => pct(x.ret)}]);
+  },
+  warn(){
+    const W = X.warn; if (!W) return missing("注意／處置股");
+    const opt = [["punish", `處置中 ${W.punish.length}`], ["notice", `今日注意 ${W.notice.length}`]];
+    const s = seg("warn", opt);
+    if (sub.warn === "punish") return `<p class="xb-meta">${W.date}・上市＋上櫃普通股</p>` + s +
+      `<div class="xb-desc">處置期間交易受限（人工撮合、預收款券），流動性變差</div>` + table(W.punish, [
+        {h: "名稱", f: name}, {h: "處置期間", f: x => esc(x.period)}, {h: "原因", cl: "wrap", f: x => `${esc(x.cond)} ${x.lv ? `<span class="tag w">${esc(x.lv)}</span>` : ""}`}]);
+    return `<p class="xb-meta">${W.date}・上市＋上櫃普通股</p>` + s + `<div class="xb-desc">今日被公布注意交易資訊；連續多次可能進入處置</div>` + table(W.notice, [
+      {h: "名稱", f: name}, {h: "次數", cl: "n hd", f: x => esc(x.times)}, {h: "原因", cl: "wrap", f: x => esc(x.why)}]);
+  },
+  rev(){
+    const R = X.rev; if (!R) return missing("月營收");
+    const opt = [["high", `創近兩年新高 ${R.n_high}`], ["accel", "年增率連續加速"]];
+    const D = {high: "當月營收高於過去 24 個月每一個月，依年增率排序（當月營收 2 億元以上）", accel: "近 3 個月年增率一個月比一個月高，且當月年增 20% 以上（當月營收 2 億元以上）"};
+    return `<p class="xb-meta">${R.month} 營收・上市＋上櫃 ${R.n} 家・單位億元</p>` + seg("rev", opt) + `<div class="xb-desc">${D[sub.rev]}</div>` + table(R[sub.rev], [
+      {h: "名稱", f: name}, {h: "營收(億)", cl: "n", f: x => x.rev.toFixed(2)}, {h: "年增", cl: "n", k: x => cls(x.yoy), f: x => pp(x.yoy)},
+      {h: "月增", cl: "n hd", k: x => cls(x.mom), f: x => pp(x.mom)}, {h: "累計年增", cl: "n hd", k: x => cls(x.cum), f: x => pp(x.cum)},
+      {h: "近3月年增", cl: "hd", f: x => (x.y3 || []).slice().reverse().map(v => `<span class="${cls(v)}">${pp(v, 0)}</span>`).join(" → ")}]);
+  },
+  tdcc(){
+    const T = X.tdcc; if (!T) return missing("集保大戶");
+    const opt = T.first ? [["top", "千張大戶比例最高"]] : [["inc", "大戶比例增加"], ["dec", "大戶比例減少"], ["top", "大戶比例最高"]];
+    const D = {inc: "持有 1,000 張以上的股東，持股比例比上週增加最多：籌碼往大戶集中", dec: "千張大戶持股比例比上週減少最多：大戶在出貨", top: "千張大戶持股比例最高"};
+    if (T.first) sub.tdcc = "top";
+    return `<p class="xb-meta">集保資料日 ${T.date}${T.prev ? `・比較 ${T.prev}` : ""}・每週五更新</p>` + seg("tdcc", opt) +
+      `<div class="xb-desc">${D[sub.tdcc]}${T.first ? "。週變化需要兩週資料，下週起就會出現「增加／減少」清單" : ""}</div>` + table(T[sub.tdcc], [
+      {h: "名稱", f: name}, {h: "千張大戶%", cl: "n", f: x => x.k1000.toFixed(1)}, {h: "週變化", cl: "n", k: x => cls(x.d1000), f: x => x.d1000 == null ? "—" : sg(x.d1000) + "%"},
+      {h: "400張以上%", cl: "n hd", f: x => x.k400.toFixed(1)}, {h: "股東人數變化", cl: "n hd", k: x => cls(-(x.dh || 0)), f: x => int(x.dh)}]);
+  },
+  fut(){
+    const F = X.fut; if (!F) return missing("期貨選擇權");
+    const tx = (F.day || {})["臺股期貨"] || {}, h = F.hist || [], pc = F.pc || [];
+    const prev = h.length > 1 ? h[h.length - 2] : null;
+    const card = (who, t) => { const o = (tx[who] || {}).oi, p = prev ? prev[who] : null;
+      return `<div class="xb-k"><div class="t">${t} 台指期淨未平倉</div><div class="v ${cls(o)}">${int(o)} 口</div><div class="s">${p != null && o != null ? `較前日 <span class="${cls(o - p)}">${int(o - p)}</span>` : "前日資料累積中"}</div></div>`; };
+    const lp = pc.length ? pc[pc.length - 1] : null;
+    let chart = "";
+    if (pc.length > 1){
+      const W = 640, H = 150, pad = 34, vs = pc.map(x => x.oi), mn = Math.min(...vs, 80), mx = Math.max(...vs, 120);
+      const xs = i => pad + i * (W - pad - 8) / (pc.length - 1), ys = v => 10 + (mx - v) / (mx - mn) * (H - 34);
+      chart = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="選擇權 Put/Call 未平倉比">
+        <line x1="${pad}" x2="${W - 8}" y1="${ys(100)}" y2="${ys(100)}" stroke="var(--xb-muted)" stroke-dasharray="4 4"/>
+        <text x="${pad - 4}" y="${ys(100) + 4}" font-size="11" fill="var(--xb-muted)" text-anchor="end">100%</text>
+        <polyline fill="none" stroke="var(--xb-accent)" stroke-width="2" points="${vs.map((v, i) => `${xs(i)},${ys(v)}`).join(" ")}"/>
+        <circle cx="${xs(vs.length - 1)}" cy="${ys(vs[vs.length - 1])}" r="3.5" fill="var(--xb-accent)"/>
+        <text x="${pad}" y="${H - 6}" font-size="11" fill="var(--xb-muted)">${pc[0].d.slice(4, 6)}/${pc[0].d.slice(6)}</text>
+        <text x="${W - 8}" y="${H - 6}" font-size="11" fill="var(--xb-muted)" text-anchor="end">${lp.d.slice(4, 6)}/${lp.d.slice(6)}</text></svg>`;
+    }
+    return `<p class="xb-meta">期交所 ${F.date}・未平倉以臺股期貨計（口）</p>
+      <div class="xb-kpis">${card("外資及陸資", "外資")}${card("投信", "投信")}${card("自營商", "自營商")}
+      <div class="xb-k"><div class="t">選擇權 P/C 未平倉比</div><div class="v">${lp ? lp.oi.toFixed(0) + "%" : "—"}</div><div class="s">成交量 P/C ${lp ? lp.vol.toFixed(0) + "%" : "—"}</div></div></div>
+      <div class="xb-desc">外資淨空單擴大通常代表避險或看空大盤；P/C 未平倉比高於 100% 一般解讀為支撐較強（賣方在下方佈 Put），低於 80% 偏弱。下圖為近 20 日 P/C 未平倉比。</div>
+      <div class="xb-tw" style="padding:8px">${chart || '<div class="xb-empty">資料累積中</div>'}</div>`;
+  },
+  earn(){
+    const E = X.earn; if (!E) return missing("美股財報");
+    const rows = E.rows || [];
+    return `<p class="xb-meta">${E.from} 起 14 天・美股成交前 100 名＋台灣供應鏈相關公司・日期為美東時間</p>
+      <div class="xb-desc">「台灣供應鏈」標記的公司財報常影響台股相關族群隔天表現</div>` + table(rows, [
+      {h: "日期", f: x => `${x.d.slice(5).replace("-", "/")}`}, {h: "公司", f: x => `<b>${esc(x.s)}</b>${x.tw ? ' <span class="tag u">台灣供應鏈</span>' : ""}<span class="sub">${esc(x.n)}${x.sec ? "・" + esc(x.sec) : ""}</span>`},
+      {h: "成交排名", cl: "n hd", f: x => x.rk ? "#" + x.rk : "—"}, {h: "預估 EPS", cl: "n", f: x => x.eps != null ? x.eps.toFixed(2) : "—"},
+      {h: "預估營收(億美元)", cl: "n hd", f: x => x.rev != null ? x.rev.toFixed(0) : "—"}]);
+  }
+};
+function render(){
+  $("xb-top").innerHTML = TABS.map(([k, t]) => `<button data-v="${k}" class="${k === top ? "on" : ""}">${t}</button>`).join("");
+  $("xb-view").innerHTML = V[top]() + `<div class="xb-note">資料來源：臺灣證券交易所、證券櫃檯買賣中心、公開資訊觀測站、臺灣集中保管結算所、臺灣期貨交易所、Yahoo Finance。產生 ${X.generated}。本區為資料整理，不構成投資建議。</div>`;
+  document.querySelectorAll("#xb-top button").forEach(b => b.onclick = () => { top = b.dataset.v; render(); });
+  document.querySelectorAll("#xb .xb-seg button").forEach(b => b.onclick = () => { sub[b.parentNode.dataset.key] = b.dataset.v; render(); });
+}
+render();
+})();
+</script>
+<!--XB-END-->

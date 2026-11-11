@@ -1,0 +1,36 @@
+name: 盤中（台股盤中脈動＋成交排行）
+
+on:
+  schedule:
+    - cron: "40 0 * * 1-5"   # 台灣時間 08:40（週一～週五）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: intraday
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      TZ: Asia/Taipei
+      PYTHONIOENCODING: utf-8
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      FINMIND_TOKEN: ${{ secrets.FINMIND_TOKEN }}
+      CONFIG_YAML: ${{ secrets.CONFIG_YAML }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: bash cloud/data_pull.sh
+      - run: python cloud/make_config.py
+      - run: bash cloud/intraday.sh

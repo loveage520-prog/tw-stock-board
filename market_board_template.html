@@ -1,0 +1,166 @@
+<!--MB-START-->
+<style>
+/* 成交排行與漲跌停：所有樣式限定在 #mb 內，可以單獨成頁，也可以嵌進盤中脈動、資金流向頁面 */
+#mb{
+  --mb-card:#ffffff;--mb-fg:#1c2230;--mb-muted:#6b7280;--mb-line:#e3e6eb;--mb-soft:#eef1f5;
+  --mb-up:#d6453d;--mb-up-bg:#fbe9e7;--mb-down:#1f8a55;--mb-down-bg:#e4f4ea;--mb-accent:#2f5fb3;--mb-warn:#c98a12;
+  color:var(--mb-fg);font:14px/1.5 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #mb{
+  --mb-card:#171c23;--mb-fg:#e7eaf0;--mb-muted:#98a2b3;--mb-line:#272e38;--mb-soft:#1e242d;
+  --mb-up:#ef6a5f;--mb-up-bg:#3a1f22;--mb-down:#3fbf7f;--mb-down-bg:#16302a;--mb-accent:#7aa4ff;--mb-warn:#e8b443}}
+:root[data-theme="dark"] #mb{
+  --mb-card:#171c23;--mb-fg:#e7eaf0;--mb-muted:#98a2b3;--mb-line:#272e38;--mb-soft:#1e242d;
+  --mb-up:#ef6a5f;--mb-up-bg:#3a1f22;--mb-down:#3fbf7f;--mb-down-bg:#16302a;--mb-accent:#7aa4ff;--mb-warn:#e8b443}
+#mb *{box-sizing:border-box}
+#mb button,#mb input{font:inherit;color:inherit}
+#mb .mb-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-bottom:10px}
+#mb .mb-h{font-size:16px;font-weight:700;margin:0}
+#mb .mb-meta{color:var(--mb-muted);font-size:12px}
+#mb .mb-mode{display:inline-block;padding:1px 9px;border-radius:99px;font-size:12px;font-weight:600;background:var(--mb-soft);border:1px solid var(--mb-line)}
+#mb .mb-mode.live{color:var(--mb-up);border-color:var(--mb-up)}
+#mb .mb-mode.demo{color:#fff;background:var(--mb-warn);border-color:var(--mb-warn)}
+#mb .mb-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:760px){#mb .mb-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#mb .mb-tile{background:var(--mb-card);border:1px solid var(--mb-line);border-radius:12px;padding:10px 12px;min-width:0}
+#mb .mb-tile .t{font-size:12px;color:var(--mb-muted)}
+#mb .mb-tile .v{font-size:26px;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
+#mb .mb-tile .s{font-size:12px;color:var(--mb-muted);font-variant-numeric:tabular-nums}
+#mb .mb-tile.up{background:var(--mb-up-bg);border-color:transparent}#mb .mb-tile.up .v{color:var(--mb-up)}
+#mb .mb-tile.dn{background:var(--mb-down-bg);border-color:transparent}#mb .mb-tile.dn .v{color:var(--mb-down)}
+#mb .mb-breadth{margin-top:10px;background:var(--mb-card);border:1px solid var(--mb-line);border-radius:12px;padding:10px 12px}
+#mb .mb-bar{display:flex;height:10px;border-radius:6px;overflow:hidden;background:var(--mb-soft);margin:6px 0}
+#mb .mb-bar span{display:block;height:100%}
+#mb .mb-legend{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--mb-muted);font-variant-numeric:tabular-nums;flex-wrap:wrap}
+#mb .mb-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+#mb .mb-chip{font-size:12px;padding:2px 8px;border-radius:6px;background:var(--mb-up-bg);color:var(--mb-up)}
+#mb .mb-panel{margin-top:10px;background:var(--mb-card);border:1px solid var(--mb-line);border-radius:12px;padding:10px 12px;min-width:0}
+#mb .mb-tabs{display:flex;gap:4px;flex-wrap:wrap}
+#mb .mb-tab{padding:6px 12px;border-radius:8px;border:1px solid transparent;background:none;cursor:pointer;color:var(--mb-muted)}
+#mb .mb-tab.on{background:var(--mb-soft);color:var(--mb-fg);border-color:var(--mb-line);font-weight:600}
+#mb .mb-tab:focus-visible,#mb .mb-seg button:focus-visible,#mb input:focus-visible{outline:2px solid var(--mb-accent);outline-offset:1px}
+#mb .mb-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+#mb .mb-seg{display:inline-flex;border:1px solid var(--mb-line);border-radius:8px;overflow:hidden}
+#mb .mb-seg button{border:0;padding:4px 12px;background:var(--mb-card);cursor:pointer}
+#mb .mb-seg button.on{background:var(--mb-soft);font-weight:600}
+#mb .mb-q{flex:1 1 160px;min-width:0;padding:6px 10px;border:1px solid var(--mb-line);border-radius:8px;background:var(--mb-card)}
+#mb .mb-desc{font-size:12px;color:var(--mb-muted);margin-bottom:6px}
+#mb .mb-tw{overflow-x:auto}
+#mb table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+#mb th,#mb td{padding:7px 8px;border-bottom:1px solid var(--mb-line);text-align:left;white-space:nowrap}
+#mb th{font-size:12px;color:var(--mb-muted);font-weight:500}
+#mb td.n,#mb th.n{text-align:right}
+#mb td.rk{color:var(--mb-muted);text-align:right;width:36px}
+#mb .up{color:var(--mb-up)}#mb .down{color:var(--mb-down)}
+#mb .code{color:var(--mb-muted);font-family:ui-monospace,Consolas,monospace;font-size:12px;margin-left:6px}
+#mb .mk{font-size:11px;padding:0 5px;border-radius:4px;background:var(--mb-soft);color:var(--mb-muted)}
+#mb .st{font-size:11px;padding:1px 6px;border-radius:4px;font-weight:600}
+#mb .st.U{background:var(--mb-up-bg);color:var(--mb-up)}#mb .st.D{background:var(--mb-down-bg);color:var(--mb-down)}#mb .st.o{background:var(--mb-soft);color:var(--mb-warn)}
+#mb .amt{display:flex;align-items:center;justify-content:flex-end;gap:6px}
+#mb .amt i{display:block;height:6px;border-radius:3px;background:var(--mb-accent);opacity:.35}
+#mb .sti{display:none}
+@media (max-width:640px){#mb .ind,#mb .stc,#mb .mk{display:none}#mb .amt i{display:none}#mb .sti{display:inline}#mb th,#mb td{padding:7px 5px}}
+@media (max-width:440px){#mb .px{display:none}}
+#mb .mb-empty{color:var(--mb-muted);padding:18px;text-align:center}
+#mb .mb-note{font-size:12px;color:var(--mb-muted);line-height:1.7;margin-top:10px}
+#mb .mb-links{margin-left:auto;font-size:13px;display:flex;gap:12px;flex-wrap:wrap}
+#mb .mb-links a{color:var(--mb-accent);text-decoration:none}
+</style>
+<div id="mb">
+  <div class="mb-head">
+    <span class="mb-h">成交排行與漲跌停</span>
+    <span class="mb-mode" id="mb-mode"></span>
+    <span class="mb-meta" id="mb-meta"></span>
+    <span class="mb-links" id="mb-links"></span>
+  </div>
+  <div class="mb-tiles" id="mb-tiles"></div>
+  <div class="mb-breadth" id="mb-breadth"></div>
+  <div class="mb-panel">
+    <div class="mb-tabs" id="mb-tabs">
+      <button class="mb-tab on" data-v="top">成交值前 100</button>
+      <button class="mb-tab" data-v="U">漲停</button>
+      <button class="mb-tab" data-v="D">跌停</button>
+      <button class="mb-tab" data-v="O" id="mb-tab-O">打開漲跌停</button>
+    </div>
+    <div class="mb-ctl">
+      <span class="mb-seg" id="mb-mkt"><button data-v="" class="on">全部</button><button data-v="上市">上市</button><button data-v="上櫃">上櫃</button></span>
+      <input class="mb-q" id="mb-q" placeholder="搜尋代號、名稱或產業" autocomplete="off">
+    </div>
+    <div class="mb-desc" id="mb-desc"></div>
+    <div class="mb-tw" id="mb-body"></div>
+  </div>
+  <div class="mb-note" id="mb-note"></div>
+</div>
+<script>
+(function(){
+const B = /*__DATA__*/null;
+if (!B) return;
+const $ = s => document.getElementById(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = v => (v > 0 ? "+" : "") + (v * 100).toFixed(2) + "%";
+const cls = v => v > 0 ? "up" : v < 0 ? "down" : "";
+const yi = v => v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(1) : v.toFixed(2);
+const pxf = v => v >= 1000 ? v.toLocaleString("en-US", {maximumFractionDigits: 0}) : v.toFixed(2);
+let view = "top", mkt = "", q = "";
+const live = B.mode === "盤中";
+
+function head(){
+  const md = $("mb-mode");
+  md.textContent = (live ? `盤中 ${B.at}` : "收盤") + (B.demo ? "・示範資料" : "");
+  md.className = "mb-mode" + (live ? " live" : "") + (B.demo ? " demo" : "");
+  $("mb-meta").textContent = `${B.date}・產生 ${B.generated}`;
+  $("mb-links").innerHTML = (window.BOARD_LINKS || []).map(l => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.t)} →</a>`).join("");
+  const c = B.count, a = c.all, tw = c["上市"], ot = c["上櫃"], off = B.official || {};
+  const offTxt = off["上漲"] && off["上漲"].lim != null ? `；證交所公告上市股票漲停 ${off["上漲"].lim}、跌停 ${off["下跌"].lim} 家` : "";
+  $("mb-tiles").innerHTML = `
+    <div class="mb-tile up"><div class="t">漲停家數</div><div class="v">${a.U}</div><div class="s">上市 ${tw.U}・上櫃 ${ot.U}</div></div>
+    <div class="mb-tile dn"><div class="t">跌停家數</div><div class="v">${a.D}</div><div class="s">上市 ${tw.D}・上櫃 ${ot.D}</div></div>
+    <div class="mb-tile"><div class="t">${live ? "漲停打開／跌停打開" : "全市場成交值"}</div><div class="v">${live ? `${a.TU}<span class="s"> ／ </span>${a.TD}` : yi(a.amt) + '<span class="s"> 億</span>'}</div><div class="s">${live ? "曾觸及漲跌停、目前已離開" : `上市 ${yi(tw.amt)}・上櫃 ${yi(ot.amt)} 億`}</div></div>
+    <div class="mb-tile"><div class="t">前 100 名佔成交</div><div class="v">${(B.top_share * 100).toFixed(0)}<span class="s"> %</span></div><div class="s">共 ${a.n} 檔有成交</div></div>`;
+  const n = a.up + a.dn + a.flat || 1;
+  $("mb-breadth").innerHTML = `<div class="mb-legend"><span>上漲 <b class="up">${a.up}</b>（上市 ${tw.up}・上櫃 ${ot.up}）</span><span>平盤 ${a.flat}</span><span>下跌 <b class="down">${a.dn}</b>（上市 ${tw.dn}・上櫃 ${ot.dn}）</span></div>
+    <div class="mb-bar"><span style="width:${a.up / n * 100}%;background:var(--mb-up)"></span><span style="width:${a.flat / n * 100}%;background:var(--mb-line)"></span><span style="width:${a.dn / n * 100}%;background:var(--mb-down)"></span></div>
+    ${B.up_ind.length ? `<div class="mb-legend"><span>漲停集中產業</span></div><div class="mb-chips">${B.up_ind.map(([k, v]) => `<span class="mb-chip">${esc(k)} ${v.length}</span>`).join("")}</div>` : ""}`;
+  $("mb-note").innerHTML = `範圍：上市、上櫃普通股（不含 ETF、權證、興櫃）。成交值：${esc(B.amount_note)}${offTxt}。
+    ${live ? "盤中每 5 分鐘掃描一次全市場；成交值以「張數 × 當日均價」估算；鎖漲停＝委賣已掛光。" : "漲跌停依前一日收盤價與升降單位推算，新上市、除權息個股可能有誤差。"}
+    資料來源：臺灣證券交易所、證券櫃檯買賣中心。本區為資料整理，不構成投資建議。`;
+}
+const DESC = {
+  top: "依成交值排序的前 100 名，看資金集中在哪些股票",
+  U: "目前（或收盤）在漲停價的股票，依成交值排序",
+  D: "目前（或收盤）在跌停價的股票，依成交值排序",
+  O: "盤中曾觸及漲停或跌停、但現在已經打開的股票：漲停打開常代表追價力道轉弱"
+};
+function list(){
+  let rows = view === "top" ? B.top : view === "U" ? B.limit_up : view === "D" ? B.limit_dn : [...(B.opened_up || []), ...(B.opened_dn || [])];
+  if (mkt) rows = rows.filter(r => r.m === mkt);
+  if (q) rows = rows.filter(r => r.c.includes(q) || r.n.toLowerCase().includes(q) || (r.i || "").toLowerCase().includes(q));
+  return rows;
+}
+function status(r){
+  if (r.U) return `<span class="st U">${live && r.LU ? "鎖漲停" : "漲停"}</span>`;
+  if (r.D) return `<span class="st D">${live && r.LD ? "鎖跌停" : "跌停"}</span>`;
+  if (r.TU) return `<span class="st o">漲停打開</span>`;
+  if (r.TD) return `<span class="st o">跌停打開</span>`;
+  return "";
+}
+function render(){
+  document.querySelectorAll("#mb-tabs .mb-tab").forEach(b => b.classList.toggle("on", b.dataset.v === view));
+  $("mb-tab-O").hidden = !live;
+  $("mb-desc").textContent = DESC[view];
+  const rows = list(), mx = Math.max(...rows.map(r => r.a), 0.01);
+  if (!rows.length){ $("mb-body").innerHTML = `<div class="mb-empty">目前沒有符合的股票</div>`; return; }
+  $("mb-body").innerHTML = `<table><thead><tr><th class="n">#</th><th>名稱</th><th class="ind">產業</th><th class="n px">價格</th><th class="n">漲跌</th><th class="n">成交值(億)</th><th class="stc">狀態</th></tr></thead><tbody>
+  ${rows.map((r, i) => `<tr><td class="rk">${view === "top" ? r.rk : i + 1}</td>
+    <td>${esc(r.n)}<span class="code">${r.c}</span> <span class="mk">${r.m}</span> <span class="sti">${status(r)}</span></td>
+    <td class="ind">${esc(r.i)}</td><td class="n px">${pxf(r.p)}</td><td class="n ${cls(r.ch)}">${pct(r.ch)}</td>
+    <td class="n"><span class="amt"><i style="width:${Math.max(r.a / mx * 60, 2)}px"></i>${yi(r.a)}</span></td><td class="stc">${status(r)}</td></tr>`).join("")}
+  </tbody></table>`;
+}
+document.querySelectorAll("#mb-tabs .mb-tab").forEach(b => b.onclick = () => { view = b.dataset.v; render(); });
+document.querySelectorAll("#mb-mkt button").forEach(b => b.onclick = () => { mkt = b.dataset.v; document.querySelectorAll("#mb-mkt button").forEach(x => x.classList.toggle("on", x === b)); render(); });
+$("mb-q").oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
+head(); render();
+})();
+</script>
+<!--MB-END-->
