@@ -3,6 +3,7 @@ name: 盤後（資金流向、法人、籌碼、營收、美股）
 on:
   schedule:
     - cron: "0 10 * * 1-5"   # 台灣時間 18:00（週一～週五）
+    - cron: "40 13 * * 1-5"  # 台灣時間 21:40 補抓融資融券、借券（晚上才公布），不推播
   workflow_dispatch:
 
 permissions:

@@ -197,9 +197,17 @@ def margin_day(d: date) -> dict[str, tuple[float, float]]:
     return out
 
 
+def latest_pair(days: list[date], fn) -> tuple[date, date, dict, dict]:
+    """找最近一個「已經公布」的交易日（融資券、借券約晚上 9 點後才公布），和它往前 5 個交易日"""
+    for i in range(len(days) - 1, 4, -1):
+        cur = fn(days[i])
+        if len(cur) > 500:
+            return days[i - 5], days[i], fn(days[i - 5]), cur
+    raise RuntimeError("找不到已公布的資料")
+
+
 def margin(days: list[date]) -> dict:
-    d0, d1 = days[-6], days[-1]
-    m0, m1 = margin_day(d0), margin_day(d1)
+    d0, d1, m0, m1 = latest_pair(days, margin_day)
     p0, p1 = closes(d0), closes(d1)
     rows = []
     for c, (fin, short) in m1.items():
@@ -238,8 +246,7 @@ def sbl_day(d: date) -> dict[str, float]:
 
 
 def sbl(days: list[date]) -> dict:
-    d0, d1 = days[-6], days[-1]
-    s0, s1 = sbl_day(d0), sbl_day(d1)
+    d0, d1, s0, s1 = latest_pair(days, sbl_day)
     p0, p1 = closes(d0), closes(d1)
     rows = []
     for c, bal in s1.items():
@@ -434,9 +441,15 @@ def tdcc() -> dict:
 # =============================================================================
 def futures() -> dict:
     base = "https://openapi.taifex.com.tw/v1/"
-    fut = requests.get(base + "MarketDataOfMajorInstitutionalTradersDetailsOfFuturesContractsBytheDate",
-                       headers=UA, timeout=30).json()
-    pcr = requests.get(base + "PutCallRatio", headers=UA, timeout=30).json()
+
+    def get(path):
+        rr = requests.get(base + path, headers={**UA, "Accept": "application/json"}, timeout=30)
+        try:
+            return rr.json()
+        except ValueError:
+            raise RuntimeError(f"期交所回應不是 JSON（HTTP {rr.status_code}）：{rr.text[:120]!r}")
+    fut = get("MarketDataOfMajorInstitutionalTradersDetailsOfFuturesContractsBytheDate")
+    pcr = get("PutCallRatio")
     day = {}
     for x in fut:
         k = x.get("ContractCode", "")
@@ -546,7 +559,7 @@ def main():
         t0 = time.time()
         try:
             if need_days and days is None:
-                days = trading_days(6)
+                days = trading_days(9)
                 log.info("交易日：%s～%s", days[0], days[-1])
             res[k] = fn(days) if need_days else fn()
             log.info("✓ %s（%.0f 秒）", title, time.time() - t0)
