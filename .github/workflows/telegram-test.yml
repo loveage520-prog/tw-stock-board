@@ -1,0 +1,22 @@
+name: 測試 Telegram 推播
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 送出測試訊息
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "$TOKEN" ] || [ -z "$CHAT" ]; then
+            echo "::error::還沒設定 TELEGRAM_BOT_TOKEN 或 TELEGRAM_CHAT_ID（Settings → Secrets and variables → Actions）"
+            exit 1
+          fi
+          r=$(curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+              --data-urlencode "chat_id=${CHAT}" \
+              --data-urlencode "text=✅ 雲端推播測試成功（$(TZ=Asia/Taipei date '+%m/%d %H:%M')）")
+          echo "$r" | grep -q '"ok":true' && echo "成功，請看 Telegram" || { echo "::error::Telegram 回應：$r"; exit 1; }
