@@ -337,7 +337,15 @@ def save(res: dict) -> None:
         old.unlink(missing_ok=True)
     page = {k: v for k, v in res.items() if k != "rows"}
     tpl = (BASE / "market_board_template.html").read_text("utf-8")
-    HTML_OUT.write_text(tpl.replace("/*__DATA__*/null", json.dumps(page, ensure_ascii=False)), "utf-8")
+    frag = tpl.replace("/*__DATA__*/null", json.dumps(page, ensure_ascii=False))
+    # 片段：手機版發布時會嵌進「盤中脈動」與「資金流向」頁面
+    (BASE / "market_board_fragment.html").write_text(frag, "utf-8")
+    HTML_OUT.write_text(
+        '<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>成交排行與漲跌停</title>\n'
+        '<style>:root{--bg:#f4f5f7}@media (prefers-color-scheme:dark){:root{--bg:#0f1318}}'
+        'body{margin:0;background:var(--bg)}.wrap{max-width:1180px;margin:0 auto;padding:14px 16px 28px}</style>\n'
+        f'</head><body><div class="wrap">\n{frag}\n</div></body></html>\n', "utf-8")
     c = res["count"]["all"]
     log.info("%s %s｜漲停 %d、跌停 %d｜上漲 %d／下跌 %d｜前 100 名佔成交 %.0f%%｜→ %s",
              res["mode"], res["at"], c["U"], c["D"], c["up"], c["dn"], res["top_share"] * 100, HTML_OUT.name)
