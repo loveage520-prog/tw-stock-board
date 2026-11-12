@@ -73,7 +73,7 @@ def flow(h: str) -> str:
 
 
 def pulse(h: str) -> str:
-    h = h.replace("每 60 秒自動更新", "手機版每小時更新")
+    h = h.replace("每 60 秒自動更新", "網頁每 5 分鐘更新" if os.environ.get("SITE_LINKS") == "1" else "手機版每小時更新")
     h = h.replace('<a href="sector_flow.html">資金流向・全球市場 →</a>',
                   f'<a href="{URL_FLOW}" target="_blank" rel="noopener">資金流向・全球市場 →</a>')
     h = re.sub(r"<tr class=\"mine\"><td>★</td>|<tr><td></td>", "<tr>", h)
