@@ -2,6 +2,10 @@
 # 雲端盤中工作：盤中脈動（每分鐘）＋全市場成交排行與漲跌停（每 5 分鐘），每 5 分鐘更新一次網頁
 set -uo pipefail
 cd "$(dirname "$0")/.."
+# GitHub 排程有時會延遲很久：收盤後才被排程叫起來就直接結束（手動執行不受影響）
+if [ "${GITHUB_EVENT_NAME:-}" = "schedule" ] && [ "$(date +%H%M)" -gt 1335 ]; then
+  echo "排程延遲到收盤後才啟動，略過"; exit 0
+fi
 python market_pulse.py --auto --no-browser &
 P1=$!
 python market_board.py --auto &

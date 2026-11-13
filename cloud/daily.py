@@ -75,7 +75,8 @@ def main():
         print(f"{'✓' if p.returncode == 0 else '✗'} {name}（{time.time() - t0:.0f} 秒）", flush=True)
     msg = summary(results) + "\n手機版網頁已更新"
     print(msg)
-    if datetime.now().hour >= 21:  # 晚上補抓融資券、借券那一次不重複推播
+    h = datetime.now().hour
+    if h >= 21 or h < 7:  # 晚上補抓那一次、或排程延遲到半夜才執行時，不推播
         return
     try:
         from market_pulse import Notifier, load_cfg
