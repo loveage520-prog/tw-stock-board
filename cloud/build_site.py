@@ -48,11 +48,11 @@ def prep(kind: str, src: str, args: list[str], out: str, extra_head: str = "") -
 
 
 # 盤後・資金流向頁圖示
-FLOW_ICON = ('<link rel="icon" type="image/png" sizes="32x32" href="icons/flow-32.png">\n'
-             '<link rel="apple-touch-icon" href="icons/flow-180.png">\n'
+FLOW_ICON = ('<link rel="icon" type="image/png" sizes="32x32" href="icons/flow2-32.png">\n'
+             '<link rel="apple-touch-icon" href="icons/flow2-180.png">\n'
              '<link rel="manifest" href="flow.webmanifest">\n'
              '<meta name="apple-mobile-web-app-title" content="資金流向">\n'
-             '<meta name="theme-color" content="#f3e8f8">\n<title>資金流向</title>\n')
+             '<meta name="theme-color" content="#3a3152">\n<title>資金流向</title>\n')
 prep("flow", "sector_flow.html",
      [frag("market_board_fragment.html"), frag("post_board_fragment.html"), frag("extra_board_fragment.html"),
       frag("etf_board_fragment.html"), frag("us_live_fragment.html"), frag("morning_fragment.html"),
@@ -71,9 +71,9 @@ for f in (BASE / "cloud" / "icons").glob("*.png"):
     shutil.copyfile(f, SITE / "icons" / f.name)
 (SITE / "flow.webmanifest").write_text(json.dumps({
     "name": "板塊資金流向", "short_name": "資金流向", "start_url": "index.html", "display": "browser",
-    "background_color": "#f3e8f8", "theme_color": "#f3e8f8",
-    "icons": [{"src": "icons/flow-192.png", "sizes": "192x192", "type": "image/png"},
-              {"src": "icons/flow-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False), "utf-8")
+    "background_color": "#3a3152", "theme_color": "#3a3152",
+    "icons": [{"src": "icons/flow2-192.png", "sizes": "192x192", "type": "image/png"},
+              {"src": "icons/flow2-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False), "utf-8")
 (SITE / "pulse.webmanifest").write_text(json.dumps({
     "name": "盤中脈動", "short_name": "盤中", "start_url": "pulse.html", "display": "browser",
     "background_color": "#050508", "theme_color": "#050508",
