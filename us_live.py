@@ -84,6 +84,17 @@ def download(syms: list[str], **kw) -> dict[str, pd.DataFrame]:
                     out[s] = df
             except Exception:  # noqa: BLE001
                 pass
+    miss = [s for s in syms if s not in out]
+    if miss and len(miss) < 20:  # 多執行緒偶爾會失敗（database is locked），漏掉的再單獨抓一次
+        for s in miss:
+            try:
+                df = yf.download(s, progress=False, threads=False, auto_adjust=False, **kw)
+                df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
+                df = df[["Close", "Volume"]].astype(float).dropna(subset=["Close"])
+                if len(df):
+                    out[s] = df
+            except Exception:  # noqa: BLE001
+                pass
     return out
 
 
