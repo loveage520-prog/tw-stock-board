@@ -59,11 +59,11 @@ prep("flow", "sector_flow.html",
       frag("us_flow_fragment.html")], "index.html", FLOW_ICON)
 # 盤中頁每 5 分鐘自動重新整理
 # 盤中頁圖示：加到手機主畫面時顯示（iPhone 用 apple-touch-icon，Android 用 manifest）
-PULSE_ICON = ('<link rel="icon" type="image/png" sizes="32x32" href="icons/pulse-32.png">\n'
-              '<link rel="apple-touch-icon" href="icons/pulse-180.png">\n'
+PULSE_ICON = ('<link rel="icon" type="image/png" sizes="32x32" href="icons/pulse2-32.png">\n'
+              '<link rel="apple-touch-icon" href="icons/pulse2-180.png">\n'
               '<link rel="manifest" href="pulse.webmanifest">\n'
               '<meta name="apple-mobile-web-app-title" content="盤中脈動">\n'
-              '<meta name="theme-color" content="#050508">\n<title>盤中脈動</title>\n')
+              '<meta name="theme-color" content="#111113">\n<title>盤中脈動</title>\n')
 prep("pulse", "dashboard.html", [frag("market_board_fragment.html"), frag("us_live_fragment.html")], "pulse.html",
      '<meta http-equiv="refresh" content="300">\n' + PULSE_ICON)
 (SITE / "icons").mkdir(exist_ok=True)
@@ -76,9 +76,9 @@ for f in (BASE / "cloud" / "icons").glob("*.png"):
               {"src": "icons/flow2-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False), "utf-8")
 (SITE / "pulse.webmanifest").write_text(json.dumps({
     "name": "盤中脈動", "short_name": "盤中", "start_url": "pulse.html", "display": "browser",
-    "background_color": "#050508", "theme_color": "#050508",
-    "icons": [{"src": "icons/pulse-192.png", "sizes": "192x192", "type": "image/png"},
-              {"src": "icons/pulse-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False), "utf-8")
+    "background_color": "#111113", "theme_color": "#111113",
+    "icons": [{"src": "icons/pulse2-192.png", "sizes": "192x192", "type": "image/png"},
+              {"src": "icons/pulse2-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False), "utf-8")
 if (BASE / "markets_data.js").exists():
     shutil.copyfile(BASE / "markets_data.js", SITE / "markets_data.js")
 (SITE / ".nojekyll").write_text("", "utf-8")
