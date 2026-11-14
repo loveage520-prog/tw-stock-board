@@ -1,0 +1,51 @@
+13:07:38 資料來源：證交所（約 5 秒更新）
+13:07:39 基準量：101 檔取自盤後資金流向的證交所資料
+13:07:39 建立基準量：11 檔（每天第一次執行約需 1～2 分鐘）
+13:07:44 監控 112 檔，基準量 112 檔
+13:07:44 法人背景：2026-11-12 盤後資料，65 個板塊
+13:07:53 推播：⚠️ 加權指數上漲超過 1%（13:07）
+13:07:54 推播：📊 台股盤中摘要 13:07
+13:07:54 推播：📊 台股盤中摘要 13:07
+13:07:55 推播：📊 台股盤中摘要 13:07
+13:07:56 Failed to create TzCache, reason: Error creating TzCache folder: '/home/runner/.cache/py-yfinance' reason: [Errno 17] File exists: '/home/runner/.cache/py-yfinance'. TzCache will not be used. Tip: You can direct cache to use a different location with 'set_tz_cache_location(mylocation)'
+13:07:57 $^TWOII: No data found, symbol may be delisted
+13:07:57 
+1 Failed download:
+13:07:57 ['^TWOII']: No data found, symbol may be delisted
+13:07:58 全球市場已更新：22 項（抓不到：櫃買指數）
+13:07:58 13:07 📈 溫和偏多｜加權 +1.69%｜量能 0.88x｜上漲 78%
+13:09:10 13:08 📈 溫和偏多｜加權 +1.69%｜量能 0.88x｜上漲 78%
+13:10:26 13:10 📈 溫和偏多｜加權 +1.70%｜量能 0.88x｜上漲 78%
+13:11:31 13:11 📈 溫和偏多｜加權 +1.72%｜量能 0.88x｜上漲 78%
+13:12:44 13:12 📈 溫和偏多｜加權 +1.82%｜量能 0.88x｜上漲 78%
+13:13:59 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794546824255 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7f6408449550>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+13:15:14 13:14 📈 溫和偏多｜加權 +1.75%｜量能 0.88x｜上漲 78%
+13:16:30 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794546974849 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7f64047db710>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+13:17:36 13:17 📈 溫和偏多｜加權 +1.62%｜量能 0.88x｜上漲 79%
+13:18:46 $^TWOII: No data found, symbol may be delisted
+13:18:46 
+1 Failed download:
+13:18:46 ['^TWOII']: No data found, symbol may be delisted
+13:18:47 全球市場已更新：22 項（抓不到：櫃買指數）
+13:18:47 13:18 📈 溫和偏多｜加權 +1.71%｜量能 0.88x｜上漲 79%
+13:19:55 13:19 📈 溫和偏多｜加權 +1.62%｜量能 0.88x｜上漲 78%
+13:21:22 13:20 📈 溫和偏多｜加權 +1.59%｜量能 0.89x｜上漲 79%
+13:22:38 13:22 📈 溫和偏多｜加權 +1.58%｜量能 0.89x｜上漲 80%
+13:23:54 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794547418809 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7f64068fc050>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+13:25:03 13:24 📈 溫和偏多｜加權 +1.46%｜量能 0.89x｜上漲 78%
+13:26:15 13:26 📈 溫和偏多｜加權 +1.55%｜量能 0.88x｜上漲 77%
+13:27:22 13:27 📈 溫和偏多｜加權 +1.55%｜量能 0.87x｜上漲 77%
+13:28:37 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794547702678 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7f64069a78f0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+13:29:44 $^TWOII: No data found, symbol may be delisted
+13:29:44 
+1 Failed download:
+13:29:44 ['^TWOII']: No data found, symbol may be delisted
+13:29:45 全球市場已更新：22 項（抓不到：櫃買指數）
+13:29:45 13:29 😴 量縮觀望｜加權 +1.55%｜量能 0.84x｜上漲 77%
+13:30:55 13:30 📈 溫和偏多｜加權 +1.69%｜量能 0.88x｜上漲 79%
+13:32:03 13:31 📈 溫和偏多｜加權 +1.55%｜量能 0.89x｜上漲 78%
+13:33:12 13:33 📈 溫和偏多｜加權 +1.55%｜量能 0.89x｜上漲 78%
+13:34:23 13:34 📈 溫和偏多｜加權 +1.35%｜量能 0.89x｜上漲 78%
+13:35:46 13:35 📈 溫和偏多｜加權 +1.35%｜量能 0.89x｜上漲 78%
+13:36:53 推播：📊 台股收盤總結 13:36
+13:36:53 13:36 📈 溫和偏多｜加權 +1.35%｜量能 0.89x｜上漲 78%
