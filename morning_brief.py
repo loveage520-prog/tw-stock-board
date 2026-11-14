@@ -119,10 +119,10 @@ def news(since: float) -> dict:
             pick.append(x)
             if len(pick) >= n:
                 break
-        for x in pick:
+        for i, x in enumerate(pick):
             used.add(x["id"])
             x["tm"] = datetime.fromtimestamp(x["ts"], TW).strftime("%m/%d %H:%M") if x["ts"] else ""
-            x["hot"] = score(x) >= 3
+            x["hot"] = i < 2 and score(x) >= 4  # 每類最多 2 則標「重要」
         out[name] = pick
     return {"sections": out, "n": len(pool)}
 
