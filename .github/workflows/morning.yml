@@ -2,18 +2,42 @@ name: 開盤前晨報
 
 on:
   schedule:
-    - cron: "30 23 * * 0-4"  # 台灣時間 07:30（週一～週五；備援，主要由 cron-job.org 觸發）
+    - cron: "50 23 * * 0-4"  # 台灣時間 07:50（備援；主要由 cron-job.org 07:30 觸發）
   workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: morning
-  cancel-in-progress: false
 
 jobs:
+  check:
+    # GitHub 自己的排程只當備援：3 小時內已經有人（cron-job.org）叫過這個工作，就不再重跑，避免 Telegram 收到兩次
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+    outputs:
+      skip: ${{ steps.g.outputs.skip }}
+    steps:
+      - id: g
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          skip=false
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            since=$(date -u -d '-3 hours' +%Y-%m-%dT%H:%M:%SZ)
+            n=$(\
+                gh api "repos/${{ github.repository }}/actions/runs?created=>$since&per_page=50" \
+                --jq "[.workflow_runs[] | select(.name == \"${{ github.workflow }}\" and .id != ${{ github.run_id }} and (.conclusion == null or .conclusion == \"success\"))] | length")
+            [ "${n:-0}" -gt 0 ] && skip=true
+          fi
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+          echo "略過＝$skip"
   run:
+    needs: check
+    if: needs.check.outputs.skip != 'true'
+    concurrency:
+      group: morning
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:

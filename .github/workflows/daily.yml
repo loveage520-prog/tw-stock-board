@@ -2,19 +2,43 @@ name: 盤後（資金流向、法人、籌碼、營收、美股）
 
 on:
   schedule:
-    - cron: "0 10 * * 1-5"   # 台灣時間 18:00（週一～週五）
-    - cron: "40 13 * * 1-5"  # 台灣時間 21:40 補抓融資融券、借券（晚上才公布），不推播
+    - cron: "30 10 * * 1-5"  # 台灣時間 18:30（備援；主要由 cron-job.org 18:05 觸發）
+    - cron: "10 14 * * 1-5"  # 台灣時間 22:10 備援（主要 21:45）補抓融資融券、借券，不推播
   workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: daily
-  cancel-in-progress: false
 
 jobs:
+  check:
+    # GitHub 自己的排程只當備援：3 小時內已經有人（cron-job.org）叫過這個工作，就不再重跑，避免 Telegram 收到兩次
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+    outputs:
+      skip: ${{ steps.g.outputs.skip }}
+    steps:
+      - id: g
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          skip=false
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            since=$(date -u -d '-3 hours' +%Y-%m-%dT%H:%M:%SZ)
+            n=$(\
+                gh api "repos/${{ github.repository }}/actions/runs?created=>$since&per_page=50" \
+                --jq "[.workflow_runs[] | select(.name == \"${{ github.workflow }}\" and .id != ${{ github.run_id }} and (.conclusion == null or .conclusion == \"success\"))] | length")
+            [ "${n:-0}" -gt 0 ] && skip=true
+          fi
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+          echo "略過＝$skip"
   run:
+    needs: check
+    if: needs.check.outputs.skip != 'true'
+    concurrency:
+      group: daily
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
