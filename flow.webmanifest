@@ -1,0 +1,1 @@
+{"name": "板塊資金流向", "short_name": "資金流向", "start_url": "index.html", "display": "browser", "background_color": "#3a3152", "theme_color": "#3a3152", "icons": [{"src": "icons/flow2-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "icons/flow2-512.png", "sizes": "512x512", "type": "image/png"}]}

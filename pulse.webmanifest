@@ -1,0 +1,1 @@
+{"name": "盤中脈動", "short_name": "盤中", "start_url": "pulse.html", "display": "browser", "background_color": "#111113", "theme_color": "#111113", "icons": [{"src": "icons/pulse2-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "icons/pulse2-512.png", "sizes": "512x512", "type": "image/png"}]}
