@@ -437,9 +437,21 @@ def main():
         probe(uni)
         return
     if args.close:
-        d = datetime.strptime(args.date, "%Y%m%d").date() if args.date else date.today()
-        save(scan_close(uni, d))
-        return
+        if args.date:
+            save(scan_close(uni, datetime.strptime(args.date, "%Y%m%d").date()))
+            return
+        # 沒指定日期：從今天往前找最近一個有收盤行情的交易日（排程延遲到隔天或週末才執行時也能補上）
+        d, err = date.today(), None
+        for _ in range(6):
+            if d.weekday() < 5:
+                try:
+                    save(scan_close(uni, d))
+                    return
+                except RuntimeError as e:
+                    err = e
+                    log.info("%s", e)
+            d -= timedelta(days=1)
+        raise err or RuntimeError("找不到收盤行情")
     if args.once or not args.auto:
         save(scan_intraday(uni))
         return

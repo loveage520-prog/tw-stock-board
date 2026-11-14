@@ -1,0 +1,132 @@
+<!--UB-START-->
+<style>
+/* 美股即時：樣式限定在 #ub 內 */
+#ub{
+  --ub-card:#ffffff;--ub-fg:#1c2230;--ub-muted:#6b7280;--ub-line:#e3e6eb;--ub-soft:#eef1f5;
+  --ub-up:#d6453d;--ub-up-bg:#fbe9e7;--ub-down:#1f8a55;--ub-down-bg:#e4f4ea;--ub-accent:#2f5fb3;--ub-acc-bg:#e8eefb;
+  color:var(--ub-fg);font:14px/1.5 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #ub{
+  --ub-card:#171c23;--ub-fg:#e7eaf0;--ub-muted:#98a2b3;--ub-line:#272e38;--ub-soft:#1e242d;
+  --ub-up:#ef6a5f;--ub-up-bg:#3a1f22;--ub-down:#3fbf7f;--ub-down-bg:#16302a;--ub-accent:#7aa4ff;--ub-acc-bg:#1d2840}}
+:root[data-theme="dark"] #ub{
+  --ub-card:#171c23;--ub-fg:#e7eaf0;--ub-muted:#98a2b3;--ub-line:#272e38;--ub-soft:#1e242d;
+  --ub-up:#ef6a5f;--ub-up-bg:#3a1f22;--ub-down:#3fbf7f;--ub-down-bg:#16302a;--ub-accent:#7aa4ff;--ub-acc-bg:#1d2840}
+#ub *{box-sizing:border-box}
+#ub button{font:inherit;color:inherit}
+#ub .ub-top{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+#ub .ub-top button{padding:7px 12px;border-radius:9px;border:1px solid var(--ub-line);background:var(--ub-card);cursor:pointer;font-weight:600}
+#ub .ub-top button.on{background:var(--ub-fg);color:var(--ub-card);border-color:var(--ub-fg)}
+#ub .ub-seg{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}
+#ub .ub-seg button{padding:5px 11px;border-radius:8px;border:1px solid transparent;background:none;cursor:pointer;color:var(--ub-muted)}
+#ub .ub-seg button.on{background:var(--ub-soft);border-color:var(--ub-line);color:var(--ub-fg);font-weight:600}
+#ub button:focus-visible{outline:2px solid var(--ub-accent);outline-offset:1px}
+#ub .ub-state{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px;font-size:13px;color:var(--ub-muted)}
+#ub .pill{padding:2px 9px;border-radius:999px;font-weight:700;font-size:12px;background:var(--ub-soft);color:var(--ub-fg)}
+#ub .pill.live{background:var(--ub-up-bg);color:var(--ub-up)}
+#ub .pill.live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:5px;vertical-align:1px}
+#ub .ub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:10px}
+#ub .ub-k{background:var(--ub-card);border:1px solid var(--ub-line);border-radius:10px;padding:8px 10px;min-width:0}
+#ub .ub-k .t{font-size:12px;color:var(--ub-muted)}
+#ub .ub-k .v{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
+#ub .ub-k .s{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+#ub .ub-k svg{display:block;width:100%;height:30px;margin-top:4px}
+#ub .ub-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin-bottom:12px}
+#ub .ub-mini div{background:var(--ub-card);border:1px solid var(--ub-line);border-radius:8px;padding:5px 9px;font-size:12px;display:flex;justify-content:space-between;gap:6px;min-width:0}
+#ub .ub-mini b{font-variant-numeric:tabular-nums}
+#ub .ub-card{background:var(--ub-card);border:1px solid var(--ub-line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+#ub .ub-card h4{margin:0 0 6px;font-size:14px}
+#ub .ub-card ul{margin:0;padding-left:1.2em;line-height:1.8}
+#ub .ub-tw{overflow-x:auto;background:var(--ub-card);border:1px solid var(--ub-line);border-radius:12px}
+#ub table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+#ub th,#ub td{padding:7px 8px;border-bottom:1px solid var(--ub-line);text-align:left;white-space:nowrap;vertical-align:top}
+#ub th{font-size:12px;color:var(--ub-muted);font-weight:500}
+#ub td.n,#ub th.n{text-align:right}
+#ub td.rk{color:var(--ub-muted);text-align:right;width:32px}
+#ub .up{color:var(--ub-up)}#ub .down{color:var(--ub-down)}
+#ub .sym{font-weight:700;font-family:ui-monospace,Consolas,monospace}
+#ub .sub{display:block;font-size:11px;color:var(--ub-muted);white-space:normal;max-width:16em}
+#ub .ub-meta{font-size:12px;color:var(--ub-muted);margin:0 0 8px}
+#ub .ub-note{font-size:12px;color:var(--ub-muted);line-height:1.7;margin-top:8px}
+#ub .chg{display:inline-block;min-width:62px;text-align:right;padding:1px 6px;border-radius:5px;font-weight:600}
+#ub .chg.up{background:var(--ub-up-bg)}#ub .chg.down{background:var(--ub-down-bg)}
+@media (max-width:640px){#ub .hd{display:none}#ub th,#ub td{padding:7px 5px}}
+</style>
+<div id="ub">
+  <div class="ub-state" id="ub-state"></div>
+  <div class="ub-top" id="ub-top"></div>
+  <div id="ub-view"></div>
+</div>
+<script>
+(function(){
+const U = /*__DATA__*/null;
+if (!U) return;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = (v, d = 2) => v == null ? "—" : (v > 0 ? "+" : "") + (v * 100).toFixed(d) + "%";
+const cls = v => v > 0 ? "up" : v < 0 ? "down" : "";
+const fmt = (v, d = 2) => v == null ? "—" : Number(v).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const chg = v => `<span class="chg ${cls(v)}">${pct(v)}</span>`;
+let top = "sum", sec = "全部";
+
+function spark(a){
+  if (!a || a.length < 3) return "";
+  const lo = Math.min(...a), hi = Math.max(...a), w = 120, h = 30, k = hi - lo || 1;
+  const pts = a.map((v, i) => `${(i / (a.length - 1) * w).toFixed(1)},${(h - 2 - (v - lo) / k * (h - 4)).toFixed(1)}`).join(" ");
+  const c = a[a.length - 1] >= a[0] ? "var(--ub-up)" : "var(--ub-down)";
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="${c}" stroke-width="1.6" points="${pts}"/></svg>`;
+}
+function table(rows, cols){
+  if (!rows || !rows.length) return `<div class="ub-tw"><p class="ub-meta" style="padding:16px;text-align:center">沒有資料</p></div>`;
+  return `<div class="ub-tw"><table><thead><tr><th class="n">#</th>${cols.map(c => `<th class="${c[2] || ""}">${c[0]}</th>`).join("")}</tr></thead><tbody>` +
+    rows.map((x, i) => `<tr><td class="rk">${x.rk ?? i + 1}</td>${cols.map(c => `<td class="${c[2] || ""}">${c[1](x)}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
+}
+
+function summary(){
+  const idx = U.idx.map(x => `<div class="ub-k"><div class="t">${esc(x.n)}</div><div class="v">${fmt(x.p)}</div><div class="s ${cls(x.ch)}">${pct(x.ch)}</div>${spark(x.sp)}</div>`).join("");
+  const mini = U.fut.concat(U.mac).map(x => `<div><span>${esc(x.n)}</span><b>${x.u === "y" ? fmt(x.p) + "%" : fmt(x.p, x.p > 1000 ? 0 : x.p < 10 ? 3 : 2)} <span class="${cls(x.ch)}">${pct(x.ch)}</span></b></div>`).join("");
+  let pts = "", head = "";
+  if (U.state === "收盤" && U.summary) { pts = U.summary; head = `收盤重點（美東 ${esc(U.sess)}）`; }
+  else if (U.last_close) { pts = U.last_close.summary; head = `上一交易日收盤重點（${esc(U.last_close.date.slice(5).replace("-", "/"))}）`; }
+  const earn = (U.state === "收盤" ? U.earn : U.last_close && U.last_close.earn) || [];
+  const card = pts && pts.length ? `<div class="ub-card"><h4>${head}</h4><ul>${pts.map(p => `<li>${esc(p)}</li>`).join("")}</ul></div>` : "";
+  const ecard = earn.length ? `<div class="ub-card"><h4>近期財報</h4><ul>${earn.map(e => `<li>${esc(e.d.slice(5).replace("-", "/"))} <b class="sym">${esc(e.s)}</b> ${esc(e.n)}${e.tw ? "（台灣供應鏈）" : ""}${e.eps != null ? `，預估 EPS ${e.eps}` : ""}</li>`).join("")}</ul></div>` : "";
+  return `<div class="ub-grid">${idx}</div><div class="ub-mini">${mini}</div>${card}${ecard}`;
+}
+function topv(){
+  const ss = ["全部"].concat(U.sectors.map(g => g.k));
+  const rows = sec === "全部" ? U.top : U.top.filter(x => x.sec === sec);
+  return `<div class="ub-seg">${ss.map(s => `<button data-sec="${esc(s)}" class="${sec === s ? "on" : ""}">${esc(s)}</button>`).join("")}</div>` +
+    `<p class="ub-meta">依今日成交值（億美元）排序；上漲 ${U.up}、下跌 ${U.dn} 檔</p>` +
+    table(rows, [["股票", x => `<span class="sym">${esc(x.s)}</span><span class="sub">${esc(x.n)}</span>`], ["產業", x => esc(x.sec), "hd"],
+                 ["價格", x => fmt(x.p), "n"], ["漲跌", x => chg(x.ch), "n"], ["成交值", x => fmt(x.dv, 1), "n"]]);
+}
+function secv(){
+  return `<p class="ub-meta">成交值前 100 檔依產業彙整；漲跌為平均</p>` +
+    table(U.sectors, [["產業", x => `<b>${esc(x.k)}</b>`], ["檔數", x => `${x.cnt}（漲 ${x.up}）`, "n"], ["平均漲跌", x => chg(x.ch), "n"], ["成交值(億美元)", x => fmt(x.dv, 1), "n"]]);
+}
+function chainv(){
+  return `<p class="ub-meta">ADR 溢價＝ADR 價格 × 匯率 ÷（台股收盤 × 換算股數）− 1；台積電、聯電 1 ADR＝5 股，日月光＝2 股</p>` +
+    table(U.chain, [["股票", x => `<span class="sym">${esc(x.s)}</span><span class="sub">${esc(x.n)}</span>`], ["價格", x => fmt(x.p), "n"], ["漲跌", x => chg(x.ch), "n"],
+                    ["ADR 溢價", x => x.prem == null ? "—" : `<b>${pct(x.prem, 1)}</b>`, "n"], ["換算台股", x => x.eqv == null ? "—" : `${fmt(x.eqv, 1)}<span class="sub">台股 ${fmt(x.twp, 1)} ${pct(x.twch)}</span>`, "n hd"],
+                    ["成交值", x => x.dv == null ? "—" : fmt(x.dv, 1), "n hd"]]);
+}
+function render(){
+  const live = U.state === "盤中";
+  $("ub-state").innerHTML = `<span class="pill ${live ? "live" : ""}">${esc(U.state)}</span>美東 ${esc(U.et)}｜台灣 ${esc(U.tw)} 更新｜開盤 ${U.open_tw}・收盤 ${U.close_tw}（台灣時間）`;
+  $("ub-top").innerHTML = [["sum", "總覽・收盤重點"], ["top", "成交前 100"], ["sec", "產業"], ["chain", "台灣供應鏈・ADR"]]
+    .map(([k, t]) => `<button data-top="${k}" class="${top === k ? "on" : ""}">${t}</button>`).join("");
+  $("ub-view").innerHTML = ({sum: summary, top: topv, sec: secv, chain: chainv})[top]() +
+    `<div class="ub-note">資料來源：Yahoo Finance，盤中約延遲 15 分鐘；美股盤中每 5 分鐘更新網頁。僅供參考，不構成投資建議。</div>`;
+}
+$("ub").addEventListener("click", ev => {
+  const b = ev.target.closest("button");
+  if (!b) return;
+  if (b.dataset.top) top = b.dataset.top;
+  if (b.dataset.sec) sec = b.dataset.sec;
+  render();
+});
+render();
+})();
+</script>
+<!--UB-END-->

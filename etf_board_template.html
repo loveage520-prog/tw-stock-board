@@ -1,0 +1,137 @@
+<!--EB-START-->
+<style>
+/* 主動式 ETF：樣式限定在 #eb 內 */
+#eb{
+  --eb-card:#ffffff;--eb-fg:#1c2230;--eb-muted:#6b7280;--eb-line:#e3e6eb;--eb-soft:#eef1f5;
+  --eb-up:#d6453d;--eb-up-bg:#fbe9e7;--eb-down:#1f8a55;--eb-down-bg:#e4f4ea;--eb-accent:#2f5fb3;--eb-acc-bg:#e8eefb;
+  color:var(--eb-fg);font:14px/1.5 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #eb{
+  --eb-card:#171c23;--eb-fg:#e7eaf0;--eb-muted:#98a2b3;--eb-line:#272e38;--eb-soft:#1e242d;
+  --eb-up:#ef6a5f;--eb-up-bg:#3a1f22;--eb-down:#3fbf7f;--eb-down-bg:#16302a;--eb-accent:#7aa4ff;--eb-acc-bg:#1d2840}}
+:root[data-theme="dark"] #eb{
+  --eb-card:#171c23;--eb-fg:#e7eaf0;--eb-muted:#98a2b3;--eb-line:#272e38;--eb-soft:#1e242d;
+  --eb-up:#ef6a5f;--eb-up-bg:#3a1f22;--eb-down:#3fbf7f;--eb-down-bg:#16302a;--eb-accent:#7aa4ff;--eb-acc-bg:#1d2840}
+#eb *{box-sizing:border-box}
+#eb button{font:inherit;color:inherit}
+#eb .eb-top{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+#eb .eb-top button{padding:7px 12px;border-radius:9px;border:1px solid var(--eb-line);background:var(--eb-card);cursor:pointer;font-weight:600}
+#eb .eb-top button.on{background:var(--eb-fg);color:var(--eb-card);border-color:var(--eb-fg)}
+#eb .eb-top small{font-weight:400;opacity:.75;margin-left:4px}
+#eb .eb-seg{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}
+#eb .eb-seg button{padding:5px 11px;border-radius:8px;border:1px solid transparent;background:none;cursor:pointer;color:var(--eb-muted)}
+#eb .eb-seg button.on{background:var(--eb-soft);border-color:var(--eb-line);color:var(--eb-fg);font-weight:600}
+#eb button:focus-visible{outline:2px solid var(--eb-accent);outline-offset:1px}
+#eb .eb-meta{font-size:12px;color:var(--eb-muted);margin:0 0 8px}
+#eb .eb-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:10px}
+@media (max-width:760px){#eb .eb-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#eb .eb-k{background:var(--eb-card);border:1px solid var(--eb-line);border-radius:10px;padding:8px 10px;min-width:0}
+#eb .eb-k .t{font-size:12px;color:var(--eb-muted)}
+#eb .eb-k .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+#eb .eb-k .s{font-size:12px;color:var(--eb-muted)}
+#eb .eb-tw{overflow-x:auto;background:var(--eb-card);border:1px solid var(--eb-line);border-radius:12px}
+#eb table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+#eb th,#eb td{padding:7px 8px;border-bottom:1px solid var(--eb-line);text-align:left;white-space:nowrap;vertical-align:top}
+#eb th{font-size:12px;color:var(--eb-muted);font-weight:500}
+#eb td.n,#eb th.n{text-align:right}
+#eb td.rk{color:var(--eb-muted);text-align:right;width:32px}
+#eb .up{color:var(--eb-up)}#eb .down{color:var(--eb-down)}
+#eb .code{color:var(--eb-muted);font-family:ui-monospace,Consolas,monospace;font-size:12px;margin-left:6px}
+#eb .sub{display:block;font-size:11px;color:var(--eb-muted);white-space:normal}
+#eb .tag{font-size:11px;padding:1px 6px;border-radius:4px;font-weight:600;margin-right:3px;display:inline-block}
+#eb .tag.u{background:var(--eb-up-bg);color:var(--eb-up)}#eb .tag.d{background:var(--eb-down-bg);color:var(--eb-down)}
+#eb .tag.a{background:var(--eb-acc-bg);color:var(--eb-accent)}
+#eb .eb-empty{color:var(--eb-muted);padding:18px;text-align:center}
+#eb .eb-note{font-size:12px;color:var(--eb-muted);line-height:1.7;margin-top:8px}
+#eb .bar{display:inline-block;height:6px;border-radius:3px;background:var(--eb-accent);opacity:.55;vertical-align:middle;margin-left:6px}
+@media (max-width:640px){#eb .hd{display:none}#eb th,#eb td{padding:7px 5px}}
+</style>
+<div id="eb">
+  <div class="eb-top" id="eb-top"></div>
+  <div id="eb-view"></div>
+</div>
+<script>
+(function(){
+const E = /*__DATA__*/null;
+if (!E) return;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sg = (v, d = 1) => v == null ? "—" : (v > 0 ? "+" : "") + v.toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const lots = v => v == null ? "—" : sg(v / 1000, 0);
+const cls = v => v > 0 ? "up" : v < 0 ? "down" : "";
+const name = x => `${esc(x.n)}<span class="code">${x.c}</span><span class="sub">${esc(x.i || "")}</span>`;
+const md = d => d ? d.slice(5).replace("-", "/") : "—";
+let top = "con", seg = {con: "b1", etf: "buy"};
+
+function table(rows, cols, empty){
+  if (!rows || !rows.length) return `<div class="eb-tw"><div class="eb-empty">${empty || "沒有資料"}</div></div>`;
+  return `<div class="eb-tw"><table><thead><tr><th class="n">#</th>${cols.map(c => `<th class="${c[2] || ""}">${c[0]}</th>`).join("")}</tr></thead><tbody>` +
+    rows.map((x, i) => `<tr><td class="rk">${i + 1}</td>${cols.map(c => `<td class="${c[2] || ""}">${c[1](x)}</td>`).join("")}</tr>`).join("") +
+    `</tbody></table></div>`;
+}
+function segs(key, opts){
+  return `<div class="eb-seg">${opts.map(([k, t]) => `<button data-seg="${key}:${k}" class="${seg[key] === k ? "on" : ""}">${t}</button>`).join("")}</div>`;
+}
+
+function con(){
+  const n15 = Math.min(...E.etfs.map(e => e.ndays));
+  const opts = [["b1", "今日共同加碼"], ["s1", "今日共同減碼"], ["b15", "15日累計加碼"], ["s15", "15日累計減碼"]];
+  const k = seg.con, src = k.endsWith("15") ? E.con15 : E.con1, rows = k.startsWith("b") ? src.buy : src.sell;
+  const by = x => x.by.map(b => `<span class="tag ${b.v > 0 ? "u" : "d"}">${b.e} ${sg(b.v, 0)}</span>`).join("");
+  const kp = E.etfs.map(e => `<div class="eb-k"><div class="t">${e.c} ${esc(e.n)}</div><div class="v">${e.aum ?? "—"}<small style="font-size:12px;font-weight:400"> 億</small></div><div class="s">淨值 ${e.nav ?? "—"}｜${md(e.date)}｜${e.cnt} 檔</div></div>`).join("");
+  return `<div class="eb-kpis" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">${kp}</div>` +
+    segs("con", opts) +
+    `<p class="eb-meta">${k.endsWith("15") ? `近 ${n15 || "—"} 個交易日累計` : "與前一個交易日比較"}；金額＝股數增減 × 股價（百萬元），依「幾檔同向」再依金額排序。</p>` +
+    table(rows, [["股票", name], ["幾檔", x => k.startsWith("b") ? `<b class="up">${x.nb}</b> 檔加碼` : `<b class="down">${x.ns}</b> 檔減碼`, "n"],
+                 ["合計(百萬)", x => `<b class="${cls(x.v)}">${sg(x.v)}</b>`, "n"], ["各檔", by]], k.endsWith("15") && !n15 ? "資料累積中" : "今天沒有");
+}
+
+function etf(e){
+  const kp = [
+    ["資料日期", md(e.date), e.prev ? `比較 ${md(e.prev)}` : "首日，明天起才有增減"],
+    ["淨值", e.nav ?? "—", `規模 ${e.aum ?? "—"} 億`],
+    ["持股", `${e.cnt} 檔`, `現金 ${e.cash_w ?? "—"}%`],
+    ["受益權單位", e.units_ch == null ? "—" : sg(e.units_ch / 1000, 0) + " 張", "今日申購(+)／買回(−)"],
+    ["期貨", e.fut.length ? e.fut.map(f => `${esc(f.n)}`).join("、") : "無", e.fut.map(f => `${f.q} 口・${f.w}%`).join("、")],
+  ].map(([t, v, s]) => `<div class="eb-k"><div class="t">${t}</div><div class="v" style="font-size:${String(v).length > 8 ? 14 : 20}px">${esc(v)}</div><div class="s">${esc(s)}</div></div>`).join("");
+  const opts = [["buy", `今日加碼 ${e.buy.length}`], ["sell", `今日減碼 ${e.sell.length}`], ["new", `新進 ${e.new.length}・剔除 ${e.out.length}`],
+                ["b15", "15日累計加碼"], ["s15", "15日累計減碼"], ["all", "全部持股"]];
+  const k = seg.etf;
+  const maxW = Math.max(...e.rows.map(x => x.w || 0), 1);
+  const cW = ["權重", x => `${x.w ?? 0}%`, "n"];
+  const cP = ["股價", x => x.p ?? "—", "n hd"];
+  const c1 = [["股票", name], cW, ["增減(張)", x => `<b class="${cls(x.d1)}">${lots(x.d1)}</b>`, "n"],
+              ["金額(百萬)", x => `<span class="${cls(x.v1)}">${sg(x.v1)}</span>`, "n"],
+              ["權重變化", x => x.dw == null ? (x.pw != null ? `<span class="down">−${x.pw}</span>` : `<span class="tag a">新</span>`) : `<span class="${cls(x.dw)}">${sg(x.dw, 2)}</span>`, "n hd"], cP];
+  const c15 = [["股票", name], ["權重", x => x.w == null ? "剔除" : `${x.w}%`, "n"], ["累計(張)", x => `<b class="${cls(x.d15)}">${lots(x.d15)}</b>`, "n"],
+               ["金額(百萬)", x => `<span class="${cls(x.v15)}">${sg(x.v15)}</span>`, "n"], ["今日(張)", x => lots(x.d1), "n hd"]];
+  let body;
+  if (k === "buy") body = table(e.buy, c1, e.prev ? "今天沒有加碼" : "明天起才有比較");
+  else if (k === "sell") body = table(e.sell, c1, e.prev ? "今天沒有減碼" : "明天起才有比較");
+  else if (k === "new") body = `<p class="eb-meta">新進</p>` + table(e.new, c1, "今天沒有新進") + `<p class="eb-meta" style="margin-top:10px">剔除</p>` + table(e.out, c1, "今天沒有剔除");
+  else if (k === "b15") body = table(e.buy15, c15, e.ndays ? "沒有" : "資料累積中");
+  else if (k === "s15") body = table(e.sell15, c15, e.ndays ? "沒有" : "資料累積中");
+  else body = table(e.rows, [["股票", name], ["權重", x => `${x.w}%<span class="bar" style="width:${(x.w / maxW * 60).toFixed(0)}px"></span>`, "n"],
+                             ["持有(張)", x => Math.round(x.sh / 1000).toLocaleString("en-US"), "n"], ["今日(張)", x => `<span class="${cls(x.d1)}">${lots(x.d1)}</span>`, "n"], cP]);
+  return `<div class="eb-kpis">${kp}</div>` + segs("etf", opts) +
+    `<p class="eb-meta">${k.endsWith("15") ? `${md(e.base)} → ${md(e.date)}，共 ${e.ndays} 個交易日` : "金額＝股數增減 × 股價（百萬元）"}</p>` + body;
+}
+
+function render(){
+  $("eb-top").innerHTML = [["con", "三檔共同"]].concat(E.etfs.map(e => [e.c, `${e.c}<small>${esc(e.n.replace("主動", ""))}</small>`]))
+    .map(([k, t]) => `<button data-top="${k}" class="${top === k ? "on" : ""}">${t}</button>`).join("");
+  const e = E.etfs.find(x => x.c === top);
+  $("eb-view").innerHTML = (top === "con" ? con() : etf(e)) +
+    `<div class="eb-note">資料來源：統一投信、野村投信每日公布的基金投資組合（約傍晚 5 點後更新）。更新：${E.time}${E.fails && E.fails.length ? `｜⚠ ${E.fails.join("、")} 今天抓取失敗，顯示上次資料` : ""}<br>僅供參考，不構成投資建議。</div>`;
+}
+$("eb").addEventListener("click", ev => {
+  const b = ev.target.closest("button");
+  if (!b) return;
+  if (b.dataset.top) top = b.dataset.top;
+  if (b.dataset.seg) { const [k, v] = b.dataset.seg.split(":"); seg[k] = v; }
+  render();
+});
+render();
+})();
+</script>
+<!--EB-END-->

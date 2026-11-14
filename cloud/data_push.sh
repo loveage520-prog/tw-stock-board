@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 python cloud/prune.py
 mkdir -p pulse_data/_pages
-for f in sector_flow.html dashboard.html market_board_fragment.html post_board_fragment.html extra_board_fragment.html markets_data.js; do
+for f in sector_flow.html dashboard.html market_board_fragment.html post_board_fragment.html extra_board_fragment.html etf_board_fragment.html us_live_fragment.html morning_fragment.html markets_data.js; do
   [ -f "$f" ] && cp "$f" pulse_data/_pages/
 done
 rm -rf .datapush && mkdir -p .datapush/pulse_data

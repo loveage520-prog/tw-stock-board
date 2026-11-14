@@ -6,7 +6,8 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent / "pulse_data"
 RULES = [("flow/twse_*", 80), ("flow/tpex_*", 40), ("flow/fm_*", 20), ("extra/twse_*", 20), ("extra/tpex_*", 20),
-         ("logs/*", 14), ("pulse_*.csv", 20), ("groups_*.csv", 20), ("baseline_*.json", 10), ("board/board_*", 30)]
+         ("logs/*", 14), ("pulse_*.csv", 20), ("groups_*.csv", 20), ("baseline_*.json", 10), ("board/board_*", 30),
+         ("etf/00*", 45), ("us/close_*", 30), ("news/brief_*", 30)]
 today = date.today()
 n = 0
 for pat, days in RULES:

@@ -20,6 +20,7 @@ STEPS = [
     ("成交排行與漲跌停", ["market_board.py", "--close"]),
     ("外資投信 15 日＋美股", ["post_board.py"]),
     ("融資借券營收期權", ["extra_board.py"]),
+    ("主動式 ETF 持股", ["etf_board.py"]),
 ]
 
 
@@ -60,6 +61,11 @@ def summary(results) -> str:
     pc = (ex.get("fut") or {}).get("pc") or []
     if fut:
         lines.append(f"外資台指期淨未平倉 {fut.get('外資及陸資', {}).get('oi', 0):+,} 口" + (f"｜P/C {pc[-1]['oi']:.0f}%" if pc else ""))
+    et = load("pulse_data/etf/latest.json")
+    if et.get("con1", {}).get("buy"):
+        lines.append("主動 ETF 共同加碼：" + "、".join(f"{x['n']}({x['nb']}檔)" for x in et["con1"]["buy"][:4]))
+    if et.get("con1", {}).get("sell"):
+        lines.append("主動 ETF 共同減碼：" + "、".join(f"{x['n']}({x['ns']}檔)" for x in et["con1"]["sell"][:3]))
     earn = [x for x in (ex.get("earn") or {}).get("rows", []) if x.get("tw")][:4]
     if earn:
         lines.append("台灣供應鏈美股財報：" + "、".join(f"{x['s']} {x['d'][5:]}" for x in earn))

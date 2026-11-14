@@ -10,6 +10,7 @@ publish_prep.py：把本機產生的網頁轉成「手機公開版」，供 Clau
       第 4 個參數：把「成交排行與漲跌停」嵌進頁面（資金流向：新分頁；盤中脈動：指數區塊下方）
       第 5 個參數（只限 flow）：把「法人 15 日・美股」嵌成資金流向頁的另一個分頁
       第 6 個參數（只限 flow）：把「籌碼・營收・期權」嵌成資金流向頁的另一個分頁
+      第 7～9 個參數（只限 flow）：主動式 ETF、美股即時、晨報
       不需要的參數可以填 -
 本機的 sector_flow.html、dashboard.html、market_board.html 不會被修改。
 """
@@ -140,6 +141,29 @@ def embed_extra(h: str, frag: str) -> str:
     return h
 
 
+def embed_tab(h: str, frag: str, view: str, label: str) -> str:
+    """資金流向頁：在「全球市場」後面加一個分頁（通用版，可疊加在其他分頁之後）"""
+    tab = '<button class="tab" data-v="markets">全球市場</button>'
+    assert tab in h
+    vid = "v" + view.capitalize()
+    h = h.replace(tab, tab + f'\n      <button class="tab" data-v="{view}">{label}</button>', 1)
+    h = h.replace('    <div class="card" id="detail"></div>', f'    <div id="{vid}" hidden>\n{frag}\n    </div>\n\n    <div class="card" id="detail"></div>', 1)
+    old = '$("#vMarkets").hidden = v !== "markets";'
+    h = h.replace(old, old + f' $("#{vid}").hidden = v !== "{view}";', 1)
+    h = re.sub(r'\$\("#detail"\)\.style\.display = \(?v === "markets"([^?]*?)\)? \? "none"',
+               lambda m: f'$("#detail").style.display = (v === "markets"{m.group(1).rstrip(")")} || v === "{view}") ? "none"', h, count=1)
+    h = re.sub(r'else if \(v === "markets"\) markets\(\); else (if \(([^)]*)\) )?chart\(\);',
+               lambda m: 'else if (v === "markets") markets(); else if (' + ((m.group(2) + " && ") if m.group(2) else "") + f'v !== "{view}") chart();', h, count=1)
+    return h
+
+
+HASH_JS = """<script>
+/* 網址加 #分頁名稱（例：#morning、#us、#etf）可直接打開該分頁 */
+(function(){ const v = location.hash.slice(1); const b = v && document.querySelector('.tab[data-v="' + v + '"]'); if (b) b.click(); })();
+</script>
+"""
+
+
 def embed_pulse(h: str, frag: str) -> str:
     """盤中脈動頁：放在加權指數走勢上面"""
     anchor = "<section><h2>加權指數盤中走勢</h2>"
@@ -159,6 +183,12 @@ def main():
         h = embed_post(h, frag_of(sys.argv[5], "PB"))
     if kind == "flow" and len(sys.argv) > 6 and sys.argv[6] != "-":
         h = embed_extra(h, frag_of(sys.argv[6], "XB"))
+    # 第 7～9 個參數（只限 flow）：主動式 ETF、美股即時、晨報（後加的排在前面）
+    for i, (tag, view, label) in enumerate([("EB", "etf", "主動式ETF"), ("UB", "us", "美股即時"), ("NB", "morning", "晨報")], start=7):
+        if kind == "flow" and len(sys.argv) > i and sys.argv[i] != "-":
+            h = embed_tab(h, frag_of(sys.argv[i], tag), view, label)
+    if kind == "flow":
+        h += HASH_JS
     open(dst, "w", encoding="utf-8").write(h)
     left = [w for w in ("★", "我的持股", "持股 ") if w in h and kind == "pulse"]
     print(f"{kind}: {len(h):,} 字元 → {dst}" + (f"（注意：仍含 {left}）" if left else ""))

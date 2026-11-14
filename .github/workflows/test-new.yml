@@ -1,0 +1,31 @@
+name: 測試新功能（不推播）
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Taipei
+      PYTHONIOENCODING: utf-8
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      CONFIG_YAML: ${{ secrets.CONFIG_YAML }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: bash cloud/data_pull.sh
+      - run: python cloud/make_config.py
+      - run: python market_board.py --close
+        continue-on-error: true
+      - run: python etf_board.py
+        continue-on-error: true
+      - run: python us_live.py --once || true
+      - run: python morning_brief.py --no-push
+      - run: python cloud/build_site.py && bash cloud/git_push_dir.sh site gh-pages
+      - run: bash cloud/data_push.sh

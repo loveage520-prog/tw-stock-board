@@ -1,0 +1,87 @@
+<!--NB-START-->
+<style>
+/* 晨報：樣式限定在 #nb 內 */
+#nb{
+  --nb-card:#ffffff;--nb-fg:#1c2230;--nb-muted:#6b7280;--nb-line:#e3e6eb;--nb-soft:#eef1f5;
+  --nb-up:#d6453d;--nb-up-bg:#fbe9e7;--nb-down:#1f8a55;--nb-down-bg:#e4f4ea;--nb-accent:#2f5fb3;--nb-hot:#c2410c;--nb-hot-bg:#fdeee4;
+  color:var(--nb-fg);font:14px/1.6 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #nb{
+  --nb-card:#171c23;--nb-fg:#e7eaf0;--nb-muted:#98a2b3;--nb-line:#272e38;--nb-soft:#1e242d;
+  --nb-up:#ef6a5f;--nb-up-bg:#3a1f22;--nb-down:#3fbf7f;--nb-down-bg:#16302a;--nb-accent:#7aa4ff;--nb-hot:#fb923c;--nb-hot-bg:#3a2516}}
+:root[data-theme="dark"] #nb{
+  --nb-card:#171c23;--nb-fg:#e7eaf0;--nb-muted:#98a2b3;--nb-line:#272e38;--nb-soft:#1e242d;
+  --nb-up:#ef6a5f;--nb-up-bg:#3a1f22;--nb-down:#3fbf7f;--nb-down-bg:#16302a;--nb-accent:#7aa4ff;--nb-hot:#fb923c;--nb-hot-bg:#3a2516}
+#nb *{box-sizing:border-box}
+#nb .nb-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 10px}
+#nb .nb-h h3{margin:0;font-size:20px}
+#nb .nb-h span{font-size:12px;color:var(--nb-muted)}
+#nb .nb-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+#nb .nb-card{background:var(--nb-card);border:1px solid var(--nb-line);border-radius:12px;padding:12px 14px;min-width:0}
+#nb .nb-card h4{margin:0 0 8px;font-size:14px;display:flex;justify-content:space-between;gap:8px}
+#nb .nb-card h4 small{font-weight:400;color:var(--nb-muted);font-size:12px}
+#nb ul{margin:0;padding-left:1.15em}
+#nb li{margin:2px 0}
+#nb .kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;margin-bottom:8px}
+#nb .kv div{background:var(--nb-soft);border-radius:8px;padding:6px 9px;min-width:0}
+#nb .kv .t{font-size:11px;color:var(--nb-muted)}
+#nb .kv .v{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+#nb .kv .s{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+#nb .up{color:var(--nb-up)}#nb .down{color:var(--nb-down)}
+#nb .news{list-style:none;padding:0}
+#nb .news li{padding:7px 0;border-bottom:1px solid var(--nb-line)}
+#nb .news li:last-child{border-bottom:0}
+#nb .news a{color:var(--nb-fg);text-decoration:none;font-weight:600}
+#nb .news a:hover{color:var(--nb-accent);text-decoration:underline}
+#nb .news .m{display:block;font-size:11px;color:var(--nb-muted)}
+#nb .news .sm{display:block;font-size:12px;color:var(--nb-muted);margin-top:2px}
+#nb .hot{font-size:11px;padding:0 5px;border-radius:4px;background:var(--nb-hot-bg);color:var(--nb-hot);font-weight:700;margin-right:4px}
+#nb .nb-note{font-size:12px;color:var(--nb-muted);line-height:1.7;margin-top:10px}
+#nb .muted{color:var(--nb-muted)}
+</style>
+<div id="nb"></div>
+<script>
+(function(){
+const B = /*__DATA__*/null;
+if (!B) return;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = (v, d = 2) => v == null ? "—" : (v > 0 ? "+" : "") + (v * 100).toFixed(d) + "%";
+const sg = (v, d = 2) => v == null ? "—" : (v > 0 ? "+" : "") + Number(v).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const cls = v => v > 0 ? "up" : v < 0 ? "down" : "";
+const fmt = (v, d = 2) => v == null ? "—" : Number(v).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const kv = (t, v, s, c) => `<div><div class="t">${esc(t)}</div><div class="v">${v}</div><div class="s ${c || ""}">${s}</div></div>`;
+const md = d => d ? esc(d.slice(5).replace("-", "/")) : "";
+
+let h = `<div class="nb-h"><h3>${esc(B.title)}</h3><span>產生時間 ${esc(B.time)}</span></div><div class="nb-cols">`;
+const us = B.us || {};
+if (us.summary && us.summary.length) {
+  const ix = (us.idx || []).filter(x => x.s !== "^RUT").map(x => kv(x.n, fmt(x.p), pct(x.ch), cls(x.ch))).join("");
+  h += `<div class="nb-card"><h4>🇺🇸 美股收盤 <small>美東 ${md(us.date)}</small></h4><div class="kv">${ix}</div><ul>${us.summary.map(s => `<li>${esc(s)}</li>`).join("")}</ul></div>`;
+}
+const tw = B.tw || {}, n = B.night;
+let tk = (tw.idx || []).map(x => kv(`${x.n}（${md(x.d)}）`, fmt(x.p), `${sg(x.ch)}　${pct(x.pct)}`, cls(x.ch))).join("");
+if (n) tk += kv("台指期夜盤", fmt(n.p, 0), n.ch == null ? "" : `${sg(n.ch, 0)}　${pct(n.pct)}`, cls(n.ch));
+const li = [];
+if (tw.breadth) li.push(`漲停 ${tw.breadth.U}、跌停 ${tw.breadth.D}；上漲 ${tw.breadth.up}、下跌 ${tw.breadth.dn}`);
+if (tw.top && tw.top.length) li.push("成交值前五：" + tw.top.map(x => `${esc(x.n)} <span class="${cls(x.ch)}">${pct(x.ch, 1)}</span>`).join("、"));
+if (tw.flow_in) li.push("法人資金流入：" + esc(tw.flow_in.join("、")));
+if (tw.flow_out) li.push("法人資金流出：" + esc(tw.flow_out.join("、")));
+for (const [who, v] of Object.entries(tw.inst || {})) li.push(`${who} 15 日買超：${esc(v.join("、"))}`);
+if (tw.fi_oi != null) li.push(`外資台指期淨未平倉 ${sg(tw.fi_oi, 0)} 口`);
+if (tw.etf_buy) li.push(`主動 ETF 共同加碼（${md(tw.etf_date)}）：${esc(tw.etf_buy.join("、"))}`);
+if (tw.etf_sell && tw.etf_sell.length) li.push(`主動 ETF 共同減碼：${esc(tw.etf_sell.join("、"))}`);
+if (tk || li.length) h += `<div class="nb-card"><h4>🇹🇼 昨日台股・夜盤</h4>${tk ? `<div class="kv">${tk}</div>` : ""}<ul>${li.map(x => `<li>${x}</li>`).join("")}</ul></div>`;
+h += `</div><div class="nb-cols" style="margin-top:10px">`;
+const secs = (B.news || {}).sections || {};
+for (const [name, items] of Object.entries(secs)) {
+  if (!items || !items.length) continue;
+  h += `<div class="nb-card"><h4>📰 ${esc(name)} <small>${items.length} 則</small></h4><ul class="news">` + items.map(x =>
+    `<li>${x.hot ? '<span class="hot">重要</span>' : ""}<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t)}</a>` +
+    `${x.sum ? `<span class="sm">${esc(x.sum)}</span>` : ""}<span class="m">${esc(x.src)}・${esc(x.tm)}</span></li>`).join("") + `</ul></div>`;
+}
+if (B.earn && B.earn.length) h += `<div class="nb-card"><h4>📅 美股財報（今晚／明晚）</h4><ul>${B.earn.map(x => `<li>${md(x.d)} <b>${esc(x.s)}</b> ${esc(x.n)}${x.tw ? "（台灣供應鏈）" : ""}${x.eps != null ? ` <span class="muted">預估 EPS ${x.eps}</span>` : ""}</li>`).join("")}</ul></div>`;
+h += `</div><div class="nb-note">新聞挑選：近 24 小時鉅亨網頭條與各分類，依「是否為頭條、跨分類出現、關鍵字」排序，標「重要」者為綜合分數較高。數字來自 Yahoo Finance、期交所、證交所。僅供參考，不構成投資建議。</div>`;
+document.getElementById("nb").innerHTML = h;
+})();
+</script>
+<!--NB-END-->
