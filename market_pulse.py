@@ -1118,14 +1118,16 @@ def run(args):
             check_events(m, cfg, nt, None, hold)
             for msg in nt.history[n_before:]:
                 events.append(f"{m['time']} " + msg.replace("⚠️ ", "").replace("🔄 ", "").replace(f"（{m['time']}）", ""))
-            for st in sum_times:
-                if m["time"] >= st and f"sum_{st}" not in nt.sent:
-                    title = "收盤總結" if st >= "13:30" else "盤中摘要"
-                    if st >= "13:30" and not final:
-                        continue
-                    nt.send(summary_text(m, title), key=f"sum_{st}")
-                    nt.history.pop()
-                    events.append(f"{m['time']} 已推播{title}")
+            # 程式晚啟動時好幾個摘要時間會同時到，只推最新的一則，其餘標記為已處理（避免同樣內容推好幾次）
+            due = [st for st in sum_times if m["time"] >= st and f"sum_{st}" not in nt.sent and (st < "13:30" or final)]
+            if due:
+                for st in due[:-1]:
+                    nt.sent.add(f"sum_{st}")
+                st = due[-1]
+                title = "收盤總結" if st >= "13:30" else "盤中摘要"
+                nt.send(summary_text(m, title), key=f"sum_{st}")
+                nt.history.pop()
+                events.append(f"{m['time']} 已推播{title}")
 
         write_dashboard(m, hist, events, src.name, interval, final)
         if not args.demo and time.time() - last_mk >= 600:  # 每 10 分鐘更新一次全球市場

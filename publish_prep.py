@@ -164,6 +164,46 @@ HASH_JS = """<script>
 """
 
 
+PZ_CSS = """<style>
+.pz-tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;gap:6px;padding:8px 0;margin:-8px 0 8px;background:var(--bg)}
+.pz-tabs button{flex:1;max-width:180px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-weight:700;cursor:pointer}
+.pz-tabs button.on{background:var(--fg);color:var(--card);border-color:var(--fg)}
+.pz-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+</style>
+"""
+PZ_JS = """<script>
+/* 台股／美股盤中切換：網址 #us 或 #tw；沒指定時晚上 9 點到早上 6 點自動顯示美股 */
+(function(){
+  const show = v => {
+    document.getElementById("pzTw").hidden = v !== "tw";
+    document.getElementById("pzUs").hidden = v !== "us";
+    document.querySelectorAll(".pz-tabs button").forEach(b => b.classList.toggle("on", b.dataset.pz === v));
+  };
+  document.querySelectorAll(".pz-tabs button").forEach(b => b.onclick = () => {
+    show(b.dataset.pz);
+    try { history.replaceState(null, "", "#" + b.dataset.pz); } catch(e) { location.hash = b.dataset.pz; }
+  });
+  let v = location.hash.slice(1);
+  if (v !== "us" && v !== "tw") {
+    const hr = Number(new Intl.DateTimeFormat("en-US", {timeZone: "Asia/Taipei", hour: "numeric", hour12: false}).format(new Date())) % 24;
+    v = (hr >= 21 || hr < 6) ? "us" : "tw";
+  }
+  show(v);
+})();
+</script>
+"""
+
+
+def embed_pulse_us(h: str, frag: str) -> str:
+    """盤中脈動頁：加「台股盤中／美股盤中」切換，美股放在另一個分頁"""
+    assert "<main>" in h and "</main>" in h, "盤中脈動頁面的結構變了"
+    nav = '<nav class="pz-tabs" aria-label="市場"><button data-pz="tw" class="on">台股盤中</button><button data-pz="us">美股盤中</button></nav>'
+    h = h.replace("<main>", PZ_CSS + "<main>\n" + nav + '\n<div id="pzTw">', 1)
+    i = h.rfind("</main>")
+    h = h[:i] + '</div>\n<div id="pzUs" hidden>\n' + frag + "\n</div>\n" + h[i:]
+    return h + PZ_JS
+
+
 def embed_pulse(h: str, frag: str) -> str:
     """盤中脈動頁：放在加權指數走勢上面"""
     anchor = "<section><h2>加權指數盤中走勢</h2>"
@@ -179,6 +219,8 @@ def main():
     if len(sys.argv) > 4 and sys.argv[4] != "-":
         frag = frag_of(sys.argv[4])
         h = (embed_flow if kind == "flow" else embed_pulse)(h, frag)
+    if kind == "pulse" and len(sys.argv) > 5 and sys.argv[5] != "-":  # 盤中脈動第 5 個參數：美股即時
+        h = embed_pulse_us(h, frag_of(sys.argv[5], "UB"))
     if kind == "flow" and len(sys.argv) > 5 and sys.argv[5] != "-":
         h = embed_post(h, frag_of(sys.argv[5], "PB"))
     if kind == "flow" and len(sys.argv) > 6 and sys.argv[6] != "-":

@@ -50,7 +50,7 @@ prep("flow", "sector_flow.html",
      [frag("market_board_fragment.html"), frag("post_board_fragment.html"), frag("extra_board_fragment.html"),
       frag("etf_board_fragment.html"), frag("us_live_fragment.html"), frag("morning_fragment.html")], "index.html")
 # 盤中頁每 5 分鐘自動重新整理
-prep("pulse", "dashboard.html", [frag("market_board_fragment.html")], "pulse.html",
+prep("pulse", "dashboard.html", [frag("market_board_fragment.html"), frag("us_live_fragment.html")], "pulse.html",
      '<meta http-equiv="refresh" content="300">\n')
 if (BASE / "markets_data.js").exists():
     shutil.copyfile(BASE / "markets_data.js", SITE / "markets_data.js")
