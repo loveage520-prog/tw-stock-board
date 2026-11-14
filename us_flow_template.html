@@ -1,0 +1,164 @@
+<!--SB-START-->
+<style>
+/* 美股板塊資金流向：樣式限定在 #sb 內 */
+#sb{
+  --sb-card:#ffffff;--sb-fg:#1c2230;--sb-muted:#6b7280;--sb-line:#e3e6eb;--sb-soft:#eef1f5;--sb-grid:#e8ebf0;
+  --sb-up:#d6453d;--sb-up-bg:#fbe9e7;--sb-down:#1f8a55;--sb-down-bg:#e4f4ea;--sb-accent:#2f5fb3;
+  --q-lead:#d6453d;--q-weak:#e0a020;--q-lag:#2b9a62;--q-imp:#3b6fd4;
+  color:var(--sb-fg);font:14px/1.5 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #sb{
+  --sb-card:#171c23;--sb-fg:#e7eaf0;--sb-muted:#98a2b3;--sb-line:#272e38;--sb-soft:#1e242d;--sb-grid:#232a34;
+  --sb-up:#ef6a5f;--sb-up-bg:#3a1f22;--sb-down:#3fbf7f;--sb-down-bg:#16302a;--sb-accent:#7aa4ff;
+  --q-lead:#ef6a5f;--q-weak:#e8b443;--q-lag:#3fbf7f;--q-imp:#7aa4ff}}
+:root[data-theme="dark"] #sb{
+  --sb-card:#171c23;--sb-fg:#e7eaf0;--sb-muted:#98a2b3;--sb-line:#272e38;--sb-soft:#1e242d;--sb-grid:#232a34;
+  --sb-up:#ef6a5f;--sb-up-bg:#3a1f22;--sb-down:#3fbf7f;--sb-down-bg:#16302a;--sb-accent:#7aa4ff;
+  --q-lead:#ef6a5f;--q-weak:#e8b443;--q-lag:#3fbf7f;--q-imp:#7aa4ff}
+#sb *{box-sizing:border-box}
+#sb button{font:inherit;color:inherit}
+#sb .sb-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:10px}
+@media (max-width:760px){#sb .sb-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#sb .sb-k{background:var(--sb-card);border:1px solid var(--sb-line);border-radius:10px;padding:8px 10px;min-width:0;cursor:pointer;text-align:left}
+#sb .sb-k.on{outline:2px solid var(--sb-fg)}
+#sb .sb-k .t{font-size:12px;color:var(--sb-muted)}
+#sb .sb-k .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+#sb .sb-k .s{font-size:11px;color:var(--sb-muted)}
+#sb .sb-bar{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:4px 0 8px}
+#sb .sb-bar button{padding:5px 11px;border-radius:8px;border:1px solid transparent;background:none;cursor:pointer;color:var(--sb-muted)}
+#sb .sb-bar button.on{background:var(--sb-soft);border-color:var(--sb-line);color:var(--sb-fg);font-weight:600}
+#sb .sb-bar .sp{flex:1}
+#sb button:focus-visible{outline:2px solid var(--sb-accent);outline-offset:1px}
+#sb .sb-card{background:var(--sb-card);border:1px solid var(--sb-line);border-radius:12px;padding:10px 12px;margin-bottom:10px;min-width:0}
+#sb .sb-card h4{margin:0 0 6px;font-size:15px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+#sb .sb-card h4 small{font-weight:400;color:var(--sb-muted);font-size:12px}
+#sb svg{display:block;width:100%;height:auto}
+#sb svg text{font-family:inherit}
+#sb .sb-tw{overflow-x:auto;background:var(--sb-card);border:1px solid var(--sb-line);border-radius:12px}
+#sb table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+#sb th,#sb td{padding:7px 8px;border-bottom:1px solid var(--sb-line);text-align:left;white-space:nowrap}
+#sb th{font-size:12px;color:var(--sb-muted);font-weight:500}
+#sb td.n,#sb th.n{text-align:right}
+#sb tbody tr{cursor:pointer}
+#sb tbody tr:hover{background:var(--sb-soft)}
+#sb tr.sel{background:var(--sb-soft)}
+#sb .up{color:var(--sb-up)}#sb .down{color:var(--sb-down)}
+#sb .sym{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--sb-muted);margin-left:6px}
+#sb .q{font-size:11px;padding:1px 7px;border-radius:999px;font-weight:700;color:#fff;display:inline-block}
+#sb .sb-meta{font-size:12px;color:var(--sb-muted);margin:0 0 8px}
+#sb .sb-note{font-size:12px;color:var(--sb-muted);line-height:1.7;margin-top:8px}
+#sb .sb-grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+@media (max-width:900px){#sb .sb-grid2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){#sb .hd{display:none}#sb th,#sb td{padding:7px 5px}}
+</style>
+<div id="sb">
+  <div class="sb-kpis" id="sb-kpis"></div>
+  <div class="sb-bar" id="sb-bar"></div>
+  <div id="sb-view"></div>
+  <div class="sb-card" id="sb-detail"></div>
+  <div class="sb-note" id="sb-note"></div>
+</div>
+<script>
+(function(){
+const S = /*__DATA__*/null;
+if (!S) return;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = (v, d = 1) => v == null ? "—" : (v > 0 ? "+" : "") + (v * 100).toFixed(d) + "%";
+const sg = (v, d = 1) => v == null ? "—" : (v > 0 ? "+" : "") + Number(v).toFixed(d);
+const cls = v => v > 0 ? "up" : v < 0 ? "down" : "";
+const QC = {"領先": "var(--q-lead)", "轉弱": "var(--q-weak)", "落後": "var(--q-lag)", "改善": "var(--q-imp)"};
+const QD = {"領先": "比大盤強、且還在變強：資金持續流入", "轉弱": "比大盤強、但動能下滑：留意獲利了結", "落後": "比大盤弱、且還在變弱：資金流出", "改善": "比大盤弱、但動能回升：資金開始回流"};
+const qtag = q => `<span class="q" style="background:${QC[q]}">${q}</span>`;
+let view = "chart", kind = "全部", qf = null, sel = (S.rows.find(x => x.s === "XLK") || S.rows[0] || {}).s;
+try { const v = localStorage.getItem("sbView"); if (v) view = v; } catch(e) {}
+
+function rows(){ return S.rows.filter(x => (kind === "全部" ? x.k !== "風格" : x.k === kind) && (!qf || x.q === qf)); }
+
+function chart(){
+  const rs = rows();
+  if (!rs.length) return `<div class="sb-card"><p class="sb-meta">沒有符合的板塊</p></div>`;
+  const pts = rs.flatMap(x => x.tail).filter(p => p.x != null && p.y != null);
+  const dx = Math.max(2, ...pts.map(p => Math.abs(p.x - 100))) * 1.15, dy = Math.max(1.5, ...pts.map(p => Math.abs(p.y - 100))) * 1.15;
+  const W = 640, H = 460, P = 26;
+  const X = v => P + (v - (100 - dx)) / (2 * dx) * (W - 2 * P), Y = v => H - P - (v - (100 - dy)) / (2 * dy) * (H - 2 * P);
+  let g = `<rect x="${X(100)}" y="${P}" width="${W - P - X(100)}" height="${Y(100) - P}" fill="var(--q-lead)" opacity=".07"/>` +
+    `<rect x="${X(100)}" y="${Y(100)}" width="${W - P - X(100)}" height="${H - P - Y(100)}" fill="var(--q-weak)" opacity=".08"/>` +
+    `<rect x="${P}" y="${Y(100)}" width="${X(100) - P}" height="${H - P - Y(100)}" fill="var(--q-lag)" opacity=".07"/>` +
+    `<rect x="${P}" y="${P}" width="${X(100) - P}" height="${Y(100) - P}" fill="var(--q-imp)" opacity=".07"/>` +
+    `<line x1="${X(100)}" y1="${P}" x2="${X(100)}" y2="${H - P}" stroke="var(--sb-muted)" stroke-dasharray="3 3"/>` +
+    `<line x1="${P}" y1="${Y(100)}" x2="${W - P}" y2="${Y(100)}" stroke="var(--sb-muted)" stroke-dasharray="3 3"/>` +
+    `<text x="${W - P - 4}" y="${P + 14}" text-anchor="end" font-size="13" font-weight="700" fill="var(--q-lead)">領先</text>` +
+    `<text x="${W - P - 4}" y="${H - P - 6}" text-anchor="end" font-size="13" font-weight="700" fill="var(--q-weak)">轉弱</text>` +
+    `<text x="${P + 4}" y="${H - P - 6}" font-size="13" font-weight="700" fill="var(--q-lag)">落後</text>` +
+    `<text x="${P + 4}" y="${P + 14}" font-size="13" font-weight="700" fill="var(--q-imp)">改善</text>` +
+    `<text x="${W / 2}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--sb-muted)">← 比大盤弱　相對強弱　比大盤強 →</text>` +
+    `<text x="10" y="${H / 2}" text-anchor="middle" font-size="11" fill="var(--sb-muted)" transform="rotate(-90 10 ${H / 2})">動能 ↑</text>`;
+  for (const x of rs) {
+    const t = x.tail.filter(p => p.x != null && p.y != null);
+    if (!t.length) continue;
+    const c = QC[x.q], on = x.s === sel;
+    g += `<polyline fill="none" stroke="${c}" stroke-width="${on ? 2.4 : 1.4}" opacity="${on ? .9 : .45}" points="${t.map(p => `${X(p.x).toFixed(1)},${Y(p.y).toFixed(1)}`).join(" ")}"/>`;
+    t.slice(0, -1).forEach(p => g += `<circle cx="${X(p.x).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="2" fill="${c}" opacity=".5"/>`);
+    const l = t[t.length - 1];
+    g += `<g data-s="${x.s}" style="cursor:pointer"><circle cx="${X(l.x).toFixed(1)}" cy="${Y(l.y).toFixed(1)}" r="${on ? 8 : 6}" fill="${c}" stroke="var(--sb-card)" stroke-width="2"/>` +
+         `<text x="${(X(l.x) + 9).toFixed(1)}" y="${(Y(l.y) + 4).toFixed(1)}" font-size="12" font-weight="${on ? 800 : 600}" fill="var(--sb-fg)">${esc(x.n)}</text></g>`;
+  }
+  return `<div class="sb-card"><h4>相對輪動象限 <small>點越往右越比大盤強，越往上動能越強；線條為近 6 週軌跡，點一下看細節</small></h4>` +
+    `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="美股板塊相對輪動象限圖">${g}</svg></div>`;
+}
+
+function table(){
+  const rs = rows().slice().sort((a, b) => (b.f5 ?? -1e9) - (a.f5 ?? -1e9));
+  return `<p class="sb-meta">依 5 日資金流估算排序（億美元）；相對＝與 S&P 500（SPY）20 日報酬差</p><div class="sb-tw"><table><thead><tr>` +
+    `<th>板塊</th><th>象限</th><th class="n">1 日</th><th class="n">5 日</th><th class="n hd">20 日</th><th class="n">相對 20 日</th><th class="n">5 日資金流</th><th class="n hd">20 日資金流</th><th class="n hd">量比</th></tr></thead><tbody>` +
+    rs.map(x => `<tr data-s="${x.s}" class="${x.s === sel ? "sel" : ""}"><td><b>${esc(x.n)}</b><span class="sym">${x.s}</span></td><td>${qtag(x.q)}</td>` +
+      `<td class="n ${cls(x.r1)}">${pct(x.r1, 2)}</td><td class="n ${cls(x.r5)}">${pct(x.r5)}</td><td class="n hd ${cls(x.r20)}">${pct(x.r20)}</td>` +
+      `<td class="n ${cls(x.rel20)}">${pct(x.rel20)}</td><td class="n ${cls(x.f5)}"><b>${sg(x.f5)}</b></td><td class="n hd ${cls(x.f20)}">${sg(x.f20)}</td><td class="n hd">${x.vr ?? "—"}x</td></tr>`).join("") +
+    `</tbody></table></div>`;
+}
+
+function spark(a){
+  if (!a || a.length < 3) return "";
+  const lo = Math.min(...a), hi = Math.max(...a), w = 300, h = 60, k = hi - lo || 1;
+  const pts = a.map((v, i) => `${(i / (a.length - 1) * w).toFixed(1)},${(h - 3 - (v - lo) / k * (h - 6)).toFixed(1)}`).join(" ");
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:60px" aria-hidden="true"><polyline fill="none" stroke="${a[a.length - 1] >= a[0] ? "var(--sb-up)" : "var(--sb-down)"}" stroke-width="1.8" points="${pts}"/></svg>`;
+}
+
+function detail(){
+  const x = S.rows.find(r => r.s === sel);
+  if (!x) return "";
+  const kv = [["價格", x.p], ["1 日", pct(x.r1, 2), cls(x.r1)], ["5 日", pct(x.r5), cls(x.r5)], ["20 日", pct(x.r20), cls(x.r20)], ["60 日", pct(x.r60), cls(x.r60)],
+              ["今日資金流", sg(x.f1) + " 億", cls(x.f1)], ["CMF 20", sg(x.cmf, 3), cls(x.cmf)], ["成交值", (x.dv ?? "—") + " 億"]];
+  const mem = x.mem && x.mem.length ? `<div class="sb-tw" style="margin-top:8px"><table><thead><tr><th>成分股（成交值前 100）</th><th class="n">價格</th><th class="n">漲跌</th><th class="n">5 日</th><th class="n hd">20 日</th><th class="n hd">成交值</th></tr></thead><tbody>` +
+    x.mem.map(m => `<tr><td><b class="sym" style="margin:0;color:var(--sb-fg);font-size:13px">${esc(m.s)}</b> <span style="font-size:12px;color:var(--sb-muted)">${esc(m.n)}</span></td><td class="n">${m.p}</td><td class="n ${cls(m.ch)}">${pct(m.ch, 2)}</td><td class="n ${cls(m.r5)}">${pct(m.r5)}</td><td class="n hd ${cls(m.r20)}">${pct(m.r20)}</td><td class="n hd">${m.dv}</td></tr>`).join("") +
+    `</tbody></table></div>` : `<p class="sb-meta">${x.k === "風格" ? "風格指數，沒有列成分股" : "成交值前 100 檔裡沒有這個板塊的股票"}</p>`;
+  return `<h4>${esc(x.n)}<span class="sym">${x.s}</span> ${qtag(x.q)} <small>${QD[x.q]}</small></h4>` +
+    `<div class="sb-grid2"><div><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px">${kv.map(([t, v, c]) => `<div style="background:var(--sb-soft);border-radius:8px;padding:5px 8px;min-width:0"><div style="font-size:11px;color:var(--sb-muted)">${t}</div><b class="${c || ""}" style="font-variant-numeric:tabular-nums">${v}</b></div>`).join("")}</div></div>` +
+    `<div><div style="font-size:11px;color:var(--sb-muted)">近 60 日走勢</div>${spark(x.spark)}</div></div>${mem}`;
+}
+
+function render(){
+  const sp = S.spy || {};
+  $("sb-kpis").innerHTML = ["領先", "改善", "轉弱", "落後"].map(q => `<button class="sb-k ${qf === q ? "on" : ""}" data-q="${q}"><div class="t" style="color:${QC[q]};font-weight:700">${q}</div><div class="v">${S.cnt[q] ?? 0}</div><div class="s">${QD[q].split("：")[1]}</div></button>`).join("") +
+    `<div class="sb-k" style="cursor:default"><div class="t">S&amp;P 500（SPY）</div><div class="v ${cls(sp.r1)}" style="font-size:18px">${pct(sp.r1, 2)}</div><div class="s">5 日 ${pct(sp.r5)}・20 日 ${pct(sp.r20)}</div></div>`;
+  $("sb-bar").innerHTML = [["chart", "象限圖"], ["table", "資金流排行"]].map(([k, t]) => `<button data-v="${k}" class="${view === k ? "on" : ""}">${t}</button>`).join("") +
+    `<span class="sp"></span>` + ["全部", "產業", "主題", "風格"].map(k => `<button data-k="${k}" class="${kind === k ? "on" : ""}">${k}</button>`).join("");
+  $("sb-view").innerHTML = view === "chart" ? chart() : table();
+  $("sb-detail").innerHTML = detail();
+  $("sb-note").innerHTML = `資料日期：美東 ${esc(S.date)}（更新 ${esc(S.time)}）。用產業與主題 ETF 代表各板塊；相對強弱＝ETF ÷ SPY 與其 50 日均值的比，動能＝相對強弱 10 日變化（類似 RRG 相對輪動圖）。` +
+    `資金流為 Chaikin 估算：收盤越靠近當日高點、成交值越大，流入越多；不是 ETF 實際申贖金額。僅供參考，不構成投資建議。`;
+}
+$("sb").addEventListener("click", ev => {
+  const t = ev.target.closest("[data-s],[data-v],[data-k],[data-q]");
+  if (!t) return;
+  if (t.dataset.s) sel = t.dataset.s;
+  if (t.dataset.v) { view = t.dataset.v; try { localStorage.setItem("sbView", view); } catch(e) {} }
+  if (t.dataset.k) { kind = t.dataset.k; qf = null; }
+  if (t.dataset.q) qf = qf === t.dataset.q ? null : t.dataset.q;
+  render();
+});
+render();
+})();
+</script>
+<!--SB-END-->

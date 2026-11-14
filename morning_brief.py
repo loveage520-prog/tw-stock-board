@@ -221,6 +221,14 @@ def build() -> dict:
         res["news"] = {"sections": {}, "n": 0}
     us = us_close()
     res["us"] = {k: us.get(k) for k in ("date", "summary", "idx", "chain", "mac", "sectors")} if us else {}
+    fl = load("us/flow.json")
+    if fl.get("rows"):
+        qs = {}
+        for x in fl["rows"]:
+            if x["k"] != "風格":
+                qs.setdefault(x["q"], []).append(x["n"])
+        res["us"]["rot"] = {q: qs.get(q, []) for q in ("領先", "改善", "轉弱", "落後")}
+        res["us"]["flow_in"] = [f"{x['n']}({x['f5']:+.0f}億)" for x in sorted(fl["rows"], key=lambda x: -(x["f5"] or 0))[:3]]
     try:
         res["night"] = night_futures()
     except Exception as e:  # noqa: BLE001
@@ -239,6 +247,8 @@ def telegram_text(b: dict) -> str:
     if us.get("summary"):
         L.append(f"\n🇺🇸 <b>美股收盤（{e(us['date'][5:].replace('-', '/'))}）</b>")
         L += [f"• {e(s)}" for s in us["summary"][:6]]
+        if us.get("rot"):
+            L.append("• 板塊輪動：" + e("；".join(f"{q} {'、'.join(v[:4])}" for q, v in us["rot"].items() if v and q in ("領先", "改善"))))
     n = b.get("night")
     if n:
         L.append(f"\n🌙 <b>台指期夜盤</b> {n['p']:,.0f}（{n['ch']:+,.0f}，{pct(n['pct'])}）" if n.get("ch") is not None else f"\n🌙 台指期夜盤 {n['p']:,.0f}")

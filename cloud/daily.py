@@ -19,6 +19,7 @@ STEPS = [
     ("資金流向＋全球市場", ["sector_flow.py", "--auto", "--no-browser"]),
     ("成交排行與漲跌停", ["market_board.py", "--close"]),
     ("外資投信 15 日＋美股", ["post_board.py"]),
+    ("美股板塊資金流向", ["us_flow.py"]),
     ("融資借券營收期權", ["extra_board.py"]),
     ("主動式 ETF 持股", ["etf_board.py"]),
 ]

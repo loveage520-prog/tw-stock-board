@@ -56,7 +56,7 @@ let h = `<div class="nb-h"><h3>${esc(B.title)}</h3><span>產生時間 ${esc(B.ti
 const us = B.us || {};
 if (us.summary && us.summary.length) {
   const ix = (us.idx || []).filter(x => x.s !== "^RUT").map(x => kv(x.n, fmt(x.p), pct(x.ch), cls(x.ch))).join("");
-  h += `<div class="nb-card"><h4>🇺🇸 美股收盤 <small>美東 ${md(us.date)}</small></h4><div class="kv">${ix}</div><ul>${us.summary.map(s => `<li>${esc(s)}</li>`).join("")}</ul></div>`;
+  h += `<div class="nb-card"><h4>🇺🇸 美股收盤 <small>美東 ${md(us.date)}</small></h4><div class="kv">${ix}</div><ul>${us.summary.map(s => `<li>${esc(s)}</li>`).join("")}${us.rot ? Object.entries(us.rot).filter(([q, v]) => v.length).map(([q, v]) => `<li>板塊${esc(q)}：${esc(v.join("、"))}</li>`).join("") : ""}</ul></div>`;
 }
 const tw = B.tw || {}, n = B.night;
 let tk = (tw.idx || []).map(x => kv(`${x.n}（${md(x.d)}）`, fmt(x.p), `${sg(x.ch)}　${pct(x.pct)}`, cls(x.ch))).join("");

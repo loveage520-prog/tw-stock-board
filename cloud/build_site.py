@@ -48,7 +48,8 @@ def prep(kind: str, src: str, args: list[str], out: str, extra_head: str = "") -
 
 prep("flow", "sector_flow.html",
      [frag("market_board_fragment.html"), frag("post_board_fragment.html"), frag("extra_board_fragment.html"),
-      frag("etf_board_fragment.html"), frag("us_live_fragment.html"), frag("morning_fragment.html")], "index.html")
+      frag("etf_board_fragment.html"), frag("us_live_fragment.html"), frag("morning_fragment.html"),
+      frag("us_flow_fragment.html")], "index.html")
 # 盤中頁每 5 分鐘自動重新整理
 prep("pulse", "dashboard.html", [frag("market_board_fragment.html"), frag("us_live_fragment.html")], "pulse.html",
      '<meta http-equiv="refresh" content="300">\n')

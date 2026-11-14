@@ -4,15 +4,15 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 publish() {
-  bash cloud/refresh_pages.sh us_live_fragment.html
+  bash cloud/refresh_pages.sh us_live_fragment.html us_flow_fragment.html
   python cloud/build_site.py >/dev/null 2>&1 && bash cloud/git_push_dir.sh site gh-pages >/dev/null 2>&1 \
     && echo "$(date '+%H:%M') 網頁已更新" || echo "$(date '+%H:%M') 網頁更新失敗"
 }
 python us_live.py --wait
 if [ $? -eq 2 ]; then
   echo "今天美股沒有盤或已收盤，只更新一次"
-  python us_live.py --once; publish
-  bash cloud/data_push_part.sh "us" "us_live_fragment.html"
+  python us_live.py --once; python us_flow.py; publish
+  bash cloud/data_push_part.sh "us" "us_live_fragment.html us_flow_fragment.html"
   exit 0
 fi
 start=$(date +%s)
@@ -20,8 +20,12 @@ while true; do
   python us_live.py --once
   rc=$?
   publish
-  [ $rc -eq 3 ] && { echo "美股已收盤，收盤重點完成"; break; }
+  if [ $rc -eq 3 ]; then
+    echo "美股已收盤，收盤重點完成"
+    python us_flow.py && publish
+    break
+  fi
   [ $(( $(date +%s) - start )) -gt 20100 ] && { echo "接近 6 小時上限，交給下一段"; break; }
   sleep 300
 done
-bash cloud/data_push_part.sh "us" "us_live_fragment.html"
+bash cloud/data_push_part.sh "us" "us_live_fragment.html us_flow_fragment.html"

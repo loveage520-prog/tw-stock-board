@@ -164,44 +164,90 @@ HASH_JS = """<script>
 """
 
 
-PZ_CSS = """<style>
-.pz-tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;gap:6px;padding:8px 0;margin:-8px 0 8px;background:var(--bg)}
-.pz-tabs button{flex:1;max-width:180px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-weight:700;cursor:pointer}
-.pz-tabs button.on{background:var(--fg);color:var(--card);border-color:var(--fg)}
-.pz-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+MK_CSS = """<style>
+/* 最上層：台股／美股切換＋頁面切換（兩個頁面共用） */
+.mk-nav{position:sticky;top:0;z-index:30;background:var(--bg,#f4f5f7);padding:calc(8px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line,#e3e6eb)}
+.mk-in{max-width:1440px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.mk-seg{display:inline-flex;padding:3px;border-radius:12px;background:var(--line,#e3e6eb);gap:3px}
+.mk-seg button{border:0;background:none;color:var(--fg,#1c2230);font:inherit;font-weight:700;font-size:15px;padding:7px 18px;border-radius:9px;cursor:pointer}
+.mk-seg button.on{background:var(--card,#fff);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.mk-seg button:focus-visible,.mk-pg a:focus-visible,.mk-sub button:focus-visible{outline:2px solid var(--accent,#2f5fb3);outline-offset:1px}
+.mk-pg{display:inline-flex;gap:4px}
+.mk-pg a{padding:6px 12px;border-radius:9px;border:1px solid var(--line,#e3e6eb);color:var(--fg,#1c2230);text-decoration:none;font-size:13px;font-weight:600;background:var(--card,#fff)}
+.mk-pg a.on{background:var(--fg,#1c2230);color:var(--card,#fff);border-color:var(--fg,#1c2230)}
+.mk-us{max-width:1440px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px))}
+.mk-us h1{font-size:20px;margin:0 0 10px}
+.mk-sub{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+.mk-sub button{padding:7px 14px;border-radius:9px;border:1px solid var(--line,#e3e6eb);background:var(--card,#fff);color:var(--fg,#1c2230);font:inherit;font-weight:600;cursor:pointer}
+.mk-sub button.on{background:var(--fg,#1c2230);color:var(--card,#fff);border-color:var(--fg,#1c2230)}
+@media (max-width:480px){.mk-seg button{padding:7px 13px}.mk-pg a{padding:6px 9px}}
 </style>
 """
-PZ_JS = """<script>
-/* 台股／美股盤中切換：網址 #us 或 #tw；沒指定時晚上 9 點到早上 6 點自動顯示美股 */
+
+
+def mk_nav(page: str) -> str:
+    pg = [("pulse", URL_PULSE, "盤中脈動"), ("flow", URL_FLOW, "盤後・資金流向")]
+    links = "".join(f'<a class="{"on" if k == page else ""}" data-base="{u}" href="{u}">{t}</a>' for k, u, t in pg)
+    return (MK_CSS + '<nav class="mk-nav" aria-label="市場與頁面"><div class="mk-in">'
+            '<div class="mk-seg"><button data-mk="tw" class="on">🇹🇼 台股</button><button data-mk="us">🇺🇸 美股</button></div>'
+            f'<div class="mk-pg">{links}</div></div></nav>\n')
+
+
+def mk_js(default: str) -> str:
+    """default：'tw' 或 'time'（晚上 9 點到早上 6 點自動顯示美股）"""
+    return """<script>
+/* 台股／美股切換：網址 #us（或 #us-live）、#tw；切換頁面時會帶著目前的市場 */
 (function(){
+  const tw = document.getElementById("mkTw"), us = document.getElementById("mkUs");
   const show = v => {
-    document.getElementById("pzTw").hidden = v !== "tw";
-    document.getElementById("pzUs").hidden = v !== "us";
-    document.querySelectorAll(".pz-tabs button").forEach(b => b.classList.toggle("on", b.dataset.pz === v));
+    tw.hidden = v !== "tw"; us.hidden = v !== "us";
+    document.querySelectorAll(".mk-seg button").forEach(b => b.classList.toggle("on", b.dataset.mk === v));
+    document.querySelectorAll(".mk-pg a").forEach(a => a.href = a.dataset.base + (v === "us" ? "#us" : "#tw"));
+    if (v === "tw") dispatchEvent(new Event("resize"));
   };
-  document.querySelectorAll(".pz-tabs button").forEach(b => b.onclick = () => {
-    show(b.dataset.pz);
-    try { history.replaceState(null, "", "#" + b.dataset.pz); } catch(e) { location.hash = b.dataset.pz; }
+  document.querySelectorAll(".mk-seg button").forEach(b => b.onclick = () => {
+    show(b.dataset.mk);
+    try { history.replaceState(null, "", "#" + b.dataset.mk); } catch(e) {}
+    scrollTo(0, 0);
   });
-  let v = location.hash.slice(1);
-  if (v !== "us" && v !== "tw") {
+  const h = location.hash.slice(1);
+  let v = h.startsWith("us") ? "us" : h ? "tw" : null;
+  if (!v) {
     const hr = Number(new Intl.DateTimeFormat("en-US", {timeZone: "Asia/Taipei", hour: "numeric", hour12: false}).format(new Date())) % 24;
-    v = (hr >= 21 || hr < 6) ? "us" : "tw";
+    v = ("__DEF__" === "time" && (hr >= 21 || hr < 6)) ? "us" : "tw";
   }
   show(v);
+  const subs = document.querySelectorAll(".mk-sub button");
+  const sub = k => { subs.forEach(b => b.classList.toggle("on", b.dataset.sub === k)); document.querySelectorAll("[data-subv]").forEach(d => d.hidden = d.dataset.subv !== k); };
+  subs.forEach(b => b.onclick = () => { sub(b.dataset.sub); try { history.replaceState(null, "", "#" + (b.dataset.sub === "live" ? "us-live" : "us")); } catch(e) {} });
+  if (subs.length) sub(h === "us-live" ? "live" : "flow");
 })();
 </script>
-"""
+""".replace("__DEF__", default)
 
 
 def embed_pulse_us(h: str, frag: str) -> str:
-    """盤中脈動頁：加「台股盤中／美股盤中」切換，美股放在另一個分頁"""
+    """盤中脈動頁：最上層加「台股／美股」切換，美股盤中放在美股畫面"""
     assert "<main>" in h and "</main>" in h, "盤中脈動頁面的結構變了"
-    nav = '<nav class="pz-tabs" aria-label="市場"><button data-pz="tw" class="on">台股盤中</button><button data-pz="us">美股盤中</button></nav>'
-    h = h.replace("<main>", PZ_CSS + "<main>\n" + nav + '\n<div id="pzTw">', 1)
-    i = h.rfind("</main>")
-    h = h[:i] + '</div>\n<div id="pzUs" hidden>\n' + frag + "\n</div>\n" + h[i:]
-    return h + PZ_JS
+    h = h.replace("<main>", mk_nav("pulse") + '<div id="mkTw">\n<main>', 1)
+    i = h.rfind("</main>") + len("</main>")
+    h = h[:i] + '\n</div>\n<div id="mkUs" class="mk-us" hidden>\n<h1>美股盤中脈動</h1>\n' + frag + "\n</div>\n" + h[i:]
+    return h + mk_js("time")
+
+
+def embed_flow_us(h: str, live: str | None, flow: str | None) -> str:
+    """資金流向頁：最上層加「台股／美股」切換；美股畫面＝美股板塊資金流向＋盤中・收盤重點"""
+    assert '<div class="wrap">' in h
+    h = h.replace('<div class="wrap">', mk_nav("flow") + '<div id="mkTw">\n<div class="wrap">', 1)
+    subs, views = [], []
+    if flow:
+        subs.append('<button data-sub="flow" class="on">板塊資金流向</button>')
+        views.append(f'<div data-subv="flow">\n{flow}\n</div>')
+    if live:
+        subs.append('<button data-sub="live">盤中・收盤重點</button>')
+        views.append(f'<div data-subv="live" hidden>\n{live}\n</div>')
+    return (h + '\n</div>\n<div id="mkUs" class="mk-us" hidden>\n<h1>美股板塊資金流向</h1>\n'
+            f'<div class="mk-sub">{"".join(subs)}</div>\n' + "\n".join(views) + "\n</div>\n" + mk_js("tw"))
 
 
 def embed_pulse(h: str, frag: str) -> str:
@@ -226,11 +272,16 @@ def main():
     if kind == "flow" and len(sys.argv) > 6 and sys.argv[6] != "-":
         h = embed_extra(h, frag_of(sys.argv[6], "XB"))
     # 第 7～9 個參數（只限 flow）：主動式 ETF、美股即時、晨報（後加的排在前面）
-    for i, (tag, view, label) in enumerate([("EB", "etf", "主動式ETF"), ("UB", "us", "美股即時"), ("NB", "morning", "晨報")], start=7):
-        if kind == "flow" and len(sys.argv) > i and sys.argv[i] != "-":
-            h = embed_tab(h, frag_of(sys.argv[i], tag), view, label)
+    arg = lambda i: sys.argv[i] if len(sys.argv) > i and sys.argv[i] != "-" else None  # noqa: E731
+    for i, (tag, view, label) in ((7, ("EB", "etf", "主動式ETF")), (9, ("NB", "morning", "晨報"))):
+        if kind == "flow" and arg(i):
+            h = embed_tab(h, frag_of(arg(i), tag), view, label)
     if kind == "flow":
         h += HASH_JS
+        # 第 8 個參數＝美股即時、第 10 個＝美股板塊資金流向 → 放進最上層「美股」畫面
+        live, flw = arg(8), arg(10)
+        if live or flw:
+            h = embed_flow_us(h, frag_of(live, "UB") if live else None, frag_of(flw, "SB") if flw else None)
     open(dst, "w", encoding="utf-8").write(h)
     left = [w for w in ("★", "我的持股", "持股 ") if w in h and kind == "pulse"]
     print(f"{kind}: {len(h):,} 字元 → {dst}" + (f"（注意：仍含 {left}）" if left else ""))
