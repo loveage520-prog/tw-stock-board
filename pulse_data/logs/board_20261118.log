@@ -1,0 +1,142 @@
+03:15:48 股票清單：上市 1219、上櫃 943 檔
+03:15:49 證交所 2026-11-18 沒有收盤行情（休市或尚未公布）
+03:15:49 上市 1089 檔（證交所官方）
+03:16:03 上櫃 866 檔（櫃買中心）
+03:16:03 收盤 03:16｜漲停 11、跌停 73｜上漲 397／下跌 1442｜前 100 名佔成交 81%｜→ market_board.html
+08:45:40 股票清單：上市 1219、上櫃 943 檔
+09:02:56 全市場掃描 798 檔，耗時 176 秒
+09:02:56 盤中 09:02｜漲停 2、跌停 6｜上漲 588／下跌 147｜前 100 名佔成交 94%｜→ market_board.html
+09:08:19 全市場掃描 1394 檔，耗時 188 秒
+09:08:19 盤中 09:08｜漲停 8、跌停 5｜上漲 892／下跌 379｜前 100 名佔成交 87%｜→ market_board.html
+09:13:36 全市場掃描 1521 檔，耗時 212 秒
+09:13:36 盤中 09:13｜漲停 4、跌停 7｜上漲 629／下跌 737｜前 100 名佔成交 85%｜→ market_board.html
+09:18:32   第 34 批查詢失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_3518.tw%7Cotc_3520.tw%7Cotc_3523.tw%7Cotc_3526.tw%7Cotc_3485.tw%7Cotc_3484.tw%7Cotc_3483.tw%7Ctse_3481.tw%7Ctse_3416.tw%7Ctse_3419.tw%7Cotc_3430.tw%7Ctse_3432.tw%7Cotc_3434.tw%7Ctse_3437.tw%7Cotc_3438.tw%7Cotc_3441.tw%7Cotc_3527.tw%7Ctse_3443.tw%7Ctse_3447.tw%7Cotc_3455.tw%7Cotc_3466.tw%7Cotc_3467.tw%7Cotc_3479.tw%7Ctse_3528.tw%7Cotc_3529.tw%7Cotc_3570.tw%7Ctse_3576.tw%7Cotc_3577.tw%7Cotc_3580.tw%7Cotc_3581.tw%7Ctse_3583.tw%7Cotc_3587.tw%7Ctse_3588.tw%7Cotc_3567.tw%7Ctse_3591.tw%7Ctse_3592.tw%7Ctse_3593.tw%7Cotc_3594.tw%7Ctse_3596.tw%7Cotc_3597.tw%7Ctse_3605.tw%7Cotc_3564.tw%7Ctse_3563.tw%7Ctse_3530.tw%7Cotc_3531.tw%7Ctse_3532.tw%7Ctse_3533.tw%7Ctse_3535.tw%7Cotc_3537.tw%7Cotc_3540.tw&json=1&delay=0&_=1794964679216 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x705325b1ab40>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))
+09:19:29 全市場掃描 1539 檔，耗時 263 秒
+09:19:29 盤中 09:19｜漲停 2、跌停 10｜上漲 689／下跌 696｜前 100 名佔成交 86%｜→ market_board.html
+09:25:05 全市場掃描 1627 檔，耗時 291 秒
+09:25:05 盤中 09:25｜漲停 1、跌停 14｜上漲 513／下跌 941｜前 100 名佔成交 86%｜→ market_board.html
+09:27:54 全市場掃描 1656 檔，耗時 154 秒
+09:27:54 盤中 09:27｜漲停 1、跌停 10｜上漲 482／下跌 1004｜前 100 名佔成交 86%｜→ market_board.html
+09:33:06 全市場掃描 1691 檔，耗時 176 秒
+09:33:06 盤中 09:33｜漲停 0、跌停 15｜上漲 541／下跌 979｜前 100 名佔成交 85%｜→ market_board.html
+09:37:51 全市場掃描 1708 檔，耗時 165 秒
+09:37:51 盤中 09:37｜漲停 3、跌停 16｜上漲 518／下跌 1019｜前 100 名佔成交 85%｜→ market_board.html
+09:42:56 全市場掃描 1725 檔，耗時 170 秒
+09:42:56 盤中 09:42｜漲停 3、跌停 16｜上漲 305／下跌 1275｜前 100 名佔成交 85%｜→ market_board.html
+09:47:16 全市場掃描 1752 檔，耗時 125 秒
+09:47:16 盤中 09:47｜漲停 1、跌停 19｜上漲 266／下跌 1348｜前 100 名佔成交 85%｜→ market_board.html
+09:52:50 全市場掃描 1767 檔，耗時 169 秒
+09:52:50 盤中 09:52｜漲停 1、跌停 20｜上漲 239／下跌 1416｜前 100 名佔成交 85%｜→ market_board.html
+09:57:38 全市場掃描 1783 檔，耗時 153 秒
+09:57:38 盤中 09:57｜漲停 1、跌停 19｜上漲 193／下跌 1492｜前 100 名佔成交 85%｜→ market_board.html
+10:02:20   第 23 批查詢失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_7750.tw%7Cotc_7751.tw%7Cotc_7753.tw%7Cotc_7757.tw%7Ctse_7760.tw%7Cotc_7738.tw%7Ctse_7736.tw%7Cotc_7712.tw%7Cotc_7713.tw%7Cotc_7714.tw%7Cotc_7715.tw%7Cotc_7716.tw%7Cotc_7717.tw%7Ctse_7721.tw%7Ctse_7722.tw%7Cotc_7723.tw%7Cotc_7728.tw%7Ctse_7730.tw%7Ctse_7732.tw%7Cotc_7734.tw%7Cotc_6986.tw%7Cotc_6913.tw%7Ctse_6914.tw%7Ctse_6916.tw%7Ctse_6918.tw%7Ctse_6919.tw%7Ctse_6921.tw%7Cotc_6922.tw%7Ctse_6923.tw%7Cotc_6925.tw%7Ctse_6928.tw%7Ctse_6909.tw%7Cotc_6884.tw%7Ctse_6885.tw%7Ctse_6887.tw%7Ctse_6890.tw%7Cotc_6894.tw%7Cotc_6895.tw%7Cotc_6898.tw%7Cotc_6899.tw%7Ctse_6901.tw%7Cotc_6903.tw%7Cotc_6904.tw%7Ctse_6906.tw%7Cotc_6907.tw%7Ctse_6908.tw%7Cotc_6910.tw%7Cotc_6929.tw%7Ctse_6931.tw%7Ctse_6955.tw&json=1&delay=0&_=1794967321766 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))
+10:03:46 全市場掃描 1782 檔，耗時 218 秒
+10:03:46 盤中 10:03｜漲停 1、跌停 25｜上漲 139／下跌 1547｜前 100 名佔成交 85%｜→ market_board.html
+10:08:12 全市場掃描 1852 檔，耗時 192 秒
+10:08:12 盤中 10:08｜漲停 0、跌停 25｜上漲 134／下跌 1633｜前 100 名佔成交 84%｜→ market_board.html
+10:13:22 全市場掃描 1880 檔，耗時 190 秒
+10:13:22 盤中 10:13｜漲停 1、跌停 21｜上漲 195／下跌 1584｜前 100 名佔成交 84%｜→ market_board.html
+10:16:21   第 12 批查詢失敗：Expecting value: line 22 column 1 (char 21)
+10:20:44 全市場掃描 1843 檔，耗時 336 秒
+10:20:44 盤中 10:20｜漲停 1、跌停 35｜上漲 142／下跌 1624｜前 100 名佔成交 84%｜→ market_board.html
+10:21:18   第 1 批查詢失敗：Expecting value: line 22 column 1 (char 21)
+10:22:27   第 5 批查詢失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)
+10:26:31 全市場掃描 1851 檔，耗時 333 秒
+10:26:31 盤中 10:26｜漲停 0、跌停 35｜上漲 153／下跌 1616｜前 100 名佔成交 84%｜→ market_board.html
+10:28:31   第 6 批查詢失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)
+10:30:20   第 34 批查詢失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_3518.tw%7Cotc_3520.tw%7Cotc_3523.tw%7Cotc_3526.tw%7Cotc_3485.tw%7Cotc_3484.tw%7Cotc_3483.tw%7Ctse_3481.tw%7Ctse_3416.tw%7Ctse_3419.tw%7Cotc_3430.tw%7Ctse_3432.tw%7Cotc_3434.tw%7Ctse_3437.tw%7Cotc_3438.tw%7Cotc_3441.tw%7Cotc_3527.tw%7Ctse_3443.tw%7Ctse_3447.tw%7Cotc_3455.tw%7Cotc_3466.tw%7Cotc_3467.tw%7Cotc_3479.tw%7Ctse_3528.tw%7Cotc_3529.tw%7Cotc_3570.tw%7Ctse_3576.tw%7Cotc_3577.tw%7Cotc_3580.tw%7Cotc_3581.tw%7Ctse_3583.tw%7Cotc_3587.tw%7Ctse_3588.tw%7Cotc_3567.tw%7Ctse_3591.tw%7Ctse_3592.tw%7Ctse_3593.tw%7Cotc_3594.tw%7Ctse_3596.tw%7Cotc_3597.tw%7Ctse_3605.tw%7Cotc_3564.tw%7Ctse_3563.tw%7Ctse_3530.tw%7Cotc_3531.tw%7Ctse_3532.tw%7Ctse_3533.tw%7Ctse_3535.tw%7Cotc_3537.tw%7Cotc_3540.tw&json=1&delay=0&_=1794969001917 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))
+10:30:43   第 35 批查詢失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)
+10:31:08   第 36 批查詢失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_4906.tw%7Ctse_4943.tw%7Cotc_4946.tw%7Ctse_4949.tw%7Cotc_4951.tw%7Ctse_4952.tw%7Cotc_4953.tw%7Ctse_4956.tw%7Ctse_4942.tw%7Ctse_4958.tw%7Ctse_4960.tw%7Ctse_4961.tw%7Cotc_4966.tw%7Ctse_4967.tw%7Ctse_4968.tw%7Cotc_4971.tw%7Cotc_4972.tw%7Cotc_4973.tw%7Ctse_4938.tw%7Cotc_4907.tw%7Cotc_4908.tw%7Cotc_4909.tw%7Cotc_4911.tw%7Ctse_4912.tw%7Ctse_4915.tw%7Ctse_4916.tw%7Ctse_4919.tw%7Cotc_4939.tw%7Ctse_4927.tw%7Ctse_4930.tw%7Cotc_4931.tw%7Cotc_4933.tw%7Ctse_4934.tw%7Ctse_4935.tw%7Cotc_4923.tw%7Ctse_4588.tw%7Cotc_4205.tw%7Cotc_4303.tw%7Cotc_4304.tw%7Cotc_4305.tw%7Ctse_4306.tw%7Cotc_4401.tw%7Cotc_4402.tw%7Cotc_4406.tw%7Cotc_4413.tw%7Ctse_4414.tw%7Cotc_4416.tw%7Cotc_4417.tw%7Cotc_4420.tw%7Ctse_4426.tw&json=1&delay=0&_=1794969047176 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))
+10:31:35 全市場掃描 1749 檔，耗時 289 秒
+10:31:35 盤中 10:31｜漲停 0、跌停 23｜上漲 192／下跌 1475｜前 100 名佔成交 85%｜→ market_board.html
+10:34:57 全市場掃描 1904 檔，耗時 187 秒
+10:34:57 盤中 10:34｜漲停 0、跌停 29｜上漲 199／下跌 1619｜前 100 名佔成交 84%｜→ market_board.html
+10:38:12 全市場掃描 1905 檔，耗時 180 秒
+10:38:12 盤中 10:38｜漲停 0、跌停 29｜上漲 207／下跌 1621｜前 100 名佔成交 84%｜→ market_board.html
+10:42:44 全市場掃描 1907 檔，耗時 152 秒
+10:42:44 盤中 10:42｜漲停 1、跌停 31｜上漲 189／下跌 1637｜前 100 名佔成交 83%｜→ market_board.html
+10:47:16 全市場掃描 1913 檔，耗時 121 秒
+10:47:16 盤中 10:47｜漲停 2、跌停 33｜上漲 170／下跌 1660｜前 100 名佔成交 83%｜→ market_board.html
+10:52:09 全市場掃描 1914 檔，耗時 128 秒
+10:52:09 盤中 10:52｜漲停 1、跌停 34｜上漲 194／下跌 1654｜前 100 名佔成交 83%｜→ market_board.html
+10:57:29 全市場掃描 1915 檔，耗時 140 秒
+10:57:29 盤中 10:57｜漲停 1、跌停 34｜上漲 237／下跌 1593｜前 100 名佔成交 83%｜→ market_board.html
+11:04:16 全市場掃描 1918 檔，耗時 242 秒
+11:04:16 盤中 11:04｜漲停 1、跌停 30｜上漲 281／下跌 1540｜前 100 名佔成交 83%｜→ market_board.html
+11:07:31 全市場掃描 1919 檔，耗時 150 秒
+11:07:31 盤中 11:07｜漲停 4、跌停 26｜上漲 377／下跌 1439｜前 100 名佔成交 84%｜→ market_board.html
+11:13:05 全市場掃描 1922 檔，耗時 184 秒
+11:13:05 盤中 11:13｜漲停 3、跌停 28｜上漲 374／下跌 1423｜前 100 名佔成交 84%｜→ market_board.html
+11:17:33 全市場掃描 1922 檔，耗時 148 秒
+11:17:33 盤中 11:17｜漲停 3、跌停 27｜上漲 420／下跌 1377｜前 100 名佔成交 84%｜→ market_board.html
+11:22:56 全市場掃描 1923 檔，耗時 172 秒
+11:22:56 盤中 11:22｜漲停 1、跌停 29｜上漲 413／下跌 1385｜前 100 名佔成交 83%｜→ market_board.html
+11:27:23 全市場掃描 1924 檔，耗時 132 秒
+11:27:23 盤中 11:27｜漲停 5、跌停 29｜上漲 381／下跌 1433｜前 100 名佔成交 83%｜→ market_board.html
+11:32:57 全市場掃描 1924 檔，耗時 169 秒
+11:32:57 盤中 11:32｜漲停 5、跌停 26｜上漲 426／下跌 1372｜前 100 名佔成交 83%｜→ market_board.html
+11:37:16 全市場掃描 1925 檔，耗時 124 秒
+11:37:16 盤中 11:37｜漲停 2、跌停 30｜上漲 501／下跌 1304｜前 100 名佔成交 83%｜→ market_board.html
+11:42:29 全市場掃描 1927 檔，耗時 148 秒
+11:42:29 盤中 11:42｜漲停 7、跌停 27｜上漲 549／下跌 1259｜前 100 名佔成交 83%｜→ market_board.html
+11:47:38 全市場掃描 1928 檔，耗時 144 秒
+11:47:38 盤中 11:47｜漲停 8、跌停 27｜上漲 483／下跌 1325｜前 100 名佔成交 83%｜→ market_board.html
+11:52:05 全市場掃描 1928 檔，耗時 117 秒
+11:52:05 盤中 11:52｜漲停 9、跌停 27｜上漲 492／下跌 1309｜前 100 名佔成交 83%｜→ market_board.html
+11:57:29 全市場掃描 1930 檔，耗時 144 秒
+11:57:29 盤中 11:57｜漲停 7、跌停 30｜上漲 555／下跌 1264｜前 100 名佔成交 83%｜→ market_board.html
+12:03:21 全市場掃描 1931 檔，耗時 187 秒
+12:03:21 盤中 12:03｜漲停 7、跌停 30｜上漲 606／下跌 1207｜前 100 名佔成交 83%｜→ market_board.html
+12:07:18 全市場掃描 1931 檔，耗時 132 秒
+12:07:18 盤中 12:07｜漲停 9、跌停 30｜上漲 664／下跌 1150｜前 100 名佔成交 83%｜→ market_board.html
+12:11:59 全市場掃描 1932 檔，耗時 116 秒
+12:11:59 盤中 12:11｜漲停 6、跌停 33｜上漲 660／下跌 1157｜前 100 名佔成交 83%｜→ market_board.html
+12:17:43 全市場掃描 1933 檔，耗時 148 秒
+12:17:43 盤中 12:17｜漲停 8、跌停 32｜上漲 778／下跌 1049｜前 100 名佔成交 83%｜→ market_board.html
+12:23:38 全市場掃描 1934 檔，耗時 205 秒
+12:23:38 盤中 12:23｜漲停 10、跌停 37｜上漲 827／下跌 993｜前 100 名佔成交 83%｜→ market_board.html
+12:27:18 全市場掃描 1934 檔，耗時 130 秒
+12:27:18 盤中 12:27｜漲停 8、跌停 38｜上漲 790／下跌 1019｜前 100 名佔成交 83%｜→ market_board.html
+12:32:50 全市場掃描 1934 檔，耗時 167 秒
+12:32:50 盤中 12:32｜漲停 11、跌停 39｜上漲 860／下跌 961｜前 100 名佔成交 83%｜→ market_board.html
+12:37:39 全市場掃描 1936 檔，耗時 154 秒
+12:37:39 盤中 12:37｜漲停 13、跌停 36｜上漲 798／下跌 1010｜前 100 名佔成交 83%｜→ market_board.html
+12:43:28 全市場掃描 1937 檔，耗時 199 秒
+12:43:28 盤中 12:43｜漲停 19、跌停 30｜上漲 716／下跌 1079｜前 100 名佔成交 83%｜→ market_board.html
+12:47:40 全市場掃描 1937 檔，耗時 147 秒
+12:47:40 盤中 12:47｜漲停 15、跌停 36｜上漲 674／下跌 1139｜前 100 名佔成交 83%｜→ market_board.html
+12:53:52 全市場掃描 1938 檔，耗時 222 秒
+12:53:52 盤中 12:53｜漲停 10、跌停 41｜上漲 606／下跌 1198｜前 100 名佔成交 83%｜→ market_board.html
+12:58:30 全市場掃描 1938 檔，耗時 203 秒
+12:58:30 盤中 12:58｜漲停 16、跌停 37｜上漲 609／下跌 1215｜前 100 名佔成交 83%｜→ market_board.html
+13:03:23 全市場掃描 1938 檔，耗時 203 秒
+13:03:23 盤中 13:03｜漲停 13、跌停 37｜上漲 553／下跌 1266｜前 100 名佔成交 83%｜→ market_board.html
+13:07:39 全市場掃描 1939 檔，耗時 151 秒
+13:07:39 盤中 13:07｜漲停 13、跌停 36｜上漲 555／下跌 1264｜前 100 名佔成交 83%｜→ market_board.html
+13:10:31   第 1 批查詢失敗：Expecting value: line 22 column 1 (char 21)
+13:13:42 全市場掃描 1909 檔，耗時 213 秒
+13:13:42 盤中 13:13｜漲停 16、跌停 30｜上漲 541／下跌 1244｜前 100 名佔成交 83%｜→ market_board.html
+13:18:19 全市場掃描 1941 檔，耗時 187 秒
+13:18:19 盤中 13:18｜漲停 17、跌停 30｜上漲 567／下跌 1263｜前 100 名佔成交 83%｜→ market_board.html
+13:20:38   第 1 批查詢失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=otc_5450.tw%7Cotc_3629.tw%7Cotc_3687.tw%7Cotc_5481.tw%7Cotc_6238.tw%7Cotc_6497.tw%7Cotc_5349.tw%7Cotc_8934.tw%7Cotc_5304.tw%7Cotc_6438.tw%7Cotc_6426.tw%7Cotc_3092.tw%7Ctse_3450.tw%7Ctse_3669.tw%7Ctse_1443.tw%7Ctse_6165.tw%7Ctse_2429.tw%7Ctse_2614.tw%7Ctse_2241.tw%7Ctse_2459.tw%7Ctse_1453.tw%7Ctse_1456.tw%7Ctse_8499.tw%7Cotc_5604.tw%7Cotc_3219.tw%7Cotc_5345.tw%7Cotc_8354.tw%7Cotc_8489.tw%7Cotc_3313.tw%7Cotc_3685.tw%7Cotc_6275.tw%7Cotc_6506.tw%7Cotc_4152.tw%7Cotc_2928.tw%7Cotc_3144.tw%7Cotc_4803.tw%7Cotc_8406.tw%7Cotc_4429.tw%7Ctse_6431.tw%7Ctse_2495.tw%7Ctse_2340.tw%7Cotc_5321.tw%7Cotc_8080.tw%7Cotc_5209.tw%7Cotc_3512.tw%7Cotc_5102.tw%7Cotc_3652.tw%7Cotc_5820.tw%7Cotc_3642.tw%7Cotc_6247.tw&json=1&delay=0&_=1794979205771 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x705325aae9c0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))
+13:23:37 全市場掃描 1912 檔，耗時 212 秒
+13:23:37 盤中 13:23｜漲停 8、跌停 41｜上漲 564／下跌 1227｜前 100 名佔成交 83%｜→ market_board.html
+13:28:35 全市場掃描 1945 檔，耗時 208 秒
+13:28:35 盤中 13:28｜漲停 37、跌停 25｜上漲 606／下跌 1228｜前 100 名佔成交 83%｜→ market_board.html
+13:31:05 收盤掃描
+13:33:13 全市場掃描 1946 檔，耗時 128 秒
+13:33:13 盤中 13:33｜漲停 37、跌停 14｜上漲 745／下跌 1061｜前 100 名佔成交 83%｜→ market_board.html
+13:33:13 結束
+18:06:01 股票清單：上市 1219、上櫃 943 檔
+18:06:01 上市 1090 檔（證交所官方）
+18:07:32 櫃買中心資料抓取失敗：HTTPSConnectionPool(host='www.tpex.org.tw', port=443): Read timed out.
+18:07:32 上櫃改用盤中收盤掃描資料 867 檔
+18:07:32 收盤 18:07｜漲停 37、跌停 13｜上漲 780／下跌 1034｜前 100 名佔成交 83%｜→ market_board.html
+21:25:41 股票清單：上市 1219、上櫃 943 檔
+21:25:41 上市 1090 檔（證交所官方）
+21:25:48 上櫃 870 檔（櫃買中心）
+21:25:48 收盤 21:25｜漲停 37、跌停 12｜上漲 843／下跌 957｜前 100 名佔成交 83%｜→ market_board.html
+21:46:01 股票清單：上市 1219、上櫃 943 檔
+21:46:01 上市 1090 檔（證交所官方）
+21:46:30 上櫃 870 檔（櫃買中心）
+21:46:30 收盤 21:46｜漲停 37、跌停 12｜上漲 843／下跌 957｜前 100 名佔成交 83%｜→ market_board.html

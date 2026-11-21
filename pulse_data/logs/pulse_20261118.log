@@ -1,0 +1,388 @@
+08:45:40 資料來源：證交所（約 5 秒更新）
+08:45:41 基準量：101 檔取自盤後資金流向的證交所資料
+08:45:41 建立基準量：11 檔（每天第一次執行約需 1～2 分鐘）
+08:45:46 監控 112 檔，基準量 112 檔
+08:45:46 法人背景：2026-11-17 盤後資料，65 個板塊
+08:45:46 尚未開盤，13 分鐘後開始
+08:55:46 尚未開盤，3 分鐘後開始
+08:59:07 $^TWOII: No data found, symbol may be delisted
+08:59:08 
+2 Failed downloads:
+08:59:08 ['^VIX']: OperationalError('database is locked')
+08:59:08 ['^TWOII']: No data found, symbol may be delisted
+08:59:08 全球市場已更新：21 項（抓不到：櫃買指數、VIX 恐慌指數）
+08:59:08 08:59 ⏳ 資料累積中｜加權 —｜量能 —｜上漲 93%
+09:00:29 推播：⚠️ 我的族群「PCB/CCL」大漲 +5.1%（09:00）
+09:00:30 推播：⚠️ 我的族群「光通訊」大漲 +4.9%（09:00）
+09:00:30 推播：⚠️ 我的族群「封測」大漲 +4.9%（09:00）
+09:00:31 09:00 ⏳ 資料累積中｜加權 —｜量能 —｜上漲 93%
+09:01:36 推播：⚠️ 加權指數上漲超過 1%（09:01）
+09:01:36 推播：⚠️ 加權指數上漲超過 2%（09:01）
+09:01:37 09:01 ⏳ 資料累積中｜加權 +2.11%｜量能 —｜上漲 93%
+09:02:50 09:02 🔥 有量上攻｜加權 +1.37%｜量能 2.97x｜上漲 92%
+09:03:55 09:03 🔥 有量上攻｜加權 +1.37%｜量能 2.03x｜上漲 92%
+09:05:10 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794963895640 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea61332c4d0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+09:06:30 09:06 🔥 有量上攻｜加權 +1.19%｜量能 1.97x｜上漲 91%
+09:07:39 09:07 📈 溫和偏多｜加權 +0.89%｜量能 1.74x｜上漲 90%
+09:08:52 09:08 🔥 有量上攻｜加權 +1.13%｜量能 1.62x｜上漲 88%
+09:09:59 $^TWOII: No data found, symbol may be delisted
+09:09:59 
+1 Failed download:
+09:09:59 ['^TWOII']: No data found, symbol may be delisted
+09:10:00 全球市場已更新：22 項（抓不到：櫃買指數）
+09:10:00 09:09 🔥 有量上攻｜加權 +1.13%｜量能 1.42x｜上漲 88%
+09:11:14 09:11 📈 溫和偏多｜加權 +0.65%｜量能 1.41x｜上漲 88%
+09:12:32 09:12 📈 溫和偏多｜加權 +0.63%｜量能 1.38x｜上漲 88%
+09:13:37 09:13 📈 溫和偏多｜加權 +0.63%｜量能 1.25x｜上漲 88%
+09:14:47 09:14 🔥 有量上攻｜加權 +1.10%｜量能 1.26x｜上漲 85%
+09:15:57 09:15 🔥 有量上攻｜加權 +1.10%｜量能 1.21x｜上漲 85%
+09:17:08 09:16 🔥 有量上攻｜加權 +0.89%｜量能 1.22x｜上漲 84%
+09:18:29 09:18 🔥 有量上攻｜加權 +1.12%｜量能 1.26x｜上漲 84%
+09:19:44 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794964769779 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610944d10>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+09:21:02 $^TWOII: No data found, symbol may be delisted
+09:21:02 
+1 Failed download:
+09:21:02 ['^TWOII']: No data found, symbol may be delisted
+09:21:03 全球市場已更新：22 項（抓不到：櫃買指數）
+09:21:03 09:20 🔥 有量上攻｜加權 +0.86%｜量能 1.23x｜上漲 82%
+09:22:25 09:22 📈 溫和偏多｜加權 +0.45%｜量能 1.26x｜上漲 81%
+09:23:31 09:23 📈 溫和偏多｜加權 +0.45%｜量能 1.21x｜上漲 81%
+09:24:41 09:24 〰️ 震盪整理｜加權 +0.20%｜量能 1.24x｜上漲 80%
+09:25:49 09:25 〰️ 震盪整理｜加權 +0.20%｜量能 1.20x｜上漲 78%
+09:27:00 09:26 📈 溫和偏多｜加權 +0.42%｜量能 1.20x｜上漲 77%
+09:28:16 09:28 📈 溫和偏多｜加權 +0.43%｜量能 1.21x｜上漲 78%
+09:29:31 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794965356800 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea611abca10>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+09:30:47 推播：📊 台股盤中摘要 09:30
+09:30:48 09:30 📈 溫和偏多｜加權 +0.56%｜量能 1.16x｜上漲 76%
+09:31:53 $^TWOII: No data found, symbol may be delisted
+09:31:53 
+1 Failed download:
+09:31:53 ['^TWOII']: No data found, symbol may be delisted
+09:31:53 全球市場已更新：22 項（抓不到：櫃買指數）
+09:31:53 09:31 📈 溫和偏多｜加權 +0.56%｜量能 1.14x｜上漲 76%
+09:33:06 09:32 🔥 有量上攻｜加權 +0.80%｜量能 1.15x｜上漲 75%
+09:34:20 09:34 🔥 有量上攻｜加權 +0.81%｜量能 1.16x｜上漲 75%
+09:35:32 09:35 📈 溫和偏多｜加權 +0.81%｜量能 1.14x｜上漲 75%
+09:36:44 09:36 📈 溫和偏多｜加權 +0.48%｜量能 1.15x｜上漲 74%
+09:37:51 09:37 📈 溫和偏多｜加權 +0.48%｜量能 1.13x｜上漲 74%
+09:38:58 09:38 📈 溫和偏多｜加權 +0.34%｜量能 1.15x｜上漲 73%
+09:40:11 09:39 〰️ 震盪整理｜加權 -0.06%｜量能 1.16x｜上漲 72%
+09:41:26 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794966071111 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610a73e90>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+09:42:41 $^TWOII: No data found, symbol may be delisted
+09:42:42 
+1 Failed download:
+09:42:42 ['^TWOII']: No data found, symbol may be delisted
+09:42:42 全球市場已更新：22 項（抓不到：櫃買指數）
+09:42:42 09:42 🌱 個股活躍｜加權 -0.54%｜量能 1.17x｜上漲 68%
+09:43:51 09:43 🌱 個股活躍｜加權 -0.54%｜量能 1.15x｜上漲 68%
+09:45:04 09:44 〰️ 震盪整理｜加權 -0.09%｜量能 1.18x｜上漲 64%
+09:46:22 09:46 〰️ 震盪整理｜加權 -0.13%｜量能 1.18x｜上漲 61%
+09:47:29 09:47 〰️ 震盪整理｜加權 -0.13%｜量能 1.16x｜上漲 61%
+09:48:38 09:48 〰️ 震盪整理｜加權 -0.12%｜量能 1.17x｜上漲 61%
+09:49:43 09:49 〰️ 震盪整理｜加權 -0.29%｜量能 1.15x｜上漲 61%
+09:50:51 09:50 🌱 個股活躍｜加權 -0.34%｜量能 1.16x｜上漲 60%
+09:51:57 09:51 🌱 個股活躍｜加權 -0.34%｜量能 1.16x｜上漲 57%
+09:53:06 $^TWOII: No data found, symbol may be delisted
+09:53:06 
+1 Failed download:
+09:53:06 ['^TWOII']: No data found, symbol may be delisted
+09:53:07 全球市場已更新：22 項（抓不到：櫃買指數）
+09:53:07 09:52 🌱 個股活躍｜加權 -0.51%｜量能 1.16x｜上漲 55%
+09:54:23 09:54 🌱 個股活躍｜加權 -0.64%｜量能 1.16x｜上漲 56%
+09:55:29 09:55 🌱 個股活躍｜加權 -0.64%｜量能 1.15x｜上漲 56%
+09:56:43 09:56 📉 溫和偏空｜加權 -0.94%｜量能 1.17x｜上漲 53%
+09:57:59 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794967063840 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610aa2240>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+09:59:08 09:58 📉 溫和偏空｜加權 -0.69%｜量能 1.17x｜上漲 53%
+10:00:23 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794967208109 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610a408f0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+10:01:34 推播：⚠️ 加權指數下跌超過 1%（10:01）
+10:01:35 10:01 🧊 有量下殺｜加權 -1.10%｜量能 1.18x｜上漲 51%
+10:02:35 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794967355468 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))（60 秒後重試）
+10:03:47 $^TWOII: No data found, symbol may be delisted
+10:03:47 
+1 Failed download:
+10:03:47 ['^TWOII']: No data found, symbol may be delisted
+10:03:48 全球市場已更新：22 項（抓不到：櫃買指數）
+10:03:48 10:03 🧊 有量下殺｜加權 -1.38%｜量能 1.19x｜上漲 49%
+10:04:59 10:04 🧊 有量下殺｜加權 -1.55%｜量能 1.20x｜上漲 48%
+10:06:20 10:05 🧊 有量下殺｜加權 -1.55%｜量能 1.22x｜上漲 47%
+10:07:35 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794967640041 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610a335c0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+10:08:52 推播：🔄 行情判斷改變（10:08）：🔥 有量上攻 → 🧊 有量下殺
+10:08:52 10:08 🧊 有量下殺｜加權 -1.60%｜量能 1.22x｜上漲 47%
+10:09:57 10:09 🧊 有量下殺｜加權 -1.60%｜量能 1.21x｜上漲 47%
+10:11:07 抓取失敗：Expecting value: line 22 column 1 (char 21)（60 秒後重試）
+10:12:24 10:12 📉 溫和偏空｜加權 -1.00%｜量能 1.24x｜上漲 47%
+10:13:28 10:13 📉 溫和偏空｜加權 -1.00%｜量能 1.23x｜上漲 47%
+10:14:41 $^TWOII: No data found, symbol may be delisted
+10:14:41 
+1 Failed download:
+10:14:41 ['^TWOII']: No data found, symbol may be delisted
+10:14:42 全球市場已更新：22 項（抓不到：櫃買指數）
+10:14:42 10:14 🧊 有量下殺｜加權 -1.26%｜量能 1.23x｜上漲 46%
+10:15:47 10:15 🧊 有量下殺｜加權 -1.26%｜量能 1.22x｜上漲 46%
+10:17:08 10:16 🧊 有量下殺｜加權 -1.62%｜量能 1.23x｜上漲 44%
+10:18:33 推播：⚠️ 加權指數下跌超過 2%（10:18）
+10:18:34 10:18 🧊 有量下殺｜加權 -2.01%｜量能 1.24x｜上漲 42%
+10:19:49 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794968374315 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610aa2b40>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+10:21:19 10:20 🧊 有量下殺｜加權 -1.67%｜量能 1.25x｜上漲 40%
+10:22:42 10:22 🧊 有量下殺｜加權 -1.71%｜量能 1.26x｜上漲 40%
+10:24:08 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+10:25:28 $^TWOII: No data found, symbol may be delisted
+10:25:28 
+1 Failed download:
+10:25:28 ['^TWOII']: No data found, symbol may be delisted
+10:25:29 全球市場已更新：22 項（抓不到：櫃買指數）
+10:25:29 10:25 🧊 有量下殺｜加權 -1.41%｜量能 1.25x｜上漲 39%
+10:27:00 10:26 🧊 有量下殺｜加權 -1.22%｜量能 1.26x｜上漲 39%
+10:28:19 10:28 📉 溫和偏空｜加權 -0.63%｜量能 1.26x｜上漲 38%
+10:29:44 10:29 📉 溫和偏空｜加權 -0.63%｜量能 1.25x｜上漲 38%
+10:30:59 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+10:32:20 10:31 📉 溫和偏空｜加權 -0.50%｜量能 1.27x｜上漲 37%
+10:33:28 推播：🔄 行情判斷改變（10:33）：🧊 有量下殺 → 📉 溫和偏空
+10:33:29 10:33 📉 溫和偏空｜加權 -0.50%｜量能 1.26x｜上漲 37%
+10:34:37 10:34 📉 溫和偏空｜加權 -0.82%｜量能 1.27x｜上漲 36%
+10:35:46 $^TWOII: No data found, symbol may be delisted
+10:35:46 
+1 Failed download:
+10:35:46 ['^TWOII']: No data found, symbol may be delisted
+10:35:47 全球市場已更新：22 項（抓不到：櫃買指數）
+10:35:47 10:35 📉 溫和偏空｜加權 -0.82%｜量能 1.26x｜上漲 36%
+10:37:03 10:36 📉 溫和偏空｜加權 -0.69%｜量能 1.27x｜上漲 36%
+10:38:17 10:38 📉 溫和偏空｜加權 -0.70%｜量能 1.27x｜上漲 36%
+10:39:26 10:39 📉 溫和偏空｜加權 -0.70%｜量能 1.26x｜上漲 36%
+10:40:39 10:40 📉 溫和偏空｜加權 -0.84%｜量能 1.26x｜上漲 36%
+10:41:46 10:41 📉 溫和偏空｜加權 -0.84%｜量能 1.25x｜上漲 36%
+10:42:55 10:42 🧊 有量下殺｜加權 -1.26%｜量能 1.25x｜上漲 35%
+10:44:02 10:43 🧊 有量下殺｜加權 -1.18%｜量能 1.25x｜上漲 35%
+10:45:11 10:45 🧊 有量下殺｜加權 -1.18%｜量能 1.25x｜上漲 34%
+10:46:28 $^TWOII: No data found, symbol may be delisted
+10:46:28 
+1 Failed download:
+10:46:28 ['^TWOII']: No data found, symbol may be delisted
+10:46:28 全球市場已更新：22 項（抓不到：櫃買指數）
+10:46:28 10:46 🧊 有量下殺｜加權 -1.33%｜量能 1.25x｜上漲 33%
+10:47:36 10:47 🧊 有量下殺｜加權 -1.27%｜量能 1.24x｜上漲 33%
+10:48:45 推播：🔄 行情判斷改變（10:48）：📉 溫和偏空 → 🧊 有量下殺
+10:48:46 10:48 🧊 有量下殺｜加權 -1.37%｜量能 1.24x｜上漲 34%
+10:50:25 10:49 🧊 有量下殺｜加權 -1.13%｜量能 1.24x｜上漲 34%
+10:51:35 10:51 🧊 有量下殺｜加權 -1.13%｜量能 1.23x｜上漲 34%
+10:52:48 10:52 🧊 有量下殺｜加權 -1.03%｜量能 1.23x｜上漲 34%
+10:53:58 10:53 🧊 有量下殺｜加權 -1.00%｜量能 1.23x｜上漲 35%
+10:55:13 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794970498195 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea61333cbc0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+10:56:26 10:56 🧊 有量下殺｜加權 -0.90%｜量能 1.23x｜上漲 35%
+10:57:34 $^TWOII: No data found, symbol may be delisted
+10:57:34 
+1 Failed download:
+10:57:34 ['^TWOII']: No data found, symbol may be delisted
+10:57:35 全球市場已更新：22 項（抓不到：櫃買指數）
+10:57:35 10:57 🧊 有量下殺｜加權 -0.90%｜量能 1.22x｜上漲 35%
+10:58:46 10:58 🧊 有量下殺｜加權 -0.75%｜量能 1.23x｜上漲 35%
+11:00:01 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794970786544 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea611b70710>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:01:13 推播：📊 台股盤中摘要 11:01
+11:01:14 11:01 🧊 有量下殺｜加權 -0.57%｜量能 1.23x｜上漲 35%
+11:02:29 11:02 🧊 有量下殺｜加權 -0.32%｜量能 1.23x｜上漲 35%
+11:03:35 11:03 🧊 有量下殺｜加權 -0.32%｜量能 1.22x｜上漲 35%
+11:04:44 11:04 〰️ 震盪整理｜加權 -0.04%｜量能 1.24x｜上漲 37%
+11:05:50 11:05 〰️ 震盪整理｜加權 -0.04%｜量能 1.23x｜上漲 37%
+11:06:59 11:06 〰️ 震盪整理｜加權 +0.15%｜量能 1.24x｜上漲 39%
+11:08:11 $^TWOII: No data found, symbol may be delisted
+11:08:11 
+1 Failed download:
+11:08:11 ['^TWOII']: No data found, symbol may be delisted
+11:08:12 全球市場已更新：22 項（抓不到：櫃買指數）
+11:08:12 11:07 〰️ 震盪整理｜加權 -0.04%｜量能 1.24x｜上漲 39%
+11:09:23 11:09 〰️ 震盪整理｜加權 -0.04%｜量能 1.24x｜上漲 39%
+11:10:38 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+11:11:50 推播：🔄 行情判斷改變（11:11）：🧊 有量下殺 → 〰️ 震盪整理
+11:11:50 11:11 〰️ 震盪整理｜加權 -0.03%｜量能 1.24x｜上漲 39%
+11:12:57 11:12 〰️ 震盪整理｜加權 +0.27%｜量能 1.25x｜上漲 39%
+11:14:06 11:13 ⚖️ 權值撐盤｜加權 +0.35%｜量能 1.25x｜上漲 39%
+11:15:31 11:15 ⚖️ 權值撐盤｜加權 +0.35%｜量能 1.25x｜上漲 40%
+11:16:41 11:16 〰️ 震盪整理｜加權 -0.03%｜量能 1.26x｜上漲 41%
+11:17:49 11:17 〰️ 震盪整理｜加權 +0.07%｜量能 1.25x｜上漲 41%
+11:18:58 $^TWOII: No data found, symbol may be delisted
+11:18:58 
+1 Failed download:
+11:18:58 ['^TWOII']: No data found, symbol may be delisted
+11:18:59 全球市場已更新：22 項（抓不到：櫃買指數）
+11:18:59 11:18 〰️ 震盪整理｜加權 +0.06%｜量能 1.25x｜上漲 40%
+11:20:14 11:19 〰️ 震盪整理｜加權 +0.19%｜量能 1.25x｜上漲 40%
+11:21:29 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794972074537 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610961b50>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:22:41 11:22 〰️ 震盪整理｜加權 -0.15%｜量能 1.24x｜上漲 40%
+11:24:10 11:23 📉 溫和偏空｜加權 -0.35%｜量能 1.24x｜上漲 40%
+11:25:17 11:25 📉 溫和偏空｜加權 -0.35%｜量能 1.24x｜上漲 40%
+11:26:31 11:26 📉 溫和偏空｜加權 -0.34%｜量能 1.24x｜上漲 41%
+11:27:38 11:27 📉 溫和偏空｜加權 -0.34%｜量能 1.23x｜上漲 41%
+11:28:48 11:28 📉 溫和偏空｜加權 -0.35%｜量能 1.23x｜上漲 41%
+11:29:53 推播：🔄 行情判斷改變（11:29）：〰️ 震盪整理 → 📉 溫和偏空
+11:29:54 $^TWOII: No data found, symbol may be delisted
+11:29:54 
+1 Failed download:
+11:29:54 ['^TWOII']: No data found, symbol may be delisted
+11:29:55 全球市場已更新：22 項（抓不到：櫃買指數）
+11:29:55 11:29 📉 溫和偏空｜加權 -0.35%｜量能 1.22x｜上漲 41%
+11:31:08 11:30 〰️ 震盪整理｜加權 -0.28%｜量能 1.22x｜上漲 42%
+11:32:25 11:32 〰️ 震盪整理｜加權 -0.03%｜量能 1.22x｜上漲 42%
+11:33:31 11:33 〰️ 震盪整理｜加權 -0.03%｜量能 1.22x｜上漲 42%
+11:34:46 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794972871256 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610a81040>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:35:52 11:35 〰️ 震盪整理｜加權 +0.16%｜量能 1.22x｜上漲 43%
+11:37:00 推播：🔄 行情判斷改變（11:36）：📉 溫和偏空 → 〰️ 震盪整理
+11:37:01 11:36 〰️ 震盪整理｜加權 +0.17%｜量能 1.22x｜上漲 42%
+11:38:17 11:38 ⚖️ 權值撐盤｜加權 +0.35%｜量能 1.22x｜上漲 44%
+11:39:25 11:39 ⚖️ 權值撐盤｜加權 +0.35%｜量能 1.21x｜上漲 44%
+11:40:40 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794973225597 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610a32fc0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:41:47 $^TWOII: No data found, symbol may be delisted
+11:41:48 
+1 Failed download:
+11:41:48 ['^TWOII']: No data found, symbol may be delisted
+11:41:48 全球市場已更新：22 項（抓不到：櫃買指數）
+11:41:48 11:41 ⚖️ 權值撐盤｜加權 +0.33%｜量能 1.20x｜上漲 44%
+11:42:58 11:42 〰️ 震盪整理｜加權 +0.22%｜量能 1.20x｜上漲 44%
+11:44:04 11:43 〰️ 震盪整理｜加權 -0.02%｜量能 1.20x｜上漲 44%
+11:45:31 11:45 〰️ 震盪整理｜加權 -0.02%｜量能 1.20x｜上漲 45%
+11:46:40 11:46 〰️ 震盪整理｜加權 -0.00%｜量能 1.20x｜上漲 46%
+11:47:48 11:47 〰️ 震盪整理｜加權 -0.00%｜量能 1.19x｜上漲 46%
+11:49:04 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794973728985 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea611abdbb0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:50:25 11:50 〰️ 震盪整理｜加權 +0.08%｜量能 1.19x｜上漲 47%
+11:51:35 11:51 〰️ 震盪整理｜加權 +0.06%｜量能 1.18x｜上漲 48%
+11:52:45 $^TWOII: No data found, symbol may be delisted
+11:52:45 
+1 Failed download:
+11:52:45 ['^TWOII']: No data found, symbol may be delisted
+11:52:45 全球市場已更新：22 項（抓不到：櫃買指數）
+11:52:45 11:52 〰️ 震盪整理｜加權 +0.04%｜量能 1.18x｜上漲 49%
+11:54:01 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794974025873 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610a824e0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:55:10 11:55 〰️ 震盪整理｜加權 +0.31%｜量能 1.18x｜上漲 50%
+11:56:21 11:56 〰️ 震盪整理｜加權 +0.22%｜量能 1.18x｜上漲 50%
+11:57:29 11:57 〰️ 震盪整理｜加權 +0.32%｜量能 1.17x｜上漲 50%
+11:58:40 11:58 〰️ 震盪整理｜加權 +0.26%｜量能 1.17x｜上漲 50%
+11:59:46 11:59 〰️ 震盪整理｜加權 +0.36%｜量能 1.17x｜上漲 50%
+12:01:18 12:00 〰️ 震盪整理｜加權 +0.11%｜量能 1.17x｜上漲 51%
+12:02:30 12:02 〰️ 震盪整理｜加權 +0.26%｜量能 1.17x｜上漲 50%
+12:03:31 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794974610654 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))（60 秒後重試）
+12:04:45 推播：⚠️ 我的族群「散熱」大漲 +4.7%（12:04）
+12:04:46 $^TWOII: No data found, symbol may be delisted
+12:04:46 
+1 Failed download:
+12:04:46 ['^TWOII']: No data found, symbol may be delisted
+12:04:47 全球市場已更新：22 項（抓不到：櫃買指數）
+12:04:47 12:04 〰️ 震盪整理｜加權 +0.29%｜量能 1.17x｜上漲 51%
+12:05:57 12:05 〰️ 震盪整理｜加權 +0.45%｜量能 1.17x｜上漲 52%
+12:07:05 12:06 〰️ 震盪整理｜加權 +0.46%｜量能 1.17x｜上漲 52%
+12:08:18 12:08 〰️ 震盪整理｜加權 +0.45%｜量能 1.18x｜上漲 52%
+12:09:34 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794974958963 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea6108c4ce0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+12:10:43 12:10 〰️ 震盪整理｜加權 +0.14%｜量能 1.17x｜上漲 53%
+12:11:50 12:11 〰️ 震盪整理｜加權 +0.30%｜量能 1.17x｜上漲 52%
+12:12:58 12:12 〰️ 震盪整理｜加權 +0.29%｜量能 1.17x｜上漲 53%
+12:14:14 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794975238508 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea6109623f0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+12:15:21 $^TWOII: No data found, symbol may be delisted
+12:15:21 
+1 Failed download:
+12:15:21 ['^TWOII']: No data found, symbol may be delisted
+12:15:22 全球市場已更新：22 項（抓不到：櫃買指數）
+12:15:22 12:15 〰️ 震盪整理｜加權 +0.50%｜量能 1.17x｜上漲 54%
+12:16:30 12:16 〰️ 震盪整理｜加權 +0.82%｜量能 1.17x｜上漲 55%
+12:17:36 12:17 〰️ 震盪整理｜加權 +0.82%｜量能 1.17x｜上漲 55%
+12:18:48 12:18 📈 溫和偏多｜加權 +0.94%｜量能 1.18x｜上漲 58%
+12:20:03 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794975588675 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea61098b8f0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+12:21:15 12:21 📈 溫和偏多｜加權 +0.99%｜量能 1.18x｜上漲 61%
+12:22:26 12:22 🔥 有量上攻｜加權 +1.02%｜量能 1.19x｜上漲 61%
+12:23:34 12:23 🔥 有量上攻｜加權 +1.02%｜量能 1.18x｜上漲 61%
+12:24:59 12:24 🔥 有量上攻｜加權 +1.01%｜量能 1.19x｜上漲 62%
+12:26:19 $^TWOII: No data found, symbol may be delisted
+12:26:19 
+1 Failed download:
+12:26:19 ['^TWOII']: No data found, symbol may be delisted
+12:26:20 全球市場已更新：22 項（抓不到：櫃買指數）
+12:26:20 12:25 📈 溫和偏多｜加權 +0.90%｜量能 1.19x｜上漲 63%
+12:27:44 12:27 📈 溫和偏多｜加權 +0.90%｜量能 1.19x｜上漲 63%
+12:29:00 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794976124892 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea6108f6cf0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+12:30:20 12:30 🔥 有量上攻｜加權 +1.41%｜量能 1.20x｜上漲 64%
+12:31:29 12:31 🔥 有量上攻｜加權 +1.41%｜量能 1.20x｜上漲 64%
+12:32:54 12:32 🔥 有量上攻｜加權 +1.26%｜量能 1.20x｜上漲 66%
+12:34:00 12:33 🔥 有量上攻｜加權 +1.26%｜量能 1.19x｜上漲 66%
+12:35:17 推播：🔄 行情判斷改變（12:35）：〰️ 震盪整理 → 🔥 有量上攻
+12:35:18 12:35 🔥 有量上攻｜加權 +1.21%｜量能 1.20x｜上漲 67%
+12:36:31 $^TWOII: No data found, symbol may be delisted
+12:36:31 
+1 Failed download:
+12:36:31 ['^TWOII']: No data found, symbol may be delisted
+12:36:32 全球市場已更新：22 項（抓不到：櫃買指數）
+12:36:32 12:36 🔥 有量上攻｜加權 +0.76%｜量能 1.21x｜上漲 66%
+12:37:38 12:37 🔥 有量上攻｜加權 +0.76%｜量能 1.20x｜上漲 66%
+12:38:54 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794976718491 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea6119f0a40>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+12:40:00 12:39 🔥 有量上攻｜加權 +0.37%｜量能 1.20x｜上漲 66%
+12:41:13 12:41 🔥 有量上攻｜加權 +0.34%｜量能 1.20x｜上漲 66%
+12:42:24 12:42 🔥 有量上攻｜加權 +0.33%｜量能 1.21x｜上漲 66%
+12:43:32 12:43 🔥 有量上攻｜加權 +0.33%｜量能 1.20x｜上漲 66%
+12:44:44 12:44 🔥 有量上攻｜加權 +0.32%｜量能 1.20x｜上漲 66%
+12:45:51 12:45 🔥 有量上攻｜加權 +0.32%｜量能 1.20x｜上漲 66%
+12:47:02 $^TWOII: No data found, symbol may be delisted
+12:47:02 
+1 Failed download:
+12:47:02 ['^TWOII']: No data found, symbol may be delisted
+12:47:02 全球市場已更新：22 項（抓不到：櫃買指數）
+12:47:02 12:46 📈 溫和偏多｜加權 +0.25%｜量能 1.20x｜上漲 66%
+12:48:16 12:48 📈 溫和偏多｜加權 -0.01%｜量能 1.20x｜上漲 66%
+12:49:29 12:49 📈 溫和偏多｜加權 -0.01%｜量能 1.20x｜上漲 67%
+12:50:45 12:50 📈 溫和偏多｜加權 +0.07%｜量能 1.21x｜上漲 67%
+12:51:51 12:51 📈 溫和偏多｜加權 +0.07%｜量能 1.20x｜上漲 67%
+12:53:02 推播：🔄 行情判斷改變（12:52）：🔥 有量上攻 → 📈 溫和偏多
+12:53:03 12:52 📈 溫和偏多｜加權 +0.05%｜量能 1.20x｜上漲 66%
+12:54:21 12:54 📈 溫和偏多｜加權 -0.01%｜量能 1.20x｜上漲 66%
+12:55:27 12:55 📈 溫和偏多｜加權 -0.01%｜量能 1.20x｜上漲 66%
+12:56:43 12:56 📈 溫和偏多｜加權 +0.06%｜量能 1.20x｜上漲 66%
+12:57:52 $^TWOII: No data found, symbol may be delisted
+12:57:52 
+1 Failed download:
+12:57:52 ['^TWOII']: No data found, symbol may be delisted
+12:57:53 全球市場已更新：22 項（抓不到：櫃買指數）
+12:57:53 12:57 📈 溫和偏多｜加權 +0.06%｜量能 1.19x｜上漲 65%
+12:59:01 12:58 📈 溫和偏多｜加權 -0.07%｜量能 1.20x｜上漲 65%
+13:00:26 推播：📊 台股盤中摘要 13:00
+13:00:27 13:00 〰️ 震盪整理｜加權 -0.20%｜量能 1.20x｜上漲 64%
+13:01:39 13:01 〰️ 震盪整理｜加權 -0.20%｜量能 1.19x｜上漲 64%
+13:02:46 13:02 〰️ 震盪整理｜加權 -0.21%｜量能 1.19x｜上漲 64%
+13:03:57 13:03 〰️ 震盪整理｜加權 -0.21%｜量能 1.19x｜上漲 64%
+13:05:13 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794978297480 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610aa1eb0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+13:06:34 推播：🔄 行情判斷改變（13:06）：📈 溫和偏多 → 〰️ 震盪整理
+13:06:35 13:06 〰️ 震盪整理｜加權 -0.20%｜量能 1.19x｜上漲 64%
+13:07:43 13:07 〰️ 震盪整理｜加權 -0.20%｜量能 1.19x｜上漲 64%
+13:09:01 $^TWOII: No data found, symbol may be delisted
+13:09:01 
+1 Failed download:
+13:09:01 ['^TWOII']: No data found, symbol may be delisted
+13:09:01 全球市場已更新：22 項（抓不到：櫃買指數）
+13:09:01 13:08 🌱 個股活躍｜加權 -0.31%｜量能 1.19x｜上漲 63%
+13:10:29 13:10 〰️ 震盪整理｜加權 -0.29%｜量能 1.19x｜上漲 61%
+13:11:46 13:11 〰️ 震盪整理｜加權 -0.29%｜量能 1.18x｜上漲 61%
+13:13:01 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794978766031 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea610a31eb0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+13:14:23 13:14 〰️ 震盪整理｜加權 -0.29%｜量能 1.18x｜上漲 59%
+13:15:33 13:15 〰️ 震盪整理｜加權 -0.29%｜量能 1.18x｜上漲 59%
+13:16:46 13:16 〰️ 震盪整理｜加權 -0.14%｜量能 1.18x｜上漲 59%
+13:17:52 13:17 〰️ 震盪整理｜加權 -0.14%｜量能 1.18x｜上漲 59%
+13:19:07 $^TWOII: No data found, symbol may be delisted
+13:19:07 
+1 Failed download:
+13:19:07 ['^TWOII']: No data found, symbol may be delisted
+13:19:07 全球市場已更新：22 項（抓不到：櫃買指數）
+13:19:07 13:18 〰️ 震盪整理｜加權 -0.14%｜量能 1.18x｜上漲 58%
+13:20:33 13:20 〰️ 震盪整理｜加權 +0.01%｜量能 1.18x｜上漲 57%
+13:21:39 13:21 〰️ 震盪整理｜加權 +0.01%｜量能 1.18x｜上漲 57%
+13:22:55 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1794979359681 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7ea6119f0a10>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+13:24:03 13:23 〰️ 震盪整理｜加權 +0.01%｜量能 1.18x｜上漲 57%
+13:25:21 13:25 〰️ 震盪整理｜加權 +0.01%｜量能 1.18x｜上漲 58%
+13:26:44 13:26 〰️ 震盪整理｜加權 +0.12%｜量能 1.17x｜上漲 59%
+13:27:55 13:27 〰️ 震盪整理｜加權 +0.12%｜量能 1.15x｜上漲 59%
+13:29:19 $^TWOII: No data found, symbol may be delisted
+13:29:19 
+1 Failed download:
+13:29:19 ['^TWOII']: No data found, symbol may be delisted
+13:29:20 全球市場已更新：22 項（抓不到：櫃買指數）
+13:29:20 13:28 〰️ 震盪整理｜加權 +0.12%｜量能 1.13x｜上漲 59%
+13:30:41 13:30 〰️ 震盪整理｜加權 +0.12%｜量能 1.14x｜上漲 60%
+13:31:51 13:31 〰️ 震盪整理｜加權 +0.12%｜量能 1.16x｜上漲 62%
+13:33:00 13:32 〰️ 震盪整理｜加權 +0.12%｜量能 1.18x｜上漲 63%
+13:34:13 13:34 〰️ 震盪整理｜加權 +0.26%｜量能 1.18x｜上漲 63%
+13:35:20 13:35 〰️ 震盪整理｜加權 +0.26%｜量能 1.18x｜上漲 63%
+13:36:29 推播：📊 台股收盤總結 13:36
+13:36:29 13:36 〰️ 震盪整理｜加權 +0.26%｜量能 1.18x｜上漲 63%
