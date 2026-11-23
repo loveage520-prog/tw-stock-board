@@ -138,6 +138,9 @@ class Mis:
         return out
 
 
+LAST_PX: dict[str, float] = {}  # 盤中連續掃描時記住每檔最後一次有效價格
+
+
 def scan_intraday(uni: dict[str, dict]) -> dict:
     mis = Mis()
     chans = [f"{'tse' if v['m'] == '上市' else 'otc'}_{c}.tw" for c, v in uni.items()]
@@ -150,13 +153,20 @@ def scan_intraday(uni: dict[str, dict]) -> dict:
         data_date = m.get("d", data_date)
         ref, up, dn = fnum(m.get("y")), fnum(m.get("u")), fnum(m.get("w"))
         o, h, l, z, v = fnum(m.get("o")), fnum(m.get("h")), fnum(m.get("l")), fnum(m.get("z")), fnum(m.get("v"))
-        bids = [fnum(x) for x in str(m.get("b", "")).split("_") if x]
-        asks = [fnum(x) for x in str(m.get("a", "")).split("_") if x]
-        if not ok(z):  # 這 5 秒沒有成交：用最佳買價／賣價／開盤價代替
-            z = next((x for x in (bids[:1] or [math.nan]) + (asks[:1] or [math.nan]) + [o] if ok(x)), math.nan)
-        if not ok(z) or not ok(ref) or not ok(v) or v <= 0:
+        pos = lambda x: x == x and x is not None and x > 0  # noqa: E731  價格必須 > 0（市價單的委買賣價會是 0）
+        o, h, l, z = (x if pos(x) else math.nan for x in (o, h, l, z))
+        bids = [x for x in (fnum(x) for x in str(m.get("b", "")).split("_") if x) if pos(x)]
+        asks = [x for x in (fnum(x) for x in str(m.get("a", "")).split("_") if x) if pos(x)]
+        if not pos(z):  # 這 5 秒沒有成交：用上次成交價／最佳買賣價中間／開盤價代替
+            z = LAST_PX.get(c, math.nan)
+            if not pos(z):
+                z = (bids[0] + asks[0]) / 2 if bids and asks else (bids or asks or [o])[0]
+            if pos(z) and pos(h) and pos(l):
+                z = min(max(z, l), h)  # 不會超出今天的高低點
+        if not pos(z) or not ok(ref) or not ok(v) or v <= 0:
             continue
-        px = [x for x in (o, h, l, z) if ok(x)]
+        LAST_PX[c] = z
+        px = [x for x in (o, h, l, z) if pos(x)]
         amt = v * 1000 * (sum(px) / len(px))  # 張數 × 1000 股 × 當日均價（估計）
         at_up = ok(up) and z >= up - 1e-9
         at_dn = ok(dn) and z <= dn + 1e-9

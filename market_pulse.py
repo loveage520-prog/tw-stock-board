@@ -1120,10 +1120,15 @@ def run(args):
                 events.append(f"{m['time']} " + msg.replace("⚠️ ", "").replace("🔄 ", "").replace(f"（{m['time']}）", ""))
             # 程式晚啟動時好幾個摘要時間會同時到，只推最新的一則，其餘標記為已處理（避免同樣內容推好幾次）
             due = [st for st in sum_times if m["time"] >= st and f"sum_{st}" not in nt.sent and (st < "13:30" or final)]
+            mins = lambda t: int(t[:2]) * 60 + int(t[3:5])  # noqa: E731
             if due:
                 for st in due[:-1]:
                     nt.sent.add(f"sum_{st}")
                 st = due[-1]
+                if st < "13:30" and mins(m["time"]) - mins(st) > 20:  # 晚了超過 20 分鐘（程式重啟）就不補推
+                    nt.sent.add(f"sum_{st}")
+                    due = []
+            if due:
                 title = "收盤總結" if st >= "13:30" else "盤中摘要"
                 nt.send(summary_text(m, title), key=f"sum_{st}")
                 nt.history.pop()
