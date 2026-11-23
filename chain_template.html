@@ -27,6 +27,16 @@ body{background:var(--bg);color:var(--fg);font:15px/1.6 "Noto Sans TC","Microsof
 .ch-tabs button{flex:0 0 auto;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
 #ch .ch-tabs button.on{background:var(--fg);color:var(--card);border-color:var(--fg)}
 .ch-tabs button:focus-visible,.ch-co:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.ch-cats{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 0}
+.ch-cats button{padding:5px 11px;border-radius:8px;border:1px solid transparent;background:none;cursor:pointer;color:var(--muted);font-size:13px;font-weight:600}
+#ch .ch-cats button.on{background:var(--card);border-color:var(--line);color:var(--fg)}
+.ch-cats small{font-weight:400;margin-left:3px}
+.ch-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+@media (max-width:700px){.ch-g2{grid-template-columns:minmax(0,1fr)}}
+.ch-g2 .ch-box{margin-top:12px}
+.ch-terms{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 12px;font-size:14px}
+.ch-terms dt{font-weight:700;color:var(--accent)}.ch-terms dd{margin:0;color:var(--fg)}
+@media (max-width:480px){.ch-terms{grid-template-columns:minmax(0,1fr)}.ch-terms dd{margin-bottom:6px}}
 .ch-head{margin:6px 0 10px}.ch-head h2{font-size:21px;margin:0 0 4px}.ch-head p{margin:0;color:var(--muted);font-size:14px}
 .ch-flow{display:flex;flex-direction:column;align-items:stretch}
 .ch-st{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--lc);border-radius:12px;padding:10px 12px}
@@ -54,6 +64,7 @@ body{background:var(--bg);color:var(--fg);font:15px/1.6 "Noto Sans TC","Microsof
   <div class="ch-intro" id="ch-intro"></div>
   <div class="ch-search"><input id="ch-q" type="search" placeholder="搜尋公司或代號，例如 台積電、2330、NVDA" aria-label="搜尋公司"></div>
   <div class="ch-res" id="ch-res" hidden></div>
+  <div class="ch-cats" id="ch-cats" role="tablist" aria-label="產業分類"></div>
   <nav class="ch-tabs" id="ch-tabs" aria-label="產業"></nav>
   <div id="ch-view"></div>
   <div class="ch-note">公司角色依各公司主要業務整理（資料整理時間：<span id="ch-upd"></span>），供應關係可能隨時間改變；名單為代表性公司，非完整清單。點公司可看日 K 技術線圖。僅供參考，不構成投資建議。</div>
@@ -65,7 +76,8 @@ if (!C) return;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const LV = {"上游": "var(--lv-up)", "中游": "var(--lv-mid)", "下游": "var(--lv-down)", "終端": "var(--lv-end)", "支援": "var(--lv-sup)"};
-let cur = C.chains[0].id, hl = null;
+let cur = C.chains[0].id, hl = null, cat = C.chains[0].cat || "";
+const CATS = C.cats || [...new Set(C.chains.map(c => c.cat))];
 $("ch-upd").textContent = C.updated;
 $("ch-intro").innerHTML = C.intro.map(p => `<p>${esc(p)}</p>`).join("");
 
@@ -73,7 +85,8 @@ const co = (x, us) => `<button class="ch-co ${hl && hl === (us ? "US:" : "") + x
   `<span class="n">${esc(x[1])}<small>${esc(x[0])}</small></span>${x[2] ? `<span class="r">${esc(x[2])}</span>` : ""}</button>`;
 
 function render(){
-  $("ch-tabs").innerHTML = C.chains.map(c => `<button data-c="${c.id}" class="${c.id === cur ? "on" : ""}">${c.icon} ${esc(c.name.replace(/（.*）/, ""))}</button>`).join("");
+  $("ch-cats").innerHTML = CATS.map(k => `<button data-cat="${esc(k)}" class="${k === cat ? "on" : ""}">${esc(k)}<small>${C.chains.filter(c => c.cat === k).length}</small></button>`).join("");
+  $("ch-tabs").innerHTML = C.chains.filter(c => !cat || c.cat === cat).map(c => `<button data-c="${c.id}" class="${c.id === cur ? "on" : ""}">${c.icon} ${esc(c.name.replace(/（.*）/, ""))}</button>`).join("");
   const c = C.chains.find(x => x.id === cur) || C.chains[0];
   const st = c.stages.map((s, i) => `${i ? '<div class="ch-arrow" aria-hidden="true">▼</div>' : ""}<section class="ch-st ${s.lv === "支援" ? "sup" : ""}" style="--lc:${LV[s.lv] || "var(--lv-mid)"}">` +
     `<div class="ch-sth"><span class="ch-lv">${esc(s.lv)}</span><b>${esc(s.name)}</b></div>${s.desc ? `<p>${esc(s.desc)}</p>` : ""}` +
@@ -81,16 +94,20 @@ function render(){
     `<div class="ch-col"><h5>🇺🇸 美股</h5>${s.us.length ? `<div class="ch-cos">${s.us.map(x => co(x, true)).join("")}</div>` : '<span class="none">美股較少直接對應</span>'}</div></div></section>`).join("");
   $("ch-view").innerHTML = `<div class="ch-head"><h2>${c.icon} ${esc(c.name)}</h2><p>${esc(c.intro)}</p></div><div class="ch-flow">${st}</div>` +
     `<div class="ch-box"><h3>🔗 台股和美股的關係</h3><ul>${c.rel.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` +
-    `<div class="ch-box"><h3>👀 觀察重點</h3><ul>${c.watch.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>`;
+    `<div class="ch-box"><h3>👀 觀察重點</h3><ul>${c.watch.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` +
+    (c.drivers || c.risks ? `<div class="ch-g2">${c.drivers ? `<div class="ch-box"><h3>🚀 成長動能</h3><ul>${c.drivers.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` : ""}` +
+      `${c.risks ? `<div class="ch-box"><h3>⚠️ 風險</h3><ul>${c.risks.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` : ""}</div>` : "") +
+    (c.terms ? `<div class="ch-box"><h3>📖 名詞解釋</h3><dl class="ch-terms">${c.terms.map(t => `<dt>${esc(t[0])}</dt><dd>${esc(t[1])}</dd>`).join("")}</dl></div>` : "");
 }
 function go(id, code){
-  cur = id; hl = code || null; render();
+  cur = id; hl = code || null; cat = (C.chains.find(c => c.id === id) || {}).cat || cat; render();
   try { history.replaceState(null, "", "#" + id); } catch(e) {}
   const t = $("ch-tabs").querySelector(".on"); if (t) t.scrollIntoView({inline: "center", block: "nearest"});
   if (code) { const b = $("ch-view").querySelector(".ch-co.hl"); if (b) b.scrollIntoView({behavior: "smooth", block: "center"}); }
   else $("ch-view").scrollIntoView({behavior: "smooth", block: "start"});
 }
 $("ch-tabs").addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (b) go(b.dataset.c); });
+$("ch-cats").addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (!b) return; cat = b.dataset.cat; const f = C.chains.find(c => c.cat === cat); if (f) go(f.id); });
 
 // 搜尋：找出公司出現在哪些產業、哪個位置
 const idx = [];
@@ -107,7 +124,7 @@ $("ch-q").addEventListener("input", e => {
 $("ch-res").addEventListener("click", e => { const a = e.target.closest("[data-go]"); if (a) go(a.dataset.go, a.dataset.code); });
 
 const h = location.hash.slice(1);
-if (C.chains.some(c => c.id === h)) cur = h;
+if (C.chains.some(c => c.id === h)) { cur = h; cat = C.chains.find(c => c.id === h).cat || cat; }
 render();
 })();
 </script>
