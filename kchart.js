@@ -39,7 +39,10 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
   function el(tag, attrs, html) { var e = document.createElement(tag); for (var k in attrs || {}) e.setAttribute(k, attrs[k]); if (html != null) e.innerHTML = html; return e; }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]; }); }
   function fmt(v, d) { if (v == null || v !== v) return "—"; return Number(v).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d}); }
-  function dig(v) { return v >= 1000 ? 0 : v >= 100 ? 1 : 2; }
+  var US = false;  /* 目前打開的是美股：價格一律 2 位小數 */
+  function dig(v) { return US ? 2 : v >= 1000 ? 0 : v >= 100 ? 1 : 2; }
+  function isUS(code) { return code.indexOf("US:") === 0; }
+  function file(code) { return isUS(code) ? "us_" + code.slice(3).replace("^", "_").replace("/", "-") : code; }
   function twToday() { return new Intl.DateTimeFormat("en-CA", {timeZone: "Asia/Taipei", year: "numeric", month: "2-digit", day: "2-digit"}).format(new Date()); }
 
   /* ---------------- 指標 ---------------- */
@@ -70,14 +73,14 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
   function load(code) {
     if (cache[code]) return Promise.resolve(cache[code]);
     var bust = twToday().replace(/-/g, "") + new Date().getHours();
-    return window["fe" + "tch"](SRC + encodeURIComponent(code) + ".json?v=" + bust).then(function (r) {
+    return window["fe" + "tch"](SRC + encodeURIComponent(file(code)) + ".json?v=" + bust).then(function (r) {
       if (!r.ok) throw new Error(r.status);
       return r.json();
     }).then(function (j) { cache[code] = j; return j; });
   }
   function withLive(j, live) {
     var d = j.d.slice(), o = j.o.slice(), h = j.h.slice(), l = j.l.slice(), c = j.c_.slice(), v = j.v.slice();
-    var today = twToday(), wd = new Date().getDay(), isLive = false;
+    var today = live && live.d ? live.d : twToday(), wd = live && live.d ? 1 : new Date().getDay(), isLive = false;
     var lastC = c[c.length - 1];
     if (live && live.p > 0 && wd >= 1 && wd <= 5 && lastC > 0 && Math.abs(live.p / lastC - 1) < 0.25) {  // 和最近收盤差太多（資料不一致）就不補
       var last = d[d.length - 1];
@@ -140,7 +143,7 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
     var vm = sma(D.v, 5), vp = [];
     for (i = start; i < N; i++) if (vm[i] != null) vp.push(idx(i).toFixed(1) + "," + VY(vm[i]).toFixed(1));
     out.push('<polyline fill="none" stroke="#e6a23c" stroke-width="1" points="' + vp.join(" ") + '"/>');
-    out.push('<text x="' + (W - PR + 4) + '" y="' + (y2 + 9) + '">' + fmt(vmax, 0) + '</text><text x="' + PL + '" y="' + (y2 - 4) + '">成交量（張）</text>');
+    out.push('<text x="' + (W - PR + 4) + '" y="' + (y2 + 9) + '">' + fmt(vmax, 0) + '</text><text x="' + PL + '" y="' + (y2 - 4) + '">成交量' + (s.vu ? "（" + s.vu + "）" : "") + '</text>');
     // 副圖
     var sub = s.sub, lines = [], smin, smax, bars = null;
     if (sub === "KD") { lines = [[s.kd[0], "#e6a23c"], [s.kd[1], "#3b82f6"]]; smin = 0; smax = 100; }
@@ -196,12 +199,18 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
 
   function header(j) {
     var D = st.data, n = D.c.length, last = D.c[n - 1], pc = D.c[n - 2], ch = last / pc - 1, cl = ch > 0 ? "kc-up" : ch < 0 ? "kc-dn" : "";
-    return '<span class="nm">' + esc(j.n || st.name || st.code) + '</span><span class="cd">' + esc(st.code === "TAIEX" || st.code === "OTC" ? "" : st.code) + '</span>' +
+    var cd = st.code === "TAIEX" || st.code === "OTC" ? "" : isUS(st.code) ? st.code.slice(3) : st.code;
+    return '<span class="nm">' + esc(isUS(st.code) && st.name ? st.name : (j.n || st.name || st.code)) + '</span><span class="cd">' + esc(cd) + '</span>' +
       '<span class="px ' + cl + '">' + fmt(last, dig(last)) + '</span><span class="ch ' + cl + '">' + (ch > 0 ? "+" : "") + fmt(last - pc, dig(last)) + '（' + (ch > 0 ? "+" : "") + (ch * 100).toFixed(2) + '%）</span>' +
       '<button class="kc-x" aria-label="關閉">×</button>';
   }
 
   function links(code, m) {
+    if (isUS(code)) {
+      var u = code.slice(3);
+      return '<a href="https://finance.yahoo.com/quote/' + encodeURIComponent(u) + '/chart" target="_blank" rel="noopener">Yahoo Finance</a>' +
+        (u.charAt(0) === "^" ? "" : '<a href="https://tw.tradingview.com/chart/?symbol=' + encodeURIComponent(u.replace("-", ".")) + '" target="_blank" rel="noopener">TradingView</a>');
+    }
     if (code === "TAIEX") return '<a href="https://tw.stock.yahoo.com/quote/%5ETWII/technical-analysis" target="_blank" rel="noopener">Yahoo 股市</a><a href="https://tw.tradingview.com/chart/?symbol=TWSE%3ATAIEX" target="_blank" rel="noopener">TradingView</a>';
     if (code === "OTC") return '<a href="https://tw.stock.yahoo.com/quote/%5ETWOII/technical-analysis" target="_blank" rel="noopener">Yahoo 股市</a>';
     var otc = m === "上櫃";
@@ -225,6 +234,7 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
     var box = el("div", {"class": "kc"}, '<div class="kc-h"><span class="nm">' + esc(name || code) + '</span><button class="kc-x" aria-label="關閉">×</button></div>' +
       '<div class="kc-bar"></div><div class="kc-info"></div><div class="kc-chart"><div class="kc-msg">載入中…</div></div><div class="kc-ft"></div>');
     ov.appendChild(box); document.body.appendChild(ov);
+    US = isUS(code);
     st = {code: code, name: name, live: live, ov: ov, box: box, range: range, sub: sub, prevOv: document.documentElement.style.overflow};
     document.documentElement.style.overflow = "hidden";
     ov.addEventListener("click", function (e) {
@@ -239,11 +249,12 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
     load(code).then(function (j) {
       if (!st || st.code !== code) return;
       var D = st.data = withLive(j, live);
+      st.vu = j.vu == null ? "張" : j.vu;
       st.ma = MA.map(function (m) { return sma(D.c, m[0]); });
       st.kd = kd(D.h, D.l, D.c); st.macd = macd(D.c); st.rsi = rsi(D.c, 14);
       box.querySelector(".kc-h").innerHTML = header(j);
       bar(); draw();
-      box.querySelector(".kc-ft").innerHTML = '<span>日 K 資料更新：' + esc(j.t || "") + (D.live ? "；今天這根用盤中即時價" : "") + '</span>' + links(code, j.m) +
+      box.querySelector(".kc-ft").innerHTML = '<span>日 K 資料更新：' + esc(j.t || "") + (D.live ? "；最後一根用盤中即時價" : "") + (US ? "（美東日期）" : "") + '</span>' + links(code, j.m) +
         '<span>僅供參考，不構成投資建議</span>';
     }).catch(function () {
       if (!st || st.code !== code) return;
@@ -262,7 +273,7 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
     var t = e.target.closest("[data-k]");
     if (!t || e.target.closest("a")) return;
     var live = null;
-    if (t.dataset.kp) live = {p: +t.dataset.kp, o: +(t.dataset.ko || 0), h: +(t.dataset.kh || 0), l: +(t.dataset.kl || 0), v: +(t.dataset.kv || 0), m: t.dataset.km};
+    if (t.dataset.kp) live = {p: +t.dataset.kp, o: +(t.dataset.ko || 0), h: +(t.dataset.kh || 0), l: +(t.dataset.kl || 0), v: +(t.dataset.kv || 0), m: t.dataset.km, d: t.dataset.kd || null};
     open(t.dataset.k, t.dataset.kn, live);
   });
   window.KChart = {open: open, close: close};

@@ -79,11 +79,11 @@ function spark(a){
 function table(rows, cols){
   if (!rows || !rows.length) return `<div class="ub-tw"><p class="ub-meta" style="padding:16px;text-align:center">沒有資料</p></div>`;
   return `<div class="ub-tw"><table><thead><tr><th class="n">#</th>${cols.map(c => `<th class="${c[2] || ""}">${c[0]}</th>`).join("")}</tr></thead><tbody>` +
-    rows.map((x, i) => `<tr><td class="rk">${x.rk ?? i + 1}</td>${cols.map(c => `<td class="${c[2] || ""}">${c[1](x)}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
+    rows.map((x, i) => `<tr${x.s ? ` data-k="US:${esc(x.s)}" data-kn="${esc(x.n)}"${x.p ? ` data-kp="${x.p}" data-kd="${U.date}"` : ""}` : ""}><td class="rk">${x.rk ?? i + 1}</td>${cols.map(c => `<td class="${c[2] || ""}">${c[1](x)}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
 }
 
 function summary(){
-  const idx = U.idx.map(x => `<div class="ub-k"><div class="t">${esc(x.n)}</div><div class="v">${fmt(x.p)}</div><div class="s ${cls(x.ch)}">${pct(x.ch)}</div>${spark(x.sp)}</div>`).join("");
+  const idx = U.idx.map(x => `<div class="ub-k" data-k="US:${esc(x.s)}" data-kn="${esc(x.n)}" data-kp="${x.p}" data-kd="${U.date}"><div class="t">${esc(x.n)}</div><div class="v">${fmt(x.p)}</div><div class="s ${cls(x.ch)}">${pct(x.ch)}</div>${spark(x.sp)}</div>`).join("");
   const mini = U.fut.concat(U.mac).map(x => `<div><span>${esc(x.n)}</span><b>${x.u === "y" ? fmt(x.p) + "%" : fmt(x.p, x.p > 1000 ? 0 : x.p < 10 ? 3 : 2)} <span class="${cls(x.ch)}">${pct(x.ch)}</span></b></div>`).join("");
   let pts = "", head = "";
   if (U.state === "收盤" && U.summary) { pts = U.summary; head = `收盤重點（美東 ${esc(U.sess)}）`; }
@@ -117,7 +117,7 @@ function render(){
   $("ub-top").innerHTML = [["sum", "總覽・收盤重點"], ["top", "成交前 100"], ["sec", "產業"], ["chain", "台灣供應鏈・ADR"]]
     .map(([k, t]) => `<button data-top="${k}" class="${top === k ? "on" : ""}">${t}</button>`).join("");
   $("ub-view").innerHTML = ({sum: summary, top: topv, sec: secv, chain: chainv})[top]() +
-    `<div class="ub-note">資料來源：Yahoo Finance，盤中約延遲 15 分鐘；美股盤中每 5 分鐘更新網頁。僅供參考，不構成投資建議。</div>`;
+    `<div class="ub-note">資料來源：Yahoo Finance，盤中約延遲 15 分鐘；美股盤中每 5 分鐘更新網頁。點指數或個股可看日 K 技術線圖。僅供參考，不構成投資建議。</div>`;
 }
 $("ub").addEventListener("click", ev => {
   const b = ev.target.closest("button");

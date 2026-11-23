@@ -126,7 +126,7 @@ function us(){
     <div class="pb-desc">依產業篩選（數字：檔數・成交值億美元・平均漲跌）</div>
     <div class="pb-chips" id="pb-sec"><button class="pb-chip ${sec ? "" : "on"}" data-v="">全部 100</button>${U.sectors.map(g => `<button class="pb-chip ${g.k === sec ? "on" : ""}" data-v="${esc(g.k)}">${esc(g.k)} ${g.cnt}・${g.dv.toFixed(0)}・<span class="${cls(g.ch)}">${pct(g.ch)}</span></button>`).join("")}</div>
     <div class="pb-tw"><table><thead><tr><th class="n">#</th><th>股票</th><th class="n hd">價格</th><th class="n">漲跌</th><th class="n">成交值(億美元)</th><th class="n hd">量比</th><th class="n hd">5日</th><th class="n">20日</th><th class="n hd">今年</th><th class="hd">均線</th><th class="n hd">距高點</th><th class="n hd">RSI</th></tr></thead><tbody>
-      ${rows.map(x => `<tr><td class="pbrk">${x.rk}</td><td><b>${esc(x.s)}</b><span class="sub">${esc(x.n)}・${esc(x.sec)}</span></td>
+      ${rows.map(x => `<tr data-k="US:${esc(x.s)}" data-kn="${esc(x.n)}"><td class="pbrk">${x.rk}</td><td><b>${esc(x.s)}</b><span class="sub">${esc(x.n)}・${esc(x.sec)}</span></td>
         <td class="n hd">${x.p != null ? x.p.toFixed(2) : "—"}</td><td class="n ${cls(x.ch)}">${pct(x.ch)}</td><td class="n">${x.dv.toFixed(1)}</td>
         <td class="n hd ${x.vr >= 1.5 ? "up" : ""}">${x.vr != null ? x.vr.toFixed(1) + "x" : "—"}</td><td class="n hd ${cls(x.r5)}">${pct(x.r5)}</td><td class="n ${cls(x.r20)}">${pct(x.r20)}</td>
         <td class="n hd ${cls(x.ytd)}">${pct(x.ytd)}</td><td class="hd">${ma(x)}</td><td class="n hd">${pct(x.hi)}</td>

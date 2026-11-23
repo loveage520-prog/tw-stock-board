@@ -46,6 +46,7 @@
 #sb .sym{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--sb-muted);margin-left:6px}
 #sb .q{font-size:11px;padding:1px 7px;border-radius:999px;font-weight:700;color:#fff;display:inline-block}
 #sb .sb-meta{font-size:12px;color:var(--sb-muted);margin:0 0 8px}
+#sb .sb-kb{margin-left:auto;font:inherit;font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;border:1px solid var(--sb-line);background:var(--sb-card);color:var(--sb-fg);cursor:pointer}
 #sb .sb-note{font-size:12px;color:var(--sb-muted);line-height:1.7;margin-top:8px}
 #sb .sb-grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
 @media (max-width:900px){#sb .sb-grid2{grid-template-columns:minmax(0,1fr)}}
@@ -131,9 +132,9 @@ function detail(){
   const kv = [["價格", x.p], ["1 日", pct(x.r1, 2), cls(x.r1)], ["5 日", pct(x.r5), cls(x.r5)], ["20 日", pct(x.r20), cls(x.r20)], ["60 日", pct(x.r60), cls(x.r60)],
               ["今日資金流", sg(x.f1) + " 億", cls(x.f1)], ["CMF 20", sg(x.cmf, 3), cls(x.cmf)], ["成交值", (x.dv ?? "—") + " 億"]];
   const mem = x.mem && x.mem.length ? `<div class="sb-tw" style="margin-top:8px"><table><thead><tr><th>成分股（成交值前 100）</th><th class="n">價格</th><th class="n">漲跌</th><th class="n">5 日</th><th class="n hd">20 日</th><th class="n hd">成交值</th></tr></thead><tbody>` +
-    x.mem.map(m => `<tr><td><b class="sym" style="margin:0;color:var(--sb-fg);font-size:13px">${esc(m.s)}</b> <span style="font-size:12px;color:var(--sb-muted)">${esc(m.n)}</span></td><td class="n">${m.p}</td><td class="n ${cls(m.ch)}">${pct(m.ch, 2)}</td><td class="n ${cls(m.r5)}">${pct(m.r5)}</td><td class="n hd ${cls(m.r20)}">${pct(m.r20)}</td><td class="n hd">${m.dv}</td></tr>`).join("") +
+    x.mem.map(m => `<tr data-k="US:${esc(m.s)}" data-kn="${esc(m.n)}"><td><b class="sym" style="margin:0;color:var(--sb-fg);font-size:13px">${esc(m.s)}</b> <span style="font-size:12px;color:var(--sb-muted)">${esc(m.n)}</span></td><td class="n">${m.p}</td><td class="n ${cls(m.ch)}">${pct(m.ch, 2)}</td><td class="n ${cls(m.r5)}">${pct(m.r5)}</td><td class="n hd ${cls(m.r20)}">${pct(m.r20)}</td><td class="n hd">${m.dv}</td></tr>`).join("") +
     `</tbody></table></div>` : `<p class="sb-meta">${x.k === "風格" ? "風格指數，沒有列成分股" : "成交值前 100 檔裡沒有這個板塊的股票"}</p>`;
-  return `<h4>${esc(x.n)}<span class="sym">${x.s}</span> ${qtag(x.q)} <small>${QD[x.q]}</small></h4>` +
+  return `<h4>${esc(x.n)}<span class="sym">${x.s}</span> ${qtag(x.q)} <small>${QD[x.q]}</small><button class="sb-kb" data-k="US:${esc(x.s)}" data-kn="${esc(x.n)} ETF">📈 日K線圖</button></h4>` +
     `<div class="sb-grid2"><div><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px">${kv.map(([t, v, c]) => `<div style="background:var(--sb-soft);border-radius:8px;padding:5px 8px;min-width:0"><div style="font-size:11px;color:var(--sb-muted)">${t}</div><b class="${c || ""}" style="font-variant-numeric:tabular-nums">${v}</b></div>`).join("")}</div></div>` +
     `<div><div style="font-size:11px;color:var(--sb-muted)">近 60 日走勢</div>${spark(x.spark)}</div></div>${mem}`;
 }

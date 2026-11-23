@@ -1,0 +1,23 @@
+name: 重新產生網頁（不抓資料）
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TZ: Asia/Taipei
+      PYTHONIOENCODING: utf-8
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: bash cloud/data_pull.sh
+      - run: python cloud/rerender.py
+      - run: python cloud/build_site.py && bash cloud/git_push_dir.sh site gh-pages
+      - run: bash cloud/data_push_part.sh "" "market_board_fragment.html post_board_fragment.html extra_board_fragment.html etf_board_fragment.html us_live_fragment.html us_flow_fragment.html morning_fragment.html"
