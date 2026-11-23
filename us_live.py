@@ -79,7 +79,7 @@ def download(syms: list[str], **kw) -> dict[str, pd.DataFrame]:
         raw = yf.download(part, group_by="ticker", progress=False, threads=True, auto_adjust=False, **kw)
         for s in part:
             try:
-                df = (raw[s] if len(part) > 1 else raw)[["Close", "Volume"]].astype(float).dropna(subset=["Close"])
+                df = (raw[s] if len(part) > 1 else raw)[["Open", "High", "Low", "Close", "Volume"]].astype(float).dropna(subset=["Close"])
                 if len(df):
                     out[s] = df
             except Exception:  # noqa: BLE001
@@ -90,7 +90,7 @@ def download(syms: list[str], **kw) -> dict[str, pd.DataFrame]:
             try:
                 df = yf.download(s, progress=False, threads=False, auto_adjust=False, **kw)
                 df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
-                df = df[["Close", "Volume"]].astype(float).dropna(subset=["Close"])
+                df = df[["Open", "High", "Low", "Close", "Volume"]].astype(float).dropna(subset=["Close"])
                 if len(df):
                     out[s] = df
             except Exception:  # noqa: BLE001
@@ -104,17 +104,23 @@ def quote(df: pd.DataFrame, today) -> dict | None:
         return None
     last_d = df.index[-1].date()
     p, pc = float(df["Close"].iloc[-1]), float(df["Close"].iloc[-2])
+    dv = df["Close"] * df["Volume"]
     return {"p": p, "pc": pc, "ch": p / pc - 1 if pc else None, "v": float(df["Volume"].iloc[-1] or 0), "live": last_d == today,
-            "d": str(last_d)}
+            "d": str(last_d), "h": float(df["High"].iloc[-1]), "l": float(df["Low"].iloc[-1]), "o": float(df["Open"].iloc[-1]),
+            "avgdv": float(dv.iloc[-21:-1].mean()) if len(dv) > 5 else None}
 
 
 def build(state: str) -> dict:
     t = now_et()
     today = t.date()
     top, meta = universe()
-    stocks = list(dict.fromkeys([x["s"] for x in top] + [s for s, _ in TWCHAIN]))
-    syms = [s for s, _ in INDICES] + [s for s, *_ in MACRO] + stocks + [p[0] for p in TW_PAIR.values()] + ["ES=F", "NQ=F"]
-    daily = download(syms, period="7d", interval="1d")
+    from us_flow import ETFS
+    theme_syms = [x for e in ETFS if e[2] == "主題" for x in e[3]]
+    stocks = list(dict.fromkeys([x["s"] for x in top] + [s for s, _ in TWCHAIN] + list(meta) + theme_syms))
+    etfs = ["SPY"] + [e[0] for e in ETFS]
+    syms = list(dict.fromkeys([s for s, _ in INDICES] + [s for s, *_ in MACRO] + stocks + etfs
+                              + [p[0] for p in TW_PAIR.values()] + ["ES=F", "NQ=F"]))
+    daily = download(syms, period="1mo", interval="1d")
     if "^GSPC" in daily:  # 用指數最後一個交易日當「今天」（盤前、週末時就是上一個交易日）
         today = daily["^GSPC"].index[-1].date()
     q = {s: quote(daily.get(s), today) for s in syms}
@@ -175,12 +181,145 @@ def build(state: str) -> dict:
     sectors = sorted(({"k": g["k"], "cnt": g["cnt"], "dv": r(g["dv"], 1), "ch": r(sum(g["chs"]) / len(g["chs"]), 4),
                        "up": sum(c > 0 for c in g["chs"])} for g in secs.values()), key=lambda g: -g["dv"])
     o, c = session(t)
+    flow, pulse = money_flow(q, meta, stocks, t, state)
     res = {"state": state, "et": f"{t:%m/%d %H:%M}", "tw": f"{datetime.now(TW):%m/%d %H:%M}", "date": str(today),
            "sess": f"{today:%m/%d}",
            "open_tw": f"{o.astimezone(TW):%H:%M}", "close_tw": f"{c.astimezone(TW):%H:%M}",
            "idx": idx, "fut": fut, "mac": mac, "chain": chain, "top": rows, "sectors": sectors,
-           "up": sum((x["ch"] or 0) > 0 for x in rows), "dn": sum((x["ch"] or 0) < 0 for x in rows)}
+           "up": sum((x["ch"] or 0) > 0 for x in rows), "dn": sum((x["ch"] or 0) < 0 for x in rows),
+           "flow": flow, "pulse": pulse}
+    history(res)
     return res
+
+
+def vol_frac(t: datetime, state: str) -> float:
+    """開盤到現在，正常情況下一天的成交量大概已經出了幾成（早盤量大，用 0.75 次方近似）"""
+    if state != "盤中":
+        return 1.0
+    o, _ = session(t)
+    m = max(1.0, min(390.0, (t - o).total_seconds() / 60))
+    return max(0.05, (m / 390) ** 0.75)
+
+
+def money_flow(q: dict, meta: dict, stocks: list, t: datetime, state: str):
+    """盤中資金地圖（產業／主題 ETF）＋盤勢判斷"""
+    from us_flow import ETFS
+    frac = vol_frac(t, state)
+    live = {s: q[s] for s in stocks if q.get(s) and q[s]["live"]}
+    etfs = []
+    for code, name, kind, ref in ETFS:
+        x = q.get(code)
+        if not x or not x["live"]:
+            continue
+        dv = x["p"] * x["v"]
+        rng = x["h"] - x["l"]
+        clv = ((x["p"] - x["l"]) - (x["h"] - x["p"])) / rng if rng > 0 else 0.0
+        vr = dv / (x["avgdv"] * frac) if x.get("avgdv") else None
+        mf = clv * dv / 1e8
+        ch = x["ch"] or 0
+        if ch > 0 and (vr or 0) >= 1.2 and clv > 0.3:
+            stt = "資金湧入"
+        elif ch > 0 and mf > 0:
+            stt = "溫和流入"
+        elif ch < 0 and (vr or 0) >= 1.2:
+            stt = "爆量下跌"
+        elif ch < 0 and mf < 0:
+            stt = "資金流出"
+        else:
+            stt = "觀望"
+        if kind == "產業":
+            mem_syms = [s for s in live if meta.get(s, {}).get("sec") == ref]
+        else:
+            mem_syms = [s for s in ref if s in live]
+        mem = sorted(({"s": s, "n": meta.get(s, {}).get("n", s), "p": r(live[s]["p"], 2), "ch": r(live[s]["ch"], 4),
+                       "dv": r(live[s]["p"] * live[s]["v"] / 1e8, 2), "o": r(live[s]["o"], 2), "h": r(live[s]["h"], 2), "l": r(live[s]["l"], 2)}
+                      for s in mem_syms), key=lambda m: -(m["dv"] or 0))
+        ups = sum((m["ch"] or 0) > 0 for m in mem)
+        etfs.append({"s": code, "n": name, "k": kind, "p": r(x["p"], 2), "ch": r(ch, 4), "dv": r(dv / 1e8, 1), "vr": r(vr, 2),
+                     "clv": r(clv, 2), "mf": r(mf, 1), "st": stt, "mem": mem[:15], "mn": len(mem), "mup": ups})
+    # 盤勢
+    def ch(s):
+        return (q.get(s) or {}).get("ch")
+    up = sum((x["ch"] or 0) > 0 for x in live.values())
+    n = len(live) or 1
+    br = up / n
+    spx, vix, sox, ndx = ch("^GSPC") or 0, ch("^VIX") or 0, ch("^SOX") or 0, ch("^IXIC") or 0
+    em = {e["s"]: e for e in etfs}
+    g = [em[s]["ch"] for s in ("XLK", "SMH", "XLY", "XLC", "IGV") if s in em]
+    d_ = [em[s]["ch"] for s in ("XLP", "XLU", "XLV", "XLRE") if s in em]
+    spread = (sum(g) / len(g) - sum(d_) / len(d_)) if g and d_ else None
+    score = spx * 100 / 0.5 + (br - 0.5) * 4 - vix * 10
+    label = "強勢多頭" if score >= 2.5 else "溫和偏多" if score >= 1 else "震盪整理" if score > -1 else "溫和偏空" if score > -2.5 else "弱勢空頭"
+    spy = em.get("SPY") or {}
+    sx = q.get("SPY")
+    spy_vr = (sx["p"] * sx["v"]) / (sx["avgdv"] * frac) if sx and sx.get("avgdv") and sx["live"] else None
+    why = [f"S&P 500 {spx * 100:+.2f}%、那斯達克 {ndx * 100:+.2f}%、費城半導體 {sox * 100:+.2f}%",
+           f"上漲家數 {up}／{n}（{br:.0%}）" + ("，多數股票上漲" if br >= 0.6 else "，多數股票下跌" if br <= 0.4 else "，漲跌互見"),
+           f"VIX {vix * 100:+.1f}%" + ("，恐慌升溫" if vix >= 0.08 else "，情緒放鬆" if vix <= -0.05 else "")]
+    if spread is not None:
+        why.append(("資金偏向成長科技股" if spread > 0.005 else "資金偏向防禦型股票" if spread < -0.005 else "成長股和防禦股差不多")
+                   + f"（成長－防禦 {spread * 100:+.2f}%）")
+    if spy_vr:
+        why.append(f"大盤量能 {spy_vr:.1f} 倍（和近 20 日同時段相比）" + ("，量大" if spy_vr >= 1.3 else "，量縮" if spy_vr <= 0.8 else ""))
+    inflow = sorted([e for e in etfs if e["k"] != "風格"], key=lambda e: -(e["mf"] or 0))
+    pulse = {"label": label, "score": r(score, 2), "br": r(br, 3), "up": up, "n": n, "spread": r(spread, 4), "spy_vr": r(spy_vr, 2),
+             "why": why, "lead": [e["n"] for e in inflow[:3] if (e["mf"] or 0) > 0],
+             "lag": [e["n"] for e in inflow[::-1][:3] if (e["mf"] or 0) < 0], "frac": r(frac, 2)}
+    return {"etfs": etfs}, pulse
+
+
+def history(res: dict) -> None:
+    """盤中每次更新存一筆，用來畫走勢、找出盤中事件"""
+    if res["state"] not in ("盤中", "收盤") or not res.get("pulse"):
+        return
+    f = OUT / f"intraday_{res['date'].replace('-', '')}.json"
+    OUT.mkdir(parents=True, exist_ok=True)
+    try:
+        h = json.loads(f.read_text("utf-8")) if f.exists() else {"snaps": [], "events": []}
+    except Exception:  # noqa: BLE001
+        h = {"snaps": [], "events": []}
+    ix = {x["s"]: x for x in res["idx"]}
+    et = res["et"][-5:]
+    snap = {"t": et, "tw": res["tw"][-5:], "spx": (ix.get("^GSPC") or {}).get("ch"), "sox": (ix.get("^SOX") or {}).get("ch"),
+            "ndx": (ix.get("^IXIC") or {}).get("ch"), "vix": (ix.get("^VIX") or {}).get("ch"), "br": res["pulse"]["br"],
+            "label": res["pulse"]["label"], "mf": {e["s"]: e["mf"] for e in res["flow"]["etfs"]}}
+    prev = h["snaps"][-1] if h["snaps"] else None
+    if prev and prev["t"] == et:
+        h["snaps"][-1] = snap
+    else:
+        if prev and res["state"] == "盤中":
+            h["events"] += events(prev, snap, res)
+        h["snaps"].append(snap)
+    h["snaps"] = h["snaps"][-120:]
+    h["events"] = h["events"][-40:]
+    f.write_text(json.dumps(h, ensure_ascii=False), "utf-8")
+    res["hist"] = [{k: v for k, v in x.items() if k != "mf"} for x in h["snaps"]]
+    res["events"] = h["events"][::-1]
+
+
+def events(a: dict, b: dict, res: dict) -> list:
+    """和上一次比較，找出值得注意的盤中變化"""
+    out = []
+    tm = f"{b['tw']}（美東 {b['t']}）"
+    for k, nm in (("spx", "S&P 500"), ("ndx", "那斯達克"), ("sox", "費城半導體")):
+        x0, x1 = (a.get(k) or 0) * 100, (b.get(k) or 0) * 100
+        for th in (0.5, 1, 2, 3):
+            if x0 < th <= x1:
+                out.append({"t": tm, "e": f"📈 {nm} 漲幅擴大到 {x1:+.2f}%", "c": "up"})
+            if x0 > -th >= x1:
+                out.append({"t": tm, "e": f"📉 {nm} 跌幅擴大到 {x1:+.2f}%", "c": "down"})
+    v0, v1 = (a.get("vix") or 0) * 100, (b.get("vix") or 0) * 100
+    for th in (10, 20):
+        if v0 < th <= v1:
+            out.append({"t": tm, "e": f"⚠️ VIX 急升 {v1:+.1f}%，市場緊張", "c": "down"})
+    if a.get("label") != b.get("label"):
+        out.append({"t": tm, "e": f"🔄 盤勢由「{a.get('label')}」轉為「{b.get('label')}」", "c": ""})
+    lead_a = max((a.get("mf") or {}).items(), key=lambda kv: kv[1] or -1e9, default=(None, 0))[0]
+    lead_b = max((b.get("mf") or {}).items(), key=lambda kv: kv[1] or -1e9, default=(None, 0))[0]
+    names = {e["s"]: e["n"] for e in res["flow"]["etfs"]}
+    if lead_a and lead_b and lead_a != lead_b and lead_b in names and lead_b not in ("SPY", "QQQ", "RSP", "IWM"):
+        out.append({"t": tm, "e": f"💰 資金主流轉向「{names[lead_b]}」", "c": "up"})
+    return out
 
 
 def earnings_today() -> list[dict]:

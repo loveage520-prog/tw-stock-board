@@ -47,6 +47,29 @@
 #ub .sym{font-weight:700;font-family:ui-monospace,Consolas,monospace}
 #ub .sub{display:block;font-size:11px;color:var(--ub-muted);white-space:normal;max-width:16em}
 #ub .ub-meta{font-size:12px;color:var(--ub-muted);margin:0 0 8px}
+#ub .pz-lab{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
+#ub .pz-lab b{font-size:22px;padding:2px 14px;border-radius:10px;color:#fff;background:var(--lc)}
+#ub .pz-lab span{font-size:12px;color:var(--ub-muted)}
+#ub .pz-why{margin:0;padding-left:1.2em;font-size:14px;line-height:1.8}
+#ub .pz-k{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}
+@media (max-width:560px){#ub .pz-k{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#ub .pz-k div{background:var(--ub-soft);border-radius:8px;padding:6px 9px;min-width:0}
+#ub .pz-k .t{font-size:11px;color:var(--ub-muted)}#ub .pz-k .v{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+#ub .pz-g{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:10px;align-items:start}
+#ub .pz-g .sub{max-width:9em;font-size:10px}
+@media (max-width:860px){#ub .pz-g{grid-template-columns:minmax(0,1fr)}}
+#ub svg.pz{display:block;width:100%;height:auto}
+#ub svg.pz text{font-family:inherit}
+#ub .pz-chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+#ub .pz-chips button{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--ub-line);border-left:4px solid var(--c);background:var(--ub-card);cursor:pointer}
+#ub .pz-chips button.on{background:var(--ub-fg);color:var(--ub-card)}
+#ub .pz-bar{display:grid;grid-template-columns:6.5em minmax(0,1fr) 4.2em;gap:6px;align-items:center;padding:2px 0;cursor:pointer;font-size:13px}
+#ub .pz-bar .tr{position:relative;height:12px}#ub .pz-bar .mid{position:absolute;left:50%;top:-2px;bottom:-2px;border-left:1px dashed var(--ub-muted)}
+#ub .pz-bar .b{position:absolute;top:1px;height:10px;border-radius:3px}
+#ub .pz-bar .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+#ub .pz-ev{list-style:none;margin:0;padding:0;max-height:260px;overflow:auto}
+#ub .pz-ev li{padding:5px 0;border-bottom:1px solid var(--ub-line);font-size:13px}
+#ub .pz-ev small{display:block;color:var(--ub-muted);font-size:11px}
 #ub .ub-note{font-size:12px;color:var(--ub-muted);line-height:1.7;margin-top:8px}
 #ub .chg{display:inline-block;min-width:62px;text-align:right;padding:1px 6px;border-radius:5px;font-weight:600}
 #ub .chg.up{background:var(--ub-up-bg)}#ub .chg.down{background:var(--ub-down-bg)}
@@ -67,7 +90,72 @@ const pct = (v, d = 2) => v == null ? "—" : (v > 0 ? "+" : "") + (v * 100).toF
 const cls = v => v > 0 ? "up" : v < 0 ? "down" : "";
 const fmt = (v, d = 2) => v == null ? "—" : Number(v).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
 const chg = v => `<span class="chg ${cls(v)}">${pct(v)}</span>`;
-let top = "sum", sec = "全部";
+let top = U.state === "盤中" && U.flow ? "pulse" : "sum", sec = "全部", fsel = null;
+const SC = {"資金湧入": "#d6453d", "溫和流入": "#f08a5d", "觀望": "#94a3b8", "資金流出": "#3fa06a", "爆量下跌": "#1f6e47"};
+const LC = {"強勢多頭": "#d6453d", "溫和偏多": "#f08a5d", "震盪整理": "#64748b", "溫和偏空": "#3fa06a", "弱勢空頭": "#1f6e47"};
+
+function pulseV(){
+  const P = U.pulse, F = U.flow;
+  if (!P || !F) return `<div class="ub-card"><p class="ub-meta">美股開盤後才有盤中金流與脈動資料（台灣時間 ${U.open_tw} 開盤）。</p></div>`;
+  const ix = Object.fromEntries(U.idx.map(x => [x.s, x]));
+  // 1) 盤勢
+  let h = `<div class="ub-card"><div class="pz-lab"><b style="--lc:${LC[P.label] || "#64748b"}">${esc(P.label)}</b><span>${U.state === "盤中" ? "盤中即時判斷" : "收盤判斷"}・美東 ${esc(U.et)}</span></div>` +
+    `<ul class="pz-why">${P.why.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` +
+    `<div class="pz-k"><div><div class="t">上漲家數比例</div><div class="v ${P.br >= .5 ? "up" : "down"}">${Math.round(P.br * 100)}%</div></div>` +
+    `<div><div class="t">VIX 恐慌指數</div><div class="v ${cls(-((ix["^VIX"] || {}).ch || 0))}">${fmt((ix["^VIX"] || {}).p)}</div></div>` +
+    `<div><div class="t">大盤量能（推估）</div><div class="v">${P.spy_vr == null ? "—" : P.spy_vr + "x"}</div></div>` +
+    `<div><div class="t">成長－防禦</div><div class="v ${cls(P.spread)}">${pct(P.spread)}</div></div></div>` +
+    (P.lead.length ? `<p class="ub-meta" style="margin:8px 0 0">💰 資金流入最多：<b>${esc(P.lead.join("、"))}</b>${P.lag.length ? `　💸 流出最多：<b>${esc(P.lag.join("、"))}</b>` : ""}</p>` : "") + `</div>`;
+  // 2) 盤中走勢（相對昨收 %）
+  const lines = [["^GSPC", "S&P 500", "var(--ub-accent)"], ["^SOX", "費城半導體", "#e6a23c"], ["^IXIC", "那斯達克", "#a855f7"]]
+    .map(([s, n, c]) => { const x = ix[s]; if (!x || !x.sp || x.sp.length < 2 || x.ch == null) return null; const pc = x.p / (1 + x.ch); return {n, c, v: x.sp.map(v => v / pc - 1), last: x.ch}; }).filter(Boolean);
+  if (lines.length) {
+    const all = lines.flatMap(l => l.v), lo = Math.min(0, ...all), hi = Math.max(0, ...all), k = (hi - lo) || .01, W = 600, H = 170, N = Math.max(...lines.map(l => l.v.length));
+    const Y = v => 8 + (hi - v) / k * (H - 24), X = i => 4 + i / Math.max(1, 78 - 1) * (W - 60);
+    let g = `<line x1="4" x2="${W - 56}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--ub-muted)" stroke-dasharray="3 3"/><text x="${W - 52}" y="${Y(0) + 3}" font-size="10" fill="var(--ub-muted)">昨收</text>`;
+    lines.forEach(l => { g += `<polyline fill="none" stroke="${l.c}" stroke-width="1.8" points="${l.v.map((v, i) => `${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(" ")}"/>` +
+      `<text x="${(X(l.v.length - 1) + 4).toFixed(1)}" y="${(Y(l.v[l.v.length - 1]) + 4).toFixed(1)}" font-size="11" font-weight="700" fill="${l.c}">${pct(l.last, 1)}</text>`; });
+    h += `<div class="ub-card"><h4>盤中走勢 <small style="font-weight:400;color:var(--ub-muted)">相對昨收；橫軸為整個交易日（美東 9:30–16:00）</small></h4>` +
+      `<svg class="pz" viewBox="0 0 ${W} ${H}" role="img" aria-label="美股指數盤中走勢">${g}</svg>` +
+      `<div class="pz-chips" style="margin:4px 0 0">${lines.map(l => `<span style="font-size:12px;color:${l.c};font-weight:700">● ${l.n}</span>`).join("")}</div></div>`;
+  }
+  // 3) 資金地圖
+  const es = F.etfs.filter(e => e.k !== "風格");
+  if (!fsel || !es.some(e => e.s === fsel)) fsel = (es.slice().sort((a, b) => (b.mf || 0) - (a.mf || 0))[0] || {}).s;
+  const W = 600, H = 360, P_ = 34, xs = es.map(e => e.ch || 0), xm = Math.max(.005, ...xs.map(Math.abs)) * 1.15;
+  const vrs = es.map(e => Math.log2(Math.max(.25, Math.min(8, e.vr || 1)))), ym = Math.max(1, ...vrs.map(Math.abs)) * 1.15;
+  const X = v => P_ + (v + xm) / (2 * xm) * (W - 2 * P_), Y = v => H - P_ - (Math.log2(Math.max(.25, Math.min(8, v || 1))) + ym) / (2 * ym) * (H - 2 * P_);
+  const dmax = Math.max(...es.map(e => e.dv || 0), 1);
+  let g = `<line x1="${X(0)}" x2="${X(0)}" y1="${P_ - 10}" y2="${H - P_}" stroke="var(--ub-line)"/><line x1="${P_}" x2="${W - P_}" y1="${Y(1)}" y2="${Y(1)}" stroke="var(--ub-line)" stroke-dasharray="3 3"/>` +
+    `<text x="${W - P_}" y="${Y(1) - 4}" text-anchor="end" font-size="10" fill="var(--ub-muted)">量比 1x（正常量）</text>` +
+    `<text x="${W - P_}" y="${H - 8}" text-anchor="end" font-size="10" fill="var(--ub-muted)">漲 →</text><text x="${P_}" y="${H - 8}" font-size="10" fill="var(--ub-muted)">← 跌</text>` +
+    `<text x="${P_}" y="${P_ - 14}" font-size="10" fill="var(--ub-muted)">↑ 量越大</text>`;
+  es.slice().sort((a, b) => (b.dv || 0) - (a.dv || 0)).forEach(e => {
+    const rr = 6 + Math.sqrt((e.dv || 0) / dmax) * 22, on = e.s === fsel, cx = X(e.ch || 0), cy = Y(e.vr);
+    g += `<g data-f="${e.s}" style="cursor:pointer"><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${rr.toFixed(1)}" fill="${SC[e.st]}" fill-opacity="${on ? .95 : .7}" stroke="${on ? "var(--ub-fg)" : "var(--ub-card)"}" stroke-width="${on ? 3 : 1.5}"/>` +
+      `<text x="${cx.toFixed(1)}" y="${(cy + 4).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ub-fg)" paint-order="stroke" stroke="var(--ub-card)" stroke-width="3">${esc(e.n)}</text></g>`;
+  });
+  const cur = es.find(e => e.s === fsel);
+  const det = cur ? `<div class="ub-card" style="margin:0"><h4><span style="color:${SC[cur.st]}">●</span> ${esc(cur.n)} <span class="sym" style="font-size:12px">${cur.s}</span> <small style="font-weight:600;color:${SC[cur.st]}">${esc(cur.st)}</small></h4>` +
+    `<div class="pz-k" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><div class="t">漲跌</div><div class="v ${cls(cur.ch)}">${pct(cur.ch)}</div></div><div><div class="t">量比</div><div class="v">${cur.vr ?? "—"}x</div></div>` +
+    `<div><div class="t">盤中資金流（億美元）</div><div class="v ${cls(cur.mf)}">${cur.mf > 0 ? "+" : ""}${fmt(cur.mf, 1)}</div></div><div><div class="t">成分股上漲</div><div class="v">${cur.mup}／${cur.mn}</div></div></div>` +
+    `<p class="ub-meta" style="margin:8px 0 4px">成分股（依成交值）<button data-k="US:${cur.s}" data-kn="${esc(cur.n)} ETF" style="float:right;font-size:12px;border:1px solid var(--ub-line);border-radius:6px;background:none;cursor:pointer;padding:1px 8px">📈 ETF 日K</button></p>` +
+    (cur.mem.length ? `<div class="ub-tw"><table><tbody>${cur.mem.map(m => `<tr data-k="US:${esc(m.s)}" data-kn="${esc(m.n)}" data-kp="${m.p}" data-kd="${U.date}"${m.o ? ` data-ko="${m.o}" data-kh="${m.h}" data-kl="${m.l}"` : ""}><td><span class="sym">${esc(m.s)}</span><span class="sub">${esc(m.n)}</span></td><td class="n">${fmt(m.p)}</td><td class="n">${chg(m.ch)}</td><td class="n">${fmt(m.dv, 1)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="ub-meta">沒有成分股資料</p>`) + `</div>` : "";
+  h += `<div class="ub-card"><h4>盤中資金地圖 <small style="font-weight:400;color:var(--ub-muted)">泡泡＝產業／主題 ETF；越右越漲、越上量越大、泡泡越大成交值越大；點泡泡看成分股</small></h4>` +
+    `<div class="pz-g"><div><svg class="pz" viewBox="0 0 ${W} ${H}" role="img" aria-label="美股盤中資金地圖">${g}</svg>` +
+    `<div class="pz-chips">${Object.entries(SC).map(([k, c]) => `<span style="font-size:12px"><span style="color:${c}">●</span> ${k}</span>`).join("")}</div>` +
+    `<div class="pz-chips">${es.map(e => `<button data-f="${e.s}" class="${e.s === fsel ? "on" : ""}" style="--c:${SC[e.st]}">${esc(e.n)} ${pct(e.ch, 1)}</button>`).join("")}</div></div>${det}</div></div>`;
+  // 4) 資金流排行
+  const fr = es.slice().sort((a, b) => (b.mf || 0) - (a.mf || 0)), fm = Math.max(...fr.map(e => Math.abs(e.mf || 0)), .1);
+  h += `<div class="ub-card"><h4>盤中資金流向排行 <small style="font-weight:400;color:var(--ub-muted)">億美元；收盤越靠近今日高點、成交值越大，流入越多（估算）</small></h4>` +
+    fr.map(e => { const w = Math.abs(e.mf || 0) / fm * 50, pos = (e.mf || 0) >= 0;
+      return `<div class="pz-bar" data-f="${e.s}"><span>${esc(e.n)}</span><span class="tr"><span class="mid"></span><span class="b" style="background:${SC[e.st]};${pos ? "left:50%" : "right:50%"};width:${w.toFixed(1)}%"></span></span><span class="v ${cls(e.mf)}">${e.mf > 0 ? "+" : ""}${fmt(e.mf, 1)}</span></div>`; }).join("") + `</div>`;
+  // 5) 盤中事件
+  const ev = U.events || [];
+  h += `<div class="ub-card"><h4>盤中事件 <small style="font-weight:400;color:var(--ub-muted)">每 5 分鐘比對一次</small></h4>` +
+    (ev.length ? `<ul class="pz-ev">${ev.map(x => `<li class="${x.c === "up" ? "" : ""}">${esc(x.e)}<small>${esc(x.t)}</small></li>`).join("")}</ul>` : `<p class="ub-meta">目前沒有特別事件</p>`) + `</div>`;
+  return h;
+}
 
 function spark(a){
   if (!a || a.length < 3) return "";
@@ -114,18 +202,20 @@ function chainv(){
 function render(){
   const live = U.state === "盤中";
   $("ub-state").innerHTML = `<span class="pill ${live ? "live" : ""}">${esc(U.state)}</span>美東 ${esc(U.et)}｜台灣 ${esc(U.tw)} 更新｜開盤 ${U.open_tw}・收盤 ${U.close_tw}（台灣時間）`;
-  $("ub-top").innerHTML = [["sum", "總覽・收盤重點"], ["top", "成交前 100"], ["sec", "產業"], ["chain", "台灣供應鏈・ADR"]]
+  $("ub-top").innerHTML = [["pulse", "💹 金流・脈動"], ["sum", "總覽・收盤重點"], ["top", "成交前 100"], ["sec", "產業"], ["chain", "台灣供應鏈・ADR"]]
     .map(([k, t]) => `<button data-top="${k}" class="${top === k ? "on" : ""}">${t}</button>`).join("");
-  $("ub-view").innerHTML = ({sum: summary, top: topv, sec: secv, chain: chainv})[top]() +
+  $("ub-view").innerHTML = ({pulse: pulseV, sum: summary, top: topv, sec: secv, chain: chainv})[top]() +
     `<div class="ub-note">資料來源：Yahoo Finance，盤中約延遲 15 分鐘；美股盤中每 5 分鐘更新網頁。點指數或個股可看日 K 技術線圖。僅供參考，不構成投資建議。</div>`;
 }
 $("ub").addEventListener("click", ev => {
-  const b = ev.target.closest("button");
-  if (!b) return;
+  const b = ev.target.closest("[data-top],[data-sec],[data-f]");
+  if (!b || ev.target.closest("[data-k]")) return;
   if (b.dataset.top) top = b.dataset.top;
   if (b.dataset.sec) sec = b.dataset.sec;
+  if (b.dataset.f) { fsel = b.dataset.f; try { sessionStorage.setItem("ubF", fsel); } catch(e) {} }
   render();
 });
+try { fsel = sessionStorage.getItem("ubF") || null; const t0 = sessionStorage.getItem("ubTop"); } catch(e) {}
 render();
 })();
 </script>

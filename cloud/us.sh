@@ -26,6 +26,9 @@ while true; do
     break
   fi
   [ $(( $(date +%s) - start )) -gt 20100 ] && { echo "接近 6 小時上限，交給下一段"; break; }
+  n=$(( ${n:-0} + 1 ))
+  # 每 30 分鐘存一次盤中紀錄（後半段接手時才有完整的盤中事件）
+  [ $(( n % 6 )) -eq 0 ] && bash cloud/data_push_part.sh "us" "us_live_fragment.html us_flow_fragment.html" >/dev/null 2>&1
   sleep 300
 done
 bash cloud/data_push_part.sh "us" "us_live_fragment.html us_flow_fragment.html"
