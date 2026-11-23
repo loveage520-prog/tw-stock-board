@@ -58,16 +58,70 @@ body{background:var(--bg);color:var(--fg);font:15px/1.6 "Noto Sans TC","Microsof
 .ch-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-top:12px}
 .ch-box h3{margin:0 0 6px;font-size:16px}.ch-box ul{margin:0;padding-left:1.2em}.ch-box li{margin:3px 0;font-size:14px}
 .ch-note{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.7}
+:root{--jp:#db2777;--kr:#7c3aed}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--jp:#f472b6;--kr:#a78bfa}}
+:root[data-theme="dark"]{--jp:#f472b6;--kr:#a78bfa}
+.ch-mode{display:inline-flex;padding:3px;border-radius:12px;background:var(--line);gap:3px;margin:0 0 10px}
+#ch .ch-mode button{border:0;background:none;font-weight:700;padding:7px 16px;border-radius:9px;cursor:pointer;font-size:14px}
+#ch .ch-mode button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.ch-cols.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.ch-cols.c3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.ch-cols.c3{grid-template-columns:minmax(0,1fr)}}
+.ch-strip{display:flex;flex-wrap:wrap;align-items:center;gap:4px 2px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}
+.ch-strip .s{display:flex;flex-direction:column;align-items:center;min-width:58px;max-width:84px;text-align:center}
+.ch-strip .e{font-size:24px;line-height:1.2}.ch-strip .t{font-size:11px;font-weight:600;line-height:1.3}
+.ch-strip .a{color:var(--muted);font-size:14px;padding:0 1px}
+.ch-strip h4{width:100%;margin:0 0 6px;font-size:13px;color:var(--muted)}
+.ch-parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.ch-parts div{background:var(--soft);border-radius:10px;padding:8px 10px}
+.ch-parts .e{font-size:22px}.ch-parts b{display:block;font-size:14px}.ch-parts span{font-size:12px;color:var(--muted)}
+.ch-rels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.ch-rels{grid-template-columns:minmax(0,1fr)}}
+.ch-rels h5{margin:0 0 4px;font-size:12px;color:var(--muted)}
+.ch-rl{display:flex;align-items:center;gap:6px;width:100%;text-align:left;border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:6px 9px;margin-bottom:5px;cursor:pointer}
+.ch-rl b{font-size:14px}.ch-rl span{font-size:12px;color:var(--muted)}
+.nw-themes{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:thin}
+#ch .nw-themes button{flex:0 0 auto;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
+#ch .nw-themes button.on{background:var(--fg);color:var(--card);border-color:var(--fg)}
+.nw-wrap{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:12px;align-items:start}
+@media (max-width:900px){.nw-wrap{grid-template-columns:minmax(0,1fr)}}
+.nw-graph{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;min-width:0}
+.nw-graph p{margin:0 0 6px;font-size:13px;color:var(--muted)}
+.nw-scroll{overflow-x:auto}
+.nw-scroll svg{display:block}
+.nw-scroll svg text{font-family:inherit}
+.nw-leg{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-top:6px}
+.nw-sw{display:none;font-weight:700}@media (max-width:700px){.nw-sw{display:inline}}
+.nw-leg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:0}
+.nw-side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;position:sticky;top:calc(64px + env(safe-area-inset-top,0px))}
+@media (max-width:900px){.nw-side{position:static}}
+.nw-side .sel{font-size:12px;color:var(--muted)}
+.nw-side h3{margin:2px 0 4px;font-size:19px}
+.nw-side p{margin:0 0 8px;font-size:13px;line-height:1.6}
+.nw-side .ch-strip{padding:8px;margin-bottom:8px}
+.nw-side .ch-strip .s{min-width:48px}
+.nw-go{display:block;width:100%;margin-top:8px;padding:10px;border:0;border-radius:10px;background:var(--accent);color:#fff!important;font-weight:700;cursor:pointer}
+.nw-mini{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.nw-mini button{font-size:12px;padding:2px 8px;border-radius:6px;border:1px solid var(--line);border-left:3px solid var(--mc);background:var(--soft);cursor:pointer}
 </style>
 <div id="ch">
   <h1>產業鏈地圖</h1>
   <div class="ch-intro" id="ch-intro"></div>
+  <div class="ch-mode" id="ch-mode" role="tablist" aria-label="檢視方式"><button data-m="net">🕸️ 產業網絡</button><button data-m="chain">🔗 產業鏈</button></div>
   <div class="ch-search"><input id="ch-q" type="search" placeholder="搜尋公司或代號，例如 台積電、2330、NVDA" aria-label="搜尋公司"></div>
   <div class="ch-res" id="ch-res" hidden></div>
+  <div id="ch-netv" hidden>
+    <div class="nw-themes" id="nw-themes" aria-label="主題"></div>
+    <div class="nw-wrap"><div class="nw-graph"><p id="nw-desc"></p><div class="nw-scroll" id="nw-svg"></div>
+      <div class="nw-leg"><span><i style="background:var(--tw)"></i>台</span><span><i style="background:var(--us)"></i>美</span><span><i style="background:var(--jp)"></i>日</span><span><i style="background:var(--kr)"></i>韓</span><span>→ 箭頭＝供應方向（上游 → 下游）；點節點看說明</span><span class="nw-sw">← 左右滑動看完整網絡 →</span></div></div>
+      <aside class="nw-side" id="nw-side"></aside></div>
+  </div>
+  <div id="ch-chainv">
   <div class="ch-cats" id="ch-cats" role="tablist" aria-label="產業分類"></div>
   <nav class="ch-tabs" id="ch-tabs" aria-label="產業"></nav>
   <div id="ch-view"></div>
-  <div class="ch-note">公司角色依各公司主要業務整理（資料整理時間：<span id="ch-upd"></span>），供應關係可能隨時間改變；名單為代表性公司，非完整清單。點公司可看日 K 技術線圖。僅供參考，不構成投資建議。</div>
+  </div>
+  <div class="ch-note">公司角色依各公司主要業務整理（資料整理時間：<span id="ch-upd"></span>），供應關係可能隨時間改變；名單為代表性公司，非完整清單。點公司可看日 K 技術線圖（台、美、日、韓）。僅供參考，不構成投資建議。</div>
 </div>
 <script>
 (function(){
@@ -76,55 +130,148 @@ if (!C) return;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const LV = {"上游": "var(--lv-up)", "中游": "var(--lv-mid)", "下游": "var(--lv-down)", "終端": "var(--lv-end)", "支援": "var(--lv-sup)"};
-let cur = C.chains[0].id, hl = null, cat = C.chains[0].cat || "";
+const MK = {tw: ["", "var(--tw)", "🇹🇼 台股"], us: ["US:", "var(--us)", "🇺🇸 美股"], jp: ["JP:", "var(--jp)", "🇯🇵 日股"], kr: ["KR:", "var(--kr)", "🇰🇷 韓股"]};
+const BY = Object.fromEntries(C.chains.map(c => [c.id, c]));
+const EDGES = C.edges || [], THEMES = C.themes || [];
+let cur = C.chains[0].id, hl = null, cat = C.chains[0].cat || "", mode = "net", theme = (THEMES[0] || {}).id, sel = null;
 const CATS = C.cats || [...new Set(C.chains.map(c => c.cat))];
 $("ch-upd").textContent = C.updated;
 $("ch-intro").innerHTML = C.intro.map(p => `<p>${esc(p)}</p>`).join("");
+const markets = c => Object.keys(MK).filter(k => c.stages.some(s => (s[k] || []).length));
 
-const co = (x, us) => `<button class="ch-co ${hl && hl === (us ? "US:" : "") + x[0] ? "hl" : ""}" style="--mc:${us ? "var(--us)" : "var(--tw)"}" data-k="${us ? "US:" : ""}${esc(x[0])}" data-kn="${esc(x[1])}">` +
+const co = (x, k) => `<button class="ch-co ${hl && hl === MK[k][0] + x[0] ? "hl" : ""}" style="--mc:${MK[k][1]}" data-k="${MK[k][0]}${esc(x[0])}" data-kn="${esc(x[1])}">` +
   `<span class="n">${esc(x[1])}<small>${esc(x[0])}</small></span>${x[2] ? `<span class="r">${esc(x[2])}</span>` : ""}</button>`;
+const strip = (c, title) => c.flow && c.flow.length ? `<div class="ch-strip">${title ? `<h4>${esc(title)}</h4>` : ""}` +
+  c.flow.map((f, i) => `${i ? '<span class="a" aria-hidden="true">→</span>' : ""}<span class="s"><span class="e" aria-hidden="true">${f[0]}</span><span class="t">${esc(f[1])}</span></span>`).join("") + `</div>` : "";
+const rels = id => ({up: EDGES.filter(e => e[1] === id), down: EDGES.filter(e => e[0] === id)});
 
-function render(){
+function chainView(){
   $("ch-cats").innerHTML = CATS.map(k => `<button data-cat="${esc(k)}" class="${k === cat ? "on" : ""}">${esc(k)}<small>${C.chains.filter(c => c.cat === k).length}</small></button>`).join("");
   $("ch-tabs").innerHTML = C.chains.filter(c => !cat || c.cat === cat).map(c => `<button data-c="${c.id}" class="${c.id === cur ? "on" : ""}">${c.icon} ${esc(c.name.replace(/（.*）/, ""))}</button>`).join("");
-  const c = C.chains.find(x => x.id === cur) || C.chains[0];
-  const st = c.stages.map((s, i) => `${i ? '<div class="ch-arrow" aria-hidden="true">▼</div>' : ""}<section class="ch-st ${s.lv === "支援" ? "sup" : ""}" style="--lc:${LV[s.lv] || "var(--lv-mid)"}">` +
-    `<div class="ch-sth"><span class="ch-lv">${esc(s.lv)}</span><b>${esc(s.name)}</b></div>${s.desc ? `<p>${esc(s.desc)}</p>` : ""}` +
-    `<div class="ch-cols"><div class="ch-col"><h5>🇹🇼 台股</h5>${s.tw.length ? `<div class="ch-cos">${s.tw.map(x => co(x, false)).join("")}</div>` : '<span class="none">台股較少直接對應</span>'}</div>` +
-    `<div class="ch-col"><h5>🇺🇸 美股</h5>${s.us.length ? `<div class="ch-cos">${s.us.map(x => co(x, true)).join("")}</div>` : '<span class="none">美股較少直接對應</span>'}</div></div></section>`).join("");
-  $("ch-view").innerHTML = `<div class="ch-head"><h2>${c.icon} ${esc(c.name)}</h2><p>${esc(c.intro)}</p></div><div class="ch-flow">${st}</div>` +
+  const c = BY[cur] || C.chains[0];
+  const st = c.stages.map((s, i) => {
+    const jk = [...(s.jp || []).map(x => co(x, "jp")), ...(s.kr || []).map(x => co(x, "kr"))];
+    return `${i ? '<div class="ch-arrow" aria-hidden="true">▼</div>' : ""}<section class="ch-st ${s.lv === "支援" ? "sup" : ""}" style="--lc:${LV[s.lv] || "var(--lv-mid)"}">` +
+      `<div class="ch-sth"><span class="ch-lv">${esc(s.lv)}</span><b>${esc(s.name)}</b></div>${s.desc ? `<p>${esc(s.desc)}</p>` : ""}` +
+      `<div class="ch-cols ${jk.length ? "c3" : ""}"><div class="ch-col"><h5>${MK.tw[2]}</h5>${s.tw.length ? `<div class="ch-cos">${s.tw.map(x => co(x, "tw")).join("")}</div>` : '<span class="none">台股較少直接對應</span>'}</div>` +
+      `<div class="ch-col"><h5>${MK.us[2]}</h5>${s.us.length ? `<div class="ch-cos">${s.us.map(x => co(x, "us")).join("")}</div>` : '<span class="none">美股較少直接對應</span>'}</div>` +
+      (jk.length ? `<div class="ch-col"><h5>🇯🇵🇰🇷 日韓</h5><div class="ch-cos">${jk.join("")}</div></div>` : "") + `</div></section>`;
+  }).join("");
+  const r = rels(c.id);
+  const rl = (e, other, dir) => `<button class="ch-rl" data-c="${other}"><b>${BY[other].icon} ${esc(BY[other].name.replace(/（.*）/, ""))}</b><span>${dir} ${esc(e[2])}</span></button>`;
+  const relBox = r.up.length || r.down.length ? `<div class="ch-box"><h3>🧭 上下游相關產業</h3><div class="ch-rels">` +
+    `<div><h5>⬆️ 上游（供應給這個產業）</h5>${r.up.map(e => rl(e, e[0], "")).join("") || '<span class="none" style="font-size:12px;color:var(--muted)">—</span>'}</div>` +
+    `<div><h5>⬇️ 下游（這個產業供應給）</h5>${r.down.map(e => rl(e, e[1], "")).join("") || '<span class="none" style="font-size:12px;color:var(--muted)">—</span>'}</div></div></div>` : "";
+  $("ch-view").innerHTML = `<div class="ch-head"><h2>${c.icon} ${esc(c.name)}</h2><p>${esc(c.intro)}</p></div>` + strip(c, "🎨 圖解：從頭到尾怎麼走") +
+    `<div class="ch-flow">${st}</div>` +
+    (c.parts ? `<div class="ch-box"><h3>🔍 拆開看：${esc(c.parts.title)}</h3><div class="ch-parts">${c.parts.items.map(p => `<div><span class="e" aria-hidden="true">${p[0]}</span><b>${esc(p[1])}</b><span>${esc(p[2])}</span></div>`).join("")}</div></div>` : "") +
+    relBox +
     `<div class="ch-box"><h3>🔗 台股和美股的關係</h3><ul>${c.rel.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` +
     `<div class="ch-box"><h3>👀 觀察重點</h3><ul>${c.watch.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` +
     (c.drivers || c.risks ? `<div class="ch-g2">${c.drivers ? `<div class="ch-box"><h3>🚀 成長動能</h3><ul>${c.drivers.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` : ""}` +
       `${c.risks ? `<div class="ch-box"><h3>⚠️ 風險</h3><ul>${c.risks.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` : ""}</div>` : "") +
     (c.terms ? `<div class="ch-box"><h3>📖 名詞解釋</h3><dl class="ch-terms">${c.terms.map(t => `<dt>${esc(t[0])}</dt><dd>${esc(t[1])}</dd>`).join("")}</dl></div>` : "");
 }
+
+/* ---------- 產業網絡 ---------- */
+function layout(t){
+  const ns = t.nodes.filter(id => BY[id]), set = new Set(ns);
+  const es = EDGES.filter(e => set.has(e[0]) && set.has(e[1]));
+  const tier = Object.fromEntries(ns.map(n => [n, 0]));
+  for (let k = 0; k < ns.length; k++) es.forEach(e => { if (tier[e[1]] < tier[e[0]] + 1) tier[e[1]] = tier[e[0]] + 1; });
+  // 沒有連線的節點放最左
+  const cols = [];
+  ns.forEach(n => (cols[tier[n]] = cols[tier[n]] || []).push(n));
+  return {ns, es, cols: cols.filter(Boolean), tier};
+}
+function netView(){
+  $("nw-themes").innerHTML = THEMES.map(t => `<button data-t="${t.id}" class="${t.id === theme ? "on" : ""}">${t.icon} ${esc(t.name)}</button>`).join("");
+  const t = THEMES.find(x => x.id === theme) || THEMES[0];
+  $("nw-desc").textContent = t.desc;
+  const L = layout(t);
+  if (!sel || !L.ns.includes(sel)) sel = L.ns.find(n => rels(n).down.length && rels(n).up.length) || L.ns[0];
+  const NW = 150, NH = 50, GX = 70, GY = 22, P = 14;
+  const rows = Math.max(...L.cols.map(c => c.length));
+  const W = P * 2 + L.cols.length * NW + (L.cols.length - 1) * GX, H = P * 2 + 22 + rows * NH + (rows - 1) * GY;
+  const pos = {};
+  L.cols.forEach((col, ci) => {
+    const off = (rows - col.length) * (NH + GY) / 2;
+    col.forEach((n, ri) => pos[n] = {x: P + ci * (NW + GX), y: P + 22 + off + ri * (NH + GY)});
+  });
+  const near = new Set([sel, ...L.es.filter(e => e[0] === sel || e[1] === sel).flatMap(e => [e[0], e[1]])]);
+  let g = "";
+  const nc = L.cols.length, lab = ci => ci === 0 ? "上游" : ci === nc - 1 ? "下游" : nc > 3 ? `中游 ${ci}` : "中游";
+  L.cols.forEach((col, ci) => g += `<text x="${P + ci * (NW + GX) + NW / 2}" y="${P + 10}" text-anchor="middle" font-size="11" fill="var(--muted)">${lab(ci)}</text>`);
+  g += `<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="var(--muted)"/></marker>` +
+       `<marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="var(--accent)"/></marker></defs>`;
+  L.es.forEach(e => {
+    const a = pos[e[0]], b = pos[e[1]], on = e[0] === sel || e[1] === sel;
+    const x1 = a.x + NW, y1 = a.y + NH / 2, x2 = b.x - 2, y2 = b.y + NH / 2, mx = (x1 + x2) / 2;
+    g += `<path d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}" fill="none" stroke="${on ? "var(--accent)" : "var(--line)"}" stroke-width="${on ? 2.2 : 1.4}" marker-end="url(#${on ? "ar2" : "ar"})" opacity="${on ? 1 : .9}"/>`;
+  });
+  L.ns.forEach(n => {
+    const c = BY[n], p = pos[n], on = n === sel, dim = !near.has(n);
+    const mk = markets(c);
+    g += `<g data-n="${n}" style="cursor:pointer" opacity="${dim ? .45 : 1}"><rect x="${p.x}" y="${p.y}" width="${NW}" height="${NH}" rx="10" fill="var(--card)" stroke="${on ? "var(--accent)" : "var(--line)"}" stroke-width="${on ? 2.5 : 1.2}"/>` +
+      `<text x="${p.x + 10}" y="${p.y + 21}" font-size="13" font-weight="700" fill="var(--fg)">${c.icon} ${esc(c.name.replace(/（.*）/, "").slice(0, 9))}</text>` +
+      mk.map((k, i) => `<circle cx="${p.x + 15 + i * 13}" cy="${p.y + 37}" r="4.5" fill="${MK[k][1]}"/>`).join("") +
+      `<text x="${p.x + 15 + mk.length * 13}" y="${p.y + 41}" font-size="10" fill="var(--muted)">${c.stages.length} 層</text></g>`;
+  });
+  $("nw-svg").innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(t.name)}產業網絡圖">${g}</svg>`;
+  side();
+}
+function side(){
+  const c = BY[sel]; if (!c) return;
+  const r = rels(sel), tset = new Set((THEMES.find(x => x.id === theme) || {nodes: []}).nodes);
+  const rl = (e, other) => `<button class="ch-rl" data-n="${other}"><b>${BY[other].icon} ${esc(BY[other].name.replace(/（.*）/, ""))}</b><span>${esc(e[2])}</span></button>`;
+  const top = k => c.stages.flatMap(s => s[k] || []).filter((x, i, a) => a.findIndex(y => y[0] === x[0]) === i).slice(0, 6);
+  const mini = Object.keys(MK).map(k => { const xs = top(k); return xs.length ? `<div class="nw-mini">${xs.map(x => `<button style="--mc:${MK[k][1]}" data-k="${MK[k][0]}${esc(x[0])}" data-kn="${esc(x[1])}">${esc(x[1])}</button>`).join("")}</div>` : ""; }).join("");
+  $("nw-side").innerHTML = `<div class="sel">目前選取</div><h3>${c.icon} ${esc(c.name)}</h3><p>${esc(c.intro)}</p>` + strip(c, "🎨 圖解") +
+    (r.up.length ? `<h5 style="margin:6px 0 4px;font-size:12px;color:var(--muted)">⬆️ 上游</h5>${r.up.map(e => rl(e, e[0])).join("")}` : "") +
+    (r.down.length ? `<h5 style="margin:6px 0 4px;font-size:12px;color:var(--muted)">⬇️ 下游</h5>${r.down.map(e => rl(e, e[1])).join("")}` : "") +
+    `<h5 style="margin:8px 0 4px;font-size:12px;color:var(--muted)">代表公司（點看日 K）</h5>${mini}` +
+    `<button class="nw-go" data-go="${c.id}">進入完整供應鏈 →</button>`;
+}
+
+function render(){
+  document.querySelectorAll("#ch-mode button").forEach(b => b.classList.toggle("on", b.dataset.m === mode));
+  $("ch-netv").hidden = mode !== "net"; $("ch-chainv").hidden = mode !== "chain";
+  if (mode === "net") netView(); else chainView();
+}
+function setHash(){ try { history.replaceState(null, "", "#" + (mode === "net" ? "net-" + theme + (sel ? "-" + sel : "") : cur)); } catch(e) {} }
 function go(id, code){
-  cur = id; hl = code || null; cat = (C.chains.find(c => c.id === id) || {}).cat || cat; render();
-  try { history.replaceState(null, "", "#" + id); } catch(e) {}
+  mode = "chain"; cur = id; hl = code || null; cat = (BY[id] || {}).cat || cat; render(); setHash();
   const t = $("ch-tabs").querySelector(".on"); if (t) t.scrollIntoView({inline: "center", block: "nearest"});
   if (code) { const b = $("ch-view").querySelector(".ch-co.hl"); if (b) b.scrollIntoView({behavior: "smooth", block: "center"}); }
-  else $("ch-view").scrollIntoView({behavior: "smooth", block: "start"});
+  else $("ch-chainv").scrollIntoView({behavior: "smooth", block: "start"});
 }
+$("ch-mode").addEventListener("click", e => { const b = e.target.closest("[data-m]"); if (!b) return; mode = b.dataset.m; render(); setHash(); });
 $("ch-tabs").addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (b) go(b.dataset.c); });
+$("ch-view").addEventListener("click", e => { const b = e.target.closest(".ch-rl[data-c]"); if (b) go(b.dataset.c); });
 $("ch-cats").addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (!b) return; cat = b.dataset.cat; const f = C.chains.find(c => c.cat === cat); if (f) go(f.id); });
+$("nw-themes").addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (!b) return; theme = b.dataset.t; sel = null; netView(); setHash(); });
+$("ch-netv").addEventListener("click", e => {
+  const g = e.target.closest("[data-n]"); if (g) { sel = g.dataset.n; netView(); setHash(); if (window.innerWidth <= 900 && g.closest(".nw-scroll")) $("nw-side").scrollIntoView({behavior: "smooth", block: "start"}); return; }
+  const b = e.target.closest("[data-go]"); if (b) go(b.dataset.go);
+});
 
-// 搜尋：找出公司出現在哪些產業、哪個位置
+// 搜尋：找出公司出現在哪些產業、哪個位置（含日韓）
 const idx = [];
-C.chains.forEach(c => c.stages.forEach(s => [["tw", false], ["us", true]].forEach(([k, us]) => s[k].forEach(x => idx.push({c, s, x, us})))));
+C.chains.forEach(c => c.stages.forEach(s => Object.keys(MK).forEach(k => (s[k] || []).forEach(x => idx.push({c, s, x, k})))));
 $("ch-q").addEventListener("input", e => {
   const q = e.target.value.trim().toLowerCase();
   const box = $("ch-res");
   if (!q) { box.hidden = true; return; }
   const hits = idx.filter(o => o.x[0].toLowerCase().includes(q) || o.x[1].toLowerCase().includes(q)).slice(0, 30);
   box.hidden = false;
-  box.innerHTML = hits.length ? hits.map(o => `<div><b>${esc(o.x[1])}</b> ${esc(o.x[0])}${o.x[2] ? `（${esc(o.x[2])}）` : ""} → <a data-go="${o.c.id}" data-code="${o.us ? "US:" : ""}${esc(o.x[0])}">${o.c.icon} ${esc(o.c.name)}・${esc(o.s.lv)}・${esc(o.s.name)}</a></div>`).join("")
+  box.innerHTML = hits.length ? hits.map(o => `<div><b>${esc(o.x[1])}</b> ${esc(o.x[0])}${o.k !== "tw" && o.k !== "us" ? `（${MK[o.k][2].slice(-2)}）` : ""}${o.x[2] ? `（${esc(o.x[2])}）` : ""} → <a data-go="${o.c.id}" data-code="${MK[o.k][0]}${esc(o.x[0])}">${o.c.icon} ${esc(o.c.name)}・${esc(o.s.lv)}・${esc(o.s.name)}</a></div>`).join("")
     : "<div>找不到，試試其他名稱或代號</div>";
 });
 $("ch-res").addEventListener("click", e => { const a = e.target.closest("[data-go]"); if (a) go(a.dataset.go, a.dataset.code); });
 
 const h = location.hash.slice(1);
-if (C.chains.some(c => c.id === h)) { cur = h; cat = C.chains.find(c => c.id === h).cat || cat; }
+if (h.startsWith("net")) { const m = h.match(/^net-([a-z]+)(?:-([a-z_0-9]+))?/); mode = "net"; if (m && THEMES.some(t => t.id === m[1])) { theme = m[1]; sel = m[2] || null; } }
+else if (BY[h]) { mode = "chain"; cur = h; cat = BY[h].cat || cat; }
 render();
 })();
 </script>

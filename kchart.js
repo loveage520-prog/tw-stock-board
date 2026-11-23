@@ -42,7 +42,8 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
   var US = false;  /* 目前打開的是美股：價格一律 2 位小數 */
   function dig(v) { return US ? 2 : v >= 1000 ? 0 : v >= 100 ? 1 : 2; }
   function isUS(code) { return code.indexOf("US:") === 0; }
-  function file(code) { return isUS(code) ? "us_" + code.slice(3).replace("^", "_").replace("/", "-") : code; }
+  function isJK(code) { return code.indexOf("JP:") === 0 || code.indexOf("KR:") === 0; }
+  function file(code) { return isUS(code) ? "us_" + code.slice(3).replace("^", "_").replace("/", "-") : isJK(code) ? code.slice(0, 2).toLowerCase() + "_" + code.slice(3) : code; }
   function twToday() { return new Intl.DateTimeFormat("en-CA", {timeZone: "Asia/Taipei", year: "numeric", month: "2-digit", day: "2-digit"}).format(new Date()); }
 
   /* ---------------- 指標 ---------------- */
@@ -199,13 +200,17 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
 
   function header(j) {
     var D = st.data, n = D.c.length, last = D.c[n - 1], pc = D.c[n - 2], ch = last / pc - 1, cl = ch > 0 ? "kc-up" : ch < 0 ? "kc-dn" : "";
-    var cd = st.code === "TAIEX" || st.code === "OTC" ? "" : isUS(st.code) ? st.code.slice(3) : st.code;
-    return '<span class="nm">' + esc(isUS(st.code) && st.name ? st.name : (j.n || st.name || st.code)) + '</span><span class="cd">' + esc(cd) + '</span>' +
+    var cd = st.code === "TAIEX" || st.code === "OTC" ? "" : (isUS(st.code) || isJK(st.code)) ? st.code.slice(3) : st.code;
+    return '<span class="nm">' + esc((isUS(st.code) || isJK(st.code)) && st.name ? st.name : (j.n || st.name || st.code)) + '</span><span class="cd">' + esc(cd) + '</span>' +
       '<span class="px ' + cl + '">' + fmt(last, dig(last)) + '</span><span class="ch ' + cl + '">' + (ch > 0 ? "+" : "") + fmt(last - pc, dig(last)) + '（' + (ch > 0 ? "+" : "") + (ch * 100).toFixed(2) + '%）</span>' +
       '<button class="kc-x" aria-label="關閉">×</button>';
   }
 
   function links(code, m) {
+    if (isJK(code)) {
+      var y = code.slice(3) + (code.indexOf("JP:") === 0 ? ".T" : ".KS");
+      return '<a href="https://finance.yahoo.com/quote/' + encodeURIComponent(y) + '/chart" target="_blank" rel="noopener">Yahoo Finance</a>';
+    }
     if (isUS(code)) {
       var u = code.slice(3);
       return '<a href="https://finance.yahoo.com/quote/' + encodeURIComponent(u) + '/chart" target="_blank" rel="noopener">Yahoo Finance</a>' +
@@ -254,7 +259,7 @@ font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shado
       st.kd = kd(D.h, D.l, D.c); st.macd = macd(D.c); st.rsi = rsi(D.c, 14);
       box.querySelector(".kc-h").innerHTML = header(j);
       bar(); draw();
-      box.querySelector(".kc-ft").innerHTML = '<span>日 K 資料更新：' + esc(j.t || "") + (D.live ? "；最後一根用盤中即時價" : "") + (US ? "（美東日期）" : "") + '</span>' + links(code, j.m) +
+      box.querySelector(".kc-ft").innerHTML = '<span>日 K 資料更新：' + esc(j.t || "") + (D.live ? "；最後一根用盤中即時價" : "") + (US ? "（美東日期）" : "") + (isJK(code) ? "（當地日期、當地貨幣）" : "") + '</span>' + links(code, j.m) +
         '<span>僅供參考，不構成投資建議</span>';
     }).catch(function () {
       if (!st || st.code !== code) return;

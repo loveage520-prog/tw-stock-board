@@ -120,6 +120,37 @@ def us_kline(yf) -> int:
     return ok
 
 
+def jk_kline(yf) -> int:
+    """產業鏈地圖上的日本（.T）、韓國（.KS）公司"""
+    items = {}
+    try:
+        for c in json.loads((BASE / "chain_data.json").read_text("utf-8"))["chains"]:
+            for st in c["stages"]:
+                for k, suf in (("jp", ".T"), ("kr", ".KS")):
+                    for x in st.get(k, []):
+                        items[f"{x[0]}{suf}"] = (k, x[0], x[1])
+    except Exception as e:  # noqa: BLE001
+        log.info("日韓清單讀取失敗：%s", e)
+        return 0
+    if not items:
+        return 0
+    ok = 0
+    try:
+        raw = yf.download(list(items), period="1y", interval="1d", group_by="ticker", progress=False, threads=True, auto_adjust=False)
+    except Exception as e:  # noqa: BLE001
+        log.info("日韓日 K 失敗：%s", e)
+        return 0
+    for sym, (k, code, name) in items.items():
+        try:
+            if dump(sym, name, raw[sym][["Open", "High", "Low", "Close", "Volume"]].astype(float), 1e4, vu="萬股",
+                    fname=f"{k}_{code}", m="日股" if k == "jp" else "韓股"):
+                ok += 1
+        except Exception:  # noqa: BLE001
+            pass
+    log.info("日韓日 K：%d／%d 檔", ok, len(items))
+    return ok
+
+
 def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
     import yfinance as yf
@@ -179,6 +210,7 @@ def main():
         except Exception as e:  # noqa: BLE001
             log.info("%s 失敗：%s", n, e)
     ok += us_kline(yf)
+    ok += jk_kline(yf)
     (OUT.parent / "index.json").write_text(json.dumps({"t": f"{datetime.now():%Y-%m-%d %H:%M}", "n": ok}), "utf-8")
     log.info("日 K 完成：%d 檔，耗時 %.0f 秒", ok, time.time() - t0)
     if ok < 100:
