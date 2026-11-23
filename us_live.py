@@ -221,7 +221,7 @@ def money_flow(q: dict, meta: dict, stocks: list, t: datetime, state: str):
             stt = "資金湧入"
         elif ch > 0 and mf > 0:
             stt = "溫和流入"
-        elif ch < 0 and (vr or 0) >= 1.2:
+        elif ch <= -0.005 and (vr or 0) >= 1.2 and mf < 0:
             stt = "爆量下跌"
         elif ch < 0 and mf < 0:
             stt = "資金流出"
