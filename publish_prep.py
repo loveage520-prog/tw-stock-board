@@ -185,12 +185,13 @@ MK_CSS = """<style>
 """
 
 
-def mk_nav(page: str) -> str:
-    pg = [("pulse", URL_PULSE, "盤中脈動"), ("flow", URL_FLOW, "盤後・資金流向")]
-    links = "".join(f'<a class="{"on" if k == page else ""}" data-base="{u}" href="{u}">{t}</a>' for k, u, t in pg)
+def mk_nav(page: str, seg: bool = True) -> str:
+    pg = [("pulse", URL_PULSE, "盤中脈動"), ("flow", URL_FLOW, "盤後資金"), ("chain", "chain.html", "產業鏈")]
+    links = "".join(f'<a class="{"on" if k == page else ""}" data-base="{u}" href="{u}"{" data-plain=1" if k == "chain" else ""}>{t}</a>'
+                    for k, u, t in pg)
+    sg = '<div class="mk-seg"><button data-mk="tw" class="on">🇹🇼 台股</button><button data-mk="us">🇺🇸 美股</button></div>' if seg else '<b style="font-size:16px">🔗 產業鏈地圖</b>'
     return (MK_CSS + '<nav class="mk-nav" aria-label="市場與頁面"><div class="mk-in">'
-            '<div class="mk-seg"><button data-mk="tw" class="on">🇹🇼 台股</button><button data-mk="us">🇺🇸 美股</button></div>'
-            f'<div class="mk-pg">{links}</div></div></nav>\n')
+            f'{sg}<div class="mk-pg">{links}</div></div></nav>\n')
 
 
 def mk_js(default: str) -> str:
@@ -202,7 +203,7 @@ def mk_js(default: str) -> str:
   const show = v => {
     tw.hidden = v !== "tw"; us.hidden = v !== "us";
     document.querySelectorAll(".mk-seg button").forEach(b => b.classList.toggle("on", b.dataset.mk === v));
-    document.querySelectorAll(".mk-pg a").forEach(a => a.href = a.dataset.base + (v === "us" ? "#us" : "#tw"));
+    document.querySelectorAll(".mk-pg a:not([data-plain])").forEach(a => a.href = a.dataset.base + (v === "us" ? "#us" : "#tw"));
     if (v === "tw") dispatchEvent(new Event("resize"));
   };
   document.querySelectorAll(".mk-seg button").forEach(b => b.onclick = () => {

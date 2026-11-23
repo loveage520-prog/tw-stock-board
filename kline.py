@@ -80,6 +80,13 @@ def us_kline(yf) -> int:
             names.setdefault(e[0], e[1] + " ETF")
     except Exception:  # noqa: BLE001
         pass
+    try:  # 產業鏈地圖上出現的美股
+        for c in json.loads((BASE / "chain_data.json").read_text("utf-8"))["chains"]:
+            for st in c["stages"]:
+                for x in st["us"]:
+                    names.setdefault(x[0], x[1])
+    except Exception:  # noqa: BLE001
+        pass
     try:
         from us_live import TWCHAIN
         for s_, n in TWCHAIN:

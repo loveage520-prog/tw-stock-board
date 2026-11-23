@@ -1,0 +1,113 @@
+<style>
+/* 產業鏈地圖 */
+:root{
+  --bg:#f4f5f7;--card:#ffffff;--fg:#1c2230;--muted:#6b7280;--line:#e3e6eb;--soft:#eef1f5;--accent:#2f5fb3;
+  --lv-up:#7c3aed;--lv-mid:#2563eb;--lv-down:#0d9488;--lv-end:#ea580c;--lv-sup:#64748b;
+  --tw:#d6453d;--us:#2f5fb3
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1318;--card:#171c23;--fg:#e7eaf0;--muted:#98a2b3;--line:#272e38;--soft:#1e242d;--accent:#7aa4ff;
+  --lv-up:#a78bfa;--lv-mid:#60a5fa;--lv-down:#2dd4bf;--lv-end:#fb923c;--lv-sup:#94a3b8;--tw:#ef6a5f;--us:#7aa4ff;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1318;--card:#171c23;--fg:#e7eaf0;--muted:#98a2b3;--line:#272e38;--soft:#1e242d;--accent:#7aa4ff;
+  --lv-up:#a78bfa;--lv-mid:#60a5fa;--lv-down:#2dd4bf;--lv-end:#fb923c;--lv-sup:#94a3b8;--tw:#ef6a5f;--us:#7aa4ff;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}
+#ch *{box-sizing:border-box}
+#ch{max-width:1100px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+#ch h1{font-size:22px;margin:4px 0 8px}
+#ch button{font:inherit;color:inherit}
+.ch-intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.ch-intro p{margin:4px 0;font-size:14px}
+.ch-search{display:flex;gap:8px;margin-bottom:10px}
+.ch-search input{flex:1;min-width:0;font:inherit;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+.ch-res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 10px;margin-bottom:10px}
+.ch-res div{padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}.ch-res div:last-child{border:0}
+.ch-res a{color:var(--accent);cursor:pointer;text-decoration:underline}
+.ch-tabs{position:sticky;top:calc(58px + env(safe-area-inset-top,0px));z-index:10;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:8px 0;margin-bottom:6px;scrollbar-width:thin}
+.ch-tabs button{flex:0 0 auto;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
+#ch .ch-tabs button.on{background:var(--fg);color:var(--card);border-color:var(--fg)}
+.ch-tabs button:focus-visible,.ch-co:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.ch-head{margin:6px 0 10px}.ch-head h2{font-size:21px;margin:0 0 4px}.ch-head p{margin:0;color:var(--muted);font-size:14px}
+.ch-flow{display:flex;flex-direction:column;align-items:stretch}
+.ch-st{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--lc);border-radius:12px;padding:10px 12px}
+.ch-st.sup{border-style:dashed;border-left-style:solid}
+.ch-sth{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ch-lv{font-size:12px;font-weight:800;color:#fff;background:var(--lc);padding:1px 8px;border-radius:999px}
+.ch-sth b{font-size:16px}
+.ch-st p{margin:3px 0 8px;font-size:13px;color:var(--muted)}
+.ch-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.ch-cols{grid-template-columns:minmax(0,1fr)}}
+.ch-col h5{margin:0 0 4px;font-size:12px;color:var(--muted);font-weight:700}
+.ch-col .none{font-size:12px;color:var(--muted)}
+.ch-cos{display:flex;flex-wrap:wrap;gap:5px}
+.ch-co{display:inline-flex;flex-direction:column;align-items:flex-start;border:1px solid var(--line);border-left:3px solid var(--mc);background:var(--soft);border-radius:8px;padding:4px 9px;cursor:pointer;text-align:left;max-width:100%}
+.ch-co .n{font-weight:700;font-size:14px}.ch-co .n small{font-weight:500;color:var(--muted);margin-left:5px;font-family:ui-monospace,Consolas,monospace;font-size:12px}
+.ch-co .r{font-size:11px;color:var(--muted)}
+.ch-co.hl{outline:2px solid var(--accent)}
+.ch-arrow{text-align:center;color:var(--muted);font-size:18px;line-height:1;padding:3px 0}
+.ch-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-top:12px}
+.ch-box h3{margin:0 0 6px;font-size:16px}.ch-box ul{margin:0;padding-left:1.2em}.ch-box li{margin:3px 0;font-size:14px}
+.ch-note{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.7}
+</style>
+<div id="ch">
+  <h1>產業鏈地圖</h1>
+  <div class="ch-intro" id="ch-intro"></div>
+  <div class="ch-search"><input id="ch-q" type="search" placeholder="搜尋公司或代號，例如 台積電、2330、NVDA" aria-label="搜尋公司"></div>
+  <div class="ch-res" id="ch-res" hidden></div>
+  <nav class="ch-tabs" id="ch-tabs" aria-label="產業"></nav>
+  <div id="ch-view"></div>
+  <div class="ch-note">公司角色依各公司主要業務整理（資料整理時間：<span id="ch-upd"></span>），供應關係可能隨時間改變；名單為代表性公司，非完整清單。點公司可看日 K 技術線圖。僅供參考，不構成投資建議。</div>
+</div>
+<script>
+(function(){
+const C = /*__DATA__*/null;
+if (!C) return;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LV = {"上游": "var(--lv-up)", "中游": "var(--lv-mid)", "下游": "var(--lv-down)", "終端": "var(--lv-end)", "支援": "var(--lv-sup)"};
+let cur = C.chains[0].id, hl = null;
+$("ch-upd").textContent = C.updated;
+$("ch-intro").innerHTML = C.intro.map(p => `<p>${esc(p)}</p>`).join("");
+
+const co = (x, us) => `<button class="ch-co ${hl && hl === (us ? "US:" : "") + x[0] ? "hl" : ""}" style="--mc:${us ? "var(--us)" : "var(--tw)"}" data-k="${us ? "US:" : ""}${esc(x[0])}" data-kn="${esc(x[1])}">` +
+  `<span class="n">${esc(x[1])}<small>${esc(x[0])}</small></span>${x[2] ? `<span class="r">${esc(x[2])}</span>` : ""}</button>`;
+
+function render(){
+  $("ch-tabs").innerHTML = C.chains.map(c => `<button data-c="${c.id}" class="${c.id === cur ? "on" : ""}">${c.icon} ${esc(c.name.replace(/（.*）/, ""))}</button>`).join("");
+  const c = C.chains.find(x => x.id === cur) || C.chains[0];
+  const st = c.stages.map((s, i) => `${i ? '<div class="ch-arrow" aria-hidden="true">▼</div>' : ""}<section class="ch-st ${s.lv === "支援" ? "sup" : ""}" style="--lc:${LV[s.lv] || "var(--lv-mid)"}">` +
+    `<div class="ch-sth"><span class="ch-lv">${esc(s.lv)}</span><b>${esc(s.name)}</b></div>${s.desc ? `<p>${esc(s.desc)}</p>` : ""}` +
+    `<div class="ch-cols"><div class="ch-col"><h5>🇹🇼 台股</h5>${s.tw.length ? `<div class="ch-cos">${s.tw.map(x => co(x, false)).join("")}</div>` : '<span class="none">台股較少直接對應</span>'}</div>` +
+    `<div class="ch-col"><h5>🇺🇸 美股</h5>${s.us.length ? `<div class="ch-cos">${s.us.map(x => co(x, true)).join("")}</div>` : '<span class="none">美股較少直接對應</span>'}</div></div></section>`).join("");
+  $("ch-view").innerHTML = `<div class="ch-head"><h2>${c.icon} ${esc(c.name)}</h2><p>${esc(c.intro)}</p></div><div class="ch-flow">${st}</div>` +
+    `<div class="ch-box"><h3>🔗 台股和美股的關係</h3><ul>${c.rel.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` +
+    `<div class="ch-box"><h3>👀 觀察重點</h3><ul>${c.watch.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>`;
+}
+function go(id, code){
+  cur = id; hl = code || null; render();
+  try { history.replaceState(null, "", "#" + id); } catch(e) {}
+  const t = $("ch-tabs").querySelector(".on"); if (t) t.scrollIntoView({inline: "center", block: "nearest"});
+  if (code) { const b = $("ch-view").querySelector(".ch-co.hl"); if (b) b.scrollIntoView({behavior: "smooth", block: "center"}); }
+  else $("ch-view").scrollIntoView({behavior: "smooth", block: "start"});
+}
+$("ch-tabs").addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (b) go(b.dataset.c); });
+
+// 搜尋：找出公司出現在哪些產業、哪個位置
+const idx = [];
+C.chains.forEach(c => c.stages.forEach(s => [["tw", false], ["us", true]].forEach(([k, us]) => s[k].forEach(x => idx.push({c, s, x, us})))));
+$("ch-q").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase();
+  const box = $("ch-res");
+  if (!q) { box.hidden = true; return; }
+  const hits = idx.filter(o => o.x[0].toLowerCase().includes(q) || o.x[1].toLowerCase().includes(q)).slice(0, 30);
+  box.hidden = false;
+  box.innerHTML = hits.length ? hits.map(o => `<div><b>${esc(o.x[1])}</b> ${esc(o.x[0])}${o.x[2] ? `（${esc(o.x[2])}）` : ""} → <a data-go="${o.c.id}" data-code="${o.us ? "US:" : ""}${esc(o.x[0])}">${o.c.icon} ${esc(o.c.name)}・${esc(o.s.lv)}・${esc(o.s.name)}</a></div>`).join("")
+    : "<div>找不到，試試其他名稱或代號</div>";
+});
+$("ch-res").addEventListener("click", e => { const a = e.target.closest("[data-go]"); if (a) go(a.dataset.go, a.dataset.code); });
+
+const h = location.hash.slice(1);
+if (C.chains.some(c => c.id === h)) cur = h;
+render();
+})();
+</script>

@@ -81,6 +81,16 @@ for f in (BASE / "cloud" / "icons").glob("*.png"):
     "icons": [{"src": "icons/pulse2-192.png", "sizes": "192x192", "type": "image/png"},
               {"src": "icons/pulse2-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False), "utf-8")
 shutil.copyfile(BASE / "kchart.js", SITE / "kchart.js")
+# 產業鏈地圖（靜態內容，資料在 chain_data.json）
+sys.path.insert(0, str(BASE))
+import publish_prep  # noqa: E402  （SITE_LINKS=1 已設定，頁面連結為相對路徑）
+chain = (BASE / "chain_template.html").read_text("utf-8").replace(
+    "/*__DATA__*/null", (BASE / "chain_data.json").read_text("utf-8").replace("</", "<\\/"))
+(SITE / "chain.html").write_text(
+    HEAD.format(extra='<title>產業鏈地圖</title>\n<link rel="icon" type="image/png" sizes="32x32" href="icons/flow2-32.png">\n'
+                      '<link rel="apple-touch-icon" href="icons/flow2-180.png">\n')
+    + publish_prep.mk_nav("chain", seg=False) + chain + "\n</body>\n</html>\n", "utf-8")
+print("→ chain.html")
 if (BASE / "markets_data.js").exists():
     shutil.copyfile(BASE / "markets_data.js", SITE / "markets_data.js")
 (SITE / ".nojekyll").write_text("", "utf-8")
