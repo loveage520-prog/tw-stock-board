@@ -99,7 +99,9 @@ def load_universe() -> dict[str, dict]:
         sid = str(sid)
         if ty not in ("twse", "tpex") or len(sid) != 4 or not sid.isdigit() or sid.startswith("00"):  # 00 開頭為 ETF
             continue
-        out.setdefault(sid, {"n": nm, "m": "上市" if ty == "twse" else "上櫃", "i": ind or ""})
+        # 同一檔同時有上櫃、上市紀錄（上櫃轉上市）時，以上市為準
+        if sid not in out or (ty == "twse" and out[sid]["m"] == "上櫃"):
+            out[sid] = {"n": nm, "m": "上市" if ty == "twse" else "上櫃", "i": ind or out.get(sid, {}).get("i", "")}
     return out
 
 

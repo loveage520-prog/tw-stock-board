@@ -151,6 +151,25 @@ def main():
             except Exception:  # noqa: BLE001
                 pass
         log.info("進度 %d/%d（成功 %d）", min(i + 200, len(codes)), len(codes), ok)
+    # 抓不到的再試另一個市場（上市／上櫃標錯，或剛轉板）
+    miss = [c for c in codes if not (OUT / f"{c}.json").exists()]
+    if miss:
+        alt = {c: f"{c}.{'TWO' if sym[c].endswith('.TW') else 'TW'}" for c in miss}
+        try:
+            raw = yf.download(list(alt.values()), period="1y", interval="1d", group_by="ticker", progress=False, threads=True, auto_adjust=False)
+            fixed = 0
+            for c in miss:
+                try:
+                    df = (raw[alt[c]] if len(miss) > 1 else raw)[["Open", "High", "Low", "Close", "Volume"]].astype(float)
+                    MKT[c] = "上櫃" if alt[c].endswith("TWO") else "上市"
+                    if dump(c, uni[c]["n"], df, 1000):
+                        ok += 1
+                        fixed += 1
+                except Exception:  # noqa: BLE001
+                    pass
+            log.info("換市場重抓 %d 檔，補回 %d 檔", len(miss), fixed)
+        except Exception as e:  # noqa: BLE001
+            log.info("換市場重抓失敗：%s", e)
     for code, (s, n) in INDEX.items():
         try:
             df = yf.download(s, period="1y", interval="1d", progress=False, auto_adjust=False)
