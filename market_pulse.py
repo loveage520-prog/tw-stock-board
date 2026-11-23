@@ -569,7 +569,13 @@ def compute(quotes: dict[str, Quote], idx: dict[str, Quote], base: dict, cfg: di
                       "成交值(億)": amt / 1e8, "成交比重": share,
                       "資金流入倍數": share / bshare if bshare == bshare and bshare else NAN,
                       "量比": amt / (b20 * frac) if b20 and frac > 0.02 else NAN,
-                      "領漲": f"{names.get(lead, lead)} {q[lead].chg:+.1%}" if q[lead].chg == q[lead].chg else ""})
+                      "領漲": f"{names.get(lead, lead)} {q[lead].chg:+.1%}" if q[lead].chg == q[lead].chg else "",
+                      "成員": sorted(({"c": c, "n": names.get(c, q[c].name), "p": round(q[c].price, 2),
+                                     "ch": round(q[c].chg, 4) if q[c].chg == q[c].chg else None,
+                                     "a": round(q[c].amount / 1e8, 2) if q[c].amount == q[c].amount else None,
+                                     "vr": round(q[c].amount / (base[c]["amt20"] * frac), 2)
+                                     if c in base and base[c].get("amt20") and frac > 0.02 and q[c].amount == q[c].amount else None}
+                                    for c in ms), key=lambda x: -(x["a"] or 0))})
         st_, inst = intraday_state(grows[-1]["資金流入倍數"], grows[-1]["平均漲跌"]), (cfg.get("_inst") or {}).get(g)
         grows[-1].update({"盤中狀態": st_, "法人(5日)": inst["q"] if inst else "—",
                           "法人5日(億)": inst["x"] if inst else NAN, "綜合判讀": combined_view(st_, inst["q"] if inst else None)})
@@ -802,6 +808,7 @@ def svg_bubbles(g: pd.DataFrame, w=900, h=480) -> str:
                                ("惜售上漲", PL + 8, PT + 16, "start", "var(--q-rot)"),
                                ("冷門觀望", PL + 8, h - PB - 8, "start", "var(--q-wait)")):
         out.append(f'<text x="{x}" y="{y}" class="ql" text-anchor="{an}" fill="{col}">{txt}</text>')
+    detail = []
     for _, r in d.sort_values("成交值(億)", ascending=False).iterrows():
         amt, inst, mine = float(r["成交值(億)"]), r.get("法人(5日)", "—"), r.get("我的") == "★"
         rad = 6 + 26 * math.sqrt(max(amt, 0) / smax)
@@ -811,13 +818,66 @@ def svg_bubbles(g: pd.DataFrame, w=900, h=480) -> str:
         tip = (f"{r['族群']}｜{r.get('盤中狀態', '')}｜漲跌 {r['平均漲跌']:+.2%}｜資金流入 {r['資金流入倍數']:.2f}x｜"
                f"量比 {r['量比']:.2f}x｜"
                f"成交 {amt:.0f} 億｜法人 {inst}｜{r.get('綜合判讀', '')}")
-        out.append(f'<g><title>{escape(tip)}</title><circle cx="{cx:.1f}" cy="{cy:.1f}" r="{rad:.1f}" '
+        gi = len(detail)
+        detail.append({"g": r["族群"], "st": r.get("盤中狀態", ""), "ch": _f(r["平均漲跌"], 4), "fx": _f(r["資金流入倍數"], 2),
+                       "vr": _f(r["量比"], 2), "a": _f(amt, 1), "ur": _f(r.get("上漲比例"), 3), "inst": inst,
+                       "view": r.get("綜合判讀", ""), "col": STATE_COLOR.get(r.get("盤中狀態", "—"), "var(--q-wait)"),
+                       "m": r.get("成員") if isinstance(r.get("成員"), list) else []})
+        out.append(f'<g data-gi="{gi}" style="cursor:pointer"><title>{escape(tip)}</title><circle cx="{cx:.1f}" cy="{cy:.1f}" r="{rad:.1f}" '
                    f'fill="{STATE_COLOR.get(r.get("盤中狀態", "—"), "var(--q-wait)")}" fill-opacity=".8" stroke="{ring}" '
                    f'stroke-width="{3 if inst in INST_COLOR else 1.5}"/>'
                    f'<text x="{cx:.1f}" y="{cy - rad - 3:.1f}" class="bl" text-anchor="middle"'
                    f'{" font-weight=800" if mine else ""}>{"★" if mine else ""}{escape(name)}</text></g>')
     out.append("</svg>")
-    return f'<div class="tw">{"".join(out)}</div>'
+    js = json.dumps(detail, ensure_ascii=False).replace("</", "<\\/")
+    return (f'<div class="tw">{"".join(out)}</div>'
+            '<div class="gd-chips" id="gdChips"></div><div class="gd" id="gdBox"></div>'
+            f'<script>const GD = {js};</script>' + GD_JS)
+
+
+def _f(v, n):
+    try:
+        v = float(v)
+        return None if v != v else round(v, n)
+    except (TypeError, ValueError):
+        return None
+
+
+GD_JS = """<script>
+/* 盤中資金地圖：點泡泡或下方族群名稱，看族群裡有哪些個股 */
+(function(){
+  const box = document.getElementById("gdBox"), chips = document.getElementById("gdChips");
+  if (!box || typeof GD === "undefined" || !GD.length) return;
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const pct = (v, d = 2) => v == null ? "—" : (v > 0 ? "+" : "") + (v * 100).toFixed(d) + "%";
+  const cl = v => v > 0 ? "up" : v < 0 ? "down" : "";
+  let sel = 0;
+  try { const k = sessionStorage.getItem("gdSel"); const i = GD.findIndex(x => x.g === k); if (i >= 0) sel = i; } catch(e) {}
+  function show(i){
+    sel = i;
+    try { sessionStorage.setItem("gdSel", GD[i].g); } catch(e) {}
+    const x = GD[i];
+    chips.innerHTML = GD.map((g, j) => `<button data-gi="${j}" class="${j === i ? "on" : ""}" style="--c:${g.col}">${esc(g.g)}</button>`).join("");
+    document.querySelectorAll("svg.bub g[data-gi]").forEach(g => g.classList.toggle("sel", Number(g.dataset.gi) === i));
+    const kv = [["盤中狀態", `<b style="color:${x.col}">${esc(x.st)}</b>`], ["平均漲跌", `<b class="${cl(x.ch)}">${pct(x.ch)}</b>`],
+                ["資金流入", (x.fx ?? "—") + "x"], ["量比", (x.vr ?? "—") + "x"], ["成交值", (x.a ?? "—") + " 億"],
+                ["上漲比例", x.ur == null ? "—" : Math.round(x.ur * 100) + "%"], ["法人 5 日", esc(x.inst || "—")]];
+    const rows = (x.m || []).map((s, k) => `<tr><td class="rk">${k + 1}</td><td><b>${esc(s.n)}</b> <span class="cd">${esc(s.c)}</span></td>` +
+      `<td class="n">${s.p ?? "—"}</td><td class="n ${cl(s.ch)}">${pct(s.ch)}</td><td class="n">${s.a ?? "—"}</td><td class="n">${s.vr == null ? "—" : s.vr + "x"}</td></tr>`).join("");
+    box.innerHTML = `<div class="gd-h"><span class="dot" style="background:${x.col}"></span><b>${esc(x.g)}</b><span class="gd-v">${esc(x.view || "")}</span></div>` +
+      `<div class="gd-kv">${kv.map(([t, v]) => `<div><span>${t}</span>${v}</div>`).join("")}</div>` +
+      `<div class="tw"><table class="gd-t"><thead><tr><th>#</th><th>個股（${(x.m || []).length} 檔）</th><th class="n">現價</th><th class="n">漲跌</th><th class="n">成交值(億)</th><th class="n">量比</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  document.addEventListener("click", ev => {
+    const t = ev.target.closest("svg.bub g[data-gi], #gdChips button[data-gi]");
+    if (!t) return;
+    show(Number(t.dataset.gi));
+    if (t.closest("svg")) box.scrollIntoView({behavior: "smooth", block: "nearest"});
+  });
+  show(sel);
+})();
+</script>
+"""
 
 
 def cls(x) -> str:
@@ -936,7 +996,17 @@ svg.bub{{width:100%;min-width:620px;height:auto;display:block;background:var(--b
 svg.bub .gl{{stroke:var(--grid)}}svg.bub .ax{{stroke:var(--muted);stroke-width:1.2}}
 svg.bub .tk{{font-size:12px;fill:var(--muted)}}svg.bub .ql{{font-size:14px;font-weight:700;opacity:.45}}
 svg.bub .bl{{font-size:12px;fill:var(--fg);paint-order:stroke;stroke:var(--card);stroke-width:3px}}
-svg.bub g:hover circle{{stroke:var(--fg);stroke-width:3}}
+svg.bub g:hover circle,svg.bub g.sel circle{{stroke:var(--fg);stroke-width:3.5}}
+.gd-chips{{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 8px}}
+.gd-chips button{{font:inherit;font-size:12px;padding:4px 9px;border-radius:999px;border:1px solid var(--grid);background:var(--card);color:var(--fg);cursor:pointer;border-left:4px solid var(--c)}}
+.gd-chips button.on{{background:var(--fg);color:var(--card);border-color:var(--fg);border-left-color:var(--c)}}
+.gd{{border:1px solid var(--grid);border-radius:12px;padding:10px 12px;background:var(--card)}}
+.gd-h{{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:16px;margin-bottom:8px}}
+.gd-h .dot{{width:12px;height:12px;border-radius:50%}}.gd-v{{font-size:13px;color:var(--muted)}}
+.gd-kv{{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:6px;margin-bottom:8px}}
+.gd-kv div{{background:var(--grid);border-radius:8px;padding:5px 8px;display:flex;flex-direction:column;font-variant-numeric:tabular-nums}}
+.gd-kv span{{font-size:11px;color:var(--muted)}}
+table.gd-t td.rk{{color:var(--muted);width:28px}}table.gd-t .cd{{color:var(--muted);font-size:12px}}table.gd-t td.n,table.gd-t th.n{{text-align:right}}
 ul.ev{{margin:0;padding-left:18px;max-height:220px;overflow:auto}}ul.ev li{{margin:3px 0}}
 .note{{color:var(--muted);font-size:12px;margin-top:14px;line-height:1.6}}
 </style></head><body><main>
@@ -950,7 +1020,7 @@ ul.ev{{margin:0;padding-left:18px;max-height:220px;overflow:auto}}ul.ev li{{marg
 <div class="note">橫軸看資金「相對」往哪裡去：今天這個族群佔大盤成交的比重，比平常高就在右邊（就算整體量縮也看得出輪動）。
 右上＝<b style="color:var(--q-up)">資金進攻</b>（資金流入、上漲）、右下＝<b style="color:var(--q-down)">資金出逃</b>（資金湧入但下跌，換手或出貨）、
 左上＝<b style="color:var(--q-rot)">惜售上漲</b>（交易冷清但上漲）、左下＝<b style="color:var(--q-wait)">冷門觀望</b>（資金離開、下跌）。
-泡泡越大＝成交值越大；★＝我的族群。{inst_note}滑鼠移到泡泡上看數字。開盤 15 分鐘內量比誤差大。</div></section>
+泡泡越大＝成交值越大；★＝我的族群。{inst_note}<b>點泡泡或下方族群名稱，可以看族群裡有哪些個股。</b>開盤 15 分鐘內量比誤差大。</div></section>
 <section><h2>族群資金流向（★＝我的族群，依資金流入倍數排序）</h2>{html_table(m['groups'], gcols, '資金流入倍數')}
 <div class="note">資金流入倍數＝今天該族群佔成交值的比重 ÷ 過去 20 日的平均比重。大於 1 代表資金比平常更集中在這個族群；
 搭配平均漲跌一起看：流入又上漲＝資金進場，流入但下跌＝有人在出貨。量比＝推估全日成交值 ÷ 20 日均量。</div></section>
@@ -1147,7 +1217,7 @@ def run(args):
                  "—" if m["up_ratio"] != m["up_ratio"] else f"{m['up_ratio']:.0%}")
         if final or args.once:
             if not m["groups"].empty:
-                m["groups"].to_csv(DATA / f"groups_{date.today():%Y%m%d}{'_demo' if args.demo else ''}.csv",
+                m["groups"].drop(columns=["成員"], errors="ignore").to_csv(DATA / f"groups_{date.today():%Y%m%d}{'_demo' if args.demo else ''}.csv",
                                    index=False, encoding="utf-8-sig")
             break
         if args.demo:
