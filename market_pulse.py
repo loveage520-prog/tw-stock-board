@@ -572,6 +572,10 @@ def compute(quotes: dict[str, Quote], idx: dict[str, Quote], base: dict, cfg: di
                       "領漲": f"{names.get(lead, lead)} {q[lead].chg:+.1%}" if q[lead].chg == q[lead].chg else "",
                       "成員": sorted(({"c": c, "n": names.get(c, q[c].name), "p": round(q[c].price, 2),
                                      "ch": round(q[c].chg, 4) if q[c].chg == q[c].chg else None,
+                                     "o": q[c].open if q[c].open == q[c].open else None,
+                                     "h": q[c].high if q[c].high == q[c].high else None,
+                                     "l": q[c].low if q[c].low == q[c].low else None,
+                                     "v": int(q[c].vol_lots) if q[c].vol_lots == q[c].vol_lots else None,
                                      "a": round(q[c].amount / 1e8, 2) if q[c].amount == q[c].amount else None,
                                      "vr": round(q[c].amount / (base[c]["amt20"] * frac), 2)
                                      if c in base and base[c].get("amt20") and frac > 0.02 and q[c].amount == q[c].amount else None}
@@ -862,7 +866,7 @@ GD_JS = """<script>
     const kv = [["盤中狀態", `<b style="color:${x.col}">${esc(x.st)}</b>`], ["平均漲跌", `<b class="${cl(x.ch)}">${pct(x.ch)}</b>`],
                 ["資金流入", (x.fx ?? "—") + "x"], ["量比", (x.vr ?? "—") + "x"], ["成交值", (x.a ?? "—") + " 億"],
                 ["上漲比例", x.ur == null ? "—" : Math.round(x.ur * 100) + "%"], ["法人 5 日", esc(x.inst || "—")]];
-    const rows = (x.m || []).map((s, k) => `<tr><td class="rk">${k + 1}</td><td><b>${esc(s.n)}</b> <span class="cd">${esc(s.c)}</span></td>` +
+    const rows = (x.m || []).map((s, k) => `<tr data-k="${esc(s.c)}" data-kn="${esc(s.n)}" data-kp="${s.p ?? ""}"${s.o ? ` data-ko="${s.o}" data-kh="${s.h}" data-kl="${s.l}" data-kv="${s.v || 0}"` : ""}><td class="rk">${k + 1}</td><td><b>${esc(s.n)}</b> <span class="cd">${esc(s.c)}</span></td>` +
       `<td class="n">${s.p ?? "—"}</td><td class="n ${cl(s.ch)}">${pct(s.ch)}</td><td class="n">${s.a ?? "—"}</td><td class="n">${s.vr == null ? "—" : s.vr + "x"}</td></tr>`).join("");
     box.innerHTML = `<div class="gd-h"><span class="dot" style="background:${x.col}"></span><b>${esc(x.g)}</b><span class="gd-v">${esc(x.view || "")}</span></div>` +
       `<div class="gd-kv">${kv.map(([t, v]) => `<div><span>${t}</span>${v}</div>`).join("")}</div>` +
@@ -915,7 +919,12 @@ def html_table(df: pd.DataFrame, cols: dict[str, str], bar_col: str | None = Non
             else:
                 tds.append(f"<td>{escape(str(v))}</td>")
         mine = ' class="mine"' if str(r.get("我的", "")) == "★" else ""
-        body.append(f"<tr{mine}>{''.join(tds)}</tr>")
+        dk = ""  # 有代號的列：點一下看技術線圖（含「我的」欄的表格不加，避免影響公開版拿掉持股標示）
+        if "代號" in r and "我的" not in df.columns and str(r.get("代號", "")).strip():
+            px = r.get("現價", NAN)
+            dk = (f' data-k="{escape(str(r["代號"]))}" data-kn="{escape(str(r.get("名稱", "")))}"'
+                  + (f' data-kp="{px}"' if px == px else ""))
+        body.append(f"<tr{mine}{dk}>{''.join(tds)}</tr>")
     return f'<div class="tw"><table><thead><tr>{head}</tr></thead><tbody>{"".join(body)}</tbody></table></div>'
 
 
@@ -925,13 +934,22 @@ def write_dashboard(m: dict, hist: list[dict], events: list[str], src_name: str,
     series = [(h["time"], h["taiex"]) for h in hist]
     tone = "hot" if m["label"].startswith(("🔥", "📈", "🌱")) else "cold" if m["label"].startswith(("🧊", "📉")) else "flat"
 
-    def tile(title, val, sub="", c=""):
-        return f'<div class="tile"><div class="t">{title}</div><div class="v {c}">{val}</div><div class="s">{sub}</div></div>'
+    def tile(title, val, sub="", c="", k=""):
+        return f'<div class="tile"{k}><div class="t">{title}</div><div class="v {c}">{val}</div><div class="s">{sub}</div></div>'
+
+    def kattr(code, name, q):  # 指數方塊：點一下看日 K
+        if not q:
+            return ""
+        a = f' data-k="{code}" data-kn="{name}" data-kp="{q.price}"'
+        for k, v in (("ko", q.open), ("kh", q.high), ("kl", q.low)):
+            if v == v:
+                a += f' data-{k}="{v}"'
+        return a
 
     pace = m["pace"]
     tiles = "".join([
-        tile("加權指數", f"{tx.price:,.0f}" if tx else "—", fmt_pct(m["tx_chg"], 2), cls(m["tx_chg"])),
-        tile("櫃買指數", f"{otc.price:,.2f}" if otc else "—", fmt_pct(m["otc_chg"], 2), cls(m["otc_chg"])),
+        tile("加權指數 📈", f"{tx.price:,.0f}" if tx else "—", fmt_pct(m["tx_chg"], 2), cls(m["tx_chg"]), kattr("TAIEX", "加權指數", tx)),
+        tile("櫃買指數 📈", f"{otc.price:,.2f}" if otc else "—", fmt_pct(m["otc_chg"], 2), cls(m["otc_chg"]), kattr("OTC", "櫃買指數", otc)),
         tile("推估量能", "—" if pace != pace else f"{pace:.2f}x", "對 20 日均量（≥1.15 有量）",
              "up" if pace == pace and pace >= 1.15 else "down" if pace == pace and pace <= 0.85 else ""),
         tile("上漲比例", "—" if m["up_ratio"] != m["up_ratio"] else f"{m['up_ratio']:.0%}",
@@ -997,6 +1015,8 @@ svg.bub .gl{{stroke:var(--grid)}}svg.bub .ax{{stroke:var(--muted);stroke-width:1
 svg.bub .tk{{font-size:12px;fill:var(--muted)}}svg.bub .ql{{font-size:14px;font-weight:700;opacity:.45}}
 svg.bub .bl{{font-size:12px;fill:var(--fg);paint-order:stroke;stroke:var(--card);stroke-width:3px}}
 svg.bub g:hover circle,svg.bub g.sel circle{{stroke:var(--fg);stroke-width:3.5}}
+.kbtn{{font:inherit;font-size:12px;font-weight:600;margin-left:8px;padding:3px 10px;border-radius:8px;border:1px solid var(--grid);background:var(--card);color:var(--fg);cursor:pointer;vertical-align:middle}}
+.tile[data-k]{{cursor:pointer}}
 .gd-chips{{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 8px}}
 .gd-chips button{{font:inherit;font-size:12px;padding:4px 9px;border-radius:999px;border:1px solid var(--grid);background:var(--card);color:var(--fg);cursor:pointer;border-left:4px solid var(--c)}}
 .gd-chips button.on{{background:var(--fg);color:var(--card);border-color:var(--fg);border-left-color:var(--c)}}
@@ -1015,12 +1035,12 @@ ul.ev{{margin:0;padding-left:18px;max-height:220px;overflow:auto}}ul.ev li{{marg
 <div class="verdict"><div class="l">{escape(m['label'])}<span class="badge">{'有行情' if m['has_move'] else '行情有限'}</span>
 <span class="badge">方向分數 {m['dir']:+d}</span></div><div class="d">{escape(m['desc'])}</div></div>
 <div class="tiles">{tiles}</div>
-<section><h2>加權指數盤中走勢</h2>{svg_line(series, tx.ref if tx else NAN)}</section>
+<section><h2>加權指數盤中走勢 <button class="kbtn" {kattr("TAIEX", "加權指數", tx)}>日K線圖</button></h2>{svg_line(series, tx.ref if tx else NAN)}</section>
 <section><h2>盤中資金地圖</h2>{svg_bubbles(m['groups'])}
 <div class="note">橫軸看資金「相對」往哪裡去：今天這個族群佔大盤成交的比重，比平常高就在右邊（就算整體量縮也看得出輪動）。
 右上＝<b style="color:var(--q-up)">資金進攻</b>（資金流入、上漲）、右下＝<b style="color:var(--q-down)">資金出逃</b>（資金湧入但下跌，換手或出貨）、
 左上＝<b style="color:var(--q-rot)">惜售上漲</b>（交易冷清但上漲）、左下＝<b style="color:var(--q-wait)">冷門觀望</b>（資金離開、下跌）。
-泡泡越大＝成交值越大；★＝我的族群。{inst_note}<b>點泡泡或下方族群名稱，可以看族群裡有哪些個股。</b>開盤 15 分鐘內量比誤差大。</div></section>
+泡泡越大＝成交值越大；★＝我的族群。{inst_note}<b>點泡泡或下方族群名稱，可以看族群裡有哪些個股；再點個股可看日 K 技術線圖。</b>開盤 15 分鐘內量比誤差大。</div></section>
 <section><h2>族群資金流向（★＝我的族群，依資金流入倍數排序）</h2>{html_table(m['groups'], gcols, '資金流入倍數')}
 <div class="note">資金流入倍數＝今天該族群佔成交值的比重 ÷ 過去 20 日的平均比重。大於 1 代表資金比平常更集中在這個族群；
 搭配平均漲跌一起看：流入又上漲＝資金進場，流入但下跌＝有人在出貨。量比＝推估全日成交值 ÷ 20 日均量。</div></section>

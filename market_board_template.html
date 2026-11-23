@@ -65,6 +65,9 @@
 #mb .mb-note{font-size:12px;color:var(--mb-muted);line-height:1.7;margin-top:10px}
 #mb .mb-links{margin-left:auto;font-size:13px;display:flex;gap:12px;flex-wrap:wrap}
 #mb .mb-links a{color:var(--mb-accent);text-decoration:none}
+#mb .mb-kb{display:inline-flex;gap:4px}
+#mb .mb-kb button{font:inherit;font-size:12px;font-weight:600;padding:3px 9px;border-radius:8px;border:1px solid var(--mb-line,#e3e6eb);background:none;color:inherit;cursor:pointer}
+#mb tbody tr[data-k]{cursor:pointer}
 </style>
 <div id="mb">
   <div class="mb-head">
@@ -72,6 +75,7 @@
     <span class="mb-mode" id="mb-mode"></span>
     <span class="mb-meta" id="mb-meta"></span>
     <span class="mb-links" id="mb-links"></span>
+    <span class="mb-kb"><button data-k="TAIEX" data-kn="加權指數">加權日K</button><button data-k="OTC" data-kn="櫃買指數">櫃買日K</button></span>
   </div>
   <div class="mb-tiles" id="mb-tiles"></div>
   <div class="mb-breadth" id="mb-breadth"></div>
@@ -151,7 +155,7 @@ function render(){
   const rows = list(), mx = Math.max(...rows.map(r => r.a), 0.01);
   if (!rows.length){ $("mb-body").innerHTML = `<div class="mb-empty">目前沒有符合的股票</div>`; return; }
   $("mb-body").innerHTML = `<table><thead><tr><th class="n">#</th><th>名稱</th><th class="ind">產業</th><th class="n px">價格</th><th class="n">漲跌</th><th class="n">成交值(億)</th><th class="stc">狀態</th></tr></thead><tbody>
-  ${rows.map((r, i) => `<tr><td class="rk">${view === "top" ? r.rk : i + 1}</td>
+  ${rows.map((r, i) => `<tr data-k="${r.c}" data-kn="${esc(r.n)}" data-km="${esc(r.m)}"${B.mode === "盤中" ? ` data-kp="${r.p}" data-kv="${r.v}"${r.o ? ` data-ko="${r.o}" data-kh="${r.h}" data-kl="${r.l}"` : ""}` : ""}><td class="rk">${view === "top" ? r.rk : i + 1}</td>
     <td>${esc(r.n)}<span class="code">${r.c}</span> <span class="mk">${r.m}</span> <span class="sti">${status(r)}</span></td>
     <td class="ind">${esc(r.i)}</td><td class="n px">${pxf(r.p)}</td><td class="n ${cls(r.ch)}">${pct(r.ch)}</td>
     <td class="n"><span class="amt"><i style="width:${Math.max(r.a / mx * 60, 2)}px"></i>${yi(r.a)}</span></td><td class="stc">${status(r)}</td></tr>`).join("")}

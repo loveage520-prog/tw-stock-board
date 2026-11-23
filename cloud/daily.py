@@ -22,6 +22,7 @@ STEPS = [
     ("美股板塊資金流向", ["us_flow.py"]),
     ("融資借券營收期權", ["extra_board.py"]),
     ("主動式 ETF 持股", ["etf_board.py"]),
+    ("個股日 K 線（技術線圖用）", ["kline.py"]),
 ]
 
 
@@ -33,7 +34,7 @@ def load(p: str):
 def summary(results) -> str:
     ok = sum(1 for r in results if r[1])
     lines = [f"{'✅' if ok == len(results) else '⚠️'} 盤後資料 {datetime.now():%m/%d %H:%M}（{ok}/{len(results)} 成功）"]
-    lines += [f"✗ {n}" for n, good, _ in results if not good]
+    lines += [f"✗ {n}" for n, good, _ in results if not good and not n.startswith("個股日 K")]
     fl = load("pulse_data/flow/latest_sectors.json")
     secs = sorted((fl.get("sectors") or {}).items(), key=lambda kv: -kv[1]["x"])
     if secs:
@@ -80,6 +81,9 @@ def main():
         p = subprocess.run([sys.executable, *cmd], cwd=BASE)
         results.append((name, p.returncode == 0, time.time() - t0))
         print(f"{'✓' if p.returncode == 0 else '✗'} {name}（{time.time() - t0:.0f} 秒）", flush=True)
+    # 日 K 資料推到獨立的 kline 分支（網頁點個股時才讀取），一天一次，不影響每 5 分鐘的網頁更新
+    if (BASE / "kline_out" / "k").exists() and any(n.startswith("個股日 K") and ok for n, ok, _ in results):
+        subprocess.run(["bash", str(BASE / "cloud" / "git_push_dir.sh"), str(BASE / "kline_out"), "kline"], cwd=BASE)
     msg = summary(results) + "\n手機版網頁已更新"
     print(msg)
     h = datetime.now().hour

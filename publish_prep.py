@@ -39,7 +39,7 @@ def unwrap(h: str) -> str:
 
 
 def check(h: str) -> None:
-    bad = re.findall(r'<script[^>]+src="(?!markets_data\.js")[^"]*"|fetch\(|XMLHttpRequest|WebSocket', h)
+    bad = re.findall(r'<script[^>]+src="(?!markets_data\.js"|kchart\.js")[^"]*"|fetch\(|XMLHttpRequest|WebSocket', h)
     if bad:
         raise SystemExit(f"發現不該有的外部載入或連線：{bad[:3]}，停止發布")
 
@@ -252,7 +252,7 @@ def embed_flow_us(h: str, live: str | None, flow: str | None) -> str:
 
 def embed_pulse(h: str, frag: str) -> str:
     """盤中脈動頁：放在加權指數走勢上面"""
-    anchor = "<section><h2>加權指數盤中走勢</h2>"
+    anchor = "<section><h2>加權指數盤中走勢"
     assert anchor in h, "盤中脈動頁面的結構變了"
     return h.replace(anchor, f'<section>\n{frag}\n</section>\n' + anchor, 1)
 

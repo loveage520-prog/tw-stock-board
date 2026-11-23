@@ -103,7 +103,7 @@ function tw(){
     <div class="pb-seg" id="pb-sub">${Object.entries(SUBS).map(([k, t]) => `<button data-v="${k}" class="${k === sub ? "on" : ""}">${t}</button>`).join("")}</div>
     <div class="pb-desc">${SUBDESC[sub]}。每日長條：紅＝買超、綠＝賣超（${T.dates[0]}→${T.dates[T.dates.length - 1]}）</div>
     <div class="pb-tw">${rows.length ? `<table><thead><tr><th class="n">#</th><th>名稱</th><th class="n">15日(億)</th><th class="hd">每日</th><th class="n hd">買／賣天數</th><th>連續</th><th class="n hd">今日(億)</th><th class="n">15日漲跌</th></tr></thead><tbody>
-      ${rows.map((x, i) => `<tr><td class="pbrk">${i + 1}</td><td>${esc(x.n)}<span class="code">${x.c}</span><span class="sub">${esc(x.i)}${x.m ? "・" + x.m : ""}</span></td>
+      ${rows.map((x, i) => `<tr data-k="${x.c}" data-kn="${esc(x.n)}" data-km="${esc(x.m || "")}"><td class="pbrk">${i + 1}</td><td>${esc(x.n)}<span class="code">${x.c}</span><span class="sub">${esc(x.i)}${x.m ? "・" + x.m : ""}</span></td>
         <td class="n ${cls(x.sum)}"><b>${yi(x.sum)}</b></td><td class="hd">${spark(x.spark)}</td><td class="n hd">${x.bd}／${x.sd}</td>
         <td>${streak(x.st)}</td><td class="n hd ${cls(x.today)}">${yi(x.today)}</td><td class="n ${cls(x.ret)}">${pct(x.ret)}</td></tr>`).join("")}
       </tbody></table>` : `<div class="pb-empty">沒有符合的股票</div>`}</div>

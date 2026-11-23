@@ -176,6 +176,7 @@ def scan_intraday(uni: dict[str, dict]) -> dict:
         touched_dn = ok(dn) and ok(l) and l <= dn + 1e-9 and not at_dn
         mkt = {"tse": "上市", "otc": "上櫃"}.get(m.get("ex", ""))
         rows.append(row(c, uni[c], z, ref, amt, v, at_up, at_dn, lock_up, lock_dn, touched_up, touched_dn, mkt))
+        rows[-1].update({"o": o if pos(o) else None, "h": h if pos(h) else None, "l": l if pos(l) else None})  # 技術線圖補今天 K 棒用
     log.info("全市場掃描 %d 檔，耗時 %.0f 秒", len(rows), time.time() - t0)
     if not data_date:
         raise RuntimeError("證交所沒有回傳資料（可能被暫時封鎖或網路問題）")

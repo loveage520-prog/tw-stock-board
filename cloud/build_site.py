@@ -24,7 +24,8 @@ HEAD = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-{extra}<style>[hidden]{{display:none!important}}body{{margin:0}}</style>
+{extra}<script src="kchart.js" defer></script>
+<style>[hidden]{{display:none!important}}body{{margin:0}}</style>
 </head>
 <body>
 """
@@ -79,6 +80,7 @@ for f in (BASE / "cloud" / "icons").glob("*.png"):
     "background_color": "#111113", "theme_color": "#111113",
     "icons": [{"src": "icons/pulse2-192.png", "sizes": "192x192", "type": "image/png"},
               {"src": "icons/pulse2-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False), "utf-8")
+shutil.copyfile(BASE / "kchart.js", SITE / "kchart.js")
 if (BASE / "markets_data.js").exists():
     shutil.copyfile(BASE / "markets_data.js", SITE / "markets_data.js")
 (SITE / ".nojekyll").write_text("", "utf-8")

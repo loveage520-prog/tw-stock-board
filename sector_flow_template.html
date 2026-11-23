@@ -354,7 +354,7 @@ function detail(n, keep){
   <span class="sub" style="font-weight:400;margin-left:8px">${s.q}・近 5 日 ${fmt(s.x)} 億・今日 ${fmt(s.tn)} 億・${s.b}/${s.m} 檔在買</span></h3>
   ${fi !== D.frames.length-1 ? '<div class="sub">成分股明細為最新一日資料</div>' : ""}
   <div class="tw"><table><thead><tr><th>名稱</th><th>代號</th><th>今日法人(億)</th><th>5 日法人(億)</th><th>今日漲跌</th><th>5 日漲跌</th></tr></thead><tbody>
-  ${mem.map(m => `<tr class="${m[6]?"mine":""}"><td>${esc(m[1])}${m[6]?" ★":""}</td><td>${m[0]}</td><td class="n ${cls(m[2])}">${fmt(m[2],2)}</td><td class="n ${cls(m[3])}">${fmt(m[3],2)}</td><td class="n ${cls(m[4])}">${pct(m[4])}</td><td class="n ${cls(m[5])}">${pct(m[5])}</td></tr>`).join("")}
+  ${mem.map(m => `<tr class="${m[6]?"mine":""}" data-k="${m[0]}" data-kn="${esc(m[1])}"><td>${esc(m[1])}${m[6]?" ★":""}</td><td>${m[0]}</td><td class="n ${cls(m[2])}">${fmt(m[2],2)}</td><td class="n ${cls(m[3])}">${fmt(m[3],2)}</td><td class="n ${cls(m[4])}">${pct(m[4])}</td><td class="n ${cls(m[5])}">${pct(m[5])}</td></tr>`).join("")}
   </tbody></table></div>`;
   el.style.display = "block"; el.querySelector(".x").onclick = () => { el.style.display = "none"; sel = null; chart(); };
   if (!keep){ chart(); el.scrollIntoView({behavior:"smooth", block:"nearest"}); }
@@ -408,7 +408,7 @@ function rank(){
   } else {
     const a = D.stocks.anomaly.filter(r => !query || r.c.includes(query) || r.nm.toLowerCase().includes(query));
     html = a.length ? `<div class="tw"><table><thead><tr><th>名稱</th><th>代號</th><th>異常</th><th>今日法人(億)</th><th>5 日法人(億)</th><th>今日漲跌</th><th>5 日漲跌</th></tr></thead><tbody>
-    ${a.map(r => `<tr class="${r.mine?"mine":""}"><td>${esc(r.nm)}${r.mine?" ★":""}</td><td>${r.c}</td><td>${esc(r.fl)}</td><td class="n ${cls(r.tv)}">${fmt(r.tv,2)}</td><td class="n ${cls(r.v5)}">${fmt(r.v5,2)}</td><td class="n ${cls(r.ct)}">${pct(r.ct)}</td><td class="n ${cls(r.c5)}">${pct(r.c5)}</td></tr>`).join("")}
+    ${a.map(r => `<tr class="${r.mine?"mine":""}" data-k="${r.c}" data-kn="${esc(r.nm)}"><td>${esc(r.nm)}${r.mine?" ★":""}</td><td>${r.c}</td><td>${esc(r.fl)}</td><td class="n ${cls(r.tv)}">${fmt(r.tv,2)}</td><td class="n ${cls(r.v5)}">${fmt(r.v5,2)}</td><td class="n ${cls(r.ct)}">${pct(r.ct)}</td><td class="n ${cls(r.c5)}">${pct(r.c5)}</td></tr>`).join("")}
     </tbody></table></div>${fi !== D.frames.length-1 ? '<div class="sub">個股異常為最新一日資料</div>' : ""}` : '<div class="empty">今天沒有異常個股</div>';
   }
   if (rMode !== "stock" && !list.length) html = '<div class="empty">今天沒有符合條件的板塊</div>';
