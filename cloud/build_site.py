@@ -91,6 +91,14 @@ chain = (BASE / "chain_template.html").read_text("utf-8").replace(
                       '<link rel="apple-touch-icon" href="icons/flow2-180.png">\n')
     + publish_prep.mk_nav("chain", seg=False) + chain + "\n</body>\n</html>\n", "utf-8")
 print("→ chain.html")
+# AI 營收・獲利（資料由 ai_fin.py 產生）
+af = BASE / "pulse_data" / "aifin" / "all.json"
+if af.exists():
+    page = (BASE / "ai_template.html").read_text("utf-8").replace("/*__DATA__*/null", af.read_text("utf-8").replace("</", "<\\/"))
+    (SITE / "ai.html").write_text(
+        HEAD.format(extra='<title>AI 營收</title>\n<link rel="icon" type="image/png" sizes="32x32" href="icons/flow2-32.png">\n')
+        + publish_prep.mk_nav("ai", seg=False) + page + "\n</body>\n</html>\n", "utf-8")
+    print("→ ai.html")
 if (BASE / "markets_data.js").exists():
     shutil.copyfile(BASE / "markets_data.js", SITE / "markets_data.js")
 (SITE / ".nojekyll").write_text("", "utf-8")

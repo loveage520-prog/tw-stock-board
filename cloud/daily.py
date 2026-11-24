@@ -22,6 +22,7 @@ STEPS = [
     ("美股板塊資金流向", ["us_flow.py"]),
     ("融資借券營收期權", ["extra_board.py"]),
     ("主動式 ETF 持股", ["etf_board.py"]),
+    ("AI 營收與 EPS", ["ai_fin.py"]),
     ("個股日 K 線（技術線圖用）", ["kline.py"]),
 ]
 
@@ -35,6 +36,22 @@ def summary(results) -> str:
     ok = sum(1 for r in results if r[1])
     lines = [f"{'✅' if ok == len(results) else '⚠️'} 盤後資料 {datetime.now():%m/%d %H:%M}（{ok}/{len(results)} 成功）"]
     lines += [f"✗ {n}" for n, good, _ in results if not good and not n.startswith("個股日 K")]
+    af = load("pulse_data/aifin/all.json")
+    if af.get("cos"):  # 今天有新公布月營收的 AI 公司
+        today = datetime.now().strftime("%Y-%m-%d")
+        news = []
+        for c in af["cos"]:
+            cache = load(f"pulse_data/aifin/{c['c']}.json")
+            nm = cache.get("newm") or []
+            if len(nm) == 2 and nm[1] == today:
+                mm = dict(c["m"])
+                ym = nm[0]
+                y0 = mm.get(f"{int(ym[:4]) - 1}{ym[4:]}")
+                if y0 and mm.get(ym):
+                    news.append((c["n"], mm[ym] / y0 - 1, ym))
+        hi = sorted([x for x in news if x[1] > 0.3], key=lambda x: -x[1])[:5]
+        if hi:
+            lines.append("AI 月營收年增 >30%：" + "、".join(f"{n}({g * 100:+.0f}%)" for n, g, _ in hi))
     fl = load("pulse_data/flow/latest_sectors.json")
     secs = sorted((fl.get("sectors") or {}).items(), key=lambda kv: -kv[1]["x"])
     if secs:

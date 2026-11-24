@@ -1,0 +1,230 @@
+<style>
+/* AI 營收・獲利 */
+:root{--bg:#f4f5f7;--card:#ffffff;--fg:#1c2230;--muted:#6b7280;--line:#e3e6eb;--soft:#eef1f5;--accent:#2f5fb3;--up:#d6453d;--dn:#1f8a55;--bar:#93b4ec;--bar2:#2f5fb3;--eps:#e6a23c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1318;--card:#171c23;--fg:#e7eaf0;--muted:#98a2b3;--line:#272e38;--soft:#1e242d;--accent:#7aa4ff;--up:#ef6a5f;--dn:#3fbf7f;--bar:#3b4f78;--bar2:#7aa4ff;--eps:#f0b44c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1318;--card:#171c23;--fg:#e7eaf0;--muted:#98a2b3;--line:#272e38;--soft:#1e242d;--accent:#7aa4ff;--up:#ef6a5f;--dn:#3fbf7f;--bar:#3b4f78;--bar2:#7aa4ff;--eps:#f0b44c;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}
+#af{max-width:1280px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+#af *{box-sizing:border-box}#af button{font:inherit;color:inherit}
+#af h1{font-size:22px;margin:4px 0 4px}
+.af-sub{font-size:13px;color:var(--muted);margin:0 0 10px}
+.af-gs{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;margin-bottom:12px}
+.af-g{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 11px;cursor:pointer;text-align:left}
+.af-g.on{outline:2px solid var(--accent)}
+.af-g b{display:block;font-size:14px}.af-g .v{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}.af-g small{font-size:11px;color:var(--muted)}
+.af-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.af-bar input{flex:1;min-width:160px;font:inherit;padding:8px 11px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+#af .af-bar button{padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:13px;font-weight:600}
+#af .af-bar button.on{background:var(--fg);color:var(--card);border-color:var(--fg)}
+.af-tw{overflow:auto;max-height:70vh;background:var(--card);border:1px solid var(--line);border-radius:12px}
+#af table{border-collapse:separate;border-spacing:0;width:100%;font-variant-numeric:tabular-nums;font-size:13px}
+#af th,#af td{padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:right;background:var(--card)}
+#af th{position:sticky;top:0;z-index:2;font-size:12px;color:var(--muted);font-weight:600;cursor:pointer;user-select:none}
+#af th.s::after{content:" ▼";font-size:9px}#af th.s.asc::after{content:" ▲"}
+#af td:first-child,#af th:first-child{position:sticky;left:0;z-index:1;text-align:left}
+#af th:first-child{z-index:3}
+#af tbody tr{cursor:pointer}#af tbody tr:hover td,#af tbody tr.sel td{background:var(--soft)}
+#af .nm b{font-size:14px}#af .nm small{color:var(--muted);margin-left:4px}
+#af .gp{color:var(--muted);font-size:11px;text-align:left}
+#af .grp{border-left:2px solid var(--line)}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.af-det{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:12px}
+.af-det h2{margin:0 0 4px;font-size:20px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.af-det h2 small{font-size:13px;color:var(--muted);font-weight:500}
+.af-det h2 button{margin-left:auto;font-size:13px;padding:4px 11px;border-radius:8px;border:1px solid var(--line);background:var(--soft);cursor:pointer}
+.af-k{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:8px 0 12px}
+@media (max-width:900px){.af-k{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:480px){.af-k{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.af-k div{background:var(--soft);border-radius:9px;padding:6px 9px;min-width:0}
+.af-k .t{font-size:11px;color:var(--muted)}.af-k .v{font-size:17px;font-weight:800}.af-k .s{font-size:11px}
+.af-ch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.af-ch{grid-template-columns:minmax(0,1fr)}}
+.af-ch section{min-width:0}
+.af-ch h3{font-size:14px;margin:0 0 4px}.af-ch h3 small{font-weight:400;color:var(--muted);font-size:11px}
+.af-ch svg{display:block;width:100%;height:auto}.af-ch svg text{font-family:inherit}
+.af-lg{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--muted);margin-top:2px}
+.af-lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:-1px}
+.af-tabs{display:flex;gap:4px;margin:12px 0 6px}
+#af .af-tabs button{padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:none;cursor:pointer;font-size:13px}
+#af .af-tabs button.on{background:var(--soft);font-weight:700}
+.af-note{font-size:12px;color:var(--muted);line-height:1.7;margin-top:14px}
+</style>
+<div id="af">
+  <h1>AI 營收・獲利追蹤</h1>
+  <p class="af-sub" id="af-sub"></p>
+  <div class="af-gs" id="af-gs"></div>
+  <div class="af-bar" id="af-bar"><input id="af-q" type="search" placeholder="搜尋公司或代號" aria-label="搜尋公司"></div>
+  <div class="af-tw"><table><thead id="af-th"></thead><tbody id="af-tb"></tbody></table></div>
+  <div class="af-det" id="af-det"></div>
+  <div class="af-note">資料來源：公開資訊觀測站（經 FinMind 整理）。月營收每月 10 日前公布；季報 Q1 5/15、Q2 8/14、Q3 11/14、Q4 隔年 3/31 前公布，有些公司會提早。金額單位：億元（新台幣）；EPS 單位：元。累計年增＝今年 1 月到最新月份合計，和去年同期比較。近四季 EPS＝最近 4 季 EPS 加總。每天盤後自動檢查並更新。僅供參考，不構成投資建議。</div>
+</div>
+<script>
+(function(){
+const A = /*__DATA__*/null;
+if (!A) return;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const yi = v => v == null ? null : v / 1e8;
+const f1 = (v, d = 1) => v == null || !isFinite(v) ? "—" : Number(v).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const pc = (v, d = 1) => v == null || !isFinite(v) ? "—" : (v > 0 ? "+" : "") + (v * 100).toFixed(d) + "%";
+const cl = v => v > 0 ? "up" : v < 0 ? "dn" : "";
+const prevYM = (ym, n) => { let [y, m] = ym.split("-").map(Number); m -= n; while (m <= 0) { m += 12; y--; } return `${y}-${String(m).padStart(2, "0")}`; };
+const prevQ = (yq, n) => { let y = +yq.slice(0, 4), q = +yq.slice(5); q -= n; while (q <= 0) { q += 4; y--; } return `${y}Q${q}`; };
+const gr = (a, b) => a != null && b != null && b > 0 ? a / b - 1 : null;
+
+// 計算每家公司的指標
+const COS = A.cos.map(c => {
+  const M = Object.fromEntries(c.m), Q = Object.fromEntries(c.q.map(r => [r[0], {rev: r[1], gp: r[2], op: r[3], ni: r[4], nip: r[5], eps: r[6]}]));
+  const lm = c.m.length ? c.m[c.m.length - 1][0] : null, lq = c.q.length ? c.q[c.q.length - 1][0] : null;
+  const o = {c: c.c, n: c.n, g: c.g, M, Q, lm, lq, months: c.m.map(x => x[0]), qs: c.q.map(x => x[0])};
+  if (lm) {
+    o.mrev = M[lm]; o.mom = gr(M[lm], M[prevYM(lm, 1)]); o.yoy = gr(M[lm], M[prevYM(lm, 12)]);
+    const y = lm.slice(0, 4), mm = +lm.slice(5); let a = 0, b = 0, ok = true;
+    for (let i = 1; i <= mm; i++) { const k = `${y}-${String(i).padStart(2, "0")}`, k0 = `${+y - 1}-${String(i).padStart(2, "0")}`; if (M[k] == null || M[k0] == null) ok = false; a += M[k] || 0; b += M[k0] || 0; }
+    o.ytd = ok ? gr(a, b) : null; o.ytdv = a;
+  }
+  if (lq) {
+    const x = Q[lq], x0 = Q[prevQ(lq, 4)];
+    o.qrev = x.rev; o.qyoy = gr(x.rev, x0 && x0.rev); o.gm = x.rev ? x.gp / x.rev : null; o.om = x.rev ? x.op / x.rev : null;
+    o.nm = x.rev ? (x.nip ?? x.ni) / x.rev : null; o.eps = x.eps;
+    o.epsyoy = x0 && x0.eps > 0 && x.eps != null ? x.eps / x0.eps - 1 : null;
+    const l4 = [0, 1, 2, 3].map(i => (Q[prevQ(lq, i)] || {}).eps), p4 = [4, 5, 6, 7].map(i => (Q[prevQ(lq, i)] || {}).eps);
+    o.ttm = l4.every(v => v != null) ? l4.reduce((s, v) => s + v, 0) : null;
+    o.ttm0 = p4.every(v => v != null) ? p4.reduce((s, v) => s + v, 0) : null;
+    o.ttmyoy = o.ttm != null && o.ttm0 > 0 ? o.ttm / o.ttm0 - 1 : null;
+  }
+  return o;
+});
+
+const lmAll = COS.map(c => c.lm).filter(Boolean).sort().pop(), lqAll = COS.map(c => c.lq).filter(Boolean).sort().pop();
+$("af-sub").textContent = `${COS.length} 家 AI 相關公司｜最新月營收 ${lmAll || "—"}、最新季報 ${lqAll || "—"}｜更新 ${A.time}`;
+
+let grp = "全部", sortK = "mrev", asc = false, sel = COS[0] && COS[0].c, q = "", dtab = "chart";
+try { sel = sessionStorage.getItem("afSel") || sel; } catch(e) {}
+
+// 族群卡：最新月份合計營收年增
+function groups(){
+  const cards = [["全部", COS]].concat(A.groups.map(g => [g, COS.filter(c => c.g === g)]));
+  $("af-gs").innerHTML = cards.map(([g, cs]) => {
+    const same = cs.filter(c => c.lm === lmAll);
+    const a = same.reduce((s, c) => s + (c.mrev || 0), 0), b = same.reduce((s, c) => s + (c.M[prevYM(lmAll, 12)] || 0), 0);
+    const y = b > 0 ? a / b - 1 : null, up = same.filter(c => (c.yoy || 0) > 0).length;
+    return `<button class="af-g ${g === grp ? "on" : ""}" data-g="${esc(g)}"><b>${esc(g)}</b><span class="v ${cl(y)}">${pc(y)}</span><small>${lmAll ? lmAll.slice(5) : ""} 月營收合計年增・${up}/${same.length} 家成長</small></button>`;
+  }).join("");
+}
+
+const COLS = [
+  ["n", "公司", c => `<span class="nm"><b>${esc(c.n)}</b><small>${c.c}</small></span>`, "str"],
+  ["g", "族群", c => `<span class="gp">${esc(c.g)}</span>`, "str"],
+  ["mrev", "月營收(億)", c => f1(yi(c.mrev)), "num", "grp"],
+  ["mom", "月增", c => `<span class="${cl(c.mom)}">${pc(c.mom)}</span>`],
+  ["yoy", "年增", c => `<b class="${cl(c.yoy)}">${pc(c.yoy)}</b>`],
+  ["ytd", "累計年增", c => `<span class="${cl(c.ytd)}">${pc(c.ytd)}</span>`],
+  ["qrev", "季營收(億)", c => f1(yi(c.qrev)), "num", "grp"],
+  ["qyoy", "季年增", c => `<span class="${cl(c.qyoy)}">${pc(c.qyoy)}</span>`],
+  ["gm", "毛利率", c => pc(c.gm).replace("+", "")],
+  ["om", "營益率", c => pc(c.om).replace("+", "")],
+  ["eps", "季 EPS", c => `<b>${f1(c.eps, 2)}</b>`, "num", "grp"],
+  ["epsyoy", "EPS 年增", c => `<span class="${cl(c.epsyoy)}">${pc(c.epsyoy)}</span>`],
+  ["ttm", "近四季 EPS", c => f1(c.ttm, 2)],
+  ["ttmyoy", "近四季年增", c => `<span class="${cl(c.ttmyoy)}">${pc(c.ttmyoy)}</span>`],
+];
+function table(){
+  $("af-th").innerHTML = `<tr>${COLS.map(([k, t, , , g]) => `<th data-s="${k}" class="${k === sortK ? "s" + (asc ? " asc" : "") : ""} ${g || ""}">${t}</th>`).join("")}</tr>`;
+  let rs = COS.filter(c => (grp === "全部" || c.g === grp) && (!q || c.n.includes(q) || c.c.includes(q)));
+  const col = COLS.find(x => x[0] === sortK);
+  rs.sort((a, b) => { const x = a[sortK], y = b[sortK];
+    if (col[3] === "str") return asc ? String(x).localeCompare(y, "zh-Hant") : String(y).localeCompare(x, "zh-Hant");
+    return (x == null) - (y == null) || (asc ? x - y : y - x); });
+  $("af-tb").innerHTML = rs.map(c => `<tr data-c="${c.c}" class="${c.c === sel ? "sel" : ""}">${COLS.map(([k, , f, , g]) => `<td class="${g || ""}">${f(c)}</td>`).join("")}</tr>`).join("") ||
+    `<tr><td colspan="${COLS.length}" style="text-align:center;color:var(--muted)">找不到</td></tr>`;
+}
+
+/* ---------- 圖 ---------- */
+function barLine(labels, bars, bars0, line, opt){
+  const W = 620, H = 236, PL = 46, PR = 44, PT = 20, PB = 34, n = labels.length;
+  if (!n) return "";
+  const bmax = Math.max(...bars.filter(v => v != null), ...(bars0 || []).filter(v => v != null), 0) * 1.12 || 1;
+  const lv = line.filter(v => v != null), lmin = Math.min(0, ...lv), lmax = Math.max(0, ...lv), lk = (lmax - lmin) || 1;
+  const bw = (W - PL - PR) / n, X = i => PL + i * bw + bw / 2, YB = v => PT + (1 - v / bmax) * (H - PT - PB), YL = v => PT + (lmax - v) / lk * (H - PT - PB);
+  let g = "";
+  for (let t = 0; t <= 4; t++) { const v = bmax * t / 4, y = YB(v); g += `<line x1="${PL}" x2="${W - PR}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)"/><text x="${PL - 4}" y="${(y + 3).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--muted)">${f1(v, v >= 100 ? 0 : 1)}</text>`; }
+  if (lmin < 0) g += `<line x1="${PL}" x2="${W - PR}" y1="${YL(0).toFixed(1)}" y2="${YL(0).toFixed(1)}" stroke="var(--muted)" stroke-dasharray="3 3"/>`;
+  const w = Math.max(2, bw * (bars0 ? .38 : .66));
+  labels.forEach((lb, i) => {
+    if (bars0 && bars0[i] != null) g += `<rect x="${(X(i) - w - 1).toFixed(1)}" y="${YB(bars0[i]).toFixed(1)}" width="${w.toFixed(1)}" height="${(YB(0) - YB(bars0[i])).toFixed(1)}" fill="var(--bar)"/>`;
+    if (bars[i] != null) g += `<rect x="${(bars0 ? X(i) + 1 : X(i) - w / 2).toFixed(1)}" y="${YB(bars[i]).toFixed(1)}" width="${w.toFixed(1)}" height="${(YB(0) - YB(bars[i])).toFixed(1)}" fill="var(--bar2)" rx="1"><title>${esc(lb)}：${f1(bars[i])}</title></rect>`;
+    if (i % opt.every === 0 || i === n - 1) g += `<text x="${X(i).toFixed(1)}" y="${H - PB + 14}" text-anchor="middle" font-size="10" fill="var(--muted)">${esc(opt.lab(lb))}</text>`;
+  });
+  const pts = line.map((v, i) => v == null ? null : `${X(i).toFixed(1)},${YL(v).toFixed(1)}`).filter(Boolean);
+  g += `<polyline fill="none" stroke="var(--eps)" stroke-width="2" points="${pts.join(" ")}"/>`;
+  line.forEach((v, i) => { if (v != null) g += `<circle cx="${X(i).toFixed(1)}" cy="${YL(v).toFixed(1)}" r="2.6" fill="var(--eps)"><title>${esc(labels[i])}：${opt.lfmt(v)}</title></circle>`; });
+  for (let t = 0; t <= 2; t++) { const v = lmin + lk * t / 2; g += `<text x="${W - PR + 4}" y="${(YL(v) + 3).toFixed(1)}" font-size="10" fill="var(--eps)">${opt.lfmt(v)}</text>`; }
+  const li = line.length - 1;
+  if (line[li] != null) g += `<text x="${(X(li)).toFixed(1)}" y="${(YL(line[li]) - 7).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--eps)">${opt.lfmt(line[li])}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opt.aria)}">${g}</svg>`;
+}
+function lines3(labels, series){
+  const W = 620, H = 200, PL = 40, PR = 50, PT = 10, PB = 30, n = labels.length;
+  const all = series.flatMap(s => s.v).filter(v => v != null); if (!all.length) return "";
+  const lo = Math.min(0, ...all), hi = Math.max(...all) * 1.1 || 1, X = i => PL + (i + .5) * (W - PL - PR) / n, Y = v => PT + (hi - v) / (hi - lo) * (H - PT - PB);
+  let g = "";
+  for (let t = 0; t <= 4; t++) { const v = lo + (hi - lo) * t / 4; g += `<line x1="${PL}" x2="${W - PR}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" stroke="var(--line)"/><text x="${PL - 4}" y="${(Y(v) + 3).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--muted)">${(v * 100).toFixed(0)}%</text>`; }
+  labels.forEach((lb, i) => { if (i % 2 === 0 || i === n - 1) g += `<text x="${X(i).toFixed(1)}" y="${H - PB + 14}" text-anchor="middle" font-size="10" fill="var(--muted)">${esc(lb.slice(2))}</text>`; });
+  series.forEach(s => {
+    const pts = s.v.map((v, i) => v == null ? null : `${X(i).toFixed(1)},${Y(v).toFixed(1)}`).filter(Boolean);
+    g += `<polyline fill="none" stroke="${s.c}" stroke-width="2" points="${pts.join(" ")}"/>`;
+    const li = s.v.length - 1; if (s.v[li] != null) g += `<text x="${(X(li) + 6).toFixed(1)}" y="${(Y(s.v[li]) + 4).toFixed(1)}" font-size="11" font-weight="700" fill="${s.c}">${(s.v[li] * 100).toFixed(1)}%</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="利潤率趨勢">${g}</svg>`;
+}
+
+function detail(){
+  const c = COS.find(x => x.c === sel) || COS[0]; if (!c) return;
+  const m24 = c.months.slice(-24), qs = c.qs.slice(-8);
+  const kv = [["最新月營收", `${f1(yi(c.mrev))} 億`, `${c.lm || ""}　年增 <b class="${cl(c.yoy)}">${pc(c.yoy)}</b>`],
+              ["今年累計", `${f1(yi(c.ytdv))} 億`, `年增 <b class="${cl(c.ytd)}">${pc(c.ytd)}</b>`],
+              ["最新季營收", `${f1(yi(c.qrev))} 億`, `${c.lq || ""}　年增 <b class="${cl(c.qyoy)}">${pc(c.qyoy)}</b>`],
+              ["毛利率／營益率", `${pc(c.gm).replace("+", "")}`, `營益率 ${pc(c.om).replace("+", "")}`],
+              ["季 EPS", `${f1(c.eps, 2)} 元`, `年增 <b class="${cl(c.epsyoy)}">${pc(c.epsyoy)}</b>`],
+              ["近四季 EPS", `${f1(c.ttm, 2)} 元`, `年增 <b class="${cl(c.ttmyoy)}">${pc(c.ttmyoy)}</b>`]];
+  let body = "";
+  if (dtab === "chart") {
+    body = `<div class="af-ch"><section><h3>月營收 <small>近 24 個月（億元）；長條＝今年／去年同月，線＝年增率</small></h3>` +
+      barLine(m24, m24.map(k => yi(c.M[k])), m24.map(k => yi(c.M[prevYM(k, 12)])), m24.map(k => gr(c.M[k], c.M[prevYM(k, 12)])),
+              {every: 3, lab: k => k.slice(2).replace("-", "/"), lfmt: v => (v * 100).toFixed(0) + "%", aria: c.n + "月營收"}) +
+      `<div class="af-lg"><span><i style="background:var(--bar2)"></i>當月營收</span><span><i style="background:var(--bar)"></i>去年同月</span><span><i style="background:var(--eps)"></i>年增率</span></div></section>` +
+      `<section><h3>季營收與 EPS <small>近 8 季；長條＝營收（億元），線＝EPS（元）</small></h3>` +
+      barLine(qs, qs.map(k => yi(c.Q[k].rev)), null, qs.map(k => c.Q[k].eps), {every: 1, lab: k => k.slice(2), lfmt: v => f1(v, 2), aria: c.n + "季營收與EPS"}) +
+      `<div class="af-lg"><span><i style="background:var(--bar2)"></i>季營收</span><span><i style="background:var(--eps)"></i>EPS</span></div></section>` +
+      `<section><h3>利潤率趨勢 <small>毛利率、營業利益率、淨利率</small></h3>` +
+      lines3(c.qs.slice(-12), [{c: "var(--bar2)", v: c.qs.slice(-12).map(k => c.Q[k].rev ? c.Q[k].gp / c.Q[k].rev : null)},
+                              {c: "var(--eps)", v: c.qs.slice(-12).map(k => c.Q[k].rev ? c.Q[k].op / c.Q[k].rev : null)},
+                              {c: "var(--up)", v: c.qs.slice(-12).map(k => c.Q[k].rev ? (c.Q[k].nip ?? c.Q[k].ni) / c.Q[k].rev : null)}]) +
+      `<div class="af-lg"><span><i style="background:var(--bar2)"></i>毛利率</span><span><i style="background:var(--eps)"></i>營益率</span><span><i style="background:var(--up)"></i>淨利率</span></div></section>` +
+      `<section><h3>EPS 年增 <small>每季 EPS 和去年同季比較</small></h3>` +
+      barLine(qs, qs.map(k => c.Q[k].eps), qs.map(k => (c.Q[prevQ(k, 4)] || {}).eps), qs.map(k => { const a = c.Q[k].eps, b = (c.Q[prevQ(k, 4)] || {}).eps; return a != null && b > 0 ? a / b - 1 : null; }),
+              {every: 1, lab: k => k.slice(2), lfmt: v => (v * 100).toFixed(0) + "%", aria: c.n + "EPS年增"}) +
+      `<div class="af-lg"><span><i style="background:var(--bar2)"></i>今年 EPS</span><span><i style="background:var(--bar)"></i>去年同季</span><span><i style="background:var(--eps)"></i>年增率</span></div></section></div>`;
+  } else if (dtab === "q") {
+    const rows = c.qs.slice().reverse().map(k => { const x = c.Q[k], x0 = c.Q[prevQ(k, 4)] || {};
+      return `<tr><td>${k}</td><td>${f1(yi(x.rev))}</td><td class="${cl(gr(x.rev, x0.rev))}">${pc(gr(x.rev, x0.rev))}</td><td>${pc(x.rev ? x.gp / x.rev : null).replace("+", "")}</td><td>${pc(x.rev ? x.op / x.rev : null).replace("+", "")}</td><td>${pc(x.rev ? (x.nip ?? x.ni) / x.rev : null).replace("+", "")}</td><td>${f1(yi(x.nip ?? x.ni))}</td><td><b>${f1(x.eps, 2)}</b></td><td class="${cl(x0.eps > 0 && x.eps != null ? x.eps / x0.eps - 1 : null)}">${pc(x0.eps > 0 && x.eps != null ? x.eps / x0.eps - 1 : null)}</td></tr>`; }).join("");
+    body = `<div class="af-tw" style="max-height:none"><table><thead><tr><th>季別</th><th>營收(億)</th><th>年增</th><th>毛利率</th><th>營益率</th><th>淨利率</th><th>稅後淨利(億)</th><th>EPS</th><th>EPS 年增</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  } else {
+    const rows = c.months.slice(-24).reverse().map(k => `<tr><td>${k}</td><td>${f1(yi(c.M[k]), 2)}</td><td class="${cl(gr(c.M[k], c.M[prevYM(k, 1)]))}">${pc(gr(c.M[k], c.M[prevYM(k, 1)]))}</td><td>${f1(yi(c.M[prevYM(k, 12)]), 2)}</td><td class="${cl(gr(c.M[k], c.M[prevYM(k, 12)]))}"><b>${pc(gr(c.M[k], c.M[prevYM(k, 12)]))}</b></td></tr>`).join("");
+    body = `<div class="af-tw" style="max-height:none"><table><thead><tr><th>月份</th><th>營收(億)</th><th>月增</th><th>去年同月(億)</th><th>年增</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  $("af-det").innerHTML = `<h2>${esc(c.n)} <small>${c.c}・${esc(c.g)}</small><button data-k="${c.c}" data-kn="${esc(c.n)}">📈 日K線圖</button></h2>` +
+    `<div class="af-k">${kv.map(([t, v, s]) => `<div><div class="t">${t}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("")}</div>` +
+    `<div class="af-tabs">${[["chart", "圖表"], ["q", "季報明細"], ["m", "月營收明細"]].map(([k, t]) => `<button data-d="${k}" class="${dtab === k ? "on" : ""}">${t}</button>`).join("")}</div>` + body;
+}
+
+function render(){ groups(); table(); detail(); }
+$("af-gs").addEventListener("click", e => { const b = e.target.closest("[data-g]"); if (b) { grp = b.dataset.g; render(); } });
+$("af-th").addEventListener("click", e => { const t = e.target.closest("[data-s]"); if (!t) return; if (sortK === t.dataset.s) asc = !asc; else { sortK = t.dataset.s; asc = COLS.find(x => x[0] === sortK)[3] === "str"; } table(); });
+$("af-tb").addEventListener("click", e => { const r = e.target.closest("[data-c]"); if (!r) return; sel = r.dataset.c; try { sessionStorage.setItem("afSel", sel); } catch(x) {} table(); detail(); $("af-det").scrollIntoView({behavior: "smooth", block: "start"}); });
+$("af-det").addEventListener("click", e => { const b = e.target.closest("[data-d]"); if (b) { dtab = b.dataset.d; detail(); } });
+$("af-q").addEventListener("input", e => { q = e.target.value.trim(); table(); });
+render();
+})();
+</script>

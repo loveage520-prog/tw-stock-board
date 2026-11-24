@@ -186,10 +186,11 @@ MK_CSS = """<style>
 
 
 def mk_nav(page: str, seg: bool = True) -> str:
-    pg = [("pulse", URL_PULSE, "盤中脈動"), ("flow", URL_FLOW, "盤後資金"), ("chain", "chain.html", "產業鏈")]
-    links = "".join(f'<a class="{"on" if k == page else ""}" data-base="{u}" href="{u}"{" data-plain=1" if k == "chain" else ""}>{t}</a>'
+    pg = [("pulse", URL_PULSE, "盤中脈動"), ("flow", URL_FLOW, "盤後資金"), ("chain", "chain.html", "產業鏈"), ("ai", "ai.html", "AI營收")]
+    links = "".join(f'<a class="{"on" if k == page else ""}" data-base="{u}" href="{u}"{" data-plain=1" if k in ("chain", "ai") else ""}>{t}</a>'
                     for k, u, t in pg)
-    sg = '<div class="mk-seg"><button data-mk="tw" class="on">🇹🇼 台股</button><button data-mk="us">🇺🇸 美股</button></div>' if seg else '<b style="font-size:16px">🔗 產業鏈地圖</b>'
+    title = {"chain": "🔗 產業鏈地圖", "ai": "📊 AI 營收"}.get(page, "")
+    sg = '<div class="mk-seg"><button data-mk="tw" class="on">🇹🇼 台股</button><button data-mk="us">🇺🇸 美股</button></div>' if seg else f'<b style="font-size:16px">{title}</b>'
     return (MK_CSS + '<nav class="mk-nav" aria-label="市場與頁面"><div class="mk-in">'
             f'{sg}<div class="mk-pg">{links}</div></div></nav>\n')
 

@@ -91,12 +91,15 @@ def update(fm: FM, code: str, today: date, force: bool = False) -> dict:
     c = load(code)
     em, eq = expected_month(today), expected_quarter(today)
     # 月營收：快取沒有最新月份才抓（同一天不重複抓）
+    old = max(c["m"]) if c["m"] else ""
     if force or (em not in c["m"] and c.get("tm") != str(today)):
         start = (today.replace(day=1) - timedelta(days=37 * 31)).strftime("%Y-%m-01") if not c["m"] else (today - timedelta(days=200)).isoformat()
         for x in fm.get("TaiwanStockMonthRevenue", code, start):
             ym = f"{int(x['revenue_year'])}-{int(x['revenue_month']):02d}"
             c["m"][ym] = int(x["revenue"])
         c["tm"] = str(today)
+        if c["m"] and old and max(c["m"]) > old:  # 今天抓到新公布的月營收
+            c["newm"] = [max(c["m"]), str(today)]
     # 季報
     if force or (eq not in c["q"] and c.get("tq") != str(today)):
         start = f"{today.year - 3}-01-01" if not c["q"] else f"{today.year - 1}-01-01"
