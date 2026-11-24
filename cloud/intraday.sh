@@ -11,6 +11,7 @@ P1=$!
 python market_board.py --auto &
 P2=$!
 publish() {
+  bash cloud/sync_site_src.sh
   python cloud/build_site.py >/dev/null 2>&1 && bash cloud/git_push_dir.sh site gh-pages >/dev/null 2>&1 \
     && echo "$(date '+%H:%M') 網頁已更新" || echo "$(date '+%H:%M') 網頁更新失敗"
 }
@@ -20,4 +21,5 @@ while kill -0 $P1 2>/dev/null || kill -0 $P2 2>/dev/null; do
   sleep 300
 done
 publish
+bash cloud/sync_site_src.sh
 bash cloud/data_push.sh
