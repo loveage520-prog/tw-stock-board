@@ -1,0 +1,133 @@
+/* ============================================================
+   金流 Design System — 所有頁面共用（色彩、字體、外框、導覽）
+   色彩取自自家圖示：深紫墨 #2A2340、金 #D9A441、米白 #F4E9DA
+   紅漲綠跌只用在價格方向；金色＝目前選取
+   ============================================================ */
+:root{
+  --ds-ink:#2A2340;--ds-ink-2:#3A3157;--ds-ink-3:#4A4070;--ds-gold:#D9A441;--ds-cream:#F4E9DA;--ds-cream-mute:#B9AFCB;
+  --ds-bg:#F4F3F7;--ds-card:#FFFFFF;--ds-fg:#1E1B2B;--ds-muted:#6A6680;--ds-line:#E4E1EC;--ds-soft:#EFEDF4;
+  --ds-up:#D7263D;--ds-up-bg:#FBE8EA;--ds-down:#11946B;--ds-down-bg:#E3F4EE;--ds-accent:#5B4BB7;--ds-acc-bg:#ECE9F8;--ds-warn:#B7791F;
+  --ds-font:"Barlow Semi Condensed","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --ds-top-h:96px;--ds-tab-h:0px;--ds-sel-bg:var(--ds-ink);--ds-sel-fg:var(--ds-cream)
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ds-ink:#1A1529;--ds-ink-2:#2A2340;--ds-ink-3:#3A3157;
+  --ds-bg:#141120;--ds-card:#1D1930;--ds-fg:#ECE8F5;--ds-muted:#A39DB8;--ds-line:#2E2944;--ds-soft:#26213B;
+  --ds-up:#F0525F;--ds-up-bg:#3A1C26;--ds-down:#34C08E;--ds-down-bg:#14302A;--ds-accent:#A99BF0;--ds-acc-bg:#2A2448;--ds-warn:#E0A84A;--ds-sel-bg:var(--ds-gold);--ds-sel-fg:#1A1529;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ds-ink:#1A1529;--ds-ink-2:#2A2340;--ds-ink-3:#3A3157;
+  --ds-bg:#141120;--ds-card:#1D1930;--ds-fg:#ECE8F5;--ds-muted:#A39DB8;--ds-line:#2E2944;--ds-soft:#26213B;
+  --ds-up:#F0525F;--ds-up-bg:#3A1C26;--ds-down:#34C08E;--ds-down-bg:#14302A;--ds-accent:#A99BF0;--ds-acc-bg:#2A2448;--ds-warn:#E0A84A;--ds-sel-bg:var(--ds-gold);--ds-sel-fg:#1A1529;color-scheme:dark}
+
+/* ---------- 把各頁、各區塊原本的色彩變數接到同一套 ---------- */
+:root:root:root{
+  --bg:var(--ds-bg);--card:var(--ds-card);--fg:var(--ds-fg);--muted:var(--ds-muted);--line:var(--ds-line);--soft:var(--ds-soft);
+  --up:var(--ds-up);--down:var(--ds-down);--dn:var(--ds-down);--accent:var(--ds-accent);--grid:var(--ds-line);
+  --hot:var(--ds-up-bg);--cold:var(--ds-down-bg);--flat:var(--ds-soft);--tw:var(--ds-up);--us:var(--ds-accent);
+  --bar:color-mix(in srgb,var(--ds-accent) 35%,var(--ds-card));--bar2:var(--ds-accent);--eps:var(--ds-gold)
+}
+:root:root:root #mb{--mb-card:var(--ds-card);--mb-fg:var(--ds-fg);--mb-muted:var(--ds-muted);--mb-line:var(--ds-line);--mb-soft:var(--ds-soft);--mb-up:var(--ds-up);--mb-down:var(--ds-down);--mb-accent:var(--ds-accent);--mb-warn:var(--ds-warn)}
+:root:root:root #pb{--pb-card:var(--ds-card);--pb-fg:var(--ds-fg);--pb-muted:var(--ds-muted);--pb-line:var(--ds-line);--pb-soft:var(--ds-soft);--pb-up:var(--ds-up);--pb-down:var(--ds-down);--pb-accent:var(--ds-accent)}
+:root:root:root #xb{--xb-card:var(--ds-card);--xb-fg:var(--ds-fg);--xb-muted:var(--ds-muted);--xb-line:var(--ds-line);--xb-soft:var(--ds-soft);--xb-up:var(--ds-up);--xb-down:var(--ds-down);--xb-accent:var(--ds-accent);--xb-warn:var(--ds-warn)}
+:root:root:root #eb{--eb-card:var(--ds-card);--eb-fg:var(--ds-fg);--eb-muted:var(--ds-muted);--eb-line:var(--ds-line);--eb-soft:var(--ds-soft);--eb-up:var(--ds-up);--eb-up-bg:var(--ds-up-bg);--eb-down:var(--ds-down);--eb-down-bg:var(--ds-down-bg);--eb-accent:var(--ds-accent);--eb-acc-bg:var(--ds-acc-bg)}
+:root:root:root #ub{--ub-card:var(--ds-card);--ub-fg:var(--ds-fg);--ub-muted:var(--ds-muted);--ub-line:var(--ds-line);--ub-soft:var(--ds-soft);--ub-up:var(--ds-up);--ub-up-bg:var(--ds-up-bg);--ub-down:var(--ds-down);--ub-down-bg:var(--ds-down-bg);--ub-accent:var(--ds-accent);--ub-acc-bg:var(--ds-acc-bg)}
+:root:root:root #sb{--sb-card:var(--ds-card);--sb-fg:var(--ds-fg);--sb-muted:var(--ds-muted);--sb-line:var(--ds-line);--sb-soft:var(--ds-soft);--sb-grid:var(--ds-line);--sb-up:var(--ds-up);--sb-down:var(--ds-down);--sb-accent:var(--ds-accent)}
+:root:root:root #nb{--nb-card:var(--ds-card);--nb-fg:var(--ds-fg);--nb-muted:var(--ds-muted);--nb-line:var(--ds-line);--nb-soft:var(--ds-soft);--nb-up:var(--ds-up);--nb-down:var(--ds-down);--nb-accent:var(--ds-accent)}
+:root:root:root .kc{--kc-bg:var(--ds-card);--kc-fg:var(--ds-fg);--kc-mu:var(--ds-muted);--kc-ln:var(--ds-line);--kc-sf:var(--ds-soft);--kc-up:var(--ds-up);--kc-dn:var(--ds-down)}
+
+/* ---------- 字體：中文 Noto Sans TC；數字與英文用窄體 Barlow，像看盤報價板 ---------- */
+html body{background:var(--ds-bg);color:var(--ds-fg);font-family:var(--ds-font);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
+:root:root:root :is(#mb,#pb,#xb,#eb,#ub,#sb,#nb,#ch,#af,.kc,.wrap,main,.mk-us){font-family:var(--ds-font)}
+:root:root:root :is(button,input,select,textarea){font-family:inherit}
+:root:root:root :is(table,td,th){font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{letter-spacing:.01em}
+:root:root:root :is(.wrap,main,#ch,#af,.mk-us) > h1,
+:root:root:root .wrap > header h1,:root:root:root main > header h1{font-size:clamp(20px,2.6vw,26px);font-weight:800;line-height:1.25;margin:0}
+a{color:var(--ds-accent)}
+::selection{background:var(--ds-gold);color:var(--ds-ink)}
+:focus-visible{outline:2px solid var(--ds-gold);outline-offset:2px}
+
+/* ---------- 頂部：深紫墨導覽列＋指數報價帶 ---------- */
+html body header.ds-top{display:block;margin:0;padding:0;gap:0;justify-content:initial;flex-wrap:initial}
+.ds-top{position:sticky;top:0;z-index:900;background:var(--ds-ink);color:var(--ds-cream);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.ds-top::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--ds-ink);z-index:-1}
+.ds-bar{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:12px;
+  padding:calc(8px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));min-height:52px}
+.ds-brand{display:flex;align-items:center;gap:9px;color:var(--ds-cream);text-decoration:none;min-width:0}
+.ds-brand img{width:28px;height:28px;border-radius:7px;flex:0 0 auto}
+.ds-brand b{font-size:17px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ds-sp{flex:1}
+.mk-seg{display:inline-flex;padding:3px;border-radius:999px;background:var(--ds-ink-3);gap:2px;flex:0 0 auto}
+:root:root .mk-seg button{border:0;background:none;color:var(--ds-cream-mute);font-weight:700;font-size:14px;padding:6px 14px;border-radius:999px;cursor:pointer;line-height:1.2}
+:root:root .mk-seg button.on{background:var(--ds-gold);color:var(--ds-ink);box-shadow:none}
+.ds-pages{display:flex;gap:2px}
+.ds-pages a{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;color:var(--ds-cream-mute);text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap}
+.ds-pages a svg{width:18px;height:18px}
+.ds-pages a:hover{color:var(--ds-cream);background:var(--ds-ink-2)}
+.ds-pages a.on{color:var(--ds-ink);background:var(--ds-cream)}
+/* 指數報價帶：整站最醒目的元素 */
+.ds-tick{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;border-top:1px solid rgba(244,233,218,.12);background:var(--ds-ink-2);
+  padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px))}
+.ds-tick::-webkit-scrollbar{display:none}
+.ds-tin{max-width:1440px;margin:0 auto;display:flex;width:100%}
+.ds-ti{flex:0 0 auto;display:flex;align-items:baseline;gap:7px;padding:7px 16px 7px 0;margin-right:16px;border-right:1px solid rgba(244,233,218,.12);white-space:nowrap;text-decoration:none}
+.ds-ti:last-child{border-right:0}
+.ds-ti .n{font-size:12px;color:var(--ds-cream-mute);font-weight:500}
+.ds-ti .p{font-size:16px;font-weight:600;color:var(--ds-cream);letter-spacing:.01em}
+.ds-ti .c{font-size:14px;font-weight:700}
+.ds-ti .c.up{color:#FF7A85}.ds-ti .c.dn{color:#55D6A6}.ds-ti .c.fl{color:var(--ds-cream-mute)}
+.ds-ti .t{font-size:11px;color:var(--ds-cream-mute)}
+.ds-tnote{flex:0 0 auto;align-self:center;font-size:11px;color:var(--ds-cream-mute);white-space:nowrap;margin-left:auto;padding-left:12px}
+
+/* ---------- 手機：底部分頁列 ---------- */
+.ds-tabbar{display:none}
+@media (max-width:760px){
+  :root{--ds-tab-h:62px}
+  .ds-pages{display:none}
+  .ds-tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:900;background:var(--ds-ink);border-top:1px solid rgba(244,233,218,.14);
+    padding:4px max(6px,env(safe-area-inset-right,0px)) calc(4px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px))}
+  .ds-tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0 4px;color:var(--ds-cream-mute);text-decoration:none;font-size:11px;font-weight:700;border-radius:10px}
+  .ds-tabbar a svg{width:22px;height:22px}
+  .ds-tabbar a.on{color:var(--ds-gold)}
+  .ds-tabbar a.on svg{stroke:var(--ds-gold)}
+  html body{padding-bottom:calc(var(--ds-tab-h) + env(safe-area-inset-bottom,0px))}
+  .ds-brand b{font-size:16px}
+  :root:root .mk-seg button{padding:6px 11px;font-size:13px}
+  .ds-ti{padding:6px 12px 6px 0;margin-right:12px}
+  .ds-ti .p{font-size:15px}
+}
+
+/* ---------- 版面：卡片只用細框，不用陰影；圓角分兩級（區塊 14／內件 10） ---------- */
+:root:root:root :is(.card,section,.ch-box,.ch-st,.af-det,.af-tw,.nw-graph,.nw-side,.ub-card,.sb-card,.nb-card,.ch-intro,.ch-strip){border-color:var(--ds-line);box-shadow:none}
+:root:root:root :is(.card,section,.ch-box,.af-det,.nw-graph,.nw-side,.ub-card,.sb-card,.nb-card){border-radius:14px}
+:root:root:root .wrap{max-width:1440px}
+:root:root:root main{max-width:1440px}
+
+/* 盤後頁的分頁列：固定在報價帶下方、可左右滑 */
+:root:root:root .tabs{position:sticky;top:var(--ds-top-h);z-index:50;background:var(--ds-card);flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+  padding:8px 0;margin:0 0 8px;gap:6px}
+:root:root:root .tabs::-webkit-scrollbar{display:none}
+:root:root:root .tab{flex:0 0 auto;white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--ds-line);background:var(--ds-card);color:var(--ds-muted);font-weight:700;font-size:14px}
+:root:root:root .tab:hover{color:var(--ds-fg)}
+:root:root:root .tab.on{background:var(--ds-sel-bg);border-color:var(--ds-sel-bg);color:var(--ds-sel-fg)}
+/* 產業鏈、AI 營收、美股的分頁也一致 */
+:root:root:root :is(.ch-tabs,.nw-themes){top:var(--ds-top-h)}
+:root:root:root :is(.ch-tabs button.on,.nw-themes button.on,.mk-sub button.on,.ub-top button.on,.eb-top button.on,.af-bar button.on,.ch-cats button.on){background:var(--ds-sel-bg);border-color:var(--ds-sel-bg);color:var(--ds-sel-fg)}
+:root:root:root .mk-us{max-width:1440px}
+
+/* 產業鏈、AI 營收：頁名已在頂部導覽列，不再重複大標 */
+:root:root:root #ch > h1,:root:root:root #af > h1{display:none}
+/* AI 營收族群卡：手機兩欄、精簡 */
+:root:root:root .af-gs{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+@media (max-width:520px){
+  :root:root:root .af-gs{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  :root:root:root .af-g{padding:7px 9px}:root:root:root .af-g b{font-size:13px}:root:root:root .af-g .v{display:block;font-size:18px}
+  :root:root:root .af-g small{display:block;font-size:10px;line-height:1.3}
+}
+/* 舊版頁內「→ 另一頁」連結已由導覽列取代 */
+:root:root:root .wrap > header .meta a[href*="pulse"]{display:none}
+
+/* 技術線圖視窗在底部分頁列之上 */
+.kc-ov{z-index:1000}
+
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

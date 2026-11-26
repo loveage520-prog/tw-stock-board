@@ -14,7 +14,7 @@
 .kc{--kc-bg:#fff;--kc-fg:#1c2230;--kc-mu:#6b7280;--kc-ln:#e3e6eb;--kc-sf:#f1f3f6;--kc-up:#d6453d;--kc-dn:#1f8a55;\
 background:var(--kc-bg);color:var(--kc-fg);width:100%;max-width:880px;max-height:94vh;overflow:auto;border-radius:16px 16px 0 0;\
 padding:12px max(14px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px));\
-font:14px/1.5 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;box-shadow:0 -6px 30px rgba(0,0,0,.25)}\
+font:14px/1.5 var(--ds-font,'Noto Sans TC'),system-ui,sans-serif;box-shadow:0 -6px 30px rgba(0,0,0,.25)}\
 @media (min-width:760px){.kc{border-radius:16px}}\
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .kc{--kc-bg:#171c23;--kc-fg:#e7eaf0;--kc-mu:#98a2b3;--kc-ln:#2a313c;--kc-sf:#1f252e;--kc-up:#ef6a5f;--kc-dn:#3fbf7f}}\
 :root[data-theme=dark] .kc{--kc-bg:#171c23;--kc-fg:#e7eaf0;--kc-mu:#98a2b3;--kc-ln:#2a313c;--kc-sf:#1f252e;--kc-up:#ef6a5f;--kc-dn:#3fbf7f}\

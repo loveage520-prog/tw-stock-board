@@ -5,7 +5,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 if git fetch -q --depth 1 origin main 2>/dev/null; then
-  for f in cloud/build_site.py publish_prep.py kchart.js chain_data.json chain_template.html ai_template.html cloud/icons; do
+  for f in cloud/build_site.py publish_prep.py kchart.js cloud/ds.css chain_data.json chain_template.html ai_template.html cloud/icons; do
     git checkout -q FETCH_HEAD -- "$f" 2>/dev/null || true
   done
 fi

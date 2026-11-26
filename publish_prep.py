@@ -165,34 +165,84 @@ HASH_JS = """<script>
 
 
 MK_CSS = """<style>
-/* 最上層：台股／美股切換＋頁面切換（兩個頁面共用） */
-.mk-nav{position:sticky;top:0;z-index:30;background:var(--bg,#f4f5f7);padding:calc(8px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line,#e3e6eb)}
-.mk-in{max-width:1440px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
-.mk-seg{display:inline-flex;padding:3px;border-radius:12px;background:var(--line,#e3e6eb);gap:3px}
-.mk-seg button{border:0;background:none;color:var(--fg,#1c2230);font:inherit;font-weight:700;font-size:15px;padding:7px 18px;border-radius:9px;cursor:pointer}
-.mk-seg button.on{background:var(--card,#fff);box-shadow:0 1px 3px rgba(0,0,0,.15)}
-.mk-seg button:focus-visible,.mk-pg a:focus-visible,.mk-sub button:focus-visible{outline:2px solid var(--accent,#2f5fb3);outline-offset:1px}
-.mk-pg{display:inline-flex;gap:4px}
-.mk-pg a{padding:6px 12px;border-radius:9px;border:1px solid var(--line,#e3e6eb);color:var(--fg,#1c2230);text-decoration:none;font-size:13px;font-weight:600;background:var(--card,#fff)}
-.mk-pg a.on{background:var(--fg,#1c2230);color:var(--card,#fff);border-color:var(--fg,#1c2230)}
+/* 美股畫面（盤後頁、盤中頁共用）；導覽列樣式在 ds.css */
 .mk-us{max-width:1440px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px))}
-.mk-us h1{font-size:20px;margin:0 0 10px}
-.mk-sub{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
-.mk-sub button{padding:7px 14px;border-radius:9px;border:1px solid var(--line,#e3e6eb);background:var(--card,#fff);color:var(--fg,#1c2230);font:inherit;font-weight:600;cursor:pointer}
+.mk-us h1{font-size:clamp(20px,2.6vw,26px);font-weight:800;margin:0 0 10px}
+.mk-sub{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.mk-sub button{padding:8px 14px;border-radius:999px;border:1px solid var(--line,#e3e6eb);background:var(--card,#fff);color:var(--fg,#1c2230);font:inherit;font-weight:700;cursor:pointer}
 .mk-sub button.on{background:var(--fg,#1c2230);color:var(--card,#fff);border-color:var(--fg,#1c2230)}
-@media (max-width:480px){.mk-seg button{padding:7px 13px}.mk-pg a{padding:6px 9px}}
 </style>
 """
 
+ICONS = {  # 導覽圖示（線條）
+    "pulse": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg>',
+    "flow": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+    "chain": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7 7.5l3.6 8.3M17 7.5l-3.6 8.3M7.5 6h9"/></svg>',
+    "ai": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 16v-3M12 16V9M16 16v-5"/></svg>',
+}
+PAGES = [("pulse", URL_PULSE, "盤中脈動", "盤中"), ("flow", URL_FLOW, "盤後資金流向", "盤後"), ("chain", "chain.html", "產業鏈地圖", "產業鏈"), ("ai", "ai.html", "AI 營收", "AI營收")]
+
+
+def ticker() -> str:
+    """頂部指數報價帶：台股（盤中紀錄）＋美股（最近一次美股資料）"""
+    from pathlib import Path
+    base = Path(__file__).resolve().parent / "pulse_data"
+    items, note = [], []
+
+    def add(n, p, ch, d=2):
+        if p is None:
+            return
+        c = "up" if (ch or 0) > 0.00005 else "dn" if (ch or 0) < -0.00005 else "fl"
+        cs = "—" if ch is None else f"{ch * 100:+.2f}%"
+        items.append(f'<span class="ds-ti"><span class="n">{n}</span><span class="p">{p:,.{d}f}</span><span class="c {c}">{cs}</span></span>')
+    try:
+        import csv
+        fs = sorted(f for f in base.glob("pulse_2*.csv") if "_demo" not in f.name)
+
+        def last(f):
+            rows = [r for r in csv.DictReader(open(f, encoding="utf-8-sig")) if r.get("taiex")]
+            return rows[-1] if rows else None
+        cur = last(fs[-1]) if fs else None
+        prev = next((last(f) for f in reversed(fs[:-1]) if last(f)), None)
+        if cur:
+            t = float(cur["taiex"]); o = float(cur["otc"]) if cur.get("otc") else None
+            pt = float(prev["taiex"]) if prev else None; po = float(prev["otc"]) if prev and prev.get("otc") else None
+            add("加權", t, t / pt - 1 if pt else None, 0)
+            add("櫃買", o, o / po - 1 if o and po else None, 2)
+            d = fs[-1].stem.split("_")[1]
+            note.append(f"台股 {d[4:6]}/{d[6:]} {cur['time']}")
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        u = json.loads((base / "us" / "latest.json").read_text("utf-8"))
+        ix = {x["s"]: x for x in u.get("idx", [])}
+        for s_, n in (("^GSPC", "S&P 500"), ("^IXIC", "那斯達克"), ("^SOX", "費半")):
+            if s_ in ix:
+                add(n, ix[s_]["p"], ix[s_]["ch"], 2)
+        fx = {x["s"]: x for x in u.get("mac", [])}.get("TWD=X")
+        if fx:
+            add("美元/台幣", fx["p"], fx["ch"], 3)
+        note.append(f"美股 {u.get('state', '')} 美東 {u.get('et', '')}")
+    except Exception:  # noqa: BLE001
+        pass
+    if not items:
+        return ""
+    return (f'<div class="ds-tick" aria-label="主要指數"><div class="ds-tin">{"".join(items)}'
+            f'<span class="ds-tnote">{"；".join(note)}</span></div></div>')
+
 
 def mk_nav(page: str, seg: bool = True) -> str:
-    pg = [("pulse", URL_PULSE, "盤中脈動"), ("flow", URL_FLOW, "盤後資金"), ("chain", "chain.html", "產業鏈"), ("ai", "ai.html", "AI營收")]
-    links = "".join(f'<a class="{"on" if k == page else ""}" data-base="{u}" href="{u}"{" data-plain=1" if k in ("chain", "ai") else ""}>{t}</a>'
-                    for k, u, t in pg)
-    title = {"chain": "🔗 產業鏈地圖", "ai": "📊 AI 營收"}.get(page, "")
-    sg = '<div class="mk-seg"><button data-mk="tw" class="on">🇹🇼 台股</button><button data-mk="us">🇺🇸 美股</button></div>' if seg else f'<b style="font-size:16px">{title}</b>'
-    return (MK_CSS + '<nav class="mk-nav" aria-label="市場與頁面"><div class="mk-in">'
-            f'{sg}<div class="mk-pg">{links}</div></div></nav>\n')
+    title = next((t for k, _, t, _ in PAGES if k == page), "")
+    plain = lambda k: ' data-plain="1"' if k in ("chain", "ai") else ""  # noqa: E731
+    top = "".join(f'<a class="{"on" if k == page else ""}" data-base="{u}" href="{u}"{plain(k)}{" aria-current=\"page\"" if k == page else ""}>{ICONS[k]}<span>{t}</span></a>'
+                  for k, u, t, _ in PAGES)
+    tab = "".join(f'<a class="{"on" if k == page else ""}" data-base="{u}" href="{u}"{plain(k)}{" aria-current=\"page\"" if k == page else ""}>{ICONS[k]}<span>{sh}</span></a>'
+                  for k, u, _, sh in PAGES)
+    sg = '<div class="mk-seg" role="group" aria-label="市場"><button data-mk="tw" class="on">台股</button><button data-mk="us">美股</button></div>' if seg else ""
+    return (MK_CSS + '<header class="ds-top"><div class="ds-bar">'
+            f'<a class="ds-brand" href="{URL_PULSE}"><img src="icons/flow2-32.png" alt=""><b>{title}</b></a><span class="ds-sp"></span>{sg}'
+            f'<nav class="ds-pages mk-pg" aria-label="頁面">{top}</nav></div>{ticker()}</header>'
+            f'<nav class="ds-tabbar mk-pg" aria-label="頁面">{tab}</nav>\n')
 
 
 def mk_js(default: str) -> str:

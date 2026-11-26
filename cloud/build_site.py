@@ -24,6 +24,9 @@ HEAD = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="ds.css">
 {extra}<script src="kchart.js" defer></script>
 <style>[hidden]{{display:none!important}}body{{margin:0}}</style>
 </head>
@@ -81,6 +84,7 @@ for f in (BASE / "cloud" / "icons").glob("*.png"):
     "icons": [{"src": "icons/pulse2-192.png", "sizes": "192x192", "type": "image/png"},
               {"src": "icons/pulse2-512.png", "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False), "utf-8")
 shutil.copyfile(BASE / "kchart.js", SITE / "kchart.js")
+shutil.copyfile(BASE / "cloud" / "ds.css", SITE / "ds.css")
 # 產業鏈地圖（靜態內容，資料在 chain_data.json）
 sys.path.insert(0, str(BASE))
 import publish_prep  # noqa: E402  （SITE_LINKS=1 已設定，頁面連結為相對路徑）
