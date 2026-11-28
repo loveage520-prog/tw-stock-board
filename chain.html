@@ -1,0 +1,6627 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="ds.css">
+<title>產業鏈地圖</title>
+<link rel="icon" type="image/png" sizes="32x32" href="icons/flow2-32.png">
+<link rel="apple-touch-icon" href="icons/flow2-180.png">
+<script src="kchart.js" defer></script>
+<style>[hidden]{display:none!important}body{margin:0}</style>
+</head>
+<body>
+<style>
+/* 美股畫面（盤後頁、盤中頁共用）；導覽列樣式在 ds.css */
+.mk-us{max-width:1440px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px))}
+.mk-us h1{font-size:clamp(20px,2.6vw,26px);font-weight:800;margin:0 0 10px}
+.mk-sub{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.mk-sub button{padding:8px 14px;border-radius:999px;border:1px solid var(--line,#e3e6eb);background:var(--card,#fff);color:var(--fg,#1c2230);font:inherit;font-weight:700;cursor:pointer}
+.mk-sub button.on{background:var(--fg,#1c2230);color:var(--card,#fff);border-color:var(--fg,#1c2230)}
+</style>
+<header class="ds-top"><div class="ds-bar"><a class="ds-brand" href="pulse.html"><img src="icons/flow2-32.png" alt=""><b>產業鏈地圖</b></a><span class="ds-sp"></span><nav class="ds-pages mk-pg" aria-label="頁面"><a class="" data-base="pulse.html" href="pulse.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg><span>盤中脈動</span></a><a class="" data-base="index.html" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>盤後資金流向</span></a><a class="on" data-base="chain.html" href="chain.html" data-plain="1" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7 7.5l3.6 8.3M17 7.5l-3.6 8.3M7.5 6h9"/></svg><span>產業鏈地圖</span></a><a class="" data-base="ai.html" href="ai.html" data-plain="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 16v-3M12 16V9M16 16v-5"/></svg><span>AI 營收</span></a></nav></div><div class="ds-tick" aria-label="主要指數"><div class="ds-tin"><span class="ds-ti"><span class="n">加權</span><span class="p">39,308</span><span class="c up">+0.40%</span></span><span class="ds-ti"><span class="n">櫃買</span><span class="p">285.77</span><span class="c dn">-1.40%</span></span><span class="ds-ti"><span class="n">S&P 500</span><span class="p">7,297.49</span><span class="c up">+1.60%</span></span><span class="ds-ti"><span class="n">那斯達克</span><span class="p">24,129.50</span><span class="c up">+2.31%</span></span><span class="ds-ti"><span class="n">費半</span><span class="p">9,186.71</span><span class="c up">+4.69%</span></span><span class="ds-ti"><span class="n">美元/台幣</span><span class="p">32.920</span><span class="c dn">-0.82%</span></span><span class="ds-tnote">台股 11/27 13:36；美股 收盤 美東 11/27 21:01</span></div></div></header><nav class="ds-tabbar mk-pg" aria-label="頁面"><a class="" data-base="pulse.html" href="pulse.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg><span>盤中</span></a><a class="" data-base="index.html" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>盤後</span></a><a class="on" data-base="chain.html" href="chain.html" data-plain="1" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7 7.5l3.6 8.3M17 7.5l-3.6 8.3M7.5 6h9"/></svg><span>產業鏈</span></a><a class="" data-base="ai.html" href="ai.html" data-plain="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 16v-3M12 16V9M16 16v-5"/></svg><span>AI營收</span></a></nav>
+<style>
+/* 產業鏈地圖 */
+:root{
+  --bg:#f4f5f7;--card:#ffffff;--fg:#1c2230;--muted:#6b7280;--line:#e3e6eb;--soft:#eef1f5;--accent:#2f5fb3;
+  --lv-up:#7c3aed;--lv-mid:#2563eb;--lv-down:#0d9488;--lv-end:#ea580c;--lv-sup:#64748b;
+  --tw:#d6453d;--us:#2f5fb3
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1318;--card:#171c23;--fg:#e7eaf0;--muted:#98a2b3;--line:#272e38;--soft:#1e242d;--accent:#7aa4ff;
+  --lv-up:#a78bfa;--lv-mid:#60a5fa;--lv-down:#2dd4bf;--lv-end:#fb923c;--lv-sup:#94a3b8;--tw:#ef6a5f;--us:#7aa4ff;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1318;--card:#171c23;--fg:#e7eaf0;--muted:#98a2b3;--line:#272e38;--soft:#1e242d;--accent:#7aa4ff;
+  --lv-up:#a78bfa;--lv-mid:#60a5fa;--lv-down:#2dd4bf;--lv-end:#fb923c;--lv-sup:#94a3b8;--tw:#ef6a5f;--us:#7aa4ff;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}
+#ch *{box-sizing:border-box}
+#ch{max-width:1100px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+#ch h1{font-size:22px;margin:4px 0 8px}
+#ch button{font:inherit;color:inherit}
+.ch-intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.ch-intro p{margin:4px 0;font-size:14px}
+.ch-search{display:flex;gap:8px;margin-bottom:10px}
+.ch-search input{flex:1;min-width:0;font:inherit;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+.ch-res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 10px;margin-bottom:10px}
+.ch-res div{padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}.ch-res div:last-child{border:0}
+.ch-res a{color:var(--accent);cursor:pointer;text-decoration:underline}
+.ch-tabs{position:sticky;top:calc(58px + env(safe-area-inset-top,0px));z-index:10;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:8px 0;margin-bottom:6px;scrollbar-width:thin}
+.ch-tabs button{flex:0 0 auto;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
+#ch .ch-tabs button.on{background:var(--fg);color:var(--card);border-color:var(--fg)}
+.ch-tabs button:focus-visible,.ch-co:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.ch-cats{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 0}
+.ch-cats button{padding:5px 11px;border-radius:8px;border:1px solid transparent;background:none;cursor:pointer;color:var(--muted);font-size:13px;font-weight:600}
+#ch .ch-cats button.on{background:var(--card);border-color:var(--line);color:var(--fg)}
+.ch-cats small{font-weight:400;margin-left:3px}
+.ch-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+@media (max-width:700px){.ch-g2{grid-template-columns:minmax(0,1fr)}}
+.ch-g2 .ch-box{margin-top:12px}
+.ch-terms{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 12px;font-size:14px}
+.ch-terms dt{font-weight:700;color:var(--accent)}.ch-terms dd{margin:0;color:var(--fg)}
+@media (max-width:480px){.ch-terms{grid-template-columns:minmax(0,1fr)}.ch-terms dd{margin-bottom:6px}}
+.ch-head{margin:6px 0 10px}.ch-head h2{font-size:21px;margin:0 0 4px}.ch-head p{margin:0;color:var(--muted);font-size:14px}
+.ch-flow{display:flex;flex-direction:column;align-items:stretch}
+.ch-st{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--lc);border-radius:12px;padding:10px 12px}
+.ch-st.sup{border-style:dashed;border-left-style:solid}
+.ch-sth{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ch-lv{font-size:12px;font-weight:800;color:#fff;background:var(--lc);padding:1px 8px;border-radius:999px}
+.ch-sth b{font-size:16px}
+.ch-st p{margin:3px 0 8px;font-size:13px;color:var(--muted)}
+.ch-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.ch-cols{grid-template-columns:minmax(0,1fr)}}
+.ch-col h5{margin:0 0 4px;font-size:12px;color:var(--muted);font-weight:700}
+.ch-col .none{font-size:12px;color:var(--muted)}
+.ch-cos{display:flex;flex-wrap:wrap;gap:5px}
+.ch-co{display:inline-flex;flex-direction:column;align-items:flex-start;border:1px solid var(--line);border-left:3px solid var(--mc);background:var(--soft);border-radius:8px;padding:4px 9px;cursor:pointer;text-align:left;max-width:100%}
+.ch-co .n{font-weight:700;font-size:14px}.ch-co .n small{font-weight:500;color:var(--muted);margin-left:5px;font-family:ui-monospace,Consolas,monospace;font-size:12px}
+.ch-co .r{font-size:11px;color:var(--muted)}
+.ch-co.hl{outline:2px solid var(--accent)}
+.ch-arrow{text-align:center;color:var(--muted);font-size:18px;line-height:1;padding:3px 0}
+.ch-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-top:12px}
+.ch-box h3{margin:0 0 6px;font-size:16px}.ch-box ul{margin:0;padding-left:1.2em}.ch-box li{margin:3px 0;font-size:14px}
+.ch-note{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.7}
+:root{--jp:#db2777;--kr:#7c3aed}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--jp:#f472b6;--kr:#a78bfa}}
+:root[data-theme="dark"]{--jp:#f472b6;--kr:#a78bfa}
+.ch-mode{display:inline-flex;padding:3px;border-radius:12px;background:var(--line);gap:3px;margin:0 0 10px}
+#ch .ch-mode button{border:0;background:none;font-weight:700;padding:7px 16px;border-radius:9px;cursor:pointer;font-size:14px}
+#ch .ch-mode button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.ch-cols.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.ch-cols.c3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.ch-cols.c3{grid-template-columns:minmax(0,1fr)}}
+.ch-strip{display:flex;flex-wrap:wrap;align-items:center;gap:4px 2px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}
+.ch-strip .s{display:flex;flex-direction:column;align-items:center;min-width:58px;max-width:84px;text-align:center}
+.ch-strip .e{font-size:24px;line-height:1.2}.ch-strip .t{font-size:11px;font-weight:600;line-height:1.3}
+.ch-strip .a{color:var(--muted);font-size:14px;padding:0 1px}
+.ch-strip h4{width:100%;margin:0 0 6px;font-size:13px;color:var(--muted)}
+.ch-parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.ch-parts div{background:var(--soft);border-radius:10px;padding:8px 10px}
+.ch-parts .e{font-size:22px}.ch-parts b{display:block;font-size:14px}.ch-parts span{font-size:12px;color:var(--muted)}
+.ch-rels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.ch-rels{grid-template-columns:minmax(0,1fr)}}
+.ch-rels h5{margin:0 0 4px;font-size:12px;color:var(--muted)}
+.ch-rl{display:flex;align-items:center;gap:6px;width:100%;text-align:left;border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:6px 9px;margin-bottom:5px;cursor:pointer}
+.ch-rl b{font-size:14px}.ch-rl span{font-size:12px;color:var(--muted)}
+.nw-themes{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:thin}
+#ch .nw-themes button{flex:0 0 auto;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
+#ch .nw-themes button.on{background:var(--fg);color:var(--card);border-color:var(--fg)}
+.nw-wrap{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:12px;align-items:start}
+@media (max-width:900px){.nw-wrap{grid-template-columns:minmax(0,1fr)}}
+.nw-graph{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;min-width:0}
+.nw-graph p{margin:0 0 6px;font-size:13px;color:var(--muted)}
+.nw-scroll{overflow-x:auto}
+.nw-scroll svg{display:block}
+.nw-scroll svg text{font-family:inherit}
+.nw-leg{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-top:6px}
+.nw-sw{display:none;font-weight:700}@media (max-width:700px){.nw-sw{display:inline}}
+.nw-leg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:0}
+.nw-side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;position:sticky;top:calc(64px + env(safe-area-inset-top,0px))}
+@media (max-width:900px){.nw-side{position:static}}
+.nw-side .sel{font-size:12px;color:var(--muted)}
+.nw-side h3{margin:2px 0 4px;font-size:19px}
+.nw-side p{margin:0 0 8px;font-size:13px;line-height:1.6}
+.nw-side .ch-strip{padding:8px;margin-bottom:8px}
+.nw-side .ch-strip .s{min-width:48px}
+.nw-go{display:block;width:100%;margin-top:8px;padding:10px;border:0;border-radius:10px;background:var(--accent);color:#fff!important;font-weight:700;cursor:pointer}
+.nw-mini{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.nw-mini button{font-size:12px;padding:2px 8px;border-radius:6px;border:1px solid var(--line);border-left:3px solid var(--mc);background:var(--soft);cursor:pointer}
+</style>
+<div id="ch">
+  <h1>產業鏈地圖</h1>
+  <div class="ch-intro" id="ch-intro"></div>
+  <div class="ch-mode" id="ch-mode" role="tablist" aria-label="檢視方式"><button data-m="net">🕸️ 產業網絡</button><button data-m="chain">🔗 產業鏈</button></div>
+  <div class="ch-search"><input id="ch-q" type="search" placeholder="搜尋公司或代號，例如 台積電、2330、NVDA" aria-label="搜尋公司"></div>
+  <div class="ch-res" id="ch-res" hidden></div>
+  <div id="ch-netv" hidden>
+    <div class="nw-themes" id="nw-themes" aria-label="主題"></div>
+    <div class="nw-wrap"><div class="nw-graph"><p id="nw-desc"></p><div class="nw-scroll" id="nw-svg"></div>
+      <div class="nw-leg"><span><i style="background:var(--tw)"></i>台</span><span><i style="background:var(--us)"></i>美</span><span><i style="background:var(--jp)"></i>日</span><span><i style="background:var(--kr)"></i>韓</span><span>→ 箭頭＝供應方向（上游 → 下游）；點節點看說明</span><span class="nw-sw">← 左右滑動看完整網絡 →</span></div></div>
+      <aside class="nw-side" id="nw-side"></aside></div>
+  </div>
+  <div id="ch-chainv">
+  <div class="ch-cats" id="ch-cats" role="tablist" aria-label="產業分類"></div>
+  <nav class="ch-tabs" id="ch-tabs" aria-label="產業"></nav>
+  <div id="ch-view"></div>
+  </div>
+  <div class="ch-note">公司角色依各公司主要業務整理（資料整理時間：<span id="ch-upd"></span>），供應關係可能隨時間改變；名單為代表性公司，非完整清單。點公司可看日 K 技術線圖（台、美、日、韓）。僅供參考，不構成投資建議。</div>
+</div>
+<script>
+(function(){
+const C = {
+ "updated": "2026-11",
+ "intro": [
+  "台股電子產業大多是美國科技巨頭的「供應商」：美國公司設計晶片、做品牌、買伺服器，台灣公司負責製造、封裝、組裝和零組件。所以美股（尤其費城半導體、輝達、四大雲端廠）晚上的表現，常常會影響台股隔天的走勢。",
+  "看產業鏈的順序：上游＝原料、設備、設計；中游＝製造；下游＝組裝、品牌、最終買家。越下游越接近終端需求，需求變化會一路往上游傳。",
+  "點任何一家公司都可以看日 K 技術線圖。"
+ ],
+ "chains": [
+  {
+   "id": "semi",
+   "icon": "🔬",
+   "name": "半導體（晶片怎麼做出來）",
+   "intro": "一顆晶片從設計、製造到封裝，台灣在「晶圓代工」和「封裝測試」都是全球第一；美國強在設計工具、晶片設計和設備。台積電幾乎是所有美國晶片大廠的製造夥伴。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "設計工具 EDA／矽智財 IP",
+     "desc": "設計晶片要用的軟體工具，以及可以授權使用的電路模組（像樂高積木）。",
+     "tw": [
+      [
+       "3529",
+       "力旺",
+       "嵌入式記憶體 IP"
+      ],
+      [
+       "6643",
+       "M31",
+       "高速介面 IP"
+      ],
+      [
+       "3035",
+       "智原",
+       "IP＋設計服務"
+      ]
+     ],
+     "us": [
+      [
+       "SNPS",
+       "新思科技",
+       "EDA 龍頭"
+      ],
+      [
+       "CDNS",
+       "益華電腦",
+       "EDA 雙雄之一"
+      ],
+      [
+       "ARM",
+       "安謀",
+       "CPU 架構授權"
+      ]
+     ]
+    },
+    {
+     "lv": "上游",
+     "name": "IC 設計",
+     "desc": "設計晶片但不自己蓋工廠（Fabless），設計好交給晶圓代工廠生產。",
+     "tw": [
+      [
+       "2454",
+       "聯發科",
+       "手機晶片、ASIC"
+      ],
+      [
+       "3034",
+       "聯詠",
+       "面板驅動 IC"
+      ],
+      [
+       "2379",
+       "瑞昱",
+       "網通、音效晶片"
+      ],
+      [
+       "5274",
+       "信驊",
+       "伺服器管理晶片"
+      ],
+      [
+       "3443",
+       "創意",
+       "ASIC 設計服務（台積電轉投資）"
+      ],
+      [
+       "3661",
+       "世芯-KY",
+       "ASIC 設計服務"
+      ]
+     ],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "GPU、AI 晶片"
+      ],
+      [
+       "AMD",
+       "超微",
+       "CPU、GPU"
+      ],
+      [
+       "AVGO",
+       "博通",
+       "網通晶片、客製 ASIC"
+      ],
+      [
+       "QCOM",
+       "高通",
+       "手機晶片"
+      ],
+      [
+       "MRVL",
+       "邁威爾",
+       "資料中心、客製 ASIC"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "晶圓代工（製造）",
+     "desc": "把設計圖做成晶圓，製程越先進（3、2 奈米）越難、毛利越高。",
+     "tw": [
+      [
+       "2330",
+       "台積電",
+       "全球最大，先進製程獨強"
+      ],
+      [
+       "2303",
+       "聯電",
+       "成熟製程"
+      ],
+      [
+       "5347",
+       "世界",
+       "成熟製程、電源晶片"
+      ],
+      [
+       "6770",
+       "力積電",
+       "記憶體與邏輯代工"
+      ]
+     ],
+     "us": [
+      [
+       "TSM",
+       "台積電 ADR",
+       "台積電在美掛牌"
+      ],
+      [
+       "INTC",
+       "英特爾",
+       "自有工廠＋代工業務"
+      ],
+      [
+       "GFS",
+       "格羅方德",
+       "成熟製程代工"
+      ]
+     ],
+     "kr": [
+      [
+       "005930",
+       "三星電子",
+       "晶圓代工、記憶體"
+      ]
+     ]
+    },
+    {
+     "lv": "支援",
+     "name": "設備與材料",
+     "desc": "晶圓廠蓋廠、擴產要買的機台和耗材。台積電資本支出越大，這裡生意越好。",
+     "tw": [
+      [
+       "6488",
+       "環球晶",
+       "矽晶圓"
+      ],
+      [
+       "3680",
+       "家登",
+       "光罩盒、晶圓盒"
+      ],
+      [
+       "3131",
+       "弘塑",
+       "先進封裝濕製程設備"
+      ],
+      [
+       "3583",
+       "辛耘",
+       "濕製程設備"
+      ],
+      [
+       "2404",
+       "漢唐",
+       "無塵室工程"
+      ],
+      [
+       "6196",
+       "帆宣",
+       "廠務系統"
+      ],
+      [
+       "1560",
+       "中砂",
+       "鑽石碟、再生晶圓"
+      ]
+     ],
+     "us": [
+      [
+       "ASML",
+       "艾司摩爾",
+       "EUV 曝光機（荷蘭，美股 ADR）"
+      ],
+      [
+       "AMAT",
+       "應用材料",
+       "沉積、蝕刻設備"
+      ],
+      [
+       "LRCX",
+       "科林研發",
+       "蝕刻設備"
+      ],
+      [
+       "KLAC",
+       "科磊",
+       "檢測設備"
+      ]
+     ],
+     "jp": [
+      [
+       "8035",
+       "東京威力科創",
+       "塗佈、蝕刻設備"
+      ],
+      [
+       "6857",
+       "愛德萬",
+       "晶片測試機"
+      ],
+      [
+       "6146",
+       "Disco",
+       "切割、研磨設備"
+      ],
+      [
+       "6920",
+       "Lasertec",
+       "光罩檢測"
+      ],
+      [
+       "4063",
+       "信越化學",
+       "矽晶圓、光阻"
+      ],
+      [
+       "3436",
+       "SUMCO",
+       "矽晶圓"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "封裝測試",
+     "desc": "把晶圓切成晶粒、封裝保護並測試。AI 晶片需要 CoWoS 等「先進封裝」，是近年最缺的產能。",
+     "tw": [
+      [
+       "3711",
+       "日月光投控",
+       "全球最大封測"
+      ],
+      [
+       "6239",
+       "力成",
+       "記憶體封測"
+      ],
+      [
+       "2449",
+       "京元電子",
+       "晶片測試"
+      ],
+      [
+       "6147",
+       "頎邦",
+       "驅動 IC 封裝"
+      ],
+      [
+       "6515",
+       "穎崴",
+       "測試座"
+      ],
+      [
+       "6223",
+       "旺矽",
+       "探針卡"
+      ],
+      [
+       "6510",
+       "精測",
+       "探針卡"
+      ],
+      [
+       "2441",
+       "超豐",
+       "傳統封測"
+      ]
+     ],
+     "us": [
+      [
+       "AMKR",
+       "艾克爾",
+       "美國最大封測"
+      ]
+     ]
+    },
+    {
+     "lv": "終端",
+     "name": "終端產品",
+     "desc": "晶片最後進到手機、電腦、伺服器、汽車。",
+     "tw": [
+      [
+       "2317",
+       "鴻海",
+       "代工組裝"
+      ],
+      [
+       "2382",
+       "廣達",
+       "伺服器、筆電"
+      ]
+     ],
+     "us": [
+      [
+       "AAPL",
+       "蘋果",
+       "手機、電腦"
+      ],
+      [
+       "MSFT",
+       "微軟",
+       "雲端"
+      ],
+      [
+       "TSLA",
+       "特斯拉",
+       "電動車"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "輝達、蘋果、超微、博通、高通都是台積電先進製程的主要客戶，這些公司財報好壞會直接影響台積電股價。",
+    "台積電 ADR（TSM）晚上在美國交易，隔天台積電開盤常會參考 ADR 漲跌；ADR 溢價（比台股貴多少）也代表外資的看法。",
+    "費城半導體指數（^SOX）是台股電子股最重要的領先指標，大漲大跌常帶動隔天台股同方向。",
+    "艾司摩爾、應用材料的訂單是半導體景氣的「前哨站」：晶圓廠先買設備，1～2 年後產能才開出來。"
+   ],
+   "watch": [
+    "台積電月營收（每月 10 日前）與法說會（1、4、7、10 月中）",
+    "輝達財報（2、5、8、11 月下旬）",
+    "費城半導體指數漲跌",
+    "艾司摩爾、應用材料的訂單與財測"
+   ],
+   "cat": "半導體與 AI",
+   "terms": [
+    [
+     "Fabless",
+     "只設計不生產的 IC 設計公司"
+    ],
+    [
+     "Foundry",
+     "晶圓代工，專門幫別人生產晶片"
+    ],
+    [
+     "奈米製程",
+     "電晶體大小，數字越小越先進"
+    ],
+    [
+     "EUV",
+     "極紫外光曝光機，先進製程必備，只有艾司摩爾能做"
+    ],
+    [
+     "ADR",
+     "外國公司在美國掛牌的股票憑證"
+    ]
+   ],
+   "drivers": [
+    "AI 晶片需求",
+    "先進製程（2 奈米）量產",
+    "先進封裝擴產"
+   ],
+   "risks": [
+    "美中科技管制、關稅",
+    "景氣循環、庫存調整",
+    "匯率（新台幣升值影響獲利）"
+   ],
+   "flow": [
+    [
+     "✏️",
+     "IC 設計"
+    ],
+    [
+     "🖼️",
+     "光罩"
+    ],
+    [
+     "💿",
+     "晶圓製造"
+    ],
+    [
+     "✂️",
+     "切割"
+    ],
+    [
+     "📦",
+     "封裝"
+    ],
+    [
+     "🧪",
+     "測試"
+    ],
+    [
+     "📱",
+     "手機／電腦"
+    ]
+   ],
+   "parts": {
+    "title": "晶圓廠要買什麼",
+    "items": [
+     [
+      "🔦",
+      "曝光機",
+      "把電路圖印到晶圓上（艾司摩爾 EUV）"
+     ],
+     [
+      "⚗️",
+      "蝕刻／沉積",
+      "一層層做出電晶體"
+     ],
+     [
+      "🔍",
+      "檢測",
+      "找出缺陷"
+     ],
+     [
+      "🧴",
+      "材料",
+      "矽晶圓、光阻、特殊氣體"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "ai",
+   "icon": "🤖",
+   "name": "AI 伺服器",
+   "intro": "AI 伺服器是近年最大的成長題材。美國雲端巨頭（微軟、Google、亞馬遜、Meta）買伺服器，晶片來自輝達或客製 ASIC，而伺服器的製造、散熱、電源、機殼幾乎都在台灣。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "AI 晶片（GPU／ASIC）",
+     "desc": "AI 運算的大腦。輝達 GPU 是主流，雲端廠也自己設計客製晶片（ASIC）來降低成本。",
+     "tw": [
+      [
+       "3661",
+       "世芯-KY",
+       "雲端客製 ASIC"
+      ],
+      [
+       "3443",
+       "創意",
+       "客製 ASIC"
+      ],
+      [
+       "2454",
+       "聯發科",
+       "與雲端廠合作 ASIC"
+      ]
+     ],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "GPU 龍頭"
+      ],
+      [
+       "AMD",
+       "超微",
+       "MI 系列 GPU"
+      ],
+      [
+       "AVGO",
+       "博通",
+       "Google TPU 等客製 ASIC"
+      ],
+      [
+       "MRVL",
+       "邁威爾",
+       "客製 ASIC"
+      ]
+     ]
+    },
+    {
+     "lv": "上游",
+     "name": "製造與先進封裝（CoWoS）",
+     "desc": "AI 晶片要把 GPU 和高頻寬記憶體封在一起，台積電 CoWoS 是關鍵；測試、測試介面也跟著吃香。",
+     "tw": [
+      [
+       "2330",
+       "台積電",
+       "CoWoS 先進封裝"
+      ],
+      [
+       "3711",
+       "日月光投控",
+       "封裝測試"
+      ],
+      [
+       "2449",
+       "京元電子",
+       "AI 晶片測試"
+      ],
+      [
+       "6515",
+       "穎崴",
+       "測試座"
+      ],
+      [
+       "6223",
+       "旺矽",
+       "探針卡"
+      ],
+      [
+       "3131",
+       "弘塑",
+       "CoWoS 設備"
+      ]
+     ],
+     "us": [
+      [
+       "TSM",
+       "台積電 ADR",
+       ""
+      ],
+      [
+       "AMKR",
+       "艾克爾",
+       "封測"
+      ]
+     ]
+    },
+    {
+     "lv": "上游",
+     "name": "高頻寬記憶體 HBM",
+     "desc": "疊在 AI 晶片旁的高速記憶體，主要由韓國 SK 海力士、三星和美光生產。",
+     "tw": [],
+     "us": [
+      [
+       "MU",
+       "美光",
+       "HBM（另兩家為韓國廠）"
+      ]
+     ],
+     "kr": [
+      [
+       "000660",
+       "SK 海力士",
+       "HBM 龍頭"
+      ],
+      [
+       "005930",
+       "三星電子",
+       "HBM"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "零組件：PCB、散熱、電源、網通",
+     "desc": "AI 伺服器耗電、發熱都很大，帶動高階電路板、水冷散熱、高瓦數電源與高速交換器升級。",
+     "tw": [
+      [
+       "2383",
+       "台光電",
+       "高階銅箔基板"
+      ],
+      [
+       "2368",
+       "金像電",
+       "伺服器電路板"
+      ],
+      [
+       "3037",
+       "欣興",
+       "ABF 載板"
+      ],
+      [
+       "3017",
+       "奇鋐",
+       "水冷板、散熱模組"
+      ],
+      [
+       "3324",
+       "雙鴻",
+       "水冷散熱"
+      ],
+      [
+       "3653",
+       "健策",
+       "均熱片"
+      ],
+      [
+       "2308",
+       "台達電",
+       "電源、散熱"
+      ],
+      [
+       "2345",
+       "智邦",
+       "資料中心交換器"
+      ],
+      [
+       "2059",
+       "川湖",
+       "伺服器滑軌"
+      ],
+      [
+       "8210",
+       "勤誠",
+       "伺服器機殼"
+      ],
+      [
+       "3533",
+       "嘉澤",
+       "CPU 插槽、連接器"
+      ],
+      [
+       "2301",
+       "光寶科",
+       "伺服器電源"
+      ]
+     ],
+     "us": [
+      [
+       "VRT",
+       "Vertiv",
+       "資料中心電源、液冷"
+      ],
+      [
+       "ANET",
+       "Arista",
+       "資料中心交換器"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "伺服器組裝（ODM）",
+     "desc": "把所有零件組成整台伺服器、甚至整個機櫃，直接出貨給雲端廠。",
+     "tw": [
+      [
+       "2317",
+       "鴻海",
+       "GPU 伺服器機櫃"
+      ],
+      [
+       "2382",
+       "廣達",
+       "雲端伺服器"
+      ],
+      [
+       "3231",
+       "緯創",
+       "AI 伺服器主板"
+      ],
+      [
+       "6669",
+       "緯穎",
+       "雲端伺服器"
+      ],
+      [
+       "2356",
+       "英業達",
+       "伺服器"
+      ],
+      [
+       "2376",
+       "技嘉",
+       "AI 伺服器"
+      ],
+      [
+       "3706",
+       "神達",
+       "伺服器"
+      ],
+      [
+       "2357",
+       "華碩",
+       "AI 伺服器"
+      ]
+     ],
+     "us": [
+      [
+       "SMCI",
+       "美超微",
+       "AI 伺服器（和台廠競爭也合作）"
+      ],
+      [
+       "DELL",
+       "戴爾",
+       "企業 AI 伺服器"
+      ],
+      [
+       "HPE",
+       "慧與",
+       "企業伺服器"
+      ]
+     ]
+    },
+    {
+     "lv": "終端",
+     "name": "雲端服務商（最終買家）",
+     "desc": "真正掏錢買 AI 伺服器的人。他們每季公布的「資本支出」決定整條供應鏈的訂單。",
+     "tw": [],
+     "us": [
+      [
+       "MSFT",
+       "微軟",
+       "Azure"
+      ],
+      [
+       "GOOGL",
+       "Google",
+       "Google Cloud"
+      ],
+      [
+       "AMZN",
+       "亞馬遜",
+       "AWS"
+      ],
+      [
+       "META",
+       "Meta",
+       "AI 模型"
+      ],
+      [
+       "ORCL",
+       "甲骨文",
+       "OCI 雲端"
+      ],
+      [
+       "CRWV",
+       "CoreWeave",
+       "GPU 雲端"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "四大雲端廠（微軟、Google、亞馬遜、Meta）財報裡的「資本支出」上修，台灣伺服器供應鏈（鴻海、廣達、緯創、緯穎）通常跟著漲。",
+    "輝達財報與下一季財測是 AI 族群的總指標，公布後隔天台股 AI 股常大幅波動。",
+    "美超微、戴爾和台灣 ODM 是同業，彼此業績可以互相參考。",
+    "Vertiv 是美股的資料中心散熱電源股，台達電、奇鋐、雙鴻常和它同步。"
+   ],
+   "watch": [
+    "微軟、Google、亞馬遜、Meta 財報的資本支出",
+    "輝達財報與 GTC 大會",
+    "鴻海、廣達、緯創、緯穎月營收",
+    "台積電 CoWoS 產能消息"
+   ],
+   "cat": "半導體與 AI",
+   "terms": [
+    [
+     "GPU",
+     "圖形處理器，平行運算能力強，是 AI 訓練主力"
+    ],
+    [
+     "ASIC",
+     "特定用途晶片，雲端廠自己設計的 AI 晶片"
+    ],
+    [
+     "CSP",
+     "雲端服務供應商，例如微軟、Google、亞馬遜"
+    ],
+    [
+     "資本支出（Capex）",
+     "企業買設備、蓋資料中心的花費"
+    ],
+    [
+     "機櫃級（Rack）",
+     "整個機櫃一起出貨，例如輝達 GB 系列"
+    ]
+   ],
+   "drivers": [
+    "雲端廠資本支出持續成長",
+    "AI 推論需求",
+    "主權 AI（各國政府自建算力）"
+   ],
+   "risks": [
+    "雲端廠縮減資本支出",
+    "AI 投資報酬遭質疑",
+    "晶片出口管制"
+   ],
+   "flow": [
+    [
+     "🧠",
+     "GPU／ASIC"
+    ],
+    [
+     "🧩",
+     "CoWoS 封裝"
+    ],
+    [
+     "🟩",
+     "主板"
+    ],
+    [
+     "🗄️",
+     "伺服器"
+    ],
+    [
+     "❄️",
+     "水冷散熱"
+    ],
+    [
+     "🔌",
+     "電源"
+    ],
+    [
+     "🏢",
+     "雲端資料中心"
+    ]
+   ],
+   "parts": {
+    "title": "一座 AI 伺服器機櫃拆開看",
+    "items": [
+     [
+      "🧠",
+      "GPU 運算板",
+      "最貴的部分，每塊放好幾顆 GPU"
+     ],
+     [
+      "🔀",
+      "交換器",
+      "把機櫃內和機櫃間的 GPU 串起來"
+     ],
+     [
+      "🔌",
+      "電源架",
+      "把電轉成伺服器用的電"
+     ],
+     [
+      "💧",
+      "水冷管路",
+      "水冷板、分歧管、快接頭"
+     ],
+     [
+      "🧱",
+      "機殼與滑軌",
+      "承重、方便維修抽換"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "advpkg",
+   "cat": "半導體與 AI",
+   "icon": "🧩",
+   "name": "先進封裝（CoWoS／SoIC／FOPLP）",
+   "intro": "晶片越做越小已經很難，業界改用「把好幾顆晶片封在一起」來提升效能，這就是先進封裝。CoWoS 是目前 AI 晶片的主流；FOPLP（面板級扇出型封裝）用方形大面板取代圓形晶圓，一次可以封更多晶片、降低成本，被視為下一代技術。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "材料：載板、玻璃基板、封裝材料",
+     "desc": "封裝需要的基板、黏著材料；玻璃基板因為平整、耐熱，被看好用在下一代面板級封裝。",
+     "tw": [
+      [
+       "3037",
+       "欣興",
+       "ABF 載板"
+      ],
+      [
+       "8046",
+       "南電",
+       "ABF 載板"
+      ],
+      [
+       "3189",
+       "景碩",
+       "載板"
+      ]
+     ],
+     "us": [
+      [
+       "GLW",
+       "康寧",
+       "玻璃基板"
+      ]
+     ],
+     "jp": [
+      [
+       "2802",
+       "味之素",
+       "ABF 絕緣膜（壟斷）"
+      ],
+      [
+       "4062",
+       "Ibiden",
+       "ABF 載板"
+      ]
+     ]
+    },
+    {
+     "lv": "上游",
+     "name": "設備",
+     "desc": "先進封裝需要大量新設備：濕製程、雷射、點膠、烘烤、檢測。CoWoS 擴產、FOPLP 建線都會帶動這群設備股。",
+     "tw": [
+      [
+       "3131",
+       "弘塑",
+       "濕製程（CoWoS 主力供應商）"
+      ],
+      [
+       "3583",
+       "辛耘",
+       "濕製程、再生晶圓"
+      ],
+      [
+       "6187",
+       "萬潤",
+       "點膠、檢測設備"
+      ],
+      [
+       "6640",
+       "均華",
+       "黏晶設備"
+      ],
+      [
+       "2467",
+       "志聖",
+       "壓膜、烘烤設備"
+      ],
+      [
+       "6664",
+       "群翊",
+       "面板級封裝設備"
+      ],
+      [
+       "8027",
+       "鈦昇",
+       "雷射設備"
+      ]
+     ],
+     "us": [
+      [
+       "AMAT",
+       "應用材料",
+       "封裝設備"
+      ],
+      [
+       "KLAC",
+       "科磊",
+       "檢測"
+      ]
+     ],
+     "jp": [
+      [
+       "6146",
+       "Disco",
+       "切割、研磨"
+      ],
+      [
+       "6857",
+       "愛德萬",
+       "測試機"
+      ]
+     ],
+     "kr": [
+      [
+       "042700",
+       "韓美半導體",
+       "HBM 熱壓接合設備"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "CoWoS／SoIC（晶圓級）",
+     "desc": "台積電的 CoWoS 把 GPU 和 HBM 記憶體並排封裝在矽中介層上；SoIC 是把晶片上下疊起來（3D）。",
+     "tw": [
+      [
+       "2330",
+       "台積電",
+       "CoWoS、SoIC 龍頭"
+      ],
+      [
+       "3711",
+       "日月光投控",
+       "CoWoS 後段、外包產能"
+      ],
+      [
+       "6239",
+       "力成",
+       "先進封裝"
+      ]
+     ],
+     "us": [
+      [
+       "TSM",
+       "台積電 ADR",
+       ""
+      ],
+      [
+       "AMKR",
+       "艾克爾",
+       "美國廠先進封裝"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "FOPLP（面板級）",
+     "desc": "把晶片排在方形面板上封裝，面積利用率比圓形晶圓高很多。面板廠可以把舊產線轉做封裝。",
+     "tw": [
+      [
+       "3481",
+       "群創",
+       "面板廠轉做 FOPLP"
+      ],
+      [
+       "6239",
+       "力成",
+       "FOPLP 量產"
+      ],
+      [
+       "3711",
+       "日月光投控",
+       "面板級封裝開發"
+      ],
+      [
+       "2330",
+       "台積電",
+       "CoPoS（方形化 CoWoS）研發"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "下游",
+     "name": "測試",
+     "desc": "封裝後要測試，AI 晶片測試時間長、測試介面（探針卡、測試座）需求大。",
+     "tw": [
+      [
+       "2449",
+       "京元電子",
+       "晶片測試"
+      ],
+      [
+       "6515",
+       "穎崴",
+       "測試座"
+      ],
+      [
+       "6223",
+       "旺矽",
+       "探針卡"
+      ],
+      [
+       "6510",
+       "精測",
+       "探針卡"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "終端",
+     "name": "客戶",
+     "desc": "",
+     "tw": [],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "CoWoS 最大客戶"
+      ],
+      [
+       "AMD",
+       "超微",
+       "MI 系列"
+      ],
+      [
+       "AVGO",
+       "博通",
+       "客製 ASIC"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "CoWoS",
+     "Chip on Wafer on Substrate，把晶片放在矽中介層上再接到載板，AI GPU 都用它"
+    ],
+    [
+     "SoIC",
+     "台積電 3D 堆疊技術，晶片直接疊在一起"
+    ],
+    [
+     "FOPLP",
+     "Fan-Out Panel Level Packaging，面板級扇出型封裝，用方形面板一次封更多晶片"
+    ],
+    [
+     "HBM",
+     "高頻寬記憶體，和 GPU 封在一起提供大量資料"
+    ]
+   ],
+   "drivers": [
+    "AI 晶片需求持續大於 CoWoS 產能",
+    "FOPLP、玻璃基板等新技術導入帶動設備訂單",
+    "台積電先進封裝資本支出"
+   ],
+   "risks": [
+    "新技術量產時程延後",
+    "設備股訂單集中在少數客戶，客戶縮減資本支出時波動大"
+   ],
+   "rel": [
+    "輝達財報與台積電 CoWoS 產能消息，是先進封裝設備股（弘塑、萬潤、辛耘、均華）的主要催化劑。",
+    "康寧（GLW）玻璃基板進度，可觀察 FOPLP 和下一代封裝的時程。"
+   ],
+   "watch": [
+    "台積電法說會的 CoWoS 產能規劃",
+    "設備股月營收",
+    "群創、力成 FOPLP 量產進度"
+   ],
+   "flow": [
+    [
+     "💿",
+     "晶圓"
+    ],
+    [
+     "🧠",
+     "GPU 晶粒"
+    ],
+    [
+     "🧱",
+     "矽中介層"
+    ],
+    [
+     "💾",
+     "HBM"
+    ],
+    [
+     "🟫",
+     "載板"
+    ],
+    [
+     "🧪",
+     "測試"
+    ],
+    [
+     "🤖",
+     "AI 加速卡"
+    ]
+   ],
+   "parts": {
+    "title": "一顆 AI 晶片的封裝結構",
+    "items": [
+     [
+      "🧠",
+      "GPU 晶粒",
+      "運算核心"
+     ],
+     [
+      "💾",
+      "HBM 記憶體",
+      "堆疊 8～16 層 DRAM"
+     ],
+     [
+      "🧱",
+      "矽中介層",
+      "讓 GPU 和 HBM 高速連接"
+     ],
+     [
+      "🟫",
+      "ABF 載板",
+      "接到電路板"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "mem",
+   "icon": "💾",
+   "name": "記憶體",
+   "intro": "記憶體是景氣循環最明顯的產業：價格漲，大家獲利暴增；價格跌，一起虧損。AI 帶動 HBM 和高容量記憶體需求，讓這波循環更強。美光是全球最早公布財報的大廠，被當成記憶體景氣指標。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "記憶體原廠（DRAM／NAND）",
+     "desc": "生產記憶體晶片。全球由三星、SK 海力士、美光三大廠主導，台廠規模較小、以利基型為主。",
+     "tw": [
+      [
+       "2408",
+       "南亞科",
+       "DRAM"
+      ],
+      [
+       "2344",
+       "華邦電",
+       "利基型 DRAM、NOR Flash"
+      ],
+      [
+       "2337",
+       "旺宏",
+       "NOR Flash"
+      ]
+     ],
+     "us": [
+      [
+       "MU",
+       "美光",
+       "DRAM、NAND、HBM"
+      ],
+      [
+       "SNDK",
+       "SanDisk",
+       "NAND 快閃記憶體"
+      ]
+     ],
+     "jp": [
+      [
+       "285A",
+       "鎧俠",
+       "NAND"
+      ]
+     ],
+     "kr": [
+      [
+       "000660",
+       "SK 海力士",
+       "DRAM、HBM"
+      ],
+      [
+       "005930",
+       "三星電子",
+       "DRAM、NAND 龍頭"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "控制晶片與封測",
+     "desc": "快閃記憶體需要控制晶片管理資料；記憶體也需要專門的封裝測試。",
+     "tw": [
+      [
+       "8299",
+       "群聯",
+       "NAND 控制晶片、SSD"
+      ],
+      [
+       "6239",
+       "力成",
+       "記憶體封測"
+      ],
+      [
+       "8150",
+       "南茂",
+       "記憶體封測"
+      ]
+     ],
+     "us": [
+      [
+       "WDC",
+       "威騰",
+       "硬碟"
+      ],
+      [
+       "STX",
+       "希捷",
+       "硬碟"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "模組廠與應用",
+     "desc": "把記憶體做成記憶體條、SSD 等產品，賣給電腦、伺服器、手機廠。",
+     "tw": [
+      [
+       "3260",
+       "威剛",
+       "記憶體模組"
+      ],
+      [
+       "2451",
+       "創見",
+       "記憶體模組"
+      ],
+      [
+       "4967",
+       "十銓",
+       "記憶體模組"
+      ]
+     ],
+     "us": [
+      [
+       "DELL",
+       "戴爾",
+       "電腦、伺服器"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "美光財報（約 3、6、9、12 月下旬）是記憶體族群最重要的參考，南亞科、華邦電、群聯常隔天跟漲跟跌。",
+    "SanDisk、威騰、希捷大漲時，代表儲存需求強，群聯、威剛等常同步。"
+   ],
+   "watch": [
+    "DRAM、NAND 合約價與現貨價",
+    "美光財報與財測",
+    "南亞科、華邦電月營收"
+   ],
+   "cat": "半導體與 AI",
+   "terms": [
+    [
+     "DRAM",
+     "電腦、手機的主記憶體"
+    ],
+    [
+     "NAND Flash",
+     "儲存用的快閃記憶體（SSD、手機儲存）"
+    ],
+    [
+     "HBM",
+     "堆疊式高頻寬記憶體，AI 專用"
+    ],
+    [
+     "合約價／現貨價",
+     "記憶體的兩種報價，現貨價通常先反應"
+    ]
+   ],
+   "drivers": [
+    "AI 帶動 HBM 排擠一般 DRAM 產能",
+    "報價上漲"
+   ],
+   "risks": [
+    "價格崩跌時虧損",
+    "三大廠擴產"
+   ],
+   "flow": [
+    [
+     "💿",
+     "晶圓"
+    ],
+    [
+     "🧱",
+     "DRAM／NAND 晶粒"
+    ],
+    [
+     "🎛️",
+     "控制晶片"
+    ],
+    [
+     "📦",
+     "封裝"
+    ],
+    [
+     "💾",
+     "記憶體條／SSD"
+    ],
+    [
+     "🖥️",
+     "電腦／伺服器"
+    ]
+   ]
+  },
+  {
+   "id": "power_semi",
+   "cat": "半導體與 AI",
+   "icon": "🔋",
+   "name": "化合物與功率半導體（SiC／GaN）",
+   "intro": "功率半導體負責「控制電」：開關、轉換電壓，用在電動車、充電樁、伺服器電源、太陽能。碳化矽（SiC）、氮化鎵（GaN）這類化合物半導體耐高壓、效率高，是 AI 電源和電動車的關鍵。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "晶圓材料",
+     "desc": "矽晶圓、碳化矽基板。",
+     "tw": [
+      [
+       "6488",
+       "環球晶",
+       "矽晶圓、SiC"
+      ],
+      [
+       "5483",
+       "中美晶",
+       "矽晶圓"
+      ],
+      [
+       "6182",
+       "合晶",
+       "矽晶圓"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "化合物半導體代工",
+     "desc": "砷化鎵（GaAs，手機射頻）、氮化鎵代工。",
+     "tw": [
+      [
+       "3105",
+       "穩懋",
+       "砷化鎵代工龍頭：手機射頻、光通訊、GaN"
+      ],
+      [
+       "8086",
+       "宏捷科",
+       "砷化鎵"
+      ],
+      [
+       "2455",
+       "全新",
+       "磊晶"
+      ],
+      [
+       "3707",
+       "漢磊",
+       "功率代工"
+      ]
+     ],
+     "us": [
+      [
+       "SWKS",
+       "Skyworks",
+       "穩懋主要客戶（2026 年 10 月已合併 Qorvo）"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "功率元件（MOSFET）",
+     "desc": "最常見的功率開關元件。",
+     "tw": [
+      [
+       "8261",
+       "富鼎",
+       "MOSFET"
+      ],
+      [
+       "5299",
+       "杰力",
+       "MOSFET"
+      ],
+      [
+       "6435",
+       "大中",
+       "MOSFET"
+      ]
+     ],
+     "us": [
+      [
+       "ON",
+       "安森美",
+       "SiC、功率元件"
+      ],
+      [
+       "NVTS",
+       "Navitas",
+       "GaN 功率晶片"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "應用",
+     "desc": "電動車、AI 伺服器電源、快充。",
+     "tw": [
+      [
+       "2308",
+       "台達電",
+       "電源"
+      ]
+     ],
+     "us": [
+      [
+       "TSLA",
+       "特斯拉",
+       "電動車"
+      ],
+      [
+       "NVDA",
+       "輝達",
+       "高壓直流電源架構"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "SiC 碳化矽",
+     "耐高壓、高溫，用在電動車主逆變器"
+    ],
+    [
+     "GaN 氮化鎵",
+     "高頻、高效率，用在快充、伺服器電源"
+    ],
+    [
+     "MOSFET",
+     "最常見的功率開關元件"
+    ],
+    [
+     "800V HVDC",
+     "AI 資料中心新一代高壓直流供電架構"
+    ]
+   ],
+   "drivers": [
+    "AI 資料中心改用高壓直流供電",
+    "電動車 800V 架構"
+   ],
+   "risks": [
+    "電動車需求放緩",
+    "中國 SiC 產能擴張造成價格下跌"
+   ],
+   "rel": [
+    "安森美、Navitas 的表現反映功率半導體景氣；輝達推動 800V 高壓直流供電，帶動 GaN、SiC 題材。",
+    "穩懋的客戶主要是 Skyworks（已合併 Qorvo）、博通等美國射頻晶片廠；光通訊業務可參考 Lumentum、Coherent。"
+   ],
+   "watch": [
+    "穩懋月營收",
+    "電動車銷量",
+    "AI 電源架構消息"
+   ],
+   "flow": [
+    [
+     "💿",
+     "SiC／GaN 晶圓"
+    ],
+    [
+     "🏭",
+     "代工製造"
+    ],
+    [
+     "⚡",
+     "功率元件"
+    ],
+    [
+     "🔌",
+     "電源模組"
+    ],
+    [
+     "🚗",
+     "電動車"
+    ],
+    [
+     "🗄️",
+     "伺服器電源"
+    ]
+   ]
+  },
+  {
+   "id": "pcb",
+   "icon": "🟩",
+   "name": "PCB 電路板",
+   "intro": "所有電子產品都要電路板。AI 伺服器需要層數更多、材料更高級的電路板，讓台灣 PCB 族群從傳產變成成長股。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "原物料：銅箔、玻纖布、樹脂",
+     "desc": "電路板的基本材料，價格受銅價影響。",
+     "tw": [
+      [
+       "8358",
+       "金居",
+       "高階銅箔"
+      ],
+      [
+       "1802",
+       "台玻",
+       "玻纖布"
+      ],
+      [
+       "1815",
+       "富喬",
+       "玻纖紗布"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "銅箔基板 CCL",
+     "desc": "把銅箔和玻纖布壓在一起的板材，AI 伺服器要用高速、低損耗的高階 CCL。",
+     "tw": [
+      [
+       "2383",
+       "台光電",
+       "高階 CCL 龍頭"
+      ],
+      [
+       "6274",
+       "台燿",
+       "高速 CCL"
+      ],
+      [
+       "6213",
+       "聯茂",
+       "CCL"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "印刷電路板 PCB／HDI",
+     "desc": "在基板上做出線路，伺服器板、網通板、手機板都在這裡。",
+     "tw": [
+      [
+       "2368",
+       "金像電",
+       "伺服器、網通板"
+      ],
+      [
+       "3044",
+       "健鼎",
+       "多元應用 PCB"
+      ],
+      [
+       "4958",
+       "臻鼎-KY",
+       "全球最大 PCB"
+      ],
+      [
+       "2313",
+       "華通",
+       "HDI、衛星板"
+      ]
+     ],
+     "us": [
+      [
+       "TTMI",
+       "TTM",
+       "美國 PCB 大廠"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "IC 載板（ABF／BT）",
+     "desc": "放在晶片和電路板之間的高階基板，CPU、GPU 都要用 ABF 載板。",
+     "tw": [
+      [
+       "3037",
+       "欣興",
+       "ABF 載板龍頭"
+      ],
+      [
+       "8046",
+       "南電",
+       "ABF 載板"
+      ],
+      [
+       "3189",
+       "景碩",
+       "BT、ABF 載板"
+      ]
+     ],
+     "us": [],
+     "jp": [
+      [
+       "4062",
+       "Ibiden",
+       "ABF 載板"
+      ],
+      [
+       "2802",
+       "味之素",
+       "ABF 絕緣膜"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "應用",
+     "desc": "伺服器、交換器、手機、汽車。",
+     "tw": [
+      [
+       "2382",
+       "廣達",
+       "伺服器"
+      ],
+      [
+       "2345",
+       "智邦",
+       "交換器"
+      ]
+     ],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "GPU 板卡"
+      ],
+      [
+       "ANET",
+       "Arista",
+       "交換器"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "輝達新平台推出時，電路板層數與材料規格升級，台光電、金像電、欣興等是主要受惠者。",
+    "美股沒有太多純 PCB 股，台廠多看輝達、雲端廠的出貨節奏。"
+   ],
+   "watch": [
+    "台光電、金像電、欣興月營收",
+    "銅價",
+    "輝達新平台出貨時程"
+   ],
+   "cat": "電子零組件",
+   "terms": [
+    [
+     "CCL",
+     "銅箔基板"
+    ],
+    [
+     "HDI",
+     "高密度連接板，用在手機"
+    ],
+    [
+     "ABF 載板",
+     "CPU、GPU 用的高階 IC 載板"
+    ],
+    [
+     "層數",
+     "伺服器板層數越多越貴"
+    ]
+   ],
+   "drivers": [
+    "AI 伺服器板層數、材料升級",
+    "800G 交換器"
+   ],
+   "risks": [
+    "銅價上漲壓縮毛利",
+    "一般 PCB 價格競爭"
+   ],
+   "flow": [
+    [
+     "🟠",
+     "銅箔"
+    ],
+    [
+     "🧵",
+     "玻纖布"
+    ],
+    [
+     "🧪",
+     "樹脂"
+    ],
+    [
+     "🟫",
+     "CCL 基板"
+    ],
+    [
+     "🟩",
+     "電路板"
+    ],
+    [
+     "🗄️",
+     "伺服器／手機"
+    ]
+   ],
+   "parts": {
+    "title": "一片電路板由什麼組成",
+    "items": [
+     [
+      "🟠",
+      "銅箔",
+      "導電線路"
+     ],
+     [
+      "🧵",
+      "玻纖布",
+      "骨架，決定強度與訊號品質"
+     ],
+     [
+      "🧪",
+      "樹脂",
+      "黏合、絕緣"
+     ],
+     [
+      "🕳️",
+      "鑽孔／電鍍",
+      "讓上下層線路導通"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "optic",
+   "icon": "💡",
+   "name": "光通訊與 CPO 矽光子",
+   "intro": "AI 資料中心裡成千上萬顆 GPU 要彼此高速傳資料，電線不夠快，就改用光纖。傳輸速度從 400G、800G 升級到 1.6T，未來還要把光元件直接和晶片封在一起（CPO 共同封裝光學）。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "雷射晶片與光元件",
+     "desc": "發光、收光的核心零件（磊晶、雷射二極體）。",
+     "tw": [
+      [
+       "3081",
+       "聯亞",
+       "雷射磊晶"
+      ],
+      [
+       "4979",
+       "華星光",
+       "光元件"
+      ],
+      [
+       "2455",
+       "全新",
+       "磊晶"
+      ],
+      [
+       "4908",
+       "前鼎",
+       "光元件"
+      ],
+      [
+       "3105",
+       "穩懋",
+       "光通訊雷射、光元件代工"
+      ]
+     ],
+     "us": [
+      [
+       "LITE",
+       "Lumentum",
+       "雷射元件"
+      ],
+      [
+       "COHR",
+       "Coherent",
+       "雷射、光模組"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "光收發模組與被動元件",
+     "desc": "把光元件組成可以插在交換器上的模組，以及光纖連接器等。",
+     "tw": [
+      [
+       "3450",
+       "聯鈞",
+       "光電封裝"
+      ],
+      [
+       "6442",
+       "光聖",
+       "光纖連接"
+      ],
+      [
+       "3363",
+       "上詮",
+       "光纖元件、CPO"
+      ],
+      [
+       "3163",
+       "波若威",
+       "光通訊元件"
+      ]
+     ],
+     "us": [
+      [
+       "AAOI",
+       "應用光電",
+       "光收發模組"
+      ],
+      [
+       "FN",
+       "Fabrinet",
+       "光模組代工"
+      ]
+     ],
+     "jp": [
+      [
+       "5803",
+       "藤倉",
+       "光纖、光連接"
+      ],
+      [
+       "5802",
+       "住友電工",
+       "光通訊、電線"
+      ],
+      [
+       "5801",
+       "古河電工",
+       "光纖"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "交換器晶片",
+     "desc": "負責轉送資料的晶片。",
+     "tw": [],
+     "us": [
+      [
+       "AVGO",
+       "博通",
+       "交換器晶片龍頭"
+      ],
+      [
+       "MRVL",
+       "邁威爾",
+       "光通訊 DSP"
+      ],
+      [
+       "NVDA",
+       "輝達",
+       "網通交換器"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "交換器與資料中心",
+     "desc": "交換器組成資料中心網路，最終買家是雲端廠。",
+     "tw": [
+      [
+       "2345",
+       "智邦",
+       "白牌交換器"
+      ],
+      [
+       "2330",
+       "台積電",
+       "CPO 矽光子封裝技術"
+      ]
+     ],
+     "us": [
+      [
+       "ANET",
+       "Arista",
+       "資料中心交換器"
+      ],
+      [
+       "CSCO",
+       "思科",
+       "網通設備"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "Lumentum、Coherent、Arista 財報常帶動台灣光通訊族群（聯亞、華星光、上詮、波若威）。",
+    "台積電的矽光子（CPO）進度是這個題材的長期指標。"
+   ],
+   "watch": [
+    "800G／1.6T 模組出貨",
+    "Arista、Lumentum、Coherent 財報",
+    "台積電 CPO 進度"
+   ],
+   "cat": "電子零組件",
+   "terms": [
+    [
+     "光收發模組",
+     "把電訊號轉成光訊號的模組"
+    ],
+    [
+     "CPO",
+     "共同封裝光學，把光元件直接和晶片封在一起"
+    ],
+    [
+     "矽光子",
+     "用半導體製程做光學元件"
+    ],
+    [
+     "800G／1.6T",
+     "傳輸速度規格"
+    ]
+   ],
+   "drivers": [
+    "AI 叢集網路升級",
+    "CPO 商用化"
+   ],
+   "risks": [
+    "技術路線變化",
+    "中國光模組廠價格競爭"
+   ],
+   "flow": [
+    [
+     "💡",
+     "雷射晶片"
+    ],
+    [
+     "🔆",
+     "光元件"
+    ],
+    [
+     "📦",
+     "光收發模組"
+    ],
+    [
+     "🔀",
+     "交換器"
+    ],
+    [
+     "🧵",
+     "光纖"
+    ],
+    [
+     "🏢",
+     "資料中心"
+    ]
+   ]
+  },
+  {
+   "id": "passive",
+   "icon": "🔩",
+   "name": "被動元件",
+   "intro": "電容、電阻、電感是所有電子產品都要用的小零件，價格漲跌有明顯循環。AI 伺服器用量是一般伺服器好幾倍。",
+   "stages": [
+    {
+     "lv": "中游",
+     "name": "被動元件廠",
+     "desc": "日本村田、TDK 是龍頭，台灣國巨是全球前三大。",
+     "tw": [
+      [
+       "2327",
+       "國巨",
+       "電容、電阻龍頭"
+      ],
+      [
+       "2492",
+       "華新科",
+       "電容、電阻"
+      ],
+      [
+       "3026",
+       "禾伸堂",
+       "電容"
+      ]
+     ],
+     "us": [
+      [
+       "VSH",
+       "Vishay",
+       "被動元件"
+      ]
+     ],
+     "jp": [
+      [
+       "6981",
+       "村田製作所",
+       "MLCC 龍頭"
+      ],
+      [
+       "6762",
+       "TDK",
+       "被動元件、電池"
+      ],
+      [
+       "6976",
+       "太陽誘電",
+       "MLCC"
+      ]
+     ],
+     "kr": [
+      [
+       "009150",
+       "三星電機",
+       "MLCC"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "應用",
+     "desc": "伺服器、手機、汽車、工業。",
+     "tw": [
+      [
+       "2382",
+       "廣達",
+       "伺服器"
+      ]
+     ],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "AI 伺服器"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "被動元件和美股連動較低，主要看庫存循環與漲價消息。"
+   ],
+   "watch": [
+    "國巨月營收",
+    "漲價或庫存消息"
+   ],
+   "cat": "電子零組件",
+   "terms": [
+    [
+     "MLCC",
+     "積層陶瓷電容，用量最大的被動元件"
+    ],
+    [
+     "稼動率",
+     "工廠產能利用率"
+    ]
+   ],
+   "drivers": [
+    "AI 伺服器用量倍增",
+    "漲價"
+   ],
+   "risks": [
+    "庫存循環",
+    "日本廠競爭"
+   ],
+   "flow": [
+    [
+     "🧪",
+     "陶瓷粉末"
+    ],
+    [
+     "🧱",
+     "疊層"
+    ],
+    [
+     "🔥",
+     "燒結"
+    ],
+    [
+     "🔘",
+     "MLCC 電容"
+    ],
+    [
+     "🟩",
+     "電路板"
+    ],
+    [
+     "🗄️",
+     "伺服器"
+    ]
+   ]
+  },
+  {
+   "id": "thermal",
+   "cat": "電子零組件",
+   "icon": "❄️",
+   "name": "散熱",
+   "intro": "晶片功耗越來越高，輝達 GPU 單顆超過 1000 瓦，傳統風扇已經壓不住，伺服器全面走向水冷（液冷）。散熱從「便宜零件」變成「關鍵零件」，單價大幅提高。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "材料與熱元件",
+     "desc": "把熱從晶片導出來的第一關：均熱片（蓋在晶片上）、熱導管、均溫板。",
+     "tw": [
+      [
+       "3653",
+       "健策",
+       "均熱片（IHS）"
+      ],
+      [
+       "6230",
+       "尼得科超眾",
+       "熱導管、均溫板"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "散熱模組：風冷",
+     "desc": "熱導管＋散熱鰭片＋風扇組成的模組，仍用在大多數一般伺服器和電腦。",
+     "tw": [
+      [
+       "3017",
+       "奇鋐",
+       "散熱模組龍頭"
+      ],
+      [
+       "3324",
+       "雙鴻",
+       "散熱模組"
+      ],
+      [
+       "2421",
+       "建準",
+       "散熱風扇"
+      ]
+     ],
+     "us": [],
+     "jp": [
+      [
+       "6594",
+       "日本電產（Nidec）",
+       "風扇、馬達、液冷"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "液冷（水冷）元件",
+     "desc": "水冷板貼在晶片上，冷卻液流過帶走熱；快接頭讓伺服器可以快速插拔不漏水；分歧管把冷卻液分配到每台伺服器。",
+     "tw": [
+      [
+       "3017",
+       "奇鋐",
+       "水冷板、分歧管"
+      ],
+      [
+       "3324",
+       "雙鴻",
+       "水冷板"
+      ],
+      [
+       "6805",
+       "富世達",
+       "快接頭"
+      ],
+      [
+       "3653",
+       "健策",
+       "水冷板"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "下游",
+     "name": "機櫃級液冷系統（CDU）與機房",
+     "desc": "CDU（冷卻液分配裝置）是整個機櫃的「心臟」，再往外接冷卻水塔、熱交換器。",
+     "tw": [
+      [
+       "2308",
+       "台達電",
+       "CDU、機房方案"
+      ],
+      [
+       "8996",
+       "高力",
+       "熱交換器"
+      ],
+      [
+       "3013",
+       "晟銘電",
+       "機殼、機櫃"
+      ],
+      [
+       "8210",
+       "勤誠",
+       "伺服器機殼"
+      ]
+     ],
+     "us": [
+      [
+       "VRT",
+       "Vertiv",
+       "液冷、機房散熱龍頭"
+      ],
+      [
+       "MOD",
+       "Modine",
+       "資料中心冷卻"
+      ],
+      [
+       "NVT",
+       "nVent",
+       "液冷機櫃"
+      ]
+     ]
+    },
+    {
+     "lv": "終端",
+     "name": "客戶",
+     "desc": "",
+     "tw": [
+      [
+       "2317",
+       "鴻海",
+       "AI 伺服器"
+      ],
+      [
+       "2382",
+       "廣達",
+       "AI 伺服器"
+      ]
+     ],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "GPU 平台"
+      ],
+      [
+       "MSFT",
+       "微軟",
+       "資料中心"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "風冷",
+     "用風扇吹走熱，便宜但散熱能力有限"
+    ],
+    [
+     "液冷／水冷",
+     "用液體帶走熱，效率比空氣高很多"
+    ],
+    [
+     "水冷板（Cold Plate）",
+     "貼在晶片上、內部有流道的金屬板"
+    ],
+    [
+     "CDU",
+     "Coolant Distribution Unit，冷卻液分配裝置"
+    ],
+    [
+     "UQD 快接頭",
+     "液冷管路的快速接頭，要求不漏水"
+    ]
+   ],
+   "drivers": [
+    "GPU 功耗持續提高，液冷滲透率上升",
+    "液冷單價是風冷的好幾倍",
+    "資料中心改建潮"
+   ],
+   "risks": [
+    "液冷規格由輝達主導，供應商認證變動",
+    "價格競爭、新進者增加"
+   ],
+   "rel": [
+    "Vertiv（VRT）是美股液冷龍頭，台達電、奇鋐、雙鴻常和它同步。",
+    "輝達新平台（每代功耗提高）推出，是散熱股的主要題材。"
+   ],
+   "watch": [
+    "奇鋐、雙鴻、健策月營收",
+    "Vertiv 財報與訂單",
+    "輝達新平台出貨時程"
+   ],
+   "flow": [
+    [
+     "🔥",
+     "晶片發熱"
+    ],
+    [
+     "🟨",
+     "均熱片"
+    ],
+    [
+     "💧",
+     "水冷板"
+    ],
+    [
+     "🔗",
+     "快接頭／管路"
+    ],
+    [
+     "🔄",
+     "CDU 冷卻分配"
+    ],
+    [
+     "🏭",
+     "冷卻水塔"
+    ]
+   ],
+   "parts": {
+    "title": "液冷系統怎麼運作",
+    "items": [
+     [
+      "💧",
+      "水冷板",
+      "貼在 GPU 上吸熱"
+     ],
+     [
+      "🔗",
+      "快接頭",
+      "伺服器插拔時不漏水"
+     ],
+     [
+      "🔄",
+      "CDU",
+      "把冷卻液送到每台伺服器、收回熱水"
+     ],
+     [
+      "🏭",
+      "冷卻水塔",
+      "把熱排到戶外"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "net",
+   "cat": "電子零組件",
+   "icon": "📡",
+   "name": "網通",
+   "intro": "網通包含資料中心內部的高速網路（交換器），以及家庭、企業用的路由器、Wi-Fi、寬頻設備，還有電信業者。AI 讓資料中心網路從 400G 升級到 800G、1.6T，是成長最快的一塊。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "網通晶片",
+     "desc": "交換器晶片、Wi-Fi 晶片、乙太網路晶片。",
+     "tw": [
+      [
+       "2379",
+       "瑞昱",
+       "乙太網路、Wi-Fi 晶片"
+      ],
+      [
+       "2454",
+       "聯發科",
+       "Wi-Fi、寬頻晶片"
+      ]
+     ],
+     "us": [
+      [
+       "AVGO",
+       "博通",
+       "交換器晶片龍頭"
+      ],
+      [
+       "MRVL",
+       "邁威爾",
+       "資料中心網通晶片"
+      ],
+      [
+       "NVDA",
+       "輝達",
+       "InfiniBand、Spectrum-X"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "光通訊零組件",
+     "desc": "高速網路靠光纖傳輸，詳見「光通訊」產業。",
+     "tw": [
+      [
+       "3081",
+       "聯亞",
+       "雷射磊晶"
+      ],
+      [
+       "4979",
+       "華星光",
+       "光元件"
+      ],
+      [
+       "3363",
+       "上詮",
+       "光纖元件"
+      ]
+     ],
+     "us": [
+      [
+       "COHR",
+       "Coherent",
+       "光模組"
+      ],
+      [
+       "LITE",
+       "Lumentum",
+       "雷射"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "資料中心交換器",
+     "desc": "AI 叢集裡串起數萬顆 GPU 的網路設備。",
+     "tw": [
+      [
+       "2345",
+       "智邦",
+       "白牌交換器龍頭"
+      ],
+      [
+       "3380",
+       "明泰",
+       "交換器"
+      ]
+     ],
+     "us": [
+      [
+       "ANET",
+       "Arista",
+       "資料中心交換器"
+      ],
+      [
+       "CSCO",
+       "思科",
+       "網通設備"
+      ],
+      [
+       "CIEN",
+       "Ciena",
+       "光傳輸設備"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "家用／企業網通設備",
+     "desc": "路由器、Wi-Fi 分享器、寬頻數據機（CPE）、企業網路設備。",
+     "tw": [
+      [
+       "3596",
+       "智易",
+       "寬頻 CPE"
+      ],
+      [
+       "5388",
+       "中磊",
+       "寬頻、小基站"
+      ],
+      [
+       "6285",
+       "啟碁",
+       "網通、衛星終端"
+      ],
+      [
+       "4906",
+       "正文",
+       "網通設備"
+      ],
+      [
+       "2332",
+       "友訊",
+       "品牌網通"
+      ],
+      [
+       "3704",
+       "合勤控",
+       "網通設備"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "下游",
+     "name": "電信業者",
+     "desc": "提供行動通訊和寬頻服務，屬於穩定配息的防禦型股票。",
+     "tw": [
+      [
+       "2412",
+       "中華電",
+       "電信龍頭"
+      ],
+      [
+       "3045",
+       "台灣大",
+       "電信"
+      ],
+      [
+       "4904",
+       "遠傳",
+       "電信"
+      ]
+     ],
+     "us": [
+      [
+       "TMUS",
+       "T-Mobile",
+       "電信"
+      ],
+      [
+       "VZ",
+       "Verizon",
+       "電信"
+      ],
+      [
+       "T",
+       "AT&T",
+       "電信"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "交換器（Switch）",
+     "資料中心裡負責轉送資料的設備"
+    ],
+    [
+     "800G／1.6T",
+     "每秒傳輸 800 Gb／1.6 Tb，速度越高越貴"
+    ],
+    [
+     "白牌",
+     "不掛品牌、直接賣給雲端廠的設備（智邦是代表）"
+    ],
+    [
+     "CPE",
+     "用戶端設備，例如家裡的數據機、分享器"
+    ],
+    [
+     "Wi-Fi 7",
+     "最新一代無線網路規格"
+    ]
+   ],
+   "drivers": [
+    "AI 資料中心網路升級（800G→1.6T）",
+    "Wi-Fi 7 換機潮",
+    "低軌衛星地面設備"
+   ],
+   "risks": [
+    "家用網通需求受景氣影響大",
+    "電信業成長有限"
+   ],
+   "rel": [
+    "Arista 財報是智邦最重要的參考；博通交換器晶片出貨反映整體資料中心網路需求。",
+    "電信股和美股連動低，屬於防禦型。"
+   ],
+   "watch": [
+    "智邦月營收",
+    "Arista、博通財報",
+    "Wi-Fi 7 滲透率"
+   ],
+   "flow": [
+    [
+     "🎛️",
+     "網通晶片"
+    ],
+    [
+     "🔀",
+     "交換器／路由器"
+    ],
+    [
+     "💡",
+     "光模組"
+    ],
+    [
+     "🏢",
+     "資料中心"
+    ],
+    [
+     "📶",
+     "電信基地台"
+    ],
+    [
+     "🏠",
+     "家用 Wi-Fi"
+    ]
+   ]
+  },
+  {
+   "id": "glass",
+   "cat": "電子零組件",
+   "icon": "🧵",
+   "name": "玻纖布",
+   "intro": "玻纖布是電路板（CCL 銅箔基板）的骨架。AI 伺服器要求訊號損耗低、熱膨脹小，需要「Low-Dk」（低介電）和「Low-CTE」（低熱膨脹，例如 T-glass）等高階玻纖布，全球產能有限、一度嚴重缺貨，讓這個傳統產業變成熱門題材。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "玻纖紗（玻璃纖維）",
+     "desc": "把玻璃熔化拉成極細的纖維紗。高階 Low-Dk、T-glass 紗主要由日本日東紡掌握。",
+     "tw": [
+      [
+       "1802",
+       "台玻",
+       "玻纖紗、玻纖布"
+      ],
+      [
+       "1815",
+       "富喬",
+       "玻纖紗、玻纖布"
+      ]
+     ],
+     "us": [],
+     "jp": [
+      [
+       "3110",
+       "日東紡",
+       "Low-Dk、T-glass 高階玻纖"
+      ]
+     ]
+    },
+    {
+     "lv": "上游",
+     "name": "玻纖布",
+     "desc": "把玻纖紗織成布，越薄、越均勻、介電越低越高級。",
+     "tw": [
+      [
+       "1802",
+       "台玻",
+       "玻纖布"
+      ],
+      [
+       "1815",
+       "富喬",
+       "玻纖布"
+      ],
+      [
+       "5475",
+       "德宏",
+       "玻纖布"
+      ],
+      [
+       "1303",
+       "南亞",
+       "玻纖布、銅箔、CCL 一條龍"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "銅箔基板 CCL",
+     "desc": "玻纖布含浸樹脂後和銅箔壓合。",
+     "tw": [
+      [
+       "2383",
+       "台光電",
+       "高階 CCL"
+      ],
+      [
+       "6274",
+       "台燿",
+       "高速 CCL"
+      ],
+      [
+       "6213",
+       "聯茂",
+       "CCL"
+      ],
+      [
+       "1303",
+       "南亞",
+       "CCL"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "下游",
+     "name": "PCB、IC 載板",
+     "desc": "做成電路板，用在伺服器、交換器、手機。",
+     "tw": [
+      [
+       "2368",
+       "金像電",
+       "伺服器板"
+      ],
+      [
+       "3037",
+       "欣興",
+       "載板"
+      ],
+      [
+       "4958",
+       "臻鼎-KY",
+       "PCB"
+      ]
+     ],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "GPU 平台"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "Low-Dk",
+     "低介電常數，訊號跑得快、損耗低，高速伺服器板必備"
+    ],
+    [
+     "Low-CTE／T-glass",
+     "低熱膨脹玻纖布，載板不容易變形"
+    ],
+    [
+     "CCL",
+     "銅箔基板，電路板的原材料"
+    ],
+    [
+     "含浸",
+     "把玻纖布浸入樹脂"
+    ]
+   ],
+   "drivers": [
+    "AI 伺服器板材全面升級高階玻纖布",
+    "高階產能被日本廠壟斷，台廠積極切入",
+    "漲價"
+   ],
+   "risks": [
+    "一般等級玻纖布供過於求、價格競爭",
+    "高階認證時間長"
+   ],
+   "rel": [
+    "和美股沒有直接對應，主要看輝達新平台的板材規格與 CCL 廠（台光電、台燿）出貨。"
+   ],
+   "watch": [
+    "台玻、富喬、德宏月營收",
+    "高階玻纖布漲價消息",
+    "台光電月營收"
+   ],
+   "flow": [
+    [
+     "🪨",
+     "玻璃原料"
+    ],
+    [
+     "🔥",
+     "熔爐拉絲"
+    ],
+    [
+     "🧶",
+     "玻纖紗"
+    ],
+    [
+     "🧵",
+     "織成玻纖布"
+    ],
+    [
+     "🟫",
+     "CCL"
+    ],
+    [
+     "🟩",
+     "PCB"
+    ]
+   ],
+   "parts": {
+    "title": "為什麼 AI 需要高階玻纖布",
+    "items": [
+     [
+      "📶",
+      "Low-Dk",
+      "訊號跑更快、損耗更少"
+     ],
+     [
+      "🌡️",
+      "Low-CTE",
+      "受熱不易變形，大尺寸載板必備"
+     ],
+     [
+      "🏭",
+      "產能少",
+      "高階紗主要由日本日東紡供應"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "leadframe",
+   "cat": "電子零組件",
+   "icon": "🔗",
+   "name": "導線架",
+   "intro": "導線架是傳統封裝裡支撐晶片、把訊號接出來的金屬框架（通常是銅），大量用在功率元件、車用、類比 IC 和 LED。屬於成熟產業，景氣跟著成熟製程和車用、工業需求走。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "銅材與電鍍材料",
+     "desc": "銅帶經過沖壓或蝕刻、再電鍍銀或鎳鈀金。",
+     "tw": [
+      [
+       "8070",
+       "長華*",
+       "封裝材料通路"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "導線架",
+     "desc": "沖壓式（量大便宜）、蝕刻式（精細，用於高腳數 IC）。",
+     "tw": [
+      [
+       "2351",
+       "順德",
+       "導線架（車用、功率比重高）"
+      ],
+      [
+       "5285",
+       "界霖",
+       "導線架"
+      ],
+      [
+       "6548",
+       "長科*",
+       "蝕刻導線架"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "下游",
+     "name": "傳統封測",
+     "desc": "用導線架封裝的 QFN、SOP 等封裝形式。",
+     "tw": [
+      [
+       "2441",
+       "超豐",
+       "傳統封測"
+      ],
+      [
+       "2369",
+       "菱生",
+       "傳統封測"
+      ],
+      [
+       "8150",
+       "南茂",
+       "封測"
+      ],
+      [
+       "3711",
+       "日月光投控",
+       "封測"
+      ]
+     ],
+     "us": [
+      [
+       "AMKR",
+       "艾克爾",
+       "封測"
+      ]
+     ]
+    },
+    {
+     "lv": "終端",
+     "name": "應用",
+     "desc": "功率元件（MOSFET）、車用電子、電源管理 IC。",
+     "tw": [
+      [
+       "8261",
+       "富鼎",
+       "MOSFET"
+      ]
+     ],
+     "us": [
+      [
+       "ON",
+       "安森美",
+       "功率半導體"
+      ],
+      [
+       "NXPI",
+       "恩智浦",
+       "車用晶片"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "導線架（Lead Frame）",
+     "支撐晶片並把電路接出來的金屬框架"
+    ],
+    [
+     "QFN",
+     "常見的無引腳封裝，用導線架"
+    ],
+    [
+     "沖壓 vs 蝕刻",
+     "沖壓便宜量大；蝕刻線路更細"
+    ]
+   ],
+   "drivers": [
+    "車用、工業需求回溫",
+    "功率半導體成長"
+   ],
+   "risks": [
+    "成熟產業、毛利有限",
+    "銅價波動",
+    "中國業者競爭"
+   ],
+   "rel": [
+    "安森美、恩智浦等車用晶片廠財報反映車用與工業需求，可以參考導線架景氣。"
+   ],
+   "watch": [
+    "順德、界霖月營收",
+    "車用晶片庫存狀況",
+    "銅價"
+   ],
+   "flow": [
+    [
+     "🟠",
+     "銅帶"
+    ],
+    [
+     "🔨",
+     "沖壓／蝕刻"
+    ],
+    [
+     "✨",
+     "電鍍"
+    ],
+    [
+     "📦",
+     "封裝晶片"
+    ],
+    [
+     "⚡",
+     "功率元件"
+    ],
+    [
+     "🚗",
+     "車用／工業"
+    ]
+   ]
+  },
+  {
+   "id": "display",
+   "cat": "電子零組件",
+   "icon": "🖥️",
+   "name": "面板",
+   "intro": "面板產業高度循環，價格每月變動。台灣友達、群創除了傳統面板，也轉型做車用顯示、FOPLP 先進封裝等新業務。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "玻璃基板與材料",
+     "desc": "面板用的玻璃、偏光板、背光。",
+     "tw": [
+      [
+       "5371",
+       "中光電",
+       "背光模組"
+      ]
+     ],
+     "us": [
+      [
+       "GLW",
+       "康寧",
+       "玻璃基板"
+      ]
+     ]
+    },
+    {
+     "lv": "上游",
+     "name": "驅動 IC",
+     "desc": "控制每個像素的晶片。",
+     "tw": [
+      [
+       "3034",
+       "聯詠",
+       "驅動 IC 龍頭"
+      ],
+      [
+       "6147",
+       "頎邦",
+       "驅動 IC 封裝"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "面板廠",
+     "desc": "",
+     "tw": [
+      [
+       "2409",
+       "友達",
+       "面板、車用顯示"
+      ],
+      [
+       "3481",
+       "群創",
+       "面板、FOPLP"
+      ],
+      [
+       "6116",
+       "彩晶",
+       "中小尺寸面板"
+      ]
+     ],
+     "us": [],
+     "kr": [
+      [
+       "034220",
+       "LG Display",
+       "面板"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "電視、螢幕、筆電、車用",
+     "desc": "",
+     "tw": [
+      [
+       "2357",
+       "華碩",
+       "螢幕、筆電"
+      ]
+     ],
+     "us": [
+      [
+       "AAPL",
+       "蘋果",
+       "裝置"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "面板報價",
+     "研調機構每月公布，影響面板股"
+    ],
+    [
+     "稼動率",
+     "工廠產能利用率，面板廠減產會拉高報價"
+    ]
+   ],
+   "drivers": [
+    "面板報價上漲",
+    "車用、FOPLP 新業務"
+   ],
+   "risks": [
+    "中國面板廠產能過剩"
+   ],
+   "rel": [
+    "和美股連動低，主要看面板報價和中國面板廠的產能策略。"
+   ],
+   "watch": [
+    "面板報價（每月上、下旬）",
+    "友達、群創月營收"
+   ],
+   "flow": [
+    [
+     "🪟",
+     "玻璃基板"
+    ],
+    [
+     "🎛️",
+     "驅動 IC"
+    ],
+    [
+     "🏭",
+     "面板廠"
+    ],
+    [
+     "💡",
+     "背光模組"
+    ],
+    [
+     "📺",
+     "電視／螢幕"
+    ]
+   ]
+  },
+  {
+   "id": "distrib",
+   "cat": "電子零組件",
+   "icon": "📦",
+   "name": "IC 通路",
+   "intro": "IC 通路商幫晶片原廠把晶片賣給成千上萬的電子廠，提供庫存、物流、技術支援。營收規模很大、毛利很薄，是觀察電子業庫存與景氣的好指標。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "晶片原廠",
+     "desc": "",
+     "tw": [
+      [
+       "2454",
+       "聯發科",
+       "晶片"
+      ]
+     ],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "晶片"
+      ],
+      [
+       "INTC",
+       "英特爾",
+       "晶片"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "IC 通路商",
+     "desc": "",
+     "tw": [
+      [
+       "3702",
+       "大聯大",
+       "亞洲最大 IC 通路"
+      ],
+      [
+       "3036",
+       "文曄",
+       "IC 通路（併購 Future Electronics）"
+      ],
+      [
+       "2347",
+       "聯強",
+       "3C 通路"
+      ],
+      [
+       "8070",
+       "長華*",
+       "封裝材料通路"
+      ]
+     ],
+     "us": [
+      [
+       "AVT",
+       "安富利",
+       "IC 通路"
+      ],
+      [
+       "ARW",
+       "艾睿電子",
+       "IC 通路"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "電子製造廠",
+     "desc": "",
+     "tw": [
+      [
+       "2317",
+       "鴻海",
+       "代工"
+      ]
+     ],
+     "us": []
+    }
+   ],
+   "terms": [
+    [
+     "庫存調整",
+     "下游電子廠減少拉貨，通路商營收先受影響"
+    ]
+   ],
+   "drivers": [
+    "電子業景氣回升",
+    "AI 相關晶片出貨"
+   ],
+   "risks": [
+    "毛利低",
+    "庫存跌價"
+   ],
+   "rel": [
+    "安富利、艾睿電子財報可對照大聯大、文曄的景氣。"
+   ],
+   "watch": [
+    "大聯大、文曄月營收"
+   ],
+   "flow": [
+    [
+     "🏭",
+     "晶片原廠"
+    ],
+    [
+     "📦",
+     "IC 通路倉儲"
+    ],
+    [
+     "🚚",
+     "配送"
+    ],
+    [
+     "🔧",
+     "電子廠"
+    ]
+   ]
+  },
+  {
+   "id": "apple",
+   "icon": "📱",
+   "name": "蘋果與手機供應鏈",
+   "intro": "蘋果是台灣電子業最大的客戶之一，從晶片、鏡頭到組裝都有台廠。iPhone 每年 9 月發表，第三、四季是供應鏈旺季。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "晶片",
+     "desc": "iPhone、Mac 的處理器由蘋果自己設計、台積電製造。",
+     "tw": [
+      [
+       "2330",
+       "台積電",
+       "A、M 系列處理器"
+      ],
+      [
+       "2454",
+       "聯發科",
+       "Android 手機晶片（競爭對手陣營）"
+      ]
+     ],
+     "us": [
+      [
+       "QCOM",
+       "高通",
+       "Android 手機晶片、數據機"
+      ],
+      [
+       "AVGO",
+       "博通",
+       "無線通訊晶片"
+      ]
+     ]
+    },
+    {
+     "lv": "上游",
+     "name": "射頻（RF）晶片",
+     "desc": "手機收發訊號的功率放大器（PA）、濾波器。美國射頻晶片廠設計，砷化鎵晶圓交給穩懋等代工。",
+     "tw": [
+      [
+       "3105",
+       "穩懋",
+       "砷化鎵代工龍頭（PA、3D 感測 VCSEL）"
+      ],
+      [
+       "8086",
+       "宏捷科",
+       "砷化鎵代工"
+      ],
+      [
+       "2455",
+       "全新",
+       "砷化鎵磊晶"
+      ]
+     ],
+     "us": [
+      [
+       "SWKS",
+       "Skyworks",
+       "射頻晶片（2026 年 10 月已合併 Qorvo）"
+      ],
+      [
+       "AVGO",
+       "博通",
+       "射頻濾波器、無線晶片"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "零組件：鏡頭、機殼、電路板、電池",
+     "desc": "手機的眼睛、外殼、電路和電池。",
+     "tw": [
+      [
+       "3008",
+       "大立光",
+       "手機鏡頭"
+      ],
+      [
+       "3406",
+       "玉晶光",
+       "手機鏡頭"
+      ],
+      [
+       "2474",
+       "可成",
+       "金屬機殼"
+      ],
+      [
+       "4958",
+       "臻鼎-KY",
+       "軟板、電路板"
+      ],
+      [
+       "2313",
+       "華通",
+       "HDI 板"
+      ],
+      [
+       "6121",
+       "新普",
+       "電池模組"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "下游",
+     "name": "組裝",
+     "desc": "把零件組成手機，主要在中國、印度工廠生產。",
+     "tw": [
+      [
+       "2317",
+       "鴻海",
+       "iPhone 主力組裝"
+      ],
+      [
+       "4938",
+       "和碩",
+       "iPhone 組裝"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "終端",
+     "name": "品牌",
+     "desc": "",
+     "tw": [],
+     "us": [
+      [
+       "AAPL",
+       "蘋果",
+       "iPhone、Mac、服務"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "蘋果財報（1、4、7、10 月底）和 iPhone 銷售消息，影響大立光、鴻海、和碩、可成等。",
+    "大立光月營收常被當成 iPhone 拉貨的參考。",
+    "Skyworks（2026 年 10 月已合併 Qorvo）是穩懋、宏捷科的主要客戶，它們的財報與財測是台灣砷化鎵族群的重要參考。"
+   ],
+   "watch": [
+    "9 月蘋果發表會",
+    "蘋果財報",
+    "大立光、鴻海月營收"
+   ],
+   "cat": "終端應用",
+   "terms": [
+    [
+     "拉貨",
+     "品牌廠向供應商下單備貨"
+    ],
+    [
+     "旺季",
+     "第三、四季新機上市"
+    ]
+   ],
+   "drivers": [
+    "新 iPhone 規格升級",
+    "AI 功能帶動換機"
+   ],
+   "risks": [
+    "iPhone 銷售不如預期",
+    "關稅、生產移轉"
+   ],
+   "flow": [
+    [
+     "🧠",
+     "A 系列晶片"
+    ],
+    [
+     "📷",
+     "鏡頭"
+    ],
+    [
+     "🟩",
+     "電路板"
+    ],
+    [
+     "🔋",
+     "電池"
+    ],
+    [
+     "🔧",
+     "組裝"
+    ],
+    [
+     "📱",
+     "iPhone"
+    ]
+   ]
+  },
+  {
+   "id": "ev",
+   "icon": "🚗",
+   "name": "電動車",
+   "intro": "電動車需要大量電子零件（電源、功率半導體、感測器）。特斯拉是指標，台灣多做零組件和電源。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "晶片與功率半導體",
+     "desc": "控制馬達、電池的晶片，以及車用電腦晶片。",
+     "tw": [
+      [
+       "2330",
+       "台積電",
+       "車用晶片代工"
+      ],
+      [
+       "5347",
+       "世界",
+       "電源晶片"
+      ]
+     ],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "自駕晶片"
+      ],
+      [
+       "ON",
+       "安森美",
+       "車用功率半導體"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "零組件",
+     "desc": "電源、齒輪、線束、車燈等。",
+     "tw": [
+      [
+       "2308",
+       "台達電",
+       "車用電源"
+      ],
+      [
+       "1536",
+       "和大",
+       "傳動齒輪"
+      ],
+      [
+       "3665",
+       "貿聯-KY",
+       "線束"
+      ],
+      [
+       "1533",
+       "車王電",
+       "車用電子"
+      ]
+     ],
+     "us": [],
+     "jp": [
+      [
+       "6902",
+       "電裝",
+       "車用零組件"
+      ]
+     ],
+     "kr": [
+      [
+       "373220",
+       "LG 新能源",
+       "電動車電池"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "整車",
+     "desc": "",
+     "tw": [
+      [
+       "2317",
+       "鴻海",
+       "電動車代工"
+      ]
+     ],
+     "us": [
+      [
+       "TSLA",
+       "特斯拉",
+       "電動車龍頭"
+      ],
+      [
+       "RIVN",
+       "Rivian",
+       "電動車"
+      ]
+     ],
+     "jp": [
+      [
+       "7203",
+       "豐田",
+       "整車"
+      ]
+     ],
+     "kr": [
+      [
+       "005380",
+       "現代汽車",
+       "整車"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "特斯拉交車數與財報影響和大、貿聯、台達電等特斯拉供應鏈。"
+   ],
+   "watch": [
+    "特斯拉每季交車數（季初公布）",
+    "特斯拉財報"
+   ],
+   "cat": "終端應用",
+   "terms": [
+    [
+     "800V 架構",
+     "高壓平台，充電更快"
+    ],
+    [
+     "Tier 1",
+     "直接供貨給車廠的一級供應商"
+    ]
+   ],
+   "drivers": [
+    "電動車滲透率提升",
+    "自駕"
+   ],
+   "risks": [
+    "價格戰",
+    "補貼政策退場"
+   ],
+   "flow": [
+    [
+     "🔋",
+     "電池"
+    ],
+    [
+     "⚡",
+     "功率半導體"
+    ],
+    [
+     "⚙️",
+     "馬達／傳動"
+    ],
+    [
+     "🧠",
+     "自駕電腦"
+    ],
+    [
+     "🚙",
+     "電動車"
+    ],
+    [
+     "🔌",
+     "充電樁"
+    ]
+   ]
+  },
+  {
+   "id": "robot",
+   "icon": "🦾",
+   "name": "機器人",
+   "intro": "人形機器人和工業自動化是 AI 的下一個應用。台灣在精密傳動零件（滑軌、減速機）有優勢。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "AI 晶片與軟體",
+     "desc": "機器人的大腦。",
+     "tw": [],
+     "us": [
+      [
+       "NVDA",
+       "輝達",
+       "機器人平台"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "傳動與控制零件",
+     "desc": "線性滑軌、減速機、馬達、氣動元件。",
+     "tw": [
+      [
+       "2049",
+       "上銀",
+       "線性滑軌、機器手臂"
+      ],
+      [
+       "4583",
+       "台灣精銳",
+       "減速機"
+      ],
+      [
+       "1590",
+       "亞德客-KY",
+       "氣動元件"
+      ],
+      [
+       "2308",
+       "台達電",
+       "伺服馬達"
+      ],
+      [
+       "1504",
+       "東元",
+       "馬達"
+      ]
+     ],
+     "us": [],
+     "jp": [
+      [
+       "6954",
+       "發那科",
+       "工業機器人"
+      ],
+      [
+       "6506",
+       "安川電機",
+       "伺服馬達、機器人"
+      ],
+      [
+       "6324",
+       "哈默納科",
+       "諧波減速機"
+      ],
+      [
+       "6861",
+       "基恩斯",
+       "感測器"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "機器人整機",
+     "desc": "",
+     "tw": [
+      [
+       "2317",
+       "鴻海",
+       "機器人應用"
+      ]
+     ],
+     "us": [
+      [
+       "TSLA",
+       "特斯拉",
+       "Optimus 人形機器人"
+      ],
+      [
+       "ISRG",
+       "直覺手術",
+       "手術機器人"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "輝達、特斯拉發表機器人相關消息時，上銀、台灣精銳、亞德客常有題材行情。"
+   ],
+   "watch": [
+    "輝達 GTC、特斯拉 Optimus 進度"
+   ],
+   "cat": "終端應用",
+   "terms": [
+    [
+     "人形機器人",
+     "長得像人的通用機器人"
+    ],
+    [
+     "減速機",
+     "降低轉速、增加力量的傳動零件"
+    ]
+   ],
+   "drivers": [
+    "AI 帶動機器人應用",
+    "人力短缺"
+   ],
+   "risks": [
+    "商業化時程不確定"
+   ],
+   "flow": [
+    [
+     "🧠",
+     "AI 晶片"
+    ],
+    [
+     "👁️",
+     "感測器"
+    ],
+    [
+     "⚙️",
+     "減速機"
+    ],
+    [
+     "🔩",
+     "滑軌"
+    ],
+    [
+     "🦾",
+     "機器手臂"
+    ],
+    [
+     "🤖",
+     "人形機器人"
+    ]
+   ]
+  },
+  {
+   "id": "auto",
+   "cat": "終端應用",
+   "icon": "🚙",
+   "name": "車用電子與汽車零組件",
+   "intro": "一台車的電子零件成本越來越高：自駕感測器、車用電腦、電動車電源、車燈。台灣汽車零組件分成兩類：賣給車廠的「原廠件（OEM）」和賣給維修市場的「售後件（AM）」，台灣 AM 零件在美國市占很高。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "車用晶片",
+     "desc": "車用 MCU、功率元件、影像感測器，要求高可靠度。",
+     "tw": [
+      [
+       "2303",
+       "聯電",
+       "車用晶片代工"
+      ],
+      [
+       "5347",
+       "世界",
+       "車用電源晶片"
+      ],
+      [
+       "2330",
+       "台積電",
+       "車用先進製程"
+      ]
+     ],
+     "us": [
+      [
+       "NXPI",
+       "恩智浦",
+       "車用 MCU"
+      ],
+      [
+       "ON",
+       "安森美",
+       "車用影像、SiC"
+      ],
+      [
+       "NVDA",
+       "輝達",
+       "自駕平台"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "車用電子零件",
+     "desc": "胎壓偵測、倒車雷達、攝影機模組、線束、電源。",
+     "tw": [
+      [
+       "2231",
+       "為升",
+       "胎壓偵測 TPMS"
+      ],
+      [
+       "3552",
+       "同致",
+       "倒車雷達、攝影機"
+      ],
+      [
+       "6271",
+       "同欣電",
+       "車用影像感測封裝"
+      ],
+      [
+       "3665",
+       "貿聯-KY",
+       "線束"
+      ],
+      [
+       "2308",
+       "台達電",
+       "車用電源"
+      ]
+     ],
+     "us": [
+      [
+       "APTV",
+       "Aptiv",
+       "車用電子系統"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "汽車零組件（含售後 AM 市場）",
+     "desc": "車燈、保險桿、鈑金、傳動零件，台灣是美國售後市場的主要供應國。",
+     "tw": [
+      [
+       "1522",
+       "堤維西",
+       "車燈（AM）"
+      ],
+      [
+       "1524",
+       "耿鼎",
+       "鈑金件"
+      ],
+      [
+       "1319",
+       "東陽",
+       "保險桿（AM）"
+      ],
+      [
+       "1536",
+       "和大",
+       "傳動齒輪"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "下游",
+     "name": "整車與經銷",
+     "desc": "",
+     "tw": [
+      [
+       "2201",
+       "裕隆",
+       "整車"
+      ],
+      [
+       "2207",
+       "和泰車",
+       "TOYOTA 代理"
+      ],
+      [
+       "2317",
+       "鴻海",
+       "電動車代工"
+      ]
+     ],
+     "us": [
+      [
+       "TSLA",
+       "特斯拉",
+       "電動車"
+      ],
+      [
+       "GM",
+       "通用汽車",
+       "整車"
+      ],
+      [
+       "F",
+       "福特",
+       "整車"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "OEM",
+     "原廠件，直接賣給車廠"
+    ],
+    [
+     "AM",
+     "After Market 售後維修件，台灣業者強項"
+    ],
+    [
+     "TPMS",
+     "胎壓偵測系統"
+    ],
+    [
+     "ADAS",
+     "先進駕駛輔助系統（自動煞車、車道維持）"
+    ]
+   ],
+   "drivers": [
+    "車用電子含量提升",
+    "美國售後市場需求穩定",
+    "電動車、自駕"
+   ],
+   "risks": [
+    "美國關稅",
+    "車市景氣",
+    "電動車價格戰"
+   ],
+   "rel": [
+    "美國車市、關稅政策直接影響台灣 AM 零件股（堤維西、東陽）。",
+    "特斯拉、恩智浦財報可參考車用景氣。"
+   ],
+   "watch": [
+    "美國關稅政策",
+    "美國汽車銷量",
+    "特斯拉交車數"
+   ],
+   "flow": [
+    [
+     "🧠",
+     "車用晶片"
+    ],
+    [
+     "📡",
+     "感測器"
+    ],
+    [
+     "🔌",
+     "線束"
+    ],
+    [
+     "💡",
+     "車燈"
+    ],
+    [
+     "🚗",
+     "整車"
+    ],
+    [
+     "🔧",
+     "維修市場"
+    ]
+   ]
+  },
+  {
+   "id": "consumer",
+   "cat": "終端應用",
+   "icon": "💻",
+   "name": "消費性電子（PC／筆電／面板／周邊）",
+   "intro": "電腦、筆電、螢幕、電視等消費性電子，台灣從晶片、面板到代工組裝和品牌都有。屬於成熟產業，看換機潮（例如 Windows 更新、AI PC）和景氣。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "晶片",
+     "desc": "處理器、顯示驅動 IC、音效網通晶片。",
+     "tw": [
+      [
+       "2454",
+       "聯發科",
+       "晶片"
+      ],
+      [
+       "3034",
+       "聯詠",
+       "面板驅動 IC"
+      ],
+      [
+       "2379",
+       "瑞昱",
+       "網通、音效"
+      ]
+     ],
+     "us": [
+      [
+       "INTC",
+       "英特爾",
+       "PC 處理器"
+      ],
+      [
+       "AMD",
+       "超微",
+       "PC 處理器"
+      ],
+      [
+       "QCOM",
+       "高通",
+       "AI PC 處理器"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "面板",
+     "desc": "電視、螢幕、筆電面板，價格有明顯循環。",
+     "tw": [
+      [
+       "2409",
+       "友達",
+       "面板"
+      ],
+      [
+       "3481",
+       "群創",
+       "面板"
+      ],
+      [
+       "6116",
+       "彩晶",
+       "面板"
+      ],
+      [
+       "5371",
+       "中光電",
+       "背光模組、投影"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "零組件與周邊",
+     "desc": "鍵盤、電源、機殼、散熱。",
+     "tw": [
+      [
+       "2385",
+       "群光",
+       "鍵盤、影像"
+      ],
+      [
+       "2301",
+       "光寶科",
+       "電源"
+      ],
+      [
+       "2474",
+       "可成",
+       "機殼"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "下游",
+     "name": "代工組裝（ODM）",
+     "desc": "幫品牌廠設計、生產筆電。",
+     "tw": [
+      [
+       "2382",
+       "廣達",
+       "筆電代工龍頭"
+      ],
+      [
+       "2324",
+       "仁寶",
+       "筆電"
+      ],
+      [
+       "4938",
+       "和碩",
+       "筆電、消費電子"
+      ],
+      [
+       "2356",
+       "英業達",
+       "筆電"
+      ],
+      [
+       "3231",
+       "緯創",
+       "筆電"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "終端",
+     "name": "品牌",
+     "desc": "",
+     "tw": [
+      [
+       "2357",
+       "華碩",
+       "PC 品牌"
+      ],
+      [
+       "2353",
+       "宏碁",
+       "PC 品牌"
+      ],
+      [
+       "2377",
+       "微星",
+       "電競"
+      ],
+      [
+       "2376",
+       "技嘉",
+       "主機板、顯卡"
+      ],
+      [
+       "2395",
+       "研華",
+       "工業電腦"
+      ]
+     ],
+     "us": [
+      [
+       "DELL",
+       "戴爾",
+       "PC"
+      ],
+      [
+       "HPQ",
+       "惠普",
+       "PC"
+      ],
+      [
+       "AAPL",
+       "蘋果",
+       "Mac"
+      ],
+      [
+       "MSFT",
+       "微軟",
+       "Windows"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "ODM",
+     "代工廠負責設計＋生產，品牌廠只掛牌子"
+    ],
+    [
+     "AI PC",
+     "內建 AI 運算單元（NPU）的電腦"
+    ],
+    [
+     "面板報價",
+     "面板價格每月公布，影響面板廠獲利"
+    ]
+   ],
+   "drivers": [
+    "Windows 更新換機潮",
+    "AI PC",
+    "電競"
+   ],
+   "risks": [
+    "消費需求疲弱",
+    "面板供過於求",
+    "關稅"
+   ],
+   "rel": [
+    "戴爾、惠普財報與 PC 出貨數據影響華碩、宏碁和筆電代工廠。",
+    "微軟 Windows 政策（停止支援舊版）會帶動換機。"
+   ],
+   "watch": [
+    "全球 PC 出貨量（季）",
+    "面板報價",
+    "華碩、廣達月營收"
+   ],
+   "flow": [
+    [
+     "🧠",
+     "處理器"
+    ],
+    [
+     "🖥️",
+     "面板"
+    ],
+    [
+     "⌨️",
+     "鍵盤機殼"
+    ],
+    [
+     "🏭",
+     "ODM 代工"
+    ],
+    [
+     "🏷️",
+     "品牌"
+    ],
+    [
+     "🛒",
+     "消費者"
+    ]
+   ]
+  },
+  {
+   "id": "power",
+   "icon": "⚡",
+   "name": "電力與重電（AI 用電）",
+   "intro": "AI 資料中心超級耗電：美國電網要升級、變壓器缺貨、核能重新被重視，台灣也推動強韌電網計畫。這是 AI 從科技股擴散到傳產重電的路線。散熱另見「散熱」產業。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "發電與能源",
+     "desc": "電從哪裡來：天然氣、核能、再生能源。美國電力公司因資料中心用電大增而受惠。",
+     "tw": [],
+     "us": [
+      [
+       "CEG",
+       "Constellation",
+       "核電"
+      ],
+      [
+       "VST",
+       "Vistra",
+       "電力公司"
+      ],
+      [
+       "OKLO",
+       "Oklo",
+       "小型核反應爐"
+      ],
+      [
+       "SMR",
+       "NuScale",
+       "小型核反應爐"
+      ],
+      [
+       "CCJ",
+       "Cameco",
+       "鈾礦"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "電網與重電設備",
+     "desc": "變壓器、配電盤、電纜，把電送到資料中心。",
+     "tw": [
+      [
+       "1519",
+       "華城",
+       "變壓器"
+      ],
+      [
+       "1503",
+       "士電",
+       "重電"
+      ],
+      [
+       "1513",
+       "中興電",
+       "重電、配電"
+      ],
+      [
+       "1514",
+       "亞力",
+       "配電設備"
+      ],
+      [
+       "1605",
+       "華新",
+       "電線電纜"
+      ]
+     ],
+     "us": [
+      [
+       "GEV",
+       "GE Vernova",
+       "電網、燃氣渦輪"
+      ],
+      [
+       "ETN",
+       "伊頓",
+       "配電設備"
+      ]
+     ],
+     "jp": [
+      [
+       "6501",
+       "日立",
+       "電網設備"
+      ],
+      [
+       "6503",
+       "三菱電機",
+       "電力設備"
+      ]
+     ],
+     "kr": [
+      [
+       "267260",
+       "HD 現代電氣",
+       "變壓器"
+      ],
+      [
+       "010120",
+       "LS Electric",
+       "電力設備"
+      ],
+      [
+       "298040",
+       "曉星重工業",
+       "變壓器"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "機房電源",
+     "desc": "把電轉換成伺服器能用的電，AI 伺服器需要更高瓦數的電源。",
+     "tw": [
+      [
+       "2308",
+       "台達電",
+       "電源、機房解決方案"
+      ],
+      [
+       "2301",
+       "光寶科",
+       "伺服器電源"
+      ]
+     ],
+     "us": [
+      [
+       "VRT",
+       "Vertiv",
+       "資料中心電源"
+      ]
+     ]
+    }
+   ],
+   "rel": [
+    "GE Vernova、伊頓、Vertiv 大漲時，台灣重電（華城、士電、中興電）和台達電常同步。",
+    "美國核能、電力股反映「AI 用電需求」題材，台股較少直接對應，可當作 AI 熱度的溫度計。"
+   ],
+   "watch": [
+    "台電強韌電網計畫標案",
+    "Vertiv、GE Vernova 財報",
+    "奇鋐、雙鴻月營收"
+   ],
+   "cat": "能源與綠能",
+   "terms": [
+    [
+     "變壓器",
+     "把電壓升高或降低的設備，美國嚴重缺貨"
+    ],
+    [
+     "強韌電網",
+     "台電電網升級計畫"
+    ],
+    [
+     "SMR",
+     "小型模組化核反應爐"
+    ]
+   ],
+   "drivers": [
+    "AI 資料中心用電暴增",
+    "電網老舊需要更新",
+    "核能復興"
+   ],
+   "risks": [
+    "政策與標案時程",
+    "原物料（銅、矽鋼片）成本"
+   ],
+   "flow": [
+    [
+     "🏭",
+     "發電廠"
+    ],
+    [
+     "⬆️",
+     "升壓變壓器"
+    ],
+    [
+     "🗼",
+     "輸電鐵塔"
+    ],
+    [
+     "🎛️",
+     "電網調度"
+    ],
+    [
+     "🏗️",
+     "變電所"
+    ],
+    [
+     "🔌",
+     "配電設備"
+    ],
+    [
+     "🏢",
+     "資料中心／住家"
+    ]
+   ],
+   "parts": {
+    "title": "變壓器裡面有什麼",
+    "items": [
+     [
+      "🧲",
+      "矽鋼片鐵芯",
+      "導磁、降低損耗，矽鋼片缺貨會影響交期"
+     ],
+     [
+      "🟠",
+      "銅線圈",
+      "一次側、二次側線圈，用電壓比例升降壓"
+     ],
+     [
+      "🛢️",
+      "絕緣油",
+      "散熱與絕緣"
+     ],
+     [
+      "⚡",
+      "斷路器",
+      "出事時自動切斷電流，保護設備"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "green",
+   "cat": "能源與綠能",
+   "icon": "☀️",
+   "name": "綠能（太陽能／風電／儲能）",
+   "intro": "台灣推動能源轉型，加上 AI 資料中心用電大增，太陽能、離岸風電、儲能系統都有需求。綠能股受政策和利率影響大。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "太陽能電池與模組",
+     "desc": "",
+     "tw": [
+      [
+       "3576",
+       "聯合再生",
+       "太陽能"
+      ],
+      [
+       "6443",
+       "元晶",
+       "太陽能電池、模組"
+      ]
+     ],
+     "us": [
+      [
+       "FSLR",
+       "First Solar",
+       "太陽能模組"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "風電",
+     "desc": "離岸風電水下基礎、海事工程。",
+     "tw": [
+      [
+       "9958",
+       "世紀鋼",
+       "風電水下基礎"
+      ]
+     ],
+     "us": [
+      [
+       "GEV",
+       "GE Vernova",
+       "風機"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "儲能與電力轉換",
+     "desc": "儲能櫃、逆變器、電力轉換系統。",
+     "tw": [
+      [
+       "2308",
+       "台達電",
+       "儲能、電源"
+      ]
+     ],
+     "us": [
+      [
+       "ENPH",
+       "Enphase",
+       "逆變器"
+      ],
+      [
+       "TSLA",
+       "特斯拉",
+       "儲能 Megapack"
+      ]
+     ],
+     "jp": [
+      [
+       "6752",
+       "Panasonic",
+       "電池"
+      ]
+     ],
+     "kr": [
+      [
+       "373220",
+       "LG 新能源",
+       "電池芯"
+      ],
+      [
+       "006400",
+       "三星 SDI",
+       "電池芯"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "電力公司",
+     "desc": "",
+     "tw": [],
+     "us": [
+      [
+       "NEE",
+       "NextEra",
+       "美國再生能源電力"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "儲能",
+     "把電存起來、需要時再放出，穩定電網"
+    ],
+    [
+     "離岸風電",
+     "蓋在海上的風力發電"
+    ]
+   ],
+   "drivers": [
+    "能源轉型政策",
+    "AI 用電需求",
+    "電網韌性"
+   ],
+   "risks": [
+    "政策補貼變動",
+    "高利率不利綠能投資"
+   ],
+   "rel": [
+    "美國綠能補貼政策（例如減稅法案調整）會影響 First Solar、Enphase，間接影響台灣綠能題材。"
+   ],
+   "watch": [
+    "台灣綠能政策與標案",
+    "美國綠能補貼政策"
+   ],
+   "flow": [
+    [
+     "☀️",
+     "太陽能"
+    ],
+    [
+     "🌬️",
+     "離岸風電"
+    ],
+    [
+     "🔋",
+     "儲能"
+    ],
+    [
+     "🔄",
+     "併網"
+    ],
+    [
+     "🏢",
+     "用電戶"
+    ]
+   ]
+  },
+  {
+   "id": "bio",
+   "cat": "生技醫療",
+   "icon": "🧬",
+   "name": "生技醫療",
+   "intro": "生技醫療分成新藥研發（高風險高報酬，看臨床試驗結果）、學名藥與代工（CDMO，比較穩）、醫療器材、通路。美國是全球最大市場，台灣新藥公司常以「授權給國際藥廠」或「美國 FDA 核准」作為重大里程碑。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "新藥研發",
+     "desc": "從實驗室到臨床一、二、三期試驗，通過後向 FDA 申請上市。成功率低、時間長。",
+     "tw": [
+      [
+       "6446",
+       "藥華藥",
+       "血液疾病新藥（已在美上市）"
+      ],
+      [
+       "4743",
+       "合一",
+       "糖尿病足傷口藥"
+      ],
+      [
+       "4147",
+       "中裕",
+       "愛滋病抗體新藥"
+      ],
+      [
+       "4174",
+       "浩鼎",
+       "癌症新藥"
+      ],
+      [
+       "6547",
+       "高端疫苗",
+       "疫苗"
+      ]
+     ],
+     "us": [
+      [
+       "LLY",
+       "禮來",
+       "減重藥、糖尿病藥"
+      ],
+      [
+       "NVO",
+       "諾和諾德",
+       "減重藥（ADR）"
+      ],
+      [
+       "VRTX",
+       "Vertex",
+       "罕見疾病"
+      ],
+      [
+       "REGN",
+       "Regeneron",
+       "抗體藥"
+      ],
+      [
+       "MRNA",
+       "Moderna",
+       "mRNA 疫苗"
+      ]
+     ],
+     "jp": [
+      [
+       "4568",
+       "第一三共",
+       "抗體藥物複合體 ADC"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "學名藥、原料藥與 CDMO 代工",
+     "desc": "幫國際藥廠代工製造，或生產專利過期的學名藥，營收較穩定。",
+     "tw": [
+      [
+       "6472",
+       "保瑞",
+       "CDMO 代工"
+      ],
+      [
+       "1795",
+       "美時",
+       "學名藥"
+      ],
+      [
+       "1789",
+       "神隆",
+       "原料藥"
+      ],
+      [
+       "6589",
+       "台康生技",
+       "生物藥 CDMO"
+      ]
+     ],
+     "us": [
+      [
+       "TMO",
+       "賽默飛",
+       "生技設備與 CDMO"
+      ]
+     ],
+     "kr": [
+      [
+       "207940",
+       "三星生物",
+       "生物藥 CDMO"
+      ],
+      [
+       "068270",
+       "Celltrion",
+       "生物相似藥"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "醫療器材",
+     "desc": "隱形眼鏡、血糖機、醫療耗材、手術設備。",
+     "tw": [
+      [
+       "6491",
+       "晶碩",
+       "隱形眼鏡"
+      ],
+      [
+       "1565",
+       "精華",
+       "隱形眼鏡"
+      ],
+      [
+       "4107",
+       "邦特",
+       "血液管路耗材"
+      ],
+      [
+       "4736",
+       "泰博",
+       "血糖機"
+      ],
+      [
+       "1736",
+       "喬山",
+       "健身器材"
+      ]
+     ],
+     "us": [
+      [
+       "ISRG",
+       "直覺手術",
+       "手術機器人"
+      ],
+      [
+       "ABT",
+       "亞培",
+       "醫材、血糖監測"
+      ],
+      [
+       "MDT",
+       "美敦力",
+       "醫材"
+      ],
+      [
+       "SYK",
+       "史賽克",
+       "骨科醫材"
+      ],
+      [
+       "BSX",
+       "波士頓科學",
+       "心血管醫材"
+      ],
+      [
+       "DXCM",
+       "Dexcom",
+       "連續血糖監測"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "通路與醫療服務",
+     "desc": "藥局、醫院、保險。",
+     "tw": [
+      [
+       "6469",
+       "大樹",
+       "連鎖藥局"
+      ]
+     ],
+     "us": [
+      [
+       "UNH",
+       "聯合健康",
+       "醫療保險"
+      ],
+      [
+       "CVS",
+       "CVS",
+       "藥局"
+      ],
+      [
+       "MCK",
+       "麥克森",
+       "藥品通路"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "臨床一／二／三期",
+     "新藥試驗的三個階段，三期成功才能申請上市"
+    ],
+    [
+     "FDA",
+     "美國食品藥物管理局，核准藥品上市"
+    ],
+    [
+     "授權（Licensing）",
+     "把新藥權利賣給大藥廠，拿簽約金和權利金"
+    ],
+    [
+     "CDMO",
+     "委託開發暨製造，藥廠的代工廠"
+    ],
+    [
+     "GLP-1",
+     "減重藥（禮來、諾和諾德）的作用機轉"
+    ]
+   ],
+   "drivers": [
+    "減重藥（GLP-1）市場爆發",
+    "新藥授權、FDA 核准",
+    "高齡化"
+   ],
+   "risks": [
+    "臨床試驗失敗股價可能腰斬",
+    "美國藥價政策",
+    "現金燒完需要增資"
+   ],
+   "rel": [
+    "台灣生技和美股連動較低，主要看個別公司的臨床結果和授權消息。",
+    "禮來、諾和諾德的減重藥熱潮，會帶動相關 CDMO 和學名藥題材。",
+    "美國藥價、醫療政策改變時，美國藥廠和醫療股會大幅波動。"
+   ],
+   "watch": [
+    "個別公司臨床試驗解盲時間",
+    "FDA 審查結果",
+    "美國藥價政策"
+   ],
+   "flow": [
+    [
+     "🔬",
+     "研發"
+    ],
+    [
+     "🐭",
+     "動物試驗"
+    ],
+    [
+     "👥",
+     "臨床一二三期"
+    ],
+    [
+     "✅",
+     "FDA 核准"
+    ],
+    [
+     "🏭",
+     "量產"
+    ],
+    [
+     "💊",
+     "上市銷售"
+    ]
+   ]
+  },
+  {
+   "id": "leo",
+   "icon": "🛰️",
+   "name": "低軌衛星",
+   "intro": "SpaceX 星鏈（Starlink）帶動低軌衛星通訊，台灣供應衛星和地面接收設備的零組件。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "衛星零組件",
+     "desc": "衛星上的電路板、微波元件。",
+     "tw": [
+      [
+       "2313",
+       "華通",
+       "衛星電路板"
+      ],
+      [
+       "3491",
+       "昇達科",
+       "微波元件"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "發射與衛星營運",
+     "desc": "SpaceX 尚未上市。",
+     "tw": [],
+     "us": [
+      [
+       "RKLB",
+       "Rocket Lab",
+       "火箭發射、衛星"
+      ],
+      [
+       "ASTS",
+       "AST SpaceMobile",
+       "手機直連衛星"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "地面接收設備",
+     "desc": "用戶端的天線、接收器。",
+     "tw": [
+      [
+       "6285",
+       "啟碁",
+       "衛星地面終端"
+      ],
+      [
+       "2314",
+       "台揚",
+       "微波通訊"
+      ]
+     ],
+     "us": []
+    }
+   ],
+   "rel": [
+    "SpaceX 上市、星鏈用戶數消息，以及 Rocket Lab 等美股表現，會帶動台灣衛星族群。"
+   ],
+   "watch": [
+    "SpaceX、星鏈消息",
+    "Rocket Lab 財報"
+   ],
+   "cat": "國防與航太",
+   "terms": [
+    [
+     "低軌衛星",
+     "在約 500 公里高度運行的衛星，延遲低"
+    ],
+    [
+     "星鏈",
+     "SpaceX 的衛星網路服務"
+    ]
+   ],
+   "drivers": [
+    "星鏈用戶成長",
+    "軍事通訊需求"
+   ],
+   "risks": [
+    "題材波動大、營收占比小"
+   ],
+   "flow": [
+    [
+     "🟩",
+     "衛星電路板"
+    ],
+    [
+     "📡",
+     "微波元件"
+    ],
+    [
+     "🛰️",
+     "衛星"
+    ],
+    [
+     "🚀",
+     "發射"
+    ],
+    [
+     "📡",
+     "地面接收器"
+    ],
+    [
+     "🏠",
+     "用戶"
+    ]
+   ]
+  },
+  {
+   "id": "defense",
+   "cat": "國防與航太",
+   "icon": "🛡️",
+   "name": "軍工與無人機",
+   "intro": "台灣推動國防自主（國機國造、國艦國造）、國防預算增加，以及無人機國家隊，讓軍工、航太、無人機成為政策題材。美國軍工股則反映全球地緣政治與國防支出。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "零組件與材料",
+     "desc": "微波通訊、強固電腦、航太零件。",
+     "tw": [
+      [
+       "5222",
+       "全訊",
+       "軍用微波元件"
+      ],
+      [
+       "3005",
+       "神基",
+       "強固型電腦"
+      ],
+      [
+       "8222",
+       "寶一",
+       "航太零件"
+      ],
+      [
+       "4572",
+       "駐龍",
+       "航太零件"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "航太製造與維修",
+     "desc": "飛機製造、引擎零件、維修。",
+     "tw": [
+      [
+       "2634",
+       "漢翔",
+       "國機國造、航太零件"
+      ],
+      [
+       "2645",
+       "長榮航太",
+       "飛機維修"
+      ]
+     ],
+     "us": [
+      [
+       "BA",
+       "波音",
+       "飛機"
+      ],
+      [
+       "GE",
+       "奇異航太",
+       "飛機引擎"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "造船（國艦國造）",
+     "desc": "潛艦、軍艦。",
+     "tw": [
+      [
+       "2208",
+       "台船",
+       "潛艦國造"
+      ],
+      [
+       "6753",
+       "龍德造船",
+       "軍艦、公務船"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "無人機",
+     "desc": "無人機國家隊，軍用與民用。",
+     "tw": [
+      [
+       "8033",
+       "雷虎",
+       "無人機"
+      ],
+      [
+       "5371",
+       "中光電",
+       "無人機"
+      ]
+     ],
+     "us": [
+      [
+       "AVAV",
+       "AeroVironment",
+       "軍用無人機"
+      ],
+      [
+       "KTOS",
+       "Kratos",
+       "無人機、國防科技"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "國防大廠",
+     "desc": "",
+     "tw": [],
+     "us": [
+      [
+       "LMT",
+       "洛克希德馬丁",
+       "F-35、飛彈"
+      ],
+      [
+       "RTX",
+       "RTX",
+       "飛彈、引擎"
+      ],
+      [
+       "NOC",
+       "諾斯洛普",
+       "國防"
+      ],
+      [
+       "GD",
+       "通用動力",
+       "國防"
+      ],
+      [
+       "LHX",
+       "L3Harris",
+       "國防電子"
+      ],
+      [
+       "PLTR",
+       "Palantir",
+       "國防軟體"
+      ]
+     ],
+     "jp": [
+      [
+       "7011",
+       "三菱重工",
+       "國防、航太"
+      ]
+     ],
+     "kr": [
+      [
+       "012450",
+       "韓華航太",
+       "國防、引擎"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "國機國造",
+     "台灣自製教練機、戰機"
+    ],
+    [
+     "國艦國造",
+     "台灣自製潛艦、軍艦"
+    ],
+    [
+     "無人機國家隊",
+     "政府推動的國產無人機供應鏈"
+    ]
+   ],
+   "drivers": [
+    "國防預算增加",
+    "地緣政治緊張",
+    "無人機需求"
+   ],
+   "risks": [
+    "題材股波動大、實際營收貢獻有限",
+    "政策預算變動"
+   ],
+   "rel": [
+    "地緣政治事件時，美國軍工股（洛克希德、RTX）和台灣軍工題材股常同步上漲。",
+    "台灣國防預算、特別條例審議是台股軍工股的主要催化劑。"
+   ],
+   "watch": [
+    "國防預算",
+    "潛艦國造進度",
+    "無人機採購案"
+   ],
+   "flow": [
+    [
+     "🔩",
+     "零組件"
+    ],
+    [
+     "✈️",
+     "航太製造"
+    ],
+    [
+     "🚢",
+     "造艦"
+    ],
+    [
+     "🛸",
+     "無人機"
+    ],
+    [
+     "🛡️",
+     "國防部採購"
+    ]
+   ]
+  },
+  {
+   "id": "ship",
+   "icon": "🚢",
+   "name": "航運",
+   "intro": "航運股看運價，運價看全球貿易需求和船位供給，屬於景氣循環股，和科技股連動低。",
+   "stages": [
+    {
+     "lv": "中游",
+     "name": "貨櫃航運",
+     "desc": "運送消費品、電子產品的貨櫃船，看上海出口貨櫃運價指數（SCFI）。",
+     "tw": [
+      [
+       "2603",
+       "長榮",
+       "貨櫃航運"
+      ],
+      [
+       "2609",
+       "陽明",
+       "貨櫃航運"
+      ],
+      [
+       "2615",
+       "萬海",
+       "亞洲航線"
+      ]
+     ],
+     "us": [
+      [
+       "ZIM",
+       "以星",
+       "貨櫃航運"
+      ]
+     ],
+     "jp": [
+      [
+       "9101",
+       "日本郵船",
+       "航運"
+      ],
+      [
+       "9104",
+       "商船三井",
+       "航運"
+      ]
+     ],
+     "kr": [
+      [
+       "011200",
+       "HMM",
+       "貨櫃航運"
+      ],
+      [
+       "009540",
+       "HD 韓國造船海洋",
+       "造船"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "散裝航運",
+     "desc": "運送鐵礦、煤、穀物，看波羅的海乾散貨指數（BDI）。",
+     "tw": [
+      [
+       "2606",
+       "裕民",
+       "散裝"
+      ],
+      [
+       "2637",
+       "慧洋-KY",
+       "散裝"
+      ]
+     ],
+     "us": []
+    },
+    {
+     "lv": "中游",
+     "name": "航空",
+     "desc": "客運看旅遊需求，貨運看電子產品出貨。",
+     "tw": [
+      [
+       "2618",
+       "長榮航",
+       "航空"
+      ],
+      [
+       "2610",
+       "華航",
+       "航空"
+      ]
+     ],
+     "us": []
+    }
+   ],
+   "rel": [
+    "航運和美股科技股關聯低，較受關稅、紅海等國際事件與運價影響。"
+   ],
+   "watch": [
+    "SCFI 貨櫃運價（每週五）",
+    "BDI 指數",
+    "國際航線與關稅消息"
+   ],
+   "cat": "傳產與原物料",
+   "terms": [
+    [
+     "SCFI",
+     "上海出口貨櫃運價指數"
+    ],
+    [
+     "BDI",
+     "波羅的海乾散貨指數"
+    ]
+   ],
+   "drivers": [
+    "運價上漲",
+    "地緣政治繞道"
+   ],
+   "risks": [
+    "新船交付造成運力過剩",
+    "運價下跌"
+   ],
+   "flow": [
+    [
+     "🏭",
+     "工廠出貨"
+    ],
+    [
+     "📦",
+     "貨櫃"
+    ],
+    [
+     "🚢",
+     "海運"
+    ],
+    [
+     "⚓",
+     "港口"
+    ],
+    [
+     "🚚",
+     "陸運配送"
+    ]
+   ]
+  },
+  {
+   "id": "material",
+   "cat": "傳產與原物料",
+   "icon": "🏗️",
+   "name": "鋼鐵與塑化",
+   "intro": "鋼鐵、塑化是典型景氣循環股，看國際原物料報價和中國供需。台塑四寶（台塑、南亞、台化、台塑化）和中鋼是代表。",
+   "stages": [
+    {
+     "lv": "上游",
+     "name": "原料：原油、鐵礦",
+     "desc": "",
+     "tw": [
+      [
+       "6505",
+       "台塑化",
+       "煉油"
+      ]
+     ],
+     "us": [
+      [
+       "XOM",
+       "埃克森美孚",
+       "石油"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "基礎原料：塑化、鋼鐵",
+     "desc": "",
+     "tw": [
+      [
+       "1301",
+       "台塑",
+       "塑膠原料"
+      ],
+      [
+       "1326",
+       "台化",
+       "化纖、塑化"
+      ],
+      [
+       "1303",
+       "南亞",
+       "塑膠、電子材料"
+      ],
+      [
+       "2002",
+       "中鋼",
+       "鋼鐵龍頭"
+      ],
+      [
+       "2014",
+       "中鴻",
+       "鋼鐵"
+      ],
+      [
+       "2027",
+       "大成鋼",
+       "不鏽鋼"
+      ]
+     ],
+     "us": [
+      [
+       "DOW",
+       "陶氏",
+       "化工"
+      ],
+      [
+       "NUE",
+       "紐柯鋼",
+       "鋼鐵"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "應用",
+     "desc": "營建、汽車、家電、包材。",
+     "tw": [],
+     "us": []
+    }
+   ],
+   "terms": [
+    [
+     "報價",
+     "鋼價、塑化原料價格每月或每週公布"
+    ],
+    [
+     "利差（Spread）",
+     "產品價格減原料成本"
+    ]
+   ],
+   "drivers": [
+    "中國經濟刺激",
+    "原物料報價上漲"
+   ],
+   "risks": [
+    "中國產能過剩、低價傾銷",
+    "需求疲弱"
+   ],
+   "rel": [
+    "油價、美國化工與鋼鐵股反映原物料景氣；中國經濟政策影響最大。"
+   ],
+   "watch": [
+    "中鋼每月盤價",
+    "油價",
+    "中國經濟數據"
+   ],
+   "flow": [
+    [
+     "🛢️",
+     "原油／鐵礦"
+    ],
+    [
+     "🏭",
+     "煉製"
+    ],
+    [
+     "🧱",
+     "塑化原料／鋼材"
+    ],
+    [
+     "🏗️",
+     "營建／製造"
+    ]
+   ]
+  },
+  {
+   "id": "fin",
+   "cat": "金融與內需",
+   "icon": "🏦",
+   "name": "金融",
+   "intro": "金融股分成壽險、銀行、證券。壽險看股市和債市（投資收益）、匯率避險成本；銀行看利差（升息有利）；證券看成交量。金控股通常穩定配息，是存股族最愛。",
+   "stages": [
+    {
+     "lv": "中游",
+     "name": "壽險為主的金控",
+     "desc": "投資部位大，股市好、利率環境穩定時獲利佳；新台幣升值時匯損壓力大。",
+     "tw": [
+      [
+       "2882",
+       "國泰金",
+       "壽險金控"
+      ],
+      [
+       "2881",
+       "富邦金",
+       "壽險金控"
+      ]
+     ],
+     "us": [
+      [
+       "MET",
+       "MetLife",
+       "壽險"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "銀行為主的金控",
+     "desc": "賺存放款利差、手續費（財富管理）。",
+     "tw": [
+      [
+       "2891",
+       "中信金",
+       "銀行"
+      ],
+      [
+       "2884",
+       "玉山金",
+       "銀行"
+      ],
+      [
+       "2886",
+       "兆豐金",
+       "銀行"
+      ],
+      [
+       "2887",
+       "台新新光金",
+       "銀行＋壽險"
+      ]
+     ],
+     "us": [
+      [
+       "JPM",
+       "摩根大通",
+       "銀行"
+      ],
+      [
+       "BAC",
+       "美國銀行",
+       "銀行"
+      ]
+     ]
+    },
+    {
+     "lv": "中游",
+     "name": "證券",
+     "desc": "股市成交量越大越賺。",
+     "tw": [
+      [
+       "2885",
+       "元大金",
+       "證券龍頭"
+      ]
+     ],
+     "us": [
+      [
+       "GS",
+       "高盛",
+       "投資銀行"
+      ],
+      [
+       "SCHW",
+       "嘉信",
+       "券商"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "利差",
+     "放款利率減存款利率"
+    ],
+    [
+     "避險成本",
+     "壽險持有美元資產，避免匯率損失要付的成本"
+    ],
+    [
+     "配息",
+     "金融股大多每年配發現金股利"
+    ]
+   ],
+   "drivers": [
+    "股市成交熱絡",
+    "利率環境",
+    "財富管理"
+   ],
+   "risks": [
+    "新台幣大幅升值（壽險匯損）",
+    "股債市大跌"
+   ],
+   "rel": [
+    "美國利率走向（聯準會）影響銀行利差和壽險投資，美國銀行股可作參考。",
+    "新台幣匯率是壽險股最重要的變數之一。"
+   ],
+   "watch": [
+    "金控每月自結獲利（每月 10 日前）",
+    "聯準會利率決策",
+    "新台幣匯率"
+   ],
+   "flow": [
+    [
+     "💰",
+     "存款"
+    ],
+    [
+     "🏦",
+     "放款／投資"
+    ],
+    [
+     "📈",
+     "股債市"
+    ],
+    [
+     "🛡️",
+     "保險"
+    ],
+    [
+     "💵",
+     "配息"
+    ]
+   ]
+  },
+  {
+   "id": "estate",
+   "cat": "金融與內需",
+   "icon": "🏠",
+   "name": "營建與不動產",
+   "intro": "營建股看房市景氣、房貸利率和政策（央行信用管制）。完工入帳時獲利集中，股價常提前反映。",
+   "stages": [
+    {
+     "lv": "中游",
+     "name": "建商",
+     "desc": "",
+     "tw": [
+      [
+       "2542",
+       "興富發",
+       "建商"
+      ],
+      [
+       "5522",
+       "遠雄",
+       "建商"
+      ],
+      [
+       "2548",
+       "華固",
+       "建商"
+      ]
+     ],
+     "us": [
+      [
+       "DHI",
+       "D.R. Horton",
+       "美國建商"
+      ],
+      [
+       "LEN",
+       "Lennar",
+       "美國建商"
+      ]
+     ]
+    },
+    {
+     "lv": "上游",
+     "name": "營造與建材",
+     "desc": "",
+     "tw": [
+      [
+       "2002",
+       "中鋼",
+       "鋼筋"
+      ]
+     ],
+     "us": []
+    }
+   ],
+   "terms": [
+    [
+     "信用管制",
+     "央行限制房貸成數，抑制房市"
+    ],
+    [
+     "完工入帳",
+     "建案交屋時才認列營收"
+    ]
+   ],
+   "drivers": [
+    "利率下降",
+    "政策鬆綁"
+   ],
+   "risks": [
+    "央行信用管制",
+    "利率上升"
+   ],
+   "rel": [
+    "美國房市與利率影響美國建商；台灣營建股主要看本地政策。"
+   ],
+   "watch": [
+    "央行理監事會",
+    "房貸利率"
+   ],
+   "flow": [
+    [
+     "🏞️",
+     "土地"
+    ],
+    [
+     "🏗️",
+     "營造"
+    ],
+    [
+     "🏢",
+     "預售／完工"
+    ],
+    [
+     "🔑",
+     "交屋入帳"
+    ]
+   ]
+  },
+  {
+   "id": "software",
+   "cat": "金融與內需",
+   "icon": "🛡️",
+   "name": "資安與軟體",
+   "intro": "企業上雲、AI 應用與資安威脅增加，帶動資安與軟體服務需求。美國是全球軟體龍頭集中地，台灣以系統整合、資安服務為主。",
+   "stages": [
+    {
+     "lv": "中游",
+     "name": "資安與系統整合",
+     "desc": "",
+     "tw": [
+      [
+       "6214",
+       "精誠",
+       "系統整合"
+      ],
+      [
+       "6690",
+       "安碁資訊",
+       "資安服務"
+      ]
+     ],
+     "us": [
+      [
+       "CRWD",
+       "CrowdStrike",
+       "端點資安"
+      ],
+      [
+       "PANW",
+       "Palo Alto",
+       "網路資安"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "雲端與 AI 軟體",
+     "desc": "",
+     "tw": [],
+     "us": [
+      [
+       "MSFT",
+       "微軟",
+       "雲端、AI"
+      ],
+      [
+       "NOW",
+       "ServiceNow",
+       "企業軟體"
+      ],
+      [
+       "PLTR",
+       "Palantir",
+       "AI 數據分析"
+      ],
+      [
+       "ORCL",
+       "甲骨文",
+       "資料庫、雲端"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "SaaS",
+     "軟體即服務，用訂閱方式收費"
+    ]
+   ],
+   "drivers": [
+    "AI 應用落地",
+    "資安法規"
+   ],
+   "risks": [
+    "企業 IT 預算縮減"
+   ],
+   "rel": [
+    "美國軟體股（微軟、ServiceNow、CrowdStrike）是全球指標，台灣資安股常跟著題材輪動。"
+   ],
+   "watch": [
+    "美國軟體股財報"
+   ],
+   "flow": [
+    [
+     "☁️",
+     "雲端平台"
+    ],
+    [
+     "🧠",
+     "AI 模型"
+    ],
+    [
+     "🛡️",
+     "資安"
+    ],
+    [
+     "🏢",
+     "企業用戶"
+    ]
+   ]
+  },
+  {
+   "id": "consumer2",
+   "cat": "金融與內需",
+   "icon": "🍜",
+   "name": "觀光餐飲與食品零售",
+   "intro": "內需型產業，看國內消費、觀光人次和物價。營收穩定、和科技股連動低，常被當作防禦型配置。",
+   "stages": [
+    {
+     "lv": "中游",
+     "name": "食品",
+     "desc": "",
+     "tw": [
+      [
+       "1216",
+       "統一",
+       "食品龍頭"
+      ]
+     ],
+     "us": [
+      [
+       "KO",
+       "可口可樂",
+       "飲料"
+      ],
+      [
+       "PEP",
+       "百事",
+       "食品飲料"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "零售通路",
+     "desc": "",
+     "tw": [
+      [
+       "2912",
+       "統一超",
+       "7-ELEVEN"
+      ]
+     ],
+     "us": [
+      [
+       "COST",
+       "好市多",
+       "量販"
+      ],
+      [
+       "WMT",
+       "沃爾瑪",
+       "零售"
+      ]
+     ]
+    },
+    {
+     "lv": "下游",
+     "name": "觀光餐飲",
+     "desc": "",
+     "tw": [
+      [
+       "2707",
+       "晶華",
+       "飯店"
+      ],
+      [
+       "2727",
+       "王品",
+       "餐飲"
+      ],
+      [
+       "2723",
+       "美食-KY",
+       "85度C"
+      ]
+     ],
+     "us": [
+      [
+       "MCD",
+       "麥當勞",
+       "餐飲"
+      ],
+      [
+       "MAR",
+       "萬豪",
+       "飯店"
+      ]
+     ]
+    }
+   ],
+   "terms": [
+    [
+     "同店營收",
+     "開店滿一年的門市營收成長，看真實需求"
+    ]
+   ],
+   "drivers": [
+    "觀光人次增加",
+    "消費回溫"
+   ],
+   "risks": [
+    "原物料成本上漲",
+    "人力成本"
+   ],
+   "rel": [
+    "和美股連動低，可參考美國零售、餐飲股看全球消費氣氛。"
+   ],
+   "watch": [
+    "統一超、王品月營收",
+    "來台觀光人次"
+   ],
+   "flow": [
+    [
+     "🌾",
+     "原料"
+    ],
+    [
+     "🏭",
+     "食品製造"
+    ],
+    [
+     "🏪",
+     "通路"
+    ],
+    [
+     "🍽️",
+     "餐飲觀光"
+    ],
+    [
+     "🛒",
+     "消費者"
+    ]
+   ]
+  }
+ ],
+ "cats": [
+  "半導體與 AI",
+  "電子零組件",
+  "終端應用",
+  "能源與綠能",
+  "生技醫療",
+  "國防與航太",
+  "傳產與原物料",
+  "金融與內需"
+ ],
+ "themes": [
+  {
+   "id": "aidc",
+   "icon": "🤖",
+   "name": "AI 資料中心",
+   "desc": "一座 AI 資料中心從晶片、記憶體、封裝，到電路板、散熱、電力和網路，幾乎每一塊都有台灣供應鏈。",
+   "nodes": [
+    "semi",
+    "mem",
+    "advpkg",
+    "glass",
+    "pcb",
+    "passive",
+    "power_semi",
+    "thermal",
+    "power",
+    "optic",
+    "net",
+    "ai",
+    "software"
+   ]
+  },
+  {
+   "id": "chip",
+   "icon": "🔬",
+   "name": "半導體製造",
+   "desc": "晶片從設計、製造、封裝到通路，最後進到各種終端產品。",
+   "nodes": [
+    "semi",
+    "mem",
+    "leadframe",
+    "power_semi",
+    "advpkg",
+    "distrib",
+    "consumer",
+    "apple",
+    "auto"
+   ]
+  },
+  {
+   "id": "energy",
+   "icon": "⚡",
+   "name": "能源與電力",
+   "desc": "發電（綠能、核能）→ 電網重電 → 電力轉換 → 用電大戶（資料中心、電動車）。",
+   "nodes": [
+    "green",
+    "power_semi",
+    "power",
+    "thermal",
+    "ai",
+    "ev"
+   ]
+  },
+  {
+   "id": "device",
+   "icon": "📱",
+   "name": "終端與消費電子",
+   "desc": "手機、電腦、汽車、機器人用到的晶片、面板、零組件與通路。",
+   "nodes": [
+    "semi",
+    "display",
+    "passive",
+    "pcb",
+    "distrib",
+    "consumer",
+    "apple",
+    "auto",
+    "ev",
+    "robot"
+   ]
+  },
+  {
+   "id": "space",
+   "icon": "🛰️",
+   "name": "國防與太空",
+   "desc": "衛星通訊、軍工與無人機。",
+   "nodes": [
+    "pcb",
+    "net",
+    "leo",
+    "defense"
+   ]
+  },
+  {
+   "id": "domestic",
+   "icon": "🏦",
+   "name": "傳產、內需與金融",
+   "desc": "原物料、營建、航運、金融與民生消費，和電子股連動較低。",
+   "nodes": [
+    "material",
+    "estate",
+    "fin",
+    "ship",
+    "consumer2",
+    "bio"
+   ]
+  }
+ ],
+ "edges": [
+  [
+   "semi",
+   "advpkg",
+   "晶圓送去做先進封裝"
+  ],
+  [
+   "mem",
+   "advpkg",
+   "HBM 和 GPU 封在一起"
+  ],
+  [
+   "advpkg",
+   "ai",
+   "封好的 AI 晶片"
+  ],
+  [
+   "glass",
+   "pcb",
+   "玻纖布做成 CCL 基板"
+  ],
+  [
+   "pcb",
+   "ai",
+   "伺服器主板、ABF 載板"
+  ],
+  [
+   "passive",
+   "ai",
+   "大量電容、電感"
+  ],
+  [
+   "thermal",
+   "ai",
+   "水冷散熱"
+  ],
+  [
+   "power",
+   "ai",
+   "供電給資料中心"
+  ],
+  [
+   "power_semi",
+   "power",
+   "電源轉換元件"
+  ],
+  [
+   "power_semi",
+   "thermal",
+   "CDU 幫浦、電源"
+  ],
+  [
+   "optic",
+   "net",
+   "光收發模組"
+  ],
+  [
+   "net",
+   "ai",
+   "串起 GPU 叢集"
+  ],
+  [
+   "software",
+   "ai",
+   "雲端、AI 應用需求"
+  ],
+  [
+   "leadframe",
+   "power_semi",
+   "封裝功率元件"
+  ],
+  [
+   "semi",
+   "distrib",
+   "原廠晶片交給通路"
+  ],
+  [
+   "distrib",
+   "consumer",
+   "把晶片賣給電子廠"
+  ],
+  [
+   "semi",
+   "consumer",
+   "CPU、驅動 IC"
+  ],
+  [
+   "semi",
+   "apple",
+   "A／M 系列處理器"
+  ],
+  [
+   "semi",
+   "auto",
+   "車用晶片"
+  ],
+  [
+   "mem",
+   "consumer",
+   "DRAM、SSD"
+  ],
+  [
+   "power_semi",
+   "auto",
+   "SiC 逆變器"
+  ],
+  [
+   "power_semi",
+   "ev",
+   "SiC、GaN"
+  ],
+  [
+   "display",
+   "consumer",
+   "面板"
+  ],
+  [
+   "passive",
+   "consumer",
+   "被動元件"
+  ],
+  [
+   "pcb",
+   "apple",
+   "手機板、軟板"
+  ],
+  [
+   "passive",
+   "apple",
+   "被動元件"
+  ],
+  [
+   "auto",
+   "ev",
+   "車用電子零件"
+  ],
+  [
+   "semi",
+   "robot",
+   "機器人 AI 晶片"
+  ],
+  [
+   "ev",
+   "robot",
+   "馬達、電池技術延伸"
+  ],
+  [
+   "green",
+   "power",
+   "綠電併網"
+  ],
+  [
+   "power",
+   "ev",
+   "充電基礎建設"
+  ],
+  [
+   "pcb",
+   "leo",
+   "衛星電路板"
+  ],
+  [
+   "net",
+   "leo",
+   "地面通訊設備"
+  ],
+  [
+   "leo",
+   "defense",
+   "軍事通訊"
+  ],
+  [
+   "material",
+   "estate",
+   "鋼筋、建材"
+  ],
+  [
+   "material",
+   "ship",
+   "散裝船運送鐵礦、煤"
+  ],
+  [
+   "consumer2",
+   "ship",
+   "貨櫃運送消費品"
+  ],
+  [
+   "fin",
+   "estate",
+   "房貸、資金"
+  ],
+  [
+   "fin",
+   "bio",
+   "創投、資本市場"
+  ]
+ ]
+};
+if (!C) return;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LV = {"上游": "var(--lv-up)", "中游": "var(--lv-mid)", "下游": "var(--lv-down)", "終端": "var(--lv-end)", "支援": "var(--lv-sup)"};
+const MK = {tw: ["", "var(--tw)", "🇹🇼 台股"], us: ["US:", "var(--us)", "🇺🇸 美股"], jp: ["JP:", "var(--jp)", "🇯🇵 日股"], kr: ["KR:", "var(--kr)", "🇰🇷 韓股"]};
+const BY = Object.fromEntries(C.chains.map(c => [c.id, c]));
+const EDGES = C.edges || [], THEMES = C.themes || [];
+let cur = C.chains[0].id, hl = null, cat = C.chains[0].cat || "", mode = "net", theme = (THEMES[0] || {}).id, sel = null;
+const CATS = C.cats || [...new Set(C.chains.map(c => c.cat))];
+$("ch-upd").textContent = C.updated;
+$("ch-intro").innerHTML = C.intro.map(p => `<p>${esc(p)}</p>`).join("");
+const markets = c => Object.keys(MK).filter(k => c.stages.some(s => (s[k] || []).length));
+
+const co = (x, k) => `<button class="ch-co ${hl && hl === MK[k][0] + x[0] ? "hl" : ""}" style="--mc:${MK[k][1]}" data-k="${MK[k][0]}${esc(x[0])}" data-kn="${esc(x[1])}">` +
+  `<span class="n">${esc(x[1])}<small>${esc(x[0])}</small></span>${x[2] ? `<span class="r">${esc(x[2])}</span>` : ""}</button>`;
+const strip = (c, title) => c.flow && c.flow.length ? `<div class="ch-strip">${title ? `<h4>${esc(title)}</h4>` : ""}` +
+  c.flow.map((f, i) => `${i ? '<span class="a" aria-hidden="true">→</span>' : ""}<span class="s"><span class="e" aria-hidden="true">${f[0]}</span><span class="t">${esc(f[1])}</span></span>`).join("") + `</div>` : "";
+const rels = id => ({up: EDGES.filter(e => e[1] === id), down: EDGES.filter(e => e[0] === id)});
+
+function chainView(){
+  $("ch-cats").innerHTML = CATS.map(k => `<button data-cat="${esc(k)}" class="${k === cat ? "on" : ""}">${esc(k)}<small>${C.chains.filter(c => c.cat === k).length}</small></button>`).join("");
+  $("ch-tabs").innerHTML = C.chains.filter(c => !cat || c.cat === cat).map(c => `<button data-c="${c.id}" class="${c.id === cur ? "on" : ""}">${c.icon} ${esc(c.name.replace(/（.*）/, ""))}</button>`).join("");
+  const c = BY[cur] || C.chains[0];
+  const st = c.stages.map((s, i) => {
+    const jk = [...(s.jp || []).map(x => co(x, "jp")), ...(s.kr || []).map(x => co(x, "kr"))];
+    return `${i ? '<div class="ch-arrow" aria-hidden="true">▼</div>' : ""}<section class="ch-st ${s.lv === "支援" ? "sup" : ""}" style="--lc:${LV[s.lv] || "var(--lv-mid)"}">` +
+      `<div class="ch-sth"><span class="ch-lv">${esc(s.lv)}</span><b>${esc(s.name)}</b></div>${s.desc ? `<p>${esc(s.desc)}</p>` : ""}` +
+      `<div class="ch-cols ${jk.length ? "c3" : ""}"><div class="ch-col"><h5>${MK.tw[2]}</h5>${s.tw.length ? `<div class="ch-cos">${s.tw.map(x => co(x, "tw")).join("")}</div>` : '<span class="none">台股較少直接對應</span>'}</div>` +
+      `<div class="ch-col"><h5>${MK.us[2]}</h5>${s.us.length ? `<div class="ch-cos">${s.us.map(x => co(x, "us")).join("")}</div>` : '<span class="none">美股較少直接對應</span>'}</div>` +
+      (jk.length ? `<div class="ch-col"><h5>🇯🇵🇰🇷 日韓</h5><div class="ch-cos">${jk.join("")}</div></div>` : "") + `</div></section>`;
+  }).join("");
+  const r = rels(c.id);
+  const rl = (e, other, dir) => `<button class="ch-rl" data-c="${other}"><b>${BY[other].icon} ${esc(BY[other].name.replace(/（.*）/, ""))}</b><span>${dir} ${esc(e[2])}</span></button>`;
+  const relBox = r.up.length || r.down.length ? `<div class="ch-box"><h3>🧭 上下游相關產業</h3><div class="ch-rels">` +
+    `<div><h5>⬆️ 上游（供應給這個產業）</h5>${r.up.map(e => rl(e, e[0], "")).join("") || '<span class="none" style="font-size:12px;color:var(--muted)">—</span>'}</div>` +
+    `<div><h5>⬇️ 下游（這個產業供應給）</h5>${r.down.map(e => rl(e, e[1], "")).join("") || '<span class="none" style="font-size:12px;color:var(--muted)">—</span>'}</div></div></div>` : "";
+  $("ch-view").innerHTML = `<div class="ch-head"><h2>${c.icon} ${esc(c.name)}</h2><p>${esc(c.intro)}</p></div>` + strip(c, "🎨 圖解：從頭到尾怎麼走") +
+    `<div class="ch-flow">${st}</div>` +
+    (c.parts ? `<div class="ch-box"><h3>🔍 拆開看：${esc(c.parts.title)}</h3><div class="ch-parts">${c.parts.items.map(p => `<div><span class="e" aria-hidden="true">${p[0]}</span><b>${esc(p[1])}</b><span>${esc(p[2])}</span></div>`).join("")}</div></div>` : "") +
+    relBox +
+    `<div class="ch-box"><h3>🔗 台股和美股的關係</h3><ul>${c.rel.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` +
+    `<div class="ch-box"><h3>👀 觀察重點</h3><ul>${c.watch.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` +
+    (c.drivers || c.risks ? `<div class="ch-g2">${c.drivers ? `<div class="ch-box"><h3>🚀 成長動能</h3><ul>${c.drivers.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` : ""}` +
+      `${c.risks ? `<div class="ch-box"><h3>⚠️ 風險</h3><ul>${c.risks.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>` : ""}</div>` : "") +
+    (c.terms ? `<div class="ch-box"><h3>📖 名詞解釋</h3><dl class="ch-terms">${c.terms.map(t => `<dt>${esc(t[0])}</dt><dd>${esc(t[1])}</dd>`).join("")}</dl></div>` : "");
+}
+
+/* ---------- 產業網絡 ---------- */
+function layout(t){
+  const ns = t.nodes.filter(id => BY[id]), set = new Set(ns);
+  const es = EDGES.filter(e => set.has(e[0]) && set.has(e[1]));
+  const tier = Object.fromEntries(ns.map(n => [n, 0]));
+  for (let k = 0; k < ns.length; k++) es.forEach(e => { if (tier[e[1]] < tier[e[0]] + 1) tier[e[1]] = tier[e[0]] + 1; });
+  // 沒有連線的節點放最左
+  const cols = [];
+  ns.forEach(n => (cols[tier[n]] = cols[tier[n]] || []).push(n));
+  return {ns, es, cols: cols.filter(Boolean), tier};
+}
+function netView(){
+  $("nw-themes").innerHTML = THEMES.map(t => `<button data-t="${t.id}" class="${t.id === theme ? "on" : ""}">${t.icon} ${esc(t.name)}</button>`).join("");
+  const t = THEMES.find(x => x.id === theme) || THEMES[0];
+  $("nw-desc").textContent = t.desc;
+  const L = layout(t);
+  if (!sel || !L.ns.includes(sel)) sel = L.ns.find(n => rels(n).down.length && rels(n).up.length) || L.ns[0];
+  const NW = 150, NH = 50, GX = 70, GY = 22, P = 14;
+  const rows = Math.max(...L.cols.map(c => c.length));
+  const W = P * 2 + L.cols.length * NW + (L.cols.length - 1) * GX, H = P * 2 + 22 + rows * NH + (rows - 1) * GY;
+  const pos = {};
+  L.cols.forEach((col, ci) => {
+    const off = (rows - col.length) * (NH + GY) / 2;
+    col.forEach((n, ri) => pos[n] = {x: P + ci * (NW + GX), y: P + 22 + off + ri * (NH + GY)});
+  });
+  const near = new Set([sel, ...L.es.filter(e => e[0] === sel || e[1] === sel).flatMap(e => [e[0], e[1]])]);
+  let g = "";
+  const nc = L.cols.length, lab = ci => ci === 0 ? "上游" : ci === nc - 1 ? "下游" : nc > 3 ? `中游 ${ci}` : "中游";
+  L.cols.forEach((col, ci) => g += `<text x="${P + ci * (NW + GX) + NW / 2}" y="${P + 10}" text-anchor="middle" font-size="11" fill="var(--muted)">${lab(ci)}</text>`);
+  g += `<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="var(--muted)"/></marker>` +
+       `<marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="var(--accent)"/></marker></defs>`;
+  L.es.forEach(e => {
+    const a = pos[e[0]], b = pos[e[1]], on = e[0] === sel || e[1] === sel;
+    const x1 = a.x + NW, y1 = a.y + NH / 2, x2 = b.x - 2, y2 = b.y + NH / 2, mx = (x1 + x2) / 2;
+    g += `<path d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}" fill="none" stroke="${on ? "var(--accent)" : "var(--line)"}" stroke-width="${on ? 2.2 : 1.4}" marker-end="url(#${on ? "ar2" : "ar"})" opacity="${on ? 1 : .9}"/>`;
+  });
+  L.ns.forEach(n => {
+    const c = BY[n], p = pos[n], on = n === sel, dim = !near.has(n);
+    const mk = markets(c);
+    g += `<g data-n="${n}" style="cursor:pointer" opacity="${dim ? .45 : 1}"><rect x="${p.x}" y="${p.y}" width="${NW}" height="${NH}" rx="10" fill="var(--card)" stroke="${on ? "var(--accent)" : "var(--line)"}" stroke-width="${on ? 2.5 : 1.2}"/>` +
+      `<text x="${p.x + 10}" y="${p.y + 21}" font-size="13" font-weight="700" fill="var(--fg)">${c.icon} ${esc(c.name.replace(/（.*）/, "").slice(0, 9))}</text>` +
+      mk.map((k, i) => `<circle cx="${p.x + 15 + i * 13}" cy="${p.y + 37}" r="4.5" fill="${MK[k][1]}"/>`).join("") +
+      `<text x="${p.x + 15 + mk.length * 13}" y="${p.y + 41}" font-size="10" fill="var(--muted)">${c.stages.length} 層</text></g>`;
+  });
+  $("nw-svg").innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(t.name)}產業網絡圖">${g}</svg>`;
+  side();
+}
+function side(){
+  const c = BY[sel]; if (!c) return;
+  const r = rels(sel), tset = new Set((THEMES.find(x => x.id === theme) || {nodes: []}).nodes);
+  const rl = (e, other) => `<button class="ch-rl" data-n="${other}"><b>${BY[other].icon} ${esc(BY[other].name.replace(/（.*）/, ""))}</b><span>${esc(e[2])}</span></button>`;
+  const top = k => c.stages.flatMap(s => s[k] || []).filter((x, i, a) => a.findIndex(y => y[0] === x[0]) === i).slice(0, 6);
+  const mini = Object.keys(MK).map(k => { const xs = top(k); return xs.length ? `<div class="nw-mini">${xs.map(x => `<button style="--mc:${MK[k][1]}" data-k="${MK[k][0]}${esc(x[0])}" data-kn="${esc(x[1])}">${esc(x[1])}</button>`).join("")}</div>` : ""; }).join("");
+  $("nw-side").innerHTML = `<div class="sel">目前選取</div><h3>${c.icon} ${esc(c.name)}</h3><p>${esc(c.intro)}</p>` + strip(c, "🎨 圖解") +
+    (r.up.length ? `<h5 style="margin:6px 0 4px;font-size:12px;color:var(--muted)">⬆️ 上游</h5>${r.up.map(e => rl(e, e[0])).join("")}` : "") +
+    (r.down.length ? `<h5 style="margin:6px 0 4px;font-size:12px;color:var(--muted)">⬇️ 下游</h5>${r.down.map(e => rl(e, e[1])).join("")}` : "") +
+    `<h5 style="margin:8px 0 4px;font-size:12px;color:var(--muted)">代表公司（點看日 K）</h5>${mini}` +
+    `<button class="nw-go" data-go="${c.id}">進入完整供應鏈 →</button>`;
+}
+
+function render(){
+  document.querySelectorAll("#ch-mode button").forEach(b => b.classList.toggle("on", b.dataset.m === mode));
+  $("ch-netv").hidden = mode !== "net"; $("ch-chainv").hidden = mode !== "chain";
+  if (mode === "net") netView(); else chainView();
+}
+function setHash(){ try { history.replaceState(null, "", "#" + (mode === "net" ? "net-" + theme + (sel ? "-" + sel : "") : cur)); } catch(e) {} }
+function go(id, code){
+  mode = "chain"; cur = id; hl = code || null; cat = (BY[id] || {}).cat || cat; render(); setHash();
+  const t = $("ch-tabs").querySelector(".on"); if (t) t.scrollIntoView({inline: "center", block: "nearest"});
+  if (code) { const b = $("ch-view").querySelector(".ch-co.hl"); if (b) b.scrollIntoView({behavior: "smooth", block: "center"}); }
+  else $("ch-chainv").scrollIntoView({behavior: "smooth", block: "start"});
+}
+$("ch-mode").addEventListener("click", e => { const b = e.target.closest("[data-m]"); if (!b) return; mode = b.dataset.m; render(); setHash(); });
+$("ch-tabs").addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (b) go(b.dataset.c); });
+$("ch-view").addEventListener("click", e => { const b = e.target.closest(".ch-rl[data-c]"); if (b) go(b.dataset.c); });
+$("ch-cats").addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (!b) return; cat = b.dataset.cat; const f = C.chains.find(c => c.cat === cat); if (f) go(f.id); });
+$("nw-themes").addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (!b) return; theme = b.dataset.t; sel = null; netView(); setHash(); });
+$("ch-netv").addEventListener("click", e => {
+  const g = e.target.closest("[data-n]"); if (g) { sel = g.dataset.n; netView(); setHash(); if (window.innerWidth <= 900 && g.closest(".nw-scroll")) $("nw-side").scrollIntoView({behavior: "smooth", block: "start"}); return; }
+  const b = e.target.closest("[data-go]"); if (b) go(b.dataset.go);
+});
+
+// 搜尋：找出公司出現在哪些產業、哪個位置（含日韓）
+const idx = [];
+C.chains.forEach(c => c.stages.forEach(s => Object.keys(MK).forEach(k => (s[k] || []).forEach(x => idx.push({c, s, x, k})))));
+$("ch-q").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase();
+  const box = $("ch-res");
+  if (!q) { box.hidden = true; return; }
+  const hits = idx.filter(o => o.x[0].toLowerCase().includes(q) || o.x[1].toLowerCase().includes(q)).slice(0, 30);
+  box.hidden = false;
+  box.innerHTML = hits.length ? hits.map(o => `<div><b>${esc(o.x[1])}</b> ${esc(o.x[0])}${o.k !== "tw" && o.k !== "us" ? `（${MK[o.k][2].slice(-2)}）` : ""}${o.x[2] ? `（${esc(o.x[2])}）` : ""} → <a data-go="${o.c.id}" data-code="${MK[o.k][0]}${esc(o.x[0])}">${o.c.icon} ${esc(o.c.name)}・${esc(o.s.lv)}・${esc(o.s.name)}</a></div>`).join("")
+    : "<div>找不到，試試其他名稱或代號</div>";
+});
+$("ch-res").addEventListener("click", e => { const a = e.target.closest("[data-go]"); if (a) go(a.dataset.go, a.dataset.code); });
+
+const h = location.hash.slice(1);
+if (h.startsWith("net")) { const m = h.match(/^net-([a-z]+)(?:-([a-z_0-9]+))?/); mode = "net"; if (m && THEMES.some(t => t.id === m[1])) { theme = m[1]; sel = m[2] || null; } }
+else if (BY[h]) { mode = "chain"; cur = h; cat = BY[h].cat || cat; }
+render();
+})();
+</script>
+
+</body>
+</html>
