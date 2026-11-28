@@ -1,0 +1,222 @@
+<!--UB-START-->
+<style>
+/* 美股即時：樣式限定在 #ub 內 */
+#ub{
+  --ub-card:#ffffff;--ub-fg:#1c2230;--ub-muted:#6b7280;--ub-line:#e3e6eb;--ub-soft:#eef1f5;
+  --ub-up:#d6453d;--ub-up-bg:#fbe9e7;--ub-down:#1f8a55;--ub-down-bg:#e4f4ea;--ub-accent:#2f5fb3;--ub-acc-bg:#e8eefb;
+  color:var(--ub-fg);font:14px/1.5 "Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #ub{
+  --ub-card:#171c23;--ub-fg:#e7eaf0;--ub-muted:#98a2b3;--ub-line:#272e38;--ub-soft:#1e242d;
+  --ub-up:#ef6a5f;--ub-up-bg:#3a1f22;--ub-down:#3fbf7f;--ub-down-bg:#16302a;--ub-accent:#7aa4ff;--ub-acc-bg:#1d2840}}
+:root[data-theme="dark"] #ub{
+  --ub-card:#171c23;--ub-fg:#e7eaf0;--ub-muted:#98a2b3;--ub-line:#272e38;--ub-soft:#1e242d;
+  --ub-up:#ef6a5f;--ub-up-bg:#3a1f22;--ub-down:#3fbf7f;--ub-down-bg:#16302a;--ub-accent:#7aa4ff;--ub-acc-bg:#1d2840}
+#ub *{box-sizing:border-box}
+#ub button{font:inherit;color:inherit}
+#ub .ub-top{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+#ub .ub-top button{padding:7px 12px;border-radius:9px;border:1px solid var(--ub-line);background:var(--ub-card);cursor:pointer;font-weight:600}
+#ub .ub-top button.on{background:var(--ub-fg);color:var(--ub-card);border-color:var(--ub-fg)}
+#ub .ub-seg{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}
+#ub .ub-seg button{padding:5px 11px;border-radius:8px;border:1px solid transparent;background:none;cursor:pointer;color:var(--ub-muted)}
+#ub .ub-seg button.on{background:var(--ub-soft);border-color:var(--ub-line);color:var(--ub-fg);font-weight:600}
+#ub button:focus-visible{outline:2px solid var(--ub-accent);outline-offset:1px}
+#ub .ub-state{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px;font-size:13px;color:var(--ub-muted)}
+#ub .pill{padding:2px 9px;border-radius:999px;font-weight:700;font-size:12px;background:var(--ub-soft);color:var(--ub-fg)}
+#ub .pill.live{background:var(--ub-up-bg);color:var(--ub-up)}
+#ub .pill.live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:5px;vertical-align:1px}
+#ub .ub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:10px}
+#ub .ub-k{background:var(--ub-card);border:1px solid var(--ub-line);border-radius:10px;padding:8px 10px;min-width:0}
+#ub .ub-k .t{font-size:12px;color:var(--ub-muted)}
+#ub .ub-k .v{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
+#ub .ub-k .s{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+#ub .ub-k svg{display:block;width:100%;height:30px;margin-top:4px}
+#ub .ub-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin-bottom:12px}
+#ub .ub-mini div{background:var(--ub-card);border:1px solid var(--ub-line);border-radius:8px;padding:5px 9px;font-size:12px;display:flex;justify-content:space-between;gap:6px;min-width:0}
+#ub .ub-mini b{font-variant-numeric:tabular-nums}
+#ub .ub-card{background:var(--ub-card);border:1px solid var(--ub-line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+#ub .ub-card h4{margin:0 0 6px;font-size:14px}
+#ub .ub-card ul{margin:0;padding-left:1.2em;line-height:1.8}
+#ub .ub-tw{overflow-x:auto;background:var(--ub-card);border:1px solid var(--ub-line);border-radius:12px}
+#ub table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+#ub th,#ub td{padding:7px 8px;border-bottom:1px solid var(--ub-line);text-align:left;white-space:nowrap;vertical-align:top}
+#ub th{font-size:12px;color:var(--ub-muted);font-weight:500}
+#ub td.n,#ub th.n{text-align:right}
+#ub td.rk{color:var(--ub-muted);text-align:right;width:32px}
+#ub .up{color:var(--ub-up)}#ub .down{color:var(--ub-down)}
+#ub .sym{font-weight:700;font-family:ui-monospace,Consolas,monospace}
+#ub .sub{display:block;font-size:11px;color:var(--ub-muted);white-space:normal;max-width:16em}
+#ub .ub-meta{font-size:12px;color:var(--ub-muted);margin:0 0 8px}
+#ub .pz-lab{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
+#ub .pz-lab b{font-size:22px;padding:2px 14px;border-radius:10px;color:#fff;background:var(--lc)}
+#ub .pz-lab span{font-size:12px;color:var(--ub-muted)}
+#ub .pz-why{margin:0;padding-left:1.2em;font-size:14px;line-height:1.8}
+#ub .pz-k{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}
+@media (max-width:560px){#ub .pz-k{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#ub .pz-k div{background:var(--ub-soft);border-radius:8px;padding:6px 9px;min-width:0}
+#ub .pz-k .t{font-size:11px;color:var(--ub-muted)}#ub .pz-k .v{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+#ub .pz-g{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:10px;align-items:start}
+#ub .pz-g .sub{max-width:9em;font-size:10px}
+@media (max-width:860px){#ub .pz-g{grid-template-columns:minmax(0,1fr)}}
+#ub svg.pz{display:block;width:100%;height:auto}
+#ub svg.pz text{font-family:inherit}
+#ub .pz-chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+#ub .pz-chips button{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--ub-line);border-left:4px solid var(--c);background:var(--ub-card);cursor:pointer}
+#ub .pz-chips button.on{background:var(--ub-fg);color:var(--ub-card)}
+#ub .pz-bar{display:grid;grid-template-columns:6.5em minmax(0,1fr) 4.2em;gap:6px;align-items:center;padding:2px 0;cursor:pointer;font-size:13px}
+#ub .pz-bar .tr{position:relative;height:12px}#ub .pz-bar .mid{position:absolute;left:50%;top:-2px;bottom:-2px;border-left:1px dashed var(--ub-muted)}
+#ub .pz-bar .b{position:absolute;top:1px;height:10px;border-radius:3px}
+#ub .pz-bar .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+#ub .pz-ev{list-style:none;margin:0;padding:0;max-height:260px;overflow:auto}
+#ub .pz-ev li{padding:5px 0;border-bottom:1px solid var(--ub-line);font-size:13px}
+#ub .pz-ev small{display:block;color:var(--ub-muted);font-size:11px}
+#ub .ub-note{font-size:12px;color:var(--ub-muted);line-height:1.7;margin-top:8px}
+#ub .chg{display:inline-block;min-width:62px;text-align:right;padding:1px 6px;border-radius:5px;font-weight:600}
+#ub .chg.up{background:var(--ub-up-bg)}#ub .chg.down{background:var(--ub-down-bg)}
+@media (max-width:640px){#ub .hd{display:none}#ub th,#ub td{padding:7px 5px}}
+</style>
+<div id="ub">
+  <div class="ub-state" id="ub-state"></div>
+  <div class="ub-top" id="ub-top"></div>
+  <div id="ub-view"></div>
+</div>
+<script>
+(function(){
+const U = {"state": "收盤", "et": "11/27 21:01", "tw": "11/28 10:01", "date": "2026-11-27", "sess": "11/27", "open_tw": "22:30", "close_tw": "05:00", "idx": [{"s": "^GSPC", "n": "S&P 500", "p": 7297.49, "ch": 0.016, "live": true, "sp": [7247.64, 7231.82, 7240.2, 7225.94, 7229.12, 7215.57, 7219.62, 7225.48, 7238.12, 7241.55, 7250.71, 7245.17, 7246.99, 7268.55, 7271.75, 7268.4, 7264.66, 7267.99, 7270.12, 7267.48, 7260.62, 7263.63, 7265.85, 7269.5, 7280.55, 7269.13, 7278.21, 7285.72, 7292.01, 7281.03, 7276.34, 7279.14, 7276.14, 7280.84, 7284.93, 7284.08, 7285.68, 7277.71, 7278.3, 7271.75, 7281.65, 7304.1]}, {"s": "^IXIC", "n": "那斯達克", "p": 24129.5, "ch": 0.0231, "live": true, "sp": [23838.67, 23778.48, 23807.55, 23738.42, 23765.77, 23716.25, 23723.17, 23748.19, 23828.4, 23850.04, 23877.84, 23847.54, 23865.23, 23977.14, 23986.18, 23969.87, 23951.4, 23967.92, 23976.68, 23975.38, 23939.07, 23941.75, 23961.27, 23974.15, 24017.17, 23975.54, 24005.29, 24032.26, 24063.51, 24018.37, 23990.25, 24009.89, 24009.65, 24026.56, 24041.82, 24037.92, 24035.51, 24006.59, 24016.16, 24000.28, 24039.77, 24149.09]}, {"s": "^DJI", "n": "道瓊", "p": 50774.94, "ch": 0.0118, "live": true, "sp": null}, {"s": "^SOX", "n": "費城半導體", "p": 9186.71, "ch": 0.0469, "live": true, "sp": [8909.02, 8861.84, 8887.52, 8814.56, 8881.03, 8866.89, 8836.72, 8852.31, 8947.85, 8949.41, 8952.14, 8934.32, 8946.62, 9032.85, 9026.54, 9012.92, 8991.31, 9015.31, 9019.61, 9036.17, 9026.94, 9025.64, 9048.39, 9061.98, 9094.42, 9060.52, 9082.59, 9099.12, 9119.93, 9072.81, 9045.69, 9062.96, 9078.41, 9085.38, 9080.22, 9062.29, 9061.91, 9029.39, 9046.97, 9025.83, 9066.2, 9212.1]}, {"s": "^RUT", "n": "羅素 2000", "p": 2750.3, "ch": 0.0171, "live": true, "sp": null}, {"s": "^VIX", "n": "VIX 恐慌", "p": 23.81, "ch": -0.1116, "live": true, "sp": null}], "fut": [{"s": "ES=F", "n": "S&P 期貨", "p": 7308.25, "ch": 0.0156, "live": true}, {"s": "NQ=F", "n": "那斯達克期貨", "p": 26765.0, "ch": 0.0255, "live": true}], "mac": [{"s": "^TNX", "n": "美 10 年債", "p": 4.94, "ch": 0.0182, "live": true, "u": "y"}, {"s": "DX-Y.NYB", "n": "美元指數", "p": 104.01, "ch": 0.0033, "live": true, "u": ""}, {"s": "TWD=X", "n": "美元/台幣", "p": 32.92, "ch": -0.0082, "live": true, "u": ""}, {"s": "JPY=X", "n": "美元/日圓", "p": 159.28, "ch": 0.0004, "live": true, "u": ""}, {"s": "GC=F", "n": "黃金", "p": 3668.5, "ch": 0.0375, "live": true, "u": ""}, {"s": "CL=F", "n": "原油 WTI", "p": 83.08, "ch": -0.0072, "live": true, "u": ""}, {"s": "BTC-USD", "n": "比特幣", "p": 60148.85, "ch": -0.0057, "live": false, "u": ""}], "chain": [{"s": "TSM", "n": "台積電 ADR", "p": 342.34, "ch": -0.0196, "live": false, "dv": null, "prem": 0.0339, "twp": 2180.0, "twch": 0.0163, "eqv": 2253.8}, {"s": "UMC", "n": "聯電 ADR", "p": 13.19, "ch": -0.0157, "live": false, "dv": null, "prem": -0.0076, "twp": 87.5, "twch": -0.0146, "eqv": 86.8}, {"s": "ASX", "n": "日月光 ADR", "p": 29.49, "ch": 0.0055, "live": false, "dv": null, "prem": -0.0557, "twp": 514.0, "twch": 0.0059, "eqv": 485.4}, {"s": "NVDA", "n": "輝達", "p": 149.3, "ch": -0.0391, "live": false, "dv": null}, {"s": "AMD", "n": "超微", "p": 406.03, "ch": -0.0175, "live": false, "dv": null}, {"s": "AVGO", "n": "博通", "p": 300.86, "ch": -0.0007, "live": false, "dv": null}, {"s": "MU", "n": "美光", "p": 601.25, "ch": -0.0453, "live": false, "dv": null}, {"s": "AAPL", "n": "蘋果", "p": 355.58, "ch": 0.0043, "live": false, "dv": null}, {"s": "MSFT", "n": "微軟", "p": 489.93, "ch": -0.0125, "live": false, "dv": null}, {"s": "GOOGL", "n": "Google", "p": 273.1, "ch": -0.0213, "live": false, "dv": null}, {"s": "AMZN", "n": "亞馬遜", "p": 244.43, "ch": -0.0312, "live": false, "dv": null}, {"s": "META", "n": "Meta", "p": 609.89, "ch": 0.034, "live": false, "dv": null}, {"s": "TSLA", "n": "特斯拉", "p": 380.14, "ch": -0.0118, "live": false, "dv": null}, {"s": "ASML", "n": "艾司摩爾", "p": 1303.08, "ch": -0.0247, "live": false, "dv": null}, {"s": "ARM", "n": "安謀", "p": 161.51, "ch": -0.0003, "live": false, "dv": null}, {"s": "QCOM", "n": "高通", "p": 168.66, "ch": 0.0224, "live": false, "dv": null}, {"s": "INTC", "n": "英特爾", "p": 54.47, "ch": -0.006, "live": false, "dv": null}, {"s": "SMCI", "n": "美超微", "p": 23.31, "ch": 0.0305, "live": false, "dv": null}, {"s": "DELL", "n": "戴爾", "p": 297.06, "ch": 0.006, "live": false, "dv": null}, {"s": "ORCL", "n": "甲骨文", "p": 103.88, "ch": -0.0513, "live": false, "dv": null}, {"s": "MRVL", "n": "邁威爾", "p": 130.93, "ch": -0.0049, "live": false, "dv": null}, {"s": "ANET", "n": "Arista", "p": 163.99, "ch": -0.0271, "live": false, "dv": null}, {"s": "VRT", "n": "Vertiv", "p": 173.37, "ch": -0.0026, "live": false, "dv": null}, {"s": "CRWV", "n": "CoreWeave", "p": 42.57, "ch": -0.0008, "live": false, "dv": null}], "top": [{"s": "HUBB", "n": "Hubbell Incorporated", "sec": "工業", "p": 434.01, "ch": 0.0123, "dv": 1.39, "rk": 1}], "sectors": [{"k": "工業", "cnt": 1, "dv": 1.4, "ch": 0.0123, "up": 1}], "up": 1, "dn": 0, "flow": {"etfs": []}, "pulse": {"label": "強勢多頭", "score": 6.31, "br": 1.0, "up": 1, "n": 1, "spread": null, "spy_vr": null, "why": ["S&P 500 +1.60%、那斯達克 +2.31%、費城半導體 +4.69%", "上漲家數 1／1（100%），多數股票上漲", "VIX -11.2%，情緒放鬆"], "lead": [], "lag": [], "frac": 1.0}, "hist": [{"t": "17:17", "tw": "06:17", "spx": 0.016, "sox": 0.0469, "ndx": 0.0231, "vix": -0.1116, "br": 0.822, "label": "強勢多頭"}, {"t": "21:01", "tw": "10:01", "spx": 0.016, "sox": 0.0469, "ndx": 0.0231, "vix": -0.1116, "br": 1.0, "label": "強勢多頭"}], "events": [], "summary": ["四大指數：S&P 500 +1.60%、那斯達克 +2.31%、道瓊 +1.18%、費城半導體 +4.69%", "VIX 23.81（-11.16%），市場偏緊張", "台積電 ADR 342.34（-1.96%），換算台股約 2253.8 元、溢價 3.4%（台股收 2180.0）", "強勢族群：工業 +1.23%", "弱勢族群：工業 +1.23%", "成交值最大：HUBB +1.23%", "前 100 大漲最多：HUBB +1.23%", "前 100 大跌最多：HUBB +1.23%", "前 100 大：上漲 1 檔、下跌 0 檔", "半導體：輝達 -3.91%、超微 -1.75%、博通 -0.07%、美光 -4.53%、艾司摩爾 -2.47%、安謀 -0.03%、高通 +2.24%、英特爾 -0.60%", "利率匯率原物料：10 年債 4.94%、美元指數 104.01（+0.33%）、美元/台幣 32.920、原油 -0.72%、黃金 +3.75%"], "earn": []};
+if (!U) return;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = (v, d = 2) => v == null ? "—" : (v > 0 ? "+" : "") + (v * 100).toFixed(d) + "%";
+const cls = v => v > 0 ? "up" : v < 0 ? "down" : "";
+const fmt = (v, d = 2) => v == null ? "—" : Number(v).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const chg = v => `<span class="chg ${cls(v)}">${pct(v)}</span>`;
+let top = U.state === "盤中" && U.flow ? "pulse" : "sum", sec = "全部", fsel = null;
+const SC = {"資金湧入": "#d6453d", "溫和流入": "#f08a5d", "觀望": "#94a3b8", "資金流出": "#3fa06a", "爆量下跌": "#1f6e47"};
+const LC = {"強勢多頭": "#d6453d", "溫和偏多": "#f08a5d", "震盪整理": "#64748b", "溫和偏空": "#3fa06a", "弱勢空頭": "#1f6e47"};
+
+function pulseV(){
+  const P = U.pulse, F = U.flow;
+  if (!P || !F) return `<div class="ub-card"><p class="ub-meta">美股開盤後才有盤中金流與脈動資料（台灣時間 ${U.open_tw} 開盤）。</p></div>`;
+  const ix = Object.fromEntries(U.idx.map(x => [x.s, x]));
+  // 1) 盤勢
+  let h = `<div class="ub-card"><div class="pz-lab"><b style="--lc:${LC[P.label] || "#64748b"}">${esc(P.label)}</b><span>${U.state === "盤中" ? "盤中即時判斷" : "收盤判斷"}・美東 ${esc(U.et)}</span></div>` +
+    `<ul class="pz-why">${P.why.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` +
+    `<div class="pz-k"><div><div class="t">上漲家數比例</div><div class="v ${P.br >= .5 ? "up" : "down"}">${Math.round(P.br * 100)}%</div></div>` +
+    `<div><div class="t">VIX 恐慌指數</div><div class="v ${cls(-((ix["^VIX"] || {}).ch || 0))}">${fmt((ix["^VIX"] || {}).p)}</div></div>` +
+    `<div><div class="t">大盤量能（推估）</div><div class="v">${P.spy_vr == null ? "—" : P.spy_vr + "x"}</div></div>` +
+    `<div><div class="t">成長－防禦</div><div class="v ${cls(P.spread)}">${pct(P.spread)}</div></div></div>` +
+    (P.lead.length ? `<p class="ub-meta" style="margin:8px 0 0">💰 資金流入最多：<b>${esc(P.lead.join("、"))}</b>${P.lag.length ? `　💸 流出最多：<b>${esc(P.lag.join("、"))}</b>` : ""}</p>` : "") + `</div>`;
+  // 2) 盤中走勢（相對昨收 %）
+  const lines = [["^GSPC", "S&P 500", "var(--ub-accent)"], ["^SOX", "費城半導體", "#e6a23c"], ["^IXIC", "那斯達克", "#a855f7"]]
+    .map(([s, n, c]) => { const x = ix[s]; if (!x || !x.sp || x.sp.length < 2 || x.ch == null) return null; const pc = x.p / (1 + x.ch); return {n, c, v: x.sp.map(v => v / pc - 1), last: x.ch}; }).filter(Boolean);
+  if (lines.length) {
+    const all = lines.flatMap(l => l.v), lo = Math.min(0, ...all), hi = Math.max(0, ...all), k = (hi - lo) || .01, W = 600, H = 170, N = Math.max(...lines.map(l => l.v.length));
+    const Y = v => 8 + (hi - v) / k * (H - 24), X = i => 4 + i / Math.max(1, 78 - 1) * (W - 60);
+    let g = `<line x1="4" x2="${W - 56}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--ub-muted)" stroke-dasharray="3 3"/><text x="${W - 52}" y="${Y(0) + 3}" font-size="10" fill="var(--ub-muted)">昨收</text>`;
+    lines.forEach(l => { g += `<polyline fill="none" stroke="${l.c}" stroke-width="1.8" points="${l.v.map((v, i) => `${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(" ")}"/>` +
+      `<text x="${(X(l.v.length - 1) + 4).toFixed(1)}" y="${(Y(l.v[l.v.length - 1]) + 4).toFixed(1)}" font-size="11" font-weight="700" fill="${l.c}">${pct(l.last, 1)}</text>`; });
+    h += `<div class="ub-card"><h4>盤中走勢 <small style="font-weight:400;color:var(--ub-muted)">相對昨收；橫軸為整個交易日（美東 9:30–16:00）</small></h4>` +
+      `<svg class="pz" viewBox="0 0 ${W} ${H}" role="img" aria-label="美股指數盤中走勢">${g}</svg>` +
+      `<div class="pz-chips" style="margin:4px 0 0">${lines.map(l => `<span style="font-size:12px;color:${l.c};font-weight:700">● ${l.n}</span>`).join("")}</div></div>`;
+  }
+  // 3) 資金地圖
+  const es = F.etfs.filter(e => e.k !== "風格");
+  if (!fsel || !es.some(e => e.s === fsel)) fsel = (es.slice().sort((a, b) => (b.mf || 0) - (a.mf || 0))[0] || {}).s;
+  const W = 600, H = 360, P_ = 34, xs = es.map(e => e.ch || 0), xm = Math.max(.005, ...xs.map(Math.abs)) * 1.15;
+  const vrs = es.map(e => Math.log2(Math.max(.25, Math.min(8, e.vr || 1)))), ym = Math.max(1, ...vrs.map(Math.abs)) * 1.15;
+  const X = v => P_ + (v + xm) / (2 * xm) * (W - 2 * P_), Y = v => H - P_ - (Math.log2(Math.max(.25, Math.min(8, v || 1))) + ym) / (2 * ym) * (H - 2 * P_);
+  const dmax = Math.max(...es.map(e => e.dv || 0), 1);
+  let g = `<line x1="${X(0)}" x2="${X(0)}" y1="${P_ - 10}" y2="${H - P_}" stroke="var(--ub-line)"/><line x1="${P_}" x2="${W - P_}" y1="${Y(1)}" y2="${Y(1)}" stroke="var(--ub-line)" stroke-dasharray="3 3"/>` +
+    `<text x="${W - P_}" y="${Y(1) - 4}" text-anchor="end" font-size="10" fill="var(--ub-muted)">量比 1x（正常量）</text>` +
+    `<text x="${W - P_}" y="${H - 8}" text-anchor="end" font-size="10" fill="var(--ub-muted)">漲 →</text><text x="${P_}" y="${H - 8}" font-size="10" fill="var(--ub-muted)">← 跌</text>` +
+    `<text x="${P_}" y="${P_ - 14}" font-size="10" fill="var(--ub-muted)">↑ 量越大</text>`;
+  es.slice().sort((a, b) => (b.dv || 0) - (a.dv || 0)).forEach(e => {
+    const rr = 6 + Math.sqrt((e.dv || 0) / dmax) * 22, on = e.s === fsel, cx = X(e.ch || 0), cy = Y(e.vr);
+    g += `<g data-f="${e.s}" style="cursor:pointer"><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${rr.toFixed(1)}" fill="${SC[e.st]}" fill-opacity="${on ? .95 : .7}" stroke="${on ? "var(--ub-fg)" : "var(--ub-card)"}" stroke-width="${on ? 3 : 1.5}"/>` +
+      `<text x="${cx.toFixed(1)}" y="${(cy + 4).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ub-fg)" paint-order="stroke" stroke="var(--ub-card)" stroke-width="3">${esc(e.n)}</text></g>`;
+  });
+  const cur = es.find(e => e.s === fsel);
+  const det = cur ? `<div class="ub-card" style="margin:0"><h4><span style="color:${SC[cur.st]}">●</span> ${esc(cur.n)} <span class="sym" style="font-size:12px">${cur.s}</span> <small style="font-weight:600;color:${SC[cur.st]}">${esc(cur.st)}</small></h4>` +
+    `<div class="pz-k" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><div class="t">漲跌</div><div class="v ${cls(cur.ch)}">${pct(cur.ch)}</div></div><div><div class="t">量比</div><div class="v">${cur.vr ?? "—"}x</div></div>` +
+    `<div><div class="t">盤中資金流（億美元）</div><div class="v ${cls(cur.mf)}">${cur.mf > 0 ? "+" : ""}${fmt(cur.mf, 1)}</div></div><div><div class="t">成分股上漲</div><div class="v">${cur.mup}／${cur.mn}</div></div></div>` +
+    `<p class="ub-meta" style="margin:8px 0 4px">成分股（依成交值）<button data-k="US:${cur.s}" data-kn="${esc(cur.n)} ETF" style="float:right;font-size:12px;border:1px solid var(--ub-line);border-radius:6px;background:none;cursor:pointer;padding:1px 8px">📈 ETF 日K</button></p>` +
+    (cur.mem.length ? `<div class="ub-tw"><table><tbody>${cur.mem.map(m => `<tr data-k="US:${esc(m.s)}" data-kn="${esc(m.n)}" data-kp="${m.p}" data-kd="${U.date}"${m.o ? ` data-ko="${m.o}" data-kh="${m.h}" data-kl="${m.l}"` : ""}><td><span class="sym">${esc(m.s)}</span><span class="sub">${esc(m.n)}</span></td><td class="n">${fmt(m.p)}</td><td class="n">${chg(m.ch)}</td><td class="n">${fmt(m.dv, 1)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="ub-meta">沒有成分股資料</p>`) + `</div>` : "";
+  h += `<div class="ub-card"><h4>盤中資金地圖 <small style="font-weight:400;color:var(--ub-muted)">泡泡＝產業／主題 ETF；越右越漲、越上量越大、泡泡越大成交值越大；點泡泡看成分股</small></h4>` +
+    `<div class="pz-g"><div><svg class="pz" viewBox="0 0 ${W} ${H}" role="img" aria-label="美股盤中資金地圖">${g}</svg>` +
+    `<div class="pz-chips">${Object.entries(SC).map(([k, c]) => `<span style="font-size:12px"><span style="color:${c}">●</span> ${k}</span>`).join("")}</div>` +
+    `<div class="pz-chips">${es.map(e => `<button data-f="${e.s}" class="${e.s === fsel ? "on" : ""}" style="--c:${SC[e.st]}">${esc(e.n)} ${pct(e.ch, 1)}</button>`).join("")}</div></div>${det}</div></div>`;
+  // 4) 資金流排行
+  const fr = es.slice().sort((a, b) => (b.mf || 0) - (a.mf || 0)), fm = Math.max(...fr.map(e => Math.abs(e.mf || 0)), .1);
+  h += `<div class="ub-card"><h4>盤中資金流向排行 <small style="font-weight:400;color:var(--ub-muted)">億美元；收盤越靠近今日高點、成交值越大，流入越多（估算）</small></h4>` +
+    fr.map(e => { const w = Math.abs(e.mf || 0) / fm * 50, pos = (e.mf || 0) >= 0;
+      return `<div class="pz-bar" data-f="${e.s}"><span>${esc(e.n)}</span><span class="tr"><span class="mid"></span><span class="b" style="background:${SC[e.st]};${pos ? "left:50%" : "right:50%"};width:${w.toFixed(1)}%"></span></span><span class="v ${cls(e.mf)}">${e.mf > 0 ? "+" : ""}${fmt(e.mf, 1)}</span></div>`; }).join("") + `</div>`;
+  // 5) 盤中事件
+  const ev = U.events || [];
+  h += `<div class="ub-card"><h4>盤中事件 <small style="font-weight:400;color:var(--ub-muted)">每 5 分鐘比對一次</small></h4>` +
+    (ev.length ? `<ul class="pz-ev">${ev.map(x => `<li class="${x.c === "up" ? "" : ""}">${esc(x.e)}<small>${esc(x.t)}</small></li>`).join("")}</ul>` : `<p class="ub-meta">目前沒有特別事件</p>`) + `</div>`;
+  return h;
+}
+
+function spark(a){
+  if (!a || a.length < 3) return "";
+  const lo = Math.min(...a), hi = Math.max(...a), w = 120, h = 30, k = hi - lo || 1;
+  const pts = a.map((v, i) => `${(i / (a.length - 1) * w).toFixed(1)},${(h - 2 - (v - lo) / k * (h - 4)).toFixed(1)}`).join(" ");
+  const c = a[a.length - 1] >= a[0] ? "var(--ub-up)" : "var(--ub-down)";
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="${c}" stroke-width="1.6" points="${pts}"/></svg>`;
+}
+function table(rows, cols){
+  if (!rows || !rows.length) return `<div class="ub-tw"><p class="ub-meta" style="padding:16px;text-align:center">沒有資料</p></div>`;
+  return `<div class="ub-tw"><table><thead><tr><th class="n">#</th>${cols.map(c => `<th class="${c[2] || ""}">${c[0]}</th>`).join("")}</tr></thead><tbody>` +
+    rows.map((x, i) => `<tr${x.s ? ` data-k="US:${esc(x.s)}" data-kn="${esc(x.n)}"${x.p ? ` data-kp="${x.p}" data-kd="${U.date}"` : ""}` : ""}><td class="rk">${x.rk ?? i + 1}</td>${cols.map(c => `<td class="${c[2] || ""}">${c[1](x)}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
+}
+
+function summary(){
+  const idx = U.idx.map(x => `<div class="ub-k" data-k="US:${esc(x.s)}" data-kn="${esc(x.n)}" data-kp="${x.p}" data-kd="${U.date}"><div class="t">${esc(x.n)}</div><div class="v">${fmt(x.p)}</div><div class="s ${cls(x.ch)}">${pct(x.ch)}</div>${spark(x.sp)}</div>`).join("");
+  const mini = U.fut.concat(U.mac).map(x => `<div><span>${esc(x.n)}</span><b>${x.u === "y" ? fmt(x.p) + "%" : fmt(x.p, x.p > 1000 ? 0 : x.p < 10 ? 3 : 2)} <span class="${cls(x.ch)}">${pct(x.ch)}</span></b></div>`).join("");
+  let pts = "", head = "";
+  if (U.state === "收盤" && U.summary) { pts = U.summary; head = `收盤重點（美東 ${esc(U.sess)}）`; }
+  else if (U.last_close) { pts = U.last_close.summary; head = `上一交易日收盤重點（${esc(U.last_close.date.slice(5).replace("-", "/"))}）`; }
+  const earn = (U.state === "收盤" ? U.earn : U.last_close && U.last_close.earn) || [];
+  const card = pts && pts.length ? `<div class="ub-card"><h4>${head}</h4><ul>${pts.map(p => `<li>${esc(p)}</li>`).join("")}</ul></div>` : "";
+  const ecard = earn.length ? `<div class="ub-card"><h4>近期財報</h4><ul>${earn.map(e => `<li>${esc(e.d.slice(5).replace("-", "/"))} <b class="sym">${esc(e.s)}</b> ${esc(e.n)}${e.tw ? "（台灣供應鏈）" : ""}${e.eps != null ? `，預估 EPS ${e.eps}` : ""}</li>`).join("")}</ul></div>` : "";
+  return `<div class="ub-grid">${idx}</div><div class="ub-mini">${mini}</div>${card}${ecard}`;
+}
+function topv(){
+  const ss = ["全部"].concat(U.sectors.map(g => g.k));
+  const rows = sec === "全部" ? U.top : U.top.filter(x => x.sec === sec);
+  return `<div class="ub-seg">${ss.map(s => `<button data-sec="${esc(s)}" class="${sec === s ? "on" : ""}">${esc(s)}</button>`).join("")}</div>` +
+    `<p class="ub-meta">依今日成交值（億美元）排序；上漲 ${U.up}、下跌 ${U.dn} 檔</p>` +
+    table(rows, [["股票", x => `<span class="sym">${esc(x.s)}</span><span class="sub">${esc(x.n)}</span>`], ["產業", x => esc(x.sec), "hd"],
+                 ["價格", x => fmt(x.p), "n"], ["漲跌", x => chg(x.ch), "n"], ["成交值", x => fmt(x.dv, 1), "n"]]);
+}
+function secv(){
+  return `<p class="ub-meta">成交值前 100 檔依產業彙整；漲跌為平均</p>` +
+    table(U.sectors, [["產業", x => `<b>${esc(x.k)}</b>`], ["檔數", x => `${x.cnt}（漲 ${x.up}）`, "n"], ["平均漲跌", x => chg(x.ch), "n"], ["成交值(億美元)", x => fmt(x.dv, 1), "n"]]);
+}
+function chainv(){
+  return `<p class="ub-meta">ADR 溢價＝ADR 價格 × 匯率 ÷（台股收盤 × 換算股數）− 1；台積電、聯電 1 ADR＝5 股，日月光＝2 股</p>` +
+    table(U.chain, [["股票", x => `<span class="sym">${esc(x.s)}</span><span class="sub">${esc(x.n)}</span>`], ["價格", x => fmt(x.p), "n"], ["漲跌", x => chg(x.ch), "n"],
+                    ["ADR 溢價", x => x.prem == null ? "—" : `<b>${pct(x.prem, 1)}</b>`, "n"], ["換算台股", x => x.eqv == null ? "—" : `${fmt(x.eqv, 1)}<span class="sub">台股 ${fmt(x.twp, 1)} ${pct(x.twch)}</span>`, "n hd"],
+                    ["成交值", x => x.dv == null ? "—" : fmt(x.dv, 1), "n hd"]]);
+}
+function render(){
+  const live = U.state === "盤中";
+  $("ub-state").innerHTML = `<span class="pill ${live ? "live" : ""}">${esc(U.state)}</span>美東 ${esc(U.et)}｜台灣 ${esc(U.tw)} 更新｜開盤 ${U.open_tw}・收盤 ${U.close_tw}（台灣時間）`;
+  $("ub-top").innerHTML = [["pulse", "💹 金流・脈動"], ["sum", "總覽・收盤重點"], ["top", "成交前 100"], ["sec", "產業"], ["chain", "台灣供應鏈・ADR"]]
+    .map(([k, t]) => `<button data-top="${k}" class="${top === k ? "on" : ""}">${t}</button>`).join("");
+  $("ub-view").innerHTML = ({pulse: pulseV, sum: summary, top: topv, sec: secv, chain: chainv})[top]() +
+    `<div class="ub-note">資料來源：Yahoo Finance，盤中約延遲 15 分鐘；美股盤中每 5 分鐘更新網頁。點指數或個股可看日 K 技術線圖。僅供參考，不構成投資建議。</div>`;
+}
+$("ub").addEventListener("click", ev => {
+  const b = ev.target.closest("[data-top],[data-sec],[data-f]");
+  if (!b || ev.target.closest("[data-k]")) return;
+  if (b.dataset.top) top = b.dataset.top;
+  if (b.dataset.sec) sec = b.dataset.sec;
+  if (b.dataset.f) { fsel = b.dataset.f; try { sessionStorage.setItem("ubF", fsel); } catch(e) {} }
+  render();
+});
+try { fsel = sessionStorage.getItem("ubF") || null; const t0 = sessionStorage.getItem("ubTop"); } catch(e) {}
+render();
+})();
+</script>
+<!--UB-END-->

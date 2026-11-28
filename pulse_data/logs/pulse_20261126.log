@@ -1,0 +1,374 @@
+08:45:36 資料來源：證交所（約 5 秒更新）
+08:45:36 基準量：101 檔取自盤後資金流向的證交所資料
+08:45:36 建立基準量：11 檔（每天第一次執行約需 1～2 分鐘）
+08:45:41 監控 112 檔，基準量 112 檔
+08:45:41 法人背景：2026-11-25 盤後資料，65 個板塊
+08:45:41 尚未開盤，13 分鐘後開始
+08:55:41 尚未開盤，3 分鐘後開始
+08:59:06 Failed to create TzCache, reason: Error creating TzCache folder: '/home/runner/.cache/py-yfinance' reason: [Errno 17] File exists: '/home/runner/.cache/py-yfinance'. TzCache will not be used. Tip: You can direct cache to use a different location with 'set_tz_cache_location(mylocation)'
+08:59:07 $^TWOII: No data found, symbol may be delisted
+08:59:07 
+1 Failed download:
+08:59:07 ['^TWOII']: No data found, symbol may be delisted
+08:59:08 全球市場已更新：22 項（抓不到：櫃買指數）
+08:59:08 08:59 ⏳ 資料累積中｜加權 —｜量能 —｜上漲 87%
+09:00:27 推播：⚠️ 我的族群「PCB/CCL」大漲 +7.0%（09:00）
+09:00:28 推播：⚠️ 我的族群「封測」大漲 +3.7%（09:00）
+09:00:28 推播：⚠️ 我的族群「散熱」大漲 +5.5%（09:00）
+09:00:29 推播：⚠️ 我的族群「光通訊」大漲 +4.4%（09:00）
+09:00:29 09:00 ⏳ 資料累積中｜加權 —｜量能 —｜上漲 88%
+09:01:38 推播：⚠️ 加權指數上漲超過 1%（09:01）
+09:01:39 09:01 ⏳ 資料累積中｜加權 +1.25%｜量能 —｜上漲 88%
+09:02:59 09:02 🔥 有量上攻｜加權 +1.45%｜量能 2.68x｜上漲 88%
+09:04:13 09:03 🔥 有量上攻｜加權 +1.72%｜量能 1.96x｜上漲 88%
+09:05:21 09:05 🔥 有量上攻｜加權 +1.71%｜量能 1.88x｜上漲 87%
+09:06:49 09:06 🔥 有量上攻｜加權 +1.39%｜量能 1.77x｜上漲 87%
+09:08:05 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795655269851 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7a81ffe6bd10>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+09:09:21 $^TWOII: No data found, symbol may be delisted
+09:09:21 
+1 Failed download:
+09:09:21 ['^TWOII']: No data found, symbol may be delisted
+09:09:21 全球市場已更新：22 項（抓不到：櫃買指數）
+09:09:21 09:09 🔥 有量上攻｜加權 +1.52%｜量能 1.46x｜上漲 87%
+09:10:58 09:10 🔥 有量上攻｜加權 +1.73%｜量能 1.51x｜上漲 87%
+09:12:09 推播：⚠️ 加權指數上漲超過 2%（09:11）
+09:12:10 09:11 🔥 有量上攻｜加權 +2.11%｜量能 1.31x｜上漲 87%
+09:13:26 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795655590029 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7a81ffee0aa0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+09:14:54 09:14 🔥 有量上攻｜加權 +2.35%｜量能 1.29x｜上漲 88%
+09:16:11 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+09:17:25 09:17 🔥 有量上攻｜加權 +2.54%｜量能 1.23x｜上漲 90%
+09:18:50 09:18 🔥 有量上攻｜加權 +2.38%｜量能 1.23x｜上漲 92%
+09:20:03 $^TWOII: No data found, symbol may be delisted
+09:20:03 
+1 Failed download:
+09:20:03 ['^TWOII']: No data found, symbol may be delisted
+09:20:04 全球市場已更新：22 項（抓不到：櫃買指數）
+09:20:04 09:19 🔥 有量上攻｜加權 +2.94%｜量能 1.19x｜上漲 93%
+09:21:19 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795656064440 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7a81fc42bc20>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+09:22:43 09:22 🔥 有量上攻｜加權 +3.00%｜量能 1.26x｜上漲 93%
+09:23:51 推播：⚠️ 我的族群「電力重電」大漲 +3.3%（09:23）
+09:23:59 09:23 🔥 有量上攻｜加權 +2.92%｜量能 1.23x｜上漲 93%
+09:25:14 09:24 🔥 有量上攻｜加權 +2.78%｜量能 1.21x｜上漲 93%
+09:26:26 09:26 🔥 有量上攻｜加權 +2.70%｜量能 1.21x｜上漲 93%
+09:27:38 09:27 🔥 有量上攻｜加權 +2.74%｜量能 1.17x｜上漲 93%
+09:28:54 09:28 🔥 有量上攻｜加權 +2.39%｜量能 1.17x｜上漲 93%
+09:30:01 09:29 📈 溫和偏多｜加權 +2.37%｜量能 1.13x｜上漲 93%
+09:31:02 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795656661778 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))（60 秒後重試）
+09:32:22 推播：📊 台股盤中摘要 09:32
+09:32:23 $^TWOII: No data found, symbol may be delisted
+09:32:24 
+1 Failed download:
+09:32:24 ['^TWOII']: No data found, symbol may be delisted
+09:32:24 全球市場已更新：22 項（抓不到：櫃買指數）
+09:32:24 09:32 🔥 有量上攻｜加權 +2.49%｜量能 1.16x｜上漲 94%
+09:33:34 09:33 📈 溫和偏多｜加權 +2.49%｜量能 1.13x｜上漲 94%
+09:34:51 09:34 📈 溫和偏多｜加權 +2.23%｜量能 1.14x｜上漲 94%
+09:35:59 09:35 📈 溫和偏多｜加權 +2.23%｜量能 1.12x｜上漲 94%
+09:37:16 09:36 📈 溫和偏多｜加權 +1.78%｜量能 1.14x｜上漲 94%
+09:38:31 09:38 🔥 有量上攻｜加權 +1.65%｜量能 1.20x｜上漲 94%
+09:39:39 09:39 🔥 有量上攻｜加權 +1.65%｜量能 1.19x｜上漲 94%
+09:40:48 09:40 🔥 有量上攻｜加權 +1.74%｜量能 1.19x｜上漲 94%
+09:41:58 09:41 🔥 有量上攻｜加權 +1.74%｜量能 1.17x｜上漲 94%
+09:43:10 $^TWOII: No data found, symbol may be delisted
+09:43:11 
+1 Failed download:
+09:43:11 ['^TWOII']: No data found, symbol may be delisted
+09:43:11 全球市場已更新：22 項（抓不到：櫃買指數）
+09:43:11 09:42 🔥 有量上攻｜加權 +1.55%｜量能 1.18x｜上漲 94%
+09:44:29 09:44 🔥 有量上攻｜加權 +1.76%｜量能 1.19x｜上漲 94%
+09:45:36 09:45 🔥 有量上攻｜加權 +1.76%｜量能 1.17x｜上漲 94%
+09:46:51 09:46 🔥 有量上攻｜加權 +1.48%｜量能 1.17x｜上漲 94%
+09:47:57 09:47 📈 溫和偏多｜加權 +1.48%｜量能 1.15x｜上漲 94%
+09:49:05 09:48 🔥 有量上攻｜加權 +1.57%｜量能 1.16x｜上漲 94%
+09:50:21 09:50 🔥 有量上攻｜加權 +1.76%｜量能 1.15x｜上漲 94%
+09:51:30 09:51 📈 溫和偏多｜加權 +1.76%｜量能 1.14x｜上漲 94%
+09:52:46 09:52 🔥 有量上攻｜加權 +1.13%｜量能 1.16x｜上漲 94%
+09:53:54 $^TWOII: No data found, symbol may be delisted
+09:53:55 
+1 Failed download:
+09:53:55 ['^TWOII']: No data found, symbol may be delisted
+09:53:55 全球市場已更新：22 項（抓不到：櫃買指數）
+09:53:55 09:53 📈 溫和偏多｜加權 +1.13%｜量能 1.14x｜上漲 94%
+09:55:09 09:54 📈 溫和偏多｜加權 +0.94%｜量能 1.16x｜上漲 93%
+09:56:21 09:56 🔥 有量上攻｜加權 +1.36%｜量能 1.17x｜上漲 93%
+09:57:26 09:57 🔥 有量上攻｜加權 +1.40%｜量能 1.16x｜上漲 93%
+09:58:45 09:58 🔥 有量上攻｜加權 +1.38%｜量能 1.16x｜上漲 93%
+09:59:53 09:59 📈 溫和偏多｜加權 +1.38%｜量能 1.14x｜上漲 93%
+10:01:04 10:00 🔥 有量上攻｜加權 +1.22%｜量能 1.15x｜上漲 92%
+10:02:44 抓取失敗：Expecting value: line 22 column 1 (char 21)（60 秒後重試）
+10:03:45 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795658624793 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))（60 秒後重試）
+10:05:01 $^TWOII: No data found, symbol may be delisted
+10:05:01 
+1 Failed download:
+10:05:01 ['^TWOII']: No data found, symbol may be delisted
+10:05:02 全球市場已更新：22 項（抓不到：櫃買指數）
+10:05:02 10:04 📈 溫和偏多｜加權 +1.45%｜量能 1.14x｜上漲 90%
+10:06:16 10:06 📈 溫和偏多｜加權 +1.75%｜量能 1.14x｜上漲 90%
+10:07:33 10:07 📈 溫和偏多｜加權 +1.75%｜量能 1.13x｜上漲 90%
+10:08:53 10:08 📈 溫和偏多｜加權 +1.95%｜量能 1.15x｜上漲 91%
+10:10:04 推播：🔄 行情判斷改變（10:09）：🔥 有量上攻 → 📈 溫和偏多
+10:10:05 10:09 📈 溫和偏多｜加權 +1.88%｜量能 1.13x｜上漲 91%
+10:11:21 10:11 📈 溫和偏多｜加權 +1.88%｜量能 1.14x｜上漲 91%
+10:12:39 10:12 🔥 有量上攻｜加權 +2.02%｜量能 1.16x｜上漲 91%
+10:13:48 10:13 📈 溫和偏多｜加權 +2.02%｜量能 1.14x｜上漲 91%
+10:15:09 $^TWOII: No data found, symbol may be delisted
+10:15:09 
+1 Failed download:
+10:15:09 ['^TWOII']: No data found, symbol may be delisted
+10:15:10 全球市場已更新：22 項（抓不到：櫃買指數）
+10:15:10 10:14 📈 溫和偏多｜加權 +1.91%｜量能 1.15x｜上漲 91%
+10:16:39 10:16 📈 溫和偏多｜加權 +1.93%｜量能 1.14x｜上漲 90%
+10:17:45 10:17 📈 溫和偏多｜加權 +1.93%｜量能 1.13x｜上漲 90%
+10:19:16 10:18 📈 溫和偏多｜加權 +1.56%｜量能 1.14x｜上漲 90%
+10:20:32 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+10:21:47 10:21 📈 溫和偏多｜加權 +1.72%｜量能 1.13x｜上漲 90%
+10:23:12 10:22 📈 溫和偏多｜加權 +1.97%｜量能 1.13x｜上漲 90%
+10:24:45 10:24 📈 溫和偏多｜加權 +1.84%｜量能 1.12x｜上漲 91%
+10:26:08 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+10:27:31 $^TWOII: No data found, symbol may be delisted
+10:27:31 
+1 Failed download:
+10:27:31 ['^TWOII']: No data found, symbol may be delisted
+10:27:31 全球市場已更新：22 項（抓不到：櫃買指數）
+10:27:31 10:27 📈 溫和偏多｜加權 +1.64%｜量能 1.11x｜上漲 88%
+10:28:54 10:28 📈 溫和偏多｜加權 +1.54%｜量能 1.11x｜上漲 88%
+10:30:19 10:29 📈 溫和偏多｜加權 +1.92%｜量能 1.10x｜上漲 87%
+10:31:40 10:31 📈 溫和偏多｜加權 +1.92%｜量能 1.10x｜上漲 87%
+10:33:08 10:32 📈 溫和偏多｜加權 +1.91%｜量能 1.10x｜上漲 88%
+10:34:34 10:34 📈 溫和偏多｜加權 +1.95%｜量能 1.10x｜上漲 89%
+10:35:42 10:35 📈 溫和偏多｜加權 +1.95%｜量能 1.09x｜上漲 89%
+10:36:49 10:36 📈 溫和偏多｜加權 +1.86%｜量能 1.09x｜上漲 88%
+10:38:00 $^TWOII: No data found, symbol may be delisted
+10:38:01 
+1 Failed download:
+10:38:01 ['^TWOII']: No data found, symbol may be delisted
+10:38:01 全球市場已更新：22 項（抓不到：櫃買指數）
+10:38:01 10:37 📈 溫和偏多｜加權 +1.86%｜量能 1.08x｜上漲 90%
+10:39:08 10:39 📈 溫和偏多｜加權 +1.99%｜量能 1.08x｜上漲 90%
+10:40:28 10:40 📈 溫和偏多｜加權 +1.97%｜量能 1.08x｜上漲 90%
+10:41:39 10:41 📈 溫和偏多｜加權 +1.97%｜量能 1.07x｜上漲 90%
+10:43:07 10:42 📈 溫和偏多｜加權 +2.10%｜量能 1.07x｜上漲 90%
+10:44:31 10:44 📈 溫和偏多｜加權 +2.27%｜量能 1.07x｜上漲 90%
+10:45:46 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+10:47:01 10:46 📈 溫和偏多｜加權 +2.06%｜量能 1.07x｜上漲 90%
+10:48:14 $^TWOII: No data found, symbol may be delisted
+10:48:14 
+1 Failed download:
+10:48:14 ['^TWOII']: No data found, symbol may be delisted
+10:48:14 全球市場已更新：22 項（抓不到：櫃買指數）
+10:48:14 10:48 📈 溫和偏多｜加權 +2.01%｜量能 1.07x｜上漲 90%
+10:49:20 10:49 📈 溫和偏多｜加權 +2.00%｜量能 1.06x｜上漲 90%
+10:50:29 10:50 📈 溫和偏多｜加權 +1.95%｜量能 1.06x｜上漲 90%
+10:51:42 10:51 📈 溫和偏多｜加權 +1.95%｜量能 1.05x｜上漲 90%
+10:52:58 10:52 📈 溫和偏多｜加權 +1.78%｜量能 1.05x｜上漲 90%
+10:54:15 10:53 📈 溫和偏多｜加權 +1.89%｜量能 1.05x｜上漲 90%
+10:55:23 10:55 📈 溫和偏多｜加權 +1.89%｜量能 1.05x｜上漲 91%
+10:56:43 10:56 📈 溫和偏多｜加權 +1.67%｜量能 1.05x｜上漲 90%
+10:57:52 10:57 📈 溫和偏多｜加權 +1.67%｜量能 1.04x｜上漲 90%
+10:59:03 $^TWOII: No data found, symbol may be delisted
+10:59:03 
+1 Failed download:
+10:59:03 ['^TWOII']: No data found, symbol may be delisted
+10:59:04 全球市場已更新：22 項（抓不到：櫃買指數）
+10:59:04 10:58 📈 溫和偏多｜加權 +1.66%｜量能 1.04x｜上漲 90%
+11:00:20 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+11:01:36 推播：📊 台股盤中摘要 11:01
+11:01:36 11:01 📈 溫和偏多｜加權 +1.77%｜量能 1.03x｜上漲 89%
+11:02:47 11:02 📈 溫和偏多｜加權 +1.84%｜量能 1.03x｜上漲 89%
+11:04:01 11:03 📈 溫和偏多｜加權 +1.84%｜量能 1.03x｜上漲 89%
+11:05:08 11:05 📈 溫和偏多｜加權 +1.92%｜量能 1.03x｜上漲 89%
+11:06:33 11:06 📈 溫和偏多｜加權 +2.17%｜量能 1.03x｜上漲 89%
+11:07:40 11:07 📈 溫和偏多｜加權 +2.17%｜量能 1.02x｜上漲 89%
+11:08:50 11:08 📈 溫和偏多｜加權 +2.24%｜量能 1.02x｜上漲 89%
+11:09:59 $^TWOII: No data found, symbol may be delisted
+11:10:00 
+1 Failed download:
+11:10:00 ['^TWOII']: No data found, symbol may be delisted
+11:10:00 全球市場已更新：22 項（抓不到：櫃買指數）
+11:10:00 11:09 📈 溫和偏多｜加權 +2.23%｜量能 1.02x｜上漲 89%
+11:11:10 11:11 📈 溫和偏多｜加權 +2.14%｜量能 1.01x｜上漲 89%
+11:12:31 11:12 📈 溫和偏多｜加權 +2.19%｜量能 1.01x｜上漲 89%
+11:13:38 11:13 📈 溫和偏多｜加權 +2.19%｜量能 1.01x｜上漲 89%
+11:14:46 11:14 📈 溫和偏多｜加權 +2.27%｜量能 1.01x｜上漲 89%
+11:16:00 11:15 📈 溫和偏多｜加權 +2.27%｜量能 1.00x｜上漲 89%
+11:17:16 11:17 📈 溫和偏多｜加權 +2.24%｜量能 1.00x｜上漲 89%
+11:18:31 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795663096673 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7a81fc31d2e0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:19:43 11:19 📈 溫和偏多｜加權 +1.99%｜量能 1.00x｜上漲 88%
+11:21:05 $^TWOII: No data found, symbol may be delisted
+11:21:05 
+1 Failed download:
+11:21:05 ['^TWOII']: No data found, symbol may be delisted
+11:21:06 全球市場已更新：22 項（抓不到：櫃買指數）
+11:21:06 11:20 📈 溫和偏多｜加權 +2.15%｜量能 0.99x｜上漲 88%
+11:22:16 11:22 📈 溫和偏多｜加權 +2.05%｜量能 0.99x｜上漲 88%
+11:23:28 11:23 📈 溫和偏多｜加權 +2.05%｜量能 0.99x｜上漲 88%
+11:24:52 11:24 📈 溫和偏多｜加權 +2.13%｜量能 0.99x｜上漲 88%
+11:26:07 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795663552262 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7a81fc2c4fb0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:27:14 11:27 📈 溫和偏多｜加權 +1.97%｜量能 0.98x｜上漲 88%
+11:28:31 11:28 📈 溫和偏多｜加權 +2.10%｜量能 0.98x｜上漲 88%
+11:29:38 11:29 📈 溫和偏多｜加權 +2.10%｜量能 0.97x｜上漲 89%
+11:30:56 11:30 📈 溫和偏多｜加權 +2.06%｜量能 0.97x｜上漲 88%
+11:32:11 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795663916184 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7a81fc31c2f0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+11:33:20 $^TWOII: No data found, symbol may be delisted
+11:33:20 
+1 Failed download:
+11:33:20 ['^TWOII']: No data found, symbol may be delisted
+11:33:21 全球市場已更新：22 項（抓不到：櫃買指數）
+11:33:21 11:33 📈 溫和偏多｜加權 +2.11%｜量能 0.97x｜上漲 88%
+11:34:44 11:34 📈 溫和偏多｜加權 +1.99%｜量能 0.96x｜上漲 89%
+11:35:51 11:35 📈 溫和偏多｜加權 +2.06%｜量能 0.96x｜上漲 90%
+11:37:09 11:36 📈 溫和偏多｜加權 +2.11%｜量能 0.96x｜上漲 90%
+11:38:29 11:38 📈 溫和偏多｜加權 +2.36%｜量能 0.96x｜上漲 90%
+11:39:38 11:39 📈 溫和偏多｜加權 +2.36%｜量能 0.95x｜上漲 90%
+11:40:39 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795664438751 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))（60 秒後重試）
+11:41:49 11:41 📈 溫和偏多｜加權 +2.35%｜量能 0.95x｜上漲 90%
+11:43:02 11:42 📈 溫和偏多｜加權 +2.34%｜量能 0.95x｜上漲 90%
+11:44:27 $^TWOII: No data found, symbol may be delisted
+11:44:27 
+1 Failed download:
+11:44:27 ['^TWOII']: No data found, symbol may be delisted
+11:44:28 全球市場已更新：22 項（抓不到：櫃買指數）
+11:44:28 11:44 📈 溫和偏多｜加權 +2.47%｜量能 0.95x｜上漲 90%
+11:45:38 11:45 📈 溫和偏多｜加權 +2.47%｜量能 0.95x｜上漲 90%
+11:46:46 11:46 📈 溫和偏多｜加權 +2.74%｜量能 0.95x｜上漲 90%
+11:47:55 11:47 📈 溫和偏多｜加權 +2.74%｜量能 0.95x｜上漲 90%
+11:49:06 11:48 📈 溫和偏多｜加權 +2.72%｜量能 0.95x｜上漲 90%
+11:50:32 11:50 📈 溫和偏多｜加權 +2.46%｜量能 0.95x｜上漲 90%
+11:51:42 11:51 📈 溫和偏多｜加權 +2.46%｜量能 0.95x｜上漲 90%
+11:52:54 11:52 📈 溫和偏多｜加權 +2.40%｜量能 0.95x｜上漲 90%
+11:54:00 11:53 📈 溫和偏多｜加權 +2.40%｜量能 0.94x｜上漲 90%
+11:55:26 $^TWOII: No data found, symbol may be delisted
+11:55:27 
+1 Failed download:
+11:55:27 ['^TWOII']: No data found, symbol may be delisted
+11:55:27 全球市場已更新：22 項（抓不到：櫃買指數）
+11:55:27 11:55 📈 溫和偏多｜加權 +2.44%｜量能 0.94x｜上漲 90%
+11:56:44 11:56 📈 溫和偏多｜加權 +2.43%｜量能 0.94x｜上漲 90%
+11:57:53 11:57 📈 溫和偏多｜加權 +2.33%｜量能 0.94x｜上漲 90%
+11:59:06 11:58 📈 溫和偏多｜加權 +2.32%｜量能 0.93x｜上漲 90%
+12:00:41 12:00 📈 溫和偏多｜加權 +2.33%｜量能 0.93x｜上漲 90%
+12:01:41 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795665701347 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))（60 秒後重試）
+12:03:03 12:02 📈 溫和偏多｜加權 +2.51%｜量能 0.93x｜上漲 91%
+12:04:03 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795665843598 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))（60 秒後重試）
+12:05:21 12:05 📈 溫和偏多｜加權 +2.61%｜量能 0.93x｜上漲 91%
+12:06:43 $^TWOII: No data found, symbol may be delisted
+12:06:43 
+1 Failed download:
+12:06:43 ['^TWOII']: No data found, symbol may be delisted
+12:06:44 全球市場已更新：22 項（抓不到：櫃買指數）
+12:06:44 12:06 📈 溫和偏多｜加權 +2.70%｜量能 0.92x｜上漲 91%
+12:07:50 12:07 📈 溫和偏多｜加權 +2.55%｜量能 0.92x｜上漲 91%
+12:09:03 12:08 📈 溫和偏多｜加權 +2.53%｜量能 0.92x｜上漲 91%
+12:10:19 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+12:11:32 12:11 📈 溫和偏多｜加權 +2.61%｜量能 0.92x｜上漲 91%
+12:12:42 12:12 📈 溫和偏多｜加權 +2.70%｜量能 0.92x｜上漲 90%
+12:13:55 12:13 📈 溫和偏多｜加權 +2.70%｜量能 0.91x｜上漲 90%
+12:15:11 12:14 📈 溫和偏多｜加權 +2.65%｜量能 0.91x｜上漲 90%
+12:16:47 $^TWOII: No data found, symbol may be delisted
+12:16:47 
+1 Failed download:
+12:16:47 ['^TWOII']: No data found, symbol may be delisted
+12:16:48 全球市場已更新：22 項（抓不到：櫃買指數）
+12:16:48 12:16 📈 溫和偏多｜加權 +2.80%｜量能 0.91x｜上漲 90%
+12:17:54 12:17 📈 溫和偏多｜加權 +2.80%｜量能 0.91x｜上漲 90%
+12:19:05 12:18 📈 溫和偏多｜加權 +2.78%｜量能 0.91x｜上漲 90%
+12:20:33 12:20 📈 溫和偏多｜加權 +2.82%｜量能 0.91x｜上漲 91%
+12:21:40 12:21 📈 溫和偏多｜加權 +2.82%｜量能 0.90x｜上漲 91%
+12:22:55 12:22 📈 溫和偏多｜加權 +2.82%｜量能 0.91x｜上漲 91%
+12:24:01 12:23 📈 溫和偏多｜加權 +2.82%｜量能 0.90x｜上漲 91%
+12:25:13 12:25 📈 溫和偏多｜加權 +3.06%｜量能 0.91x｜上漲 91%
+12:26:21 12:26 📈 溫和偏多｜加權 +3.21%｜量能 0.92x｜上漲 91%
+12:27:32 $^TWOII: No data found, symbol may be delisted
+12:27:32 
+1 Failed download:
+12:27:32 ['^TWOII']: No data found, symbol may be delisted
+12:27:32 全球市場已更新：22 項（抓不到：櫃買指數）
+12:27:32 12:27 📈 溫和偏多｜加權 +3.21%｜量能 0.92x｜上漲 91%
+12:28:48 12:28 📈 溫和偏多｜加權 +3.13%｜量能 0.92x｜上漲 91%
+12:29:55 12:29 📈 溫和偏多｜加權 +3.13%｜量能 0.91x｜上漲 91%
+12:31:14 12:30 📈 溫和偏多｜加權 +3.17%｜量能 0.92x｜上漲 92%
+12:32:38 12:32 📈 溫和偏多｜加權 +3.08%｜量能 0.92x｜上漲 92%
+12:33:38 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795667618066 (Caused by NameResolutionError("HTTPSConnection(host='mis.twse.com.tw', port=443): Failed to resolve 'mis.twse.com.tw' ([Errno -5] No address associated with hostname)"))（60 秒後重試）
+12:34:57 12:34 📈 溫和偏多｜加權 +3.21%｜量能 0.91x｜上漲 92%
+12:36:10 抓取失敗：Expecting value: line 22 column 1 (char 21)（60 秒後重試）
+12:37:26 抓取失敗：Expecting value: line 22 column 1 (char 21)（60 秒後重試）
+12:38:37 $^TWOII: No data found, symbol may be delisted
+12:38:38 
+1 Failed download:
+12:38:38 ['^TWOII']: No data found, symbol may be delisted
+12:38:38 全球市場已更新：22 項（抓不到：櫃買指數）
+12:38:38 12:38 📈 溫和偏多｜加權 +3.12%｜量能 0.92x｜上漲 92%
+12:39:48 12:39 📈 溫和偏多｜加權 +3.12%｜量能 0.91x｜上漲 92%
+12:41:03 12:40 📈 溫和偏多｜加權 +3.14%｜量能 0.91x｜上漲 92%
+12:42:23 12:42 📈 溫和偏多｜加權 +3.09%｜量能 0.91x｜上漲 93%
+12:43:31 12:43 📈 溫和偏多｜加權 +3.09%｜量能 0.91x｜上漲 93%
+12:44:49 12:44 📈 溫和偏多｜加權 +3.11%｜量能 0.91x｜上漲 93%
+12:45:55 12:45 📈 溫和偏多｜加權 +3.11%｜量能 0.91x｜上漲 93%
+12:47:10 12:46 📈 溫和偏多｜加權 +3.11%｜量能 0.91x｜上漲 92%
+12:48:23 12:48 📈 溫和偏多｜加權 +3.05%｜量能 0.91x｜上漲 93%
+12:49:36 $^TWOII: No data found, symbol may be delisted
+12:49:37 
+1 Failed download:
+12:49:37 ['^TWOII']: No data found, symbol may be delisted
+12:49:37 全球市場已更新：22 項（抓不到：櫃買指數）
+12:49:37 12:49 📈 溫和偏多｜加權 +3.05%｜量能 0.90x｜上漲 93%
+12:51:03 12:50 📈 溫和偏多｜加權 +2.99%｜量能 0.90x｜上漲 94%
+12:52:27 12:52 📈 溫和偏多｜加權 +2.86%｜量能 0.90x｜上漲 94%
+12:53:35 12:53 📈 溫和偏多｜加權 +2.72%｜量能 0.90x｜上漲 94%
+12:54:44 12:54 📈 溫和偏多｜加權 +2.73%｜量能 0.90x｜上漲 94%
+12:55:54 12:55 📈 溫和偏多｜加權 +2.73%｜量能 0.90x｜上漲 94%
+12:57:06 12:56 📈 溫和偏多｜加權 +2.66%｜量能 0.90x｜上漲 93%
+12:58:22 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Read timed out. (read timeout=15)（60 秒後重試）
+12:59:33 12:59 📈 溫和偏多｜加權 +2.64%｜量能 0.89x｜上漲 92%
+13:00:59 推播：📊 台股盤中摘要 13:00
+13:01:00 $^TWOII: No data found, symbol may be delisted
+13:01:00 
+1 Failed download:
+13:01:00 ['^TWOII']: No data found, symbol may be delisted
+13:01:01 全球市場已更新：22 項（抓不到：櫃買指數）
+13:01:01 13:00 📈 溫和偏多｜加權 +2.85%｜量能 0.89x｜上漲 92%
+13:02:24 13:02 📈 溫和偏多｜加權 +2.89%｜量能 0.89x｜上漲 92%
+13:03:31 13:03 📈 溫和偏多｜加權 +2.89%｜量能 0.89x｜上漲 92%
+13:04:46 13:04 📈 溫和偏多｜加權 +3.06%｜量能 0.89x｜上漲 92%
+13:05:52 13:05 📈 溫和偏多｜加權 +3.06%｜量能 0.88x｜上漲 92%
+13:07:11 13:06 📈 溫和偏多｜加權 +2.92%｜量能 0.88x｜上漲 92%
+13:08:36 13:08 📈 溫和偏多｜加權 +3.02%｜量能 0.88x｜上漲 92%
+13:09:43 13:09 📈 溫和偏多｜加權 +3.02%｜量能 0.88x｜上漲 92%
+13:11:03 $^TWOII: No data found, symbol may be delisted
+13:11:03 
+1 Failed download:
+13:11:03 ['^TWOII']: No data found, symbol may be delisted
+13:11:04 全球市場已更新：22 項（抓不到：櫃買指數）
+13:11:04 13:10 📈 溫和偏多｜加權 +2.88%｜量能 0.88x｜上漲 92%
+13:12:19 抓取失敗：HTTPSConnectionPool(host='mis.twse.com.tw', port=443): Max retries exceeded with url: /stock/api/getStockInfo.jsp?ex_ch=tse_2330.tw%7Ctse_2317.tw%7Ctse_2454.tw%7Ctse_2308.tw%7Ctse_2382.tw%7Ctse_3711.tw%7Ctse_2412.tw%7Ctse_1216.tw%7Ctse_2357.tw%7Ctse_3231.tw%7Ctse_2345.tw%7Ctse_2301.tw%7Ctse_3008.tw%7Ctse_2395.tw%7Ctse_2207.tw%7Ctse_6669.tw%7Ctse_2912.tw%7Ctse_3045.tw%7Ctse_1590.tw%7Ctse_2360.tw%7Ctse_2474.tw%7Ctse_9910.tw%7Ctse_2105.tw%7Ctse_1402.tw%7Ctse_2618.tw%7Ctse_2610.tw%7Ctse_2801.tw%7Ctse_2834.tw%7Ctse_5871.tw%7Cotc_4979.tw%7Cotc_3081.tw%7Cotc_3163.tw%7Ctse_6442.tw%7Cotc_3363.tw%7Cotc_4908.tw%7Ctse_3450.tw%7Ctse_2455.tw%7Ctse_2383.tw%7Cotc_6274.tw%7Ctse_6213.tw%7Ctse_2368.tw%7Ctse_3037.tw%7Ctse_3044.tw%7Ctse_4958.tw%7Ctse_2313.tw%7Ctse_8046.tw%7Ctse_3189.tw%7Ctse_3017.tw%7Cotc_3324.tw%7Ctse_3653.tw&json=1&delay=0&_=1795669924215 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mis.twse.com.tw', port=443) at 0x7a81ffee10d0>, 'Connection to mis.twse.com.tw timed out. (connect timeout=15)'))（60 秒後重試）
+13:13:26 13:13 📈 溫和偏多｜加權 +2.79%｜量能 0.87x｜上漲 92%
+13:14:45 13:14 📈 溫和偏多｜加權 +2.88%｜量能 0.87x｜上漲 93%
+13:15:53 13:15 📈 溫和偏多｜加權 +2.88%｜量能 0.87x｜上漲 93%
+13:17:05 13:16 📈 溫和偏多｜加權 +2.86%｜量能 0.87x｜上漲 93%
+13:18:27 13:18 📈 溫和偏多｜加權 +2.88%｜量能 0.87x｜上漲 93%
+13:19:34 13:19 📈 溫和偏多｜加權 +2.88%｜量能 0.86x｜上漲 93%
+13:21:02 13:20 📈 溫和偏多｜加權 +2.89%｜量能 0.86x｜上漲 93%
+13:22:27 $^TWOII: No data found, symbol may be delisted
+13:22:28 
+1 Failed download:
+13:22:28 ['^TWOII']: No data found, symbol may be delisted
+13:22:28 全球市場已更新：22 項（抓不到：櫃買指數）
+13:22:28 13:22 📈 溫和偏多｜加權 +2.90%｜量能 0.86x｜上漲 93%
+13:23:36 13:23 📈 溫和偏多｜加權 +2.90%｜量能 0.86x｜上漲 93%
+13:24:53 13:24 📈 溫和偏多｜加權 +2.74%｜量能 0.86x｜上漲 93%
+13:26:01 13:25 📈 溫和偏多｜加權 +2.74%｜量能 0.85x｜上漲 93%
+13:27:13 13:27 😴 量縮觀望｜加權 +2.79%｜量能 0.84x｜上漲 93%
+13:28:31 13:28 😴 量縮觀望｜加權 +2.79%｜量能 0.83x｜上漲 93%
+13:29:38 13:29 😴 量縮觀望｜加權 +2.79%｜量能 0.82x｜上漲 93%
+13:31:10 13:30 😴 量縮觀望｜加權 +2.79%｜量能 0.84x｜上漲 92%
+13:32:25 13:32 📈 溫和偏多｜加權 +2.79%｜量能 0.86x｜上漲 90%
+13:33:41 $^TWOII: No data found, symbol may be delisted
+13:33:41 
+1 Failed download:
+13:33:41 ['^TWOII']: No data found, symbol may be delisted
+13:33:42 全球市場已更新：22 項（抓不到：櫃買指數）
+13:33:42 13:33 📈 溫和偏多｜加權 +2.79%｜量能 0.86x｜上漲 90%
+13:34:50 13:34 📈 溫和偏多｜加權 +2.50%｜量能 0.86x｜上漲 90%
+13:35:59 13:35 📈 溫和偏多｜加權 +2.50%｜量能 0.86x｜上漲 90%
+13:37:04 推播：📊 台股收盤總結 13:36
+13:37:04 13:36 📈 溫和偏多｜加權 +2.50%｜量能 0.86x｜上漲 90%
